@@ -1,0 +1,6 @@
+F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/CMakeFiles/Kulki.dir
+F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/CMakeFiles/edit_cache.dir
+F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/CMakeFiles/rebuild_cache.dir
+F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src/CMakeFiles/edit_cache.dir
+F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src/CMakeFiles/source.dir
+F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src/CMakeFiles/rebuild_cache.dir

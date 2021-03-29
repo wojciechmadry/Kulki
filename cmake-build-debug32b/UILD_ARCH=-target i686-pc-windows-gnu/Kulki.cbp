@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Kulki"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="clang"/>
+		<Option virtualFolders="CMake Files\;CMake Files\src\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Kulki">
+				<Option output="F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Kulki.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="G:/SFML/64bit/include"/>
+					<Add directory="F:/Kulki/src"/>
+					<Add directory="C:/msys64/mingw64\include\c++\10.2.0"/>
+					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\x86_64-w64-mingw32"/>
+					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\backward"/>
+					<Add directory="C:\msys64\mingw64\lib\clang\11.0.0\include"/>
+					<Add directory="C:/msys64/mingw64\x86_64-w64-mingw32\include"/>
+					<Add directory="C:/msys64/mingw64\include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 Kulki"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Kulki/fast">
+				<Option output="F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Kulki.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="G:/SFML/64bit/include"/>
+					<Add directory="F:/Kulki/src"/>
+					<Add directory="C:/msys64/mingw64\include\c++\10.2.0"/>
+					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\x86_64-w64-mingw32"/>
+					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\backward"/>
+					<Add directory="C:\msys64\mingw64\lib\clang\11.0.0\include"/>
+					<Add directory="C:/msys64/mingw64\x86_64-w64-mingw32\include"/>
+					<Add directory="C:/msys64/mingw64\include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 Kulki/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="source">
+				<Option output="F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src/libsource.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="G:/SFML/64bit/include"/>
+					<Add directory="F:/Kulki/src"/>
+					<Add directory="C:/msys64/mingw64\include\c++\10.2.0"/>
+					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\x86_64-w64-mingw32"/>
+					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\backward"/>
+					<Add directory="C:\msys64\mingw64\lib\clang\11.0.0\include"/>
+					<Add directory="C:/msys64/mingw64\x86_64-w64-mingw32\include"/>
+					<Add directory="C:/msys64/mingw64\include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src/Makefile&quot;  VERBOSE=1 source"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="source/fast">
+				<Option output="F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src/libsource.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="G:/SFML/64bit/include"/>
+					<Add directory="F:/Kulki/src"/>
+					<Add directory="C:/msys64/mingw64\include\c++\10.2.0"/>
+					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\x86_64-w64-mingw32"/>
+					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\backward"/>
+					<Add directory="C:\msys64\mingw64\lib\clang\11.0.0\include"/>
+					<Add directory="C:/msys64/mingw64\x86_64-w64-mingw32\include"/>
+					<Add directory="C:/msys64/mingw64\include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src/Makefile&quot;  VERBOSE=1 source/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/UILD_ARCH=-target i686-pc-windows-gnu/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="F:/Kulki/main.cpp">
+			<Option target="Kulki"/>
+		</Unit>
+		<Unit filename="F:/Kulki/src/babel/babel.hpp">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="F:/Kulki/src/function/crypt.hpp">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="F:/Kulki/src/function/drawer.hpp">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="F:/Kulki/src/function/load.hpp">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="F:/Kulki/src/function/random_generator.hpp">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="F:/Kulki/src/object/ball.hpp">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="F:/Kulki/src/object/map.hpp">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="F:/Kulki/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="F:/Kulki/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,235 @@
+#include <SFML/Graphics.hpp>
+
+#include "function/drawer.hpp"
+#include "function/load.hpp"
+
+#include <iostream>
+#include <unordered_map>
+
+
+#define FPS 1 // Show fps in console
+#define MULTITHREAD 1 // 1 - 2 core, 0 - 1 core
+
+
+#if MULTITHREAD == 1
+
+#include <chrono>
+#include <thread>
+#include <atomic>
+
+void
+game_thr(map &Map, const uint32_t fps, std::pair<char, char> &from, const std::pair<char, char> &to,
+         std::atomic<int> &operation)
+{
+    uint32_t _fps = 1000 / fps;
+    while ( operation != -1 )
+    {
+        if ( operation > 0 )
+        {
+            if ( operation == 2 )
+            {
+                Map.set_update(true);
+            } else if ( operation == 1 )
+            {
+                if ( Map.move(from, to) )
+                {
+                    from = {-1, -1};
+                }
+            } else if ( operation == 3 )
+            {
+                Map.reset();
+            }
+            operation = 0;
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(_fps));
+    }
+}
+
+// Wait until status == expect / refresh fps times per sec
+void wait_for(const std::atomic<int> &status, const int expect, const uint32_t fps)
+{
+    uint32_t _fps = 1000 / fps;
+    while ( status != expect )
+        std::this_thread::sleep_for(std::chrono::milliseconds(_fps));
+}
+
+#endif
+
+int main()
+{
+
+    GLOBAL::INIT();
+
+    map Game = load_map();
+    uint16_t record = check_for_record();
+    uint16_t old_score = std::numeric_limits<uint16_t>::max();
+    std::unordered_map<std::string, std::unique_ptr<sf::Drawable>> to_draw; // map of drawing object
+
+
+    sf::Font font = load_font("arial.ttf"); // default font
+
+    draw_started_object(to_draw, font);
+
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 1;
+    sf::RenderWindow window(sf::VideoMode(1000, 670), "Kulki", sf::Style::Default, settings);
+
+    auto fps = std::min(load_fps(), 144u);
+    window.setFramerateLimit(fps);
+    sf::Image icon;
+    icon.loadFromFile("ball.png");
+    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+
+    //Operation on map is doing on another thread
+
+    std::pair<char, char> picked = {-1, -1};
+    std::pair<char, char> new_pick = {-1, -1};
+#if MULTITHREAD == 1
+    std::atomic<int> operation(0);
+    std::thread th(game_thr, std::ref(Game), fps, std::ref(picked), std::ref(new_pick), std::ref(operation));
+#endif
+
+#if FPS == 1
+    float fps_f;
+    sf::Clock clock;
+    sf::Time prev = clock.getElapsedTime();
+    sf::Time curr;
+#endif
+
+    sf::Event event;
+    while ( window.isOpen() )
+    {
+#if FPS == 1
+        curr = clock.getElapsedTime();
+        fps_f = 1.0f/(curr.asSeconds()-prev.asSeconds());
+        std::cout << "FPS : " << fps_f << '\n';
+#endif
+        while ( window.pollEvent(event) )
+        {
+            if ( event.type == sf::Event::Closed )
+            {
+#if MULTITHREAD == 1
+                operation = -1;
+                th.join();
+#endif
+                save_map(Game);
+                window.close();
+            } else if ( event.type == sf::Event::Resized || event.type == sf::Event::GainedFocus )
+            {
+#if MULTITHREAD == 1
+                operation = 2; // Game need update here
+                wait_for(operation, 0, fps);
+#elif MULTITHREAD == 0
+                Game.set_update(true);
+#endif
+            } else if ( event.type == sf::Event::MouseButtonPressed )
+            {
+
+                auto rect_ptr = dynamic_cast<sf::RectangleShape *>(to_draw["picked"].get()); // Pointer to red box (picked ball)
+                if ( sf::Mouse::isButtonPressed(sf::Mouse::Left) )
+                {
+                    auto pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+                    if ( pos.x > 319.0f && pos.x < 951.0f && pos.y > 14.0f &&
+                         pos.y < 646.0f ) // Position of grid of balls
+                    {
+                        new_pick = MapCorToGrid(pos);
+                        rect_ptr->setOutlineThickness(0.0f);
+                        if ( !Game.at(new_pick).is_empty() )
+                        {
+                            picked = new_pick; // Pick ball
+                        } else if ( picked.first != -1 && !Game.at(picked).is_empty() )
+                        {
+#if MULTITHREAD == 1
+                            operation = 1; // MOVE BALL
+                            wait_for(operation, 0, fps);
+#elif MULTITHREAD == 0
+                            if ( Game.move(picked, new_pick) ) // Try to move ball from picked to new_pick
+                            {
+                                picked = {-1, -1}; // if it successful, then set no picked ball.
+                            }
+#endif
+                        } else
+                        {
+                            picked = {-1, -1}; // Set no pick
+                        }
+
+                        if ( picked.first != -1 ) // -1 means no picked ball
+                        {
+                            // Set red outline on picked ball
+                            rect_ptr->setOutlineThickness(5.f);
+                            rect_ptr->setPosition(
+                                    static_cast<float>(320 + 70 * picked.second), // Scale picked ball to resolution
+                                    static_cast<float>(15 + 70 * picked.first));
+#if MULTITHREAD == 1
+                            operation = 2; // Game need update here
+                            wait_for(operation, 0, fps);
+#elif MULTITHREAD == 0
+                            Game.set_update(true); // Game need update here
+#endif
+                        }
+                    } else if ( dynamic_cast<sf::RectangleShape *>(to_draw["..newgamebox"].get())->getGlobalBounds().contains(
+                            pos) )
+                    {
+                        picked = {-1, -1};
+                        rect_ptr->setOutlineThickness(0.f);
+#if MULTITHREAD == 1
+                        operation = 3; // reset game
+                        wait_for(operation, 0, fps);
+#elif MULTITHREAD == 0
+                        Game.reset();
+#endif
+                    }
+                } else if ( sf::Mouse::isButtonPressed(sf::Mouse::Right) ) // Right mouse click reset picked ball
+                {
+                    if ( picked.first != -1 )
+                    {
+                        picked = {-1, -1};
+                        rect_ptr->setOutlineThickness(0.0f);
+#if MULTITHREAD == 1
+                        operation = 2; // Game need update here
+                        wait_for(operation, 0, fps);
+#elif MULTITHREAD == 0
+                        Game.set_update(true);
+#endif
+                    }
+                }
+
+            }
+
+
+        }
+        if ( Game.get_score() != old_score ) // check if score need update
+        {
+            std::string _scr;
+            sf::Text *ptr_text;
+            old_score = Game.get_score();
+            if ( old_score > record ) // If record were break, then save it
+            {
+                record = old_score;
+                save_record(record);
+            }
+            // Refresh score and record points
+            ptr_text = dynamic_cast<sf::Text *>(to_draw["score"].get());
+            ptr_text->setString(std::to_string(old_score));
+            ptr_text->setPosition({120 - 4.0f * ptr_text->getString().getSize(), 140});
+
+            ptr_text = dynamic_cast<sf::Text *>(to_draw["record"].get());
+            ptr_text->setString(std::to_string(record));
+            ptr_text->setPosition({120 - 4.0f * ptr_text->getString().getSize(), 290});
+#if MULTITHREAD == 1
+            operation = 2; // Game need update here
+            wait_for(operation, 0, fps);
+#elif MULTITHREAD == 0
+            Game.set_update(true);
+#endif
+        }
+        //If game need update draw it
+        if ( Game.need_update() )
+            draw_window(window, Game, to_draw);
+        window.display();
+#if FPS == 1
+        prev = curr;
+#endif
+    }
+    return 0;
+}
