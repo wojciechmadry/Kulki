@@ -2,62 +2,65 @@
 #define BABEL_ANY
 
 #include "must_have.hpp"
-namespace babel::ANY {
-    namespace VoidAny{ class any;};
-    namespace PolAny{ class any;};
-    template<typename T, typename Any>
-    requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
-              babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-    T& cast_any(Any& any);
-    template<typename T, typename Any>
+
+namespace babel::ANY{
+    namespace VoidAny{ class any; }; //NOLINT
+    namespace PolAny{ class any; }; //NOLINT
+
+    template< typename T, typename Any >
     requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
              babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-    const T& cast_any(const Any& any);
+    T &cast_any(Any &any);
 
-    template<size_t ID,typename T , typename U = typename std::decay_t<T>>
-    auto make_any(T&& object) noexcept;
+    template< typename T, typename Any >
+    requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
+             babel::CONCEPTS::IS_SAME<Any, PolAny::any>
+    const T &cast_any(const Any &any);
+
+    template< size_t ID, typename T, typename U = typename std::decay_t<T>>
+    auto make_any(T &&object) noexcept;
     /*
      Void any is faster then PolAny by approx 30-40%
      USE RULES:
      1. One ANY object can't be another ANY(lvalue, like smart pointers)
      2. When you create ANY object (data is not NULLPTR) then you must use destroy_any to avoid memory leak !
          */
-    namespace VoidAny {
+    namespace VoidAny{
 
         class any
         {
-            template<typename T, typename Any>
+
+            template< typename T, typename Any >
             requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
                      babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-            friend T& babel::ANY::cast_any(Any& any); //NOLINT
-            template<typename T, typename Any>
+            friend T &babel::ANY::cast_any(Any &any); //NOLINT
+            template< typename T, typename Any >
             requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
                      babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-            friend const T& babel::ANY::cast_any(const Any& any);//NOLINT
+            friend const T &babel::ANY::cast_any(const Any &any);//NOLINT
 
-            template<size_t ID,typename T , typename U>
-            friend auto babel::ANY::make_any(T &&object) noexcept; //NOLINT
-            void* data;
+            void *data;
 
-            template<typename T>
-            friend any make_any(T&& object) noexcept;
+            template< typename T >
+            friend any make_any(T &&object) noexcept;
 
-            template<typename T>
+            template< typename T >
             friend void destroy_any(any &_any) noexcept;
 
 
         public:
-            any() noexcept: data(nullptr)
-            {}
 
-            template<typename T, typename U = typename std::decay_t<T>>
+            any() noexcept: data(nullptr)
+            { }
+
+            template< typename T, typename U = typename std::decay_t<T>>
             requires babel::CONCEPTS::IS_NOT_SAME<T, any>
             explicit any(T &&obj) noexcept : data(new U(std::forward<T>(obj))) //NOLINT
-            {}
+            { }
 
             any(const any &other) = delete;
 
-            any(any &&other) noexcept: data{other.data}
+            any(any &&other) noexcept : data(other.data)
             {
                 other.data = nullptr;
             }
@@ -73,7 +76,7 @@ namespace babel::ANY {
 
 #endif
 
-            [[nodiscard]] bool has_value() const noexcept
+            [[nodiscard]] constexpr  bool has_value() const noexcept
             {
                 return data != nullptr;
             }
@@ -85,22 +88,39 @@ namespace babel::ANY {
                 other.data = temp;
             }
 
-            template<typename T, typename U = typename std::decay_t<T>>
-            requires babel::CONCEPTS::IS_NOT_SAME<T, any>
-            any& operator=(T&& object)
+            template <typename T>
+            T& cast()
             {
-                if(data)
+                if (data)
+                    return *static_cast<T*>(data);
+                throw std::invalid_argument("Data is nullptr");
+            }
+
+            template <typename T>
+            const T& cast() const
+            {
+                if (data)
+                    return *static_cast<T*>(data);
+                throw std::invalid_argument("Data is nullptr");
+            }
+
+            template< typename T, typename U = typename std::decay_t<T>>
+            requires babel::CONCEPTS::IS_NOT_SAME<T, any>
+            any &operator=(T &&object)
+            {
+                if ( data )
                     throw std::invalid_argument("Memory leak. Destroy void any first.");
-                data = new U{std::forward<T>(object)};
+                data = new U {std::forward<T>(object)};
                 return *this;
             }
+
             any &operator=(const any &) = delete;
 
             any &operator=(any &&_any) //NOLINT
             {
-                if (_any.data == data)
+                if ( _any.data == data )
                     return *this;
-                if(data)
+                if ( data )
                     throw std::invalid_argument("Memory leak. Destroy void any first.");
                 data = _any.data;
                 _any.data = nullptr;
@@ -109,15 +129,15 @@ namespace babel::ANY {
         };
 
 
-        template<typename T>
+        template< typename T >
         void destroy_any(any &_any) noexcept
         {
             delete static_cast<T *>(_any.data);
             _any.data = nullptr;
         }
 
-        template<typename T>
-        any make_any(T&& object) noexcept
+        template< typename T >
+        any make_any(T &&object) noexcept
         {
             return any(std::forward<T>(object));
         }
@@ -130,25 +150,22 @@ namespace babel::ANY {
        but its a little slower (about 30-40%).
        Its safer to avoid memory leak.
        */
-    namespace PolAny {
+    namespace PolAny{
         class any;
 
-        template<typename T, typename U = typename std::decay<T>::type, typename ... Args>
-        any make_any(Args &&... args) noexcept;
+        template< typename T >
+        any make_any(T&& data) noexcept;
 
         class any
         {
-            template<typename T, typename Any>
+            template< typename T, typename Any >
             requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
                      babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-            friend const T& babel::ANY::cast_any(const Any& any);//NOLINT
-            template<typename T, typename Any>
+            friend const T &babel::ANY::cast_any(const Any &any);//NOLINT
+            template< typename T, typename Any >
             requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
-                      babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-            friend T& babel::ANY::cast_any(Any& any); //NOLINT
-
-            template<size_t ID,typename T, typename U>
-            friend auto babel::ANY::make_any(T&& object) noexcept; //NOLINT
+                     babel::CONCEPTS::IS_SAME<Any, PolAny::any>
+            friend T &babel::ANY::cast_any(Any &any); //NOLINT
 
             struct __base__any //NOLINT
             {
@@ -157,15 +174,15 @@ namespace babel::ANY {
                 [[nodiscard]]  virtual __base__any *duplicate() const noexcept = 0;
             };
 
-            template<typename T>
+            template< typename T >
             struct _data : public __base__any
             {
                 T data;
 
-                template<typename U = T>
+                template< typename U = T >
                 requires babel::CONCEPTS::IS_NOT_SAME<U, _data> && babel::CONCEPTS::IS_NOT_SAME<U, __base__any>
                 explicit _data(U &&__data) noexcept: data(std::forward<U>(__data)) //NOLINT
-                {}
+                { }
 
                 [[nodiscard]] __base__any *duplicate() const noexcept override
                 {
@@ -178,10 +195,11 @@ namespace babel::ANY {
         public:
             any() = default;
 
-            template<typename T, typename U = typename std::decay_t<T>>
+            template< typename T, typename U = typename std::decay_t<T>>
             requires babel::CONCEPTS::IS_NOT_SAME<T, any>
-            explicit any(T&& object) noexcept : storage(new _data<U>{std::forward<T>(object)}) //NOLINT
-            {}
+            explicit any(T &&object) noexcept : storage(new _data<U> {std::forward<T>(object)}) //NOLINT
+            { }
+
             any(const any &other) noexcept
             {
                 storage = other.storage->duplicate();
@@ -199,66 +217,67 @@ namespace babel::ANY {
             }
 
 
-            template<typename T>
-            T &cast()
+            template< typename T >
+            [[nodiscard]] T &cast()
             {
-                if (auto st = dynamic_cast<_data<T> *>(storage))
+                if ( auto st = dynamic_cast<_data<T> *>(storage) )
                     return st->data;
                 else
                     throw std::bad_cast();
             }
 
-            template<typename T>
-            const T &cast() const
+            template< typename T >
+            [[nodiscard]] const T &cast() const
             {
-                if (auto st = dynamic_cast<_data<T> *>(storage))
+                if ( auto st = dynamic_cast<_data<T> *>(storage) )
                     return st->data;
                 else
                     throw std::bad_cast();
             }
 
             // Check if storage object is T
-            template<typename T>
+            template< typename T >
             [[nodiscard]] bool is() const noexcept
             {
-                return (dynamic_cast<_data<T> *>(storage)) ? 1 : 0;
+                return ( dynamic_cast<_data<T> *>(storage) ) ? 1 : 0;
             }
 
             //Compare type of storage object and if they are the same, then compare object (full safe)
-            template<typename T>
+            template< typename T >
             [[nodiscard]] bool cmp(const any &other) noexcept
             {
                 try
                 {
-                    if (*this == other)
+                    if ( *this == other )
                         return cast_any<T>(*this) == cast_any<T>(other);
                     return false;
                 }
-                catch (const std::bad_cast &)
+                catch ( const std::bad_cast & )
                 {
                     return false;
                 }
             }
 
             //Compare type of storage object
-            bool operator==(const any &other)
+            bool operator==(const any &other) noexcept
             {
-                if ((storage && other.storage) == 0)
+                if ( ( storage && other.storage ) == 0 )
                     return storage == other.storage;
                 return typeid(*storage) == typeid(*other.storage);
             }
 
-            template<typename T, typename U = typename std::decay_t<T>>
+            template< typename T, typename U = typename std::decay_t<T>>
             requires babel::CONCEPTS::IS_NOT_SAME<T, any>
-            any& operator=(T&& object) noexcept
+            any &operator=(T &&object) noexcept
             {
                 reset();
-                storage = new _data<U>{std::forward<T>(object)};
+                storage = new _data<U> {std::forward<T>(object)};
                 return *this;
             }
+
             any &operator=(const any &other) noexcept
             {
-                if(this == &other)
+                if ( this == &other )
                     return *this;
                 reset();
                 storage = other.storage->duplicate();
@@ -267,7 +286,7 @@ namespace babel::ANY {
 
             any &operator=(any &&other) noexcept
             {
-                if (storage == other.storage)
+                if ( storage == other.storage )
                     return *this;
                 reset();
                 storage = other.storage;
@@ -291,7 +310,7 @@ namespace babel::ANY {
 
             void reset() noexcept
             {
-                if (storage)
+                if ( storage )
                 {
                     delete storage;
                     storage = nullptr;
@@ -305,12 +324,12 @@ namespace babel::ANY {
                 other.storage = temp;
             }
 
-            template<typename T, typename ... Args, typename = typename std::enable_if<std::is_copy_constructible<T>::value>::type>
+            template< typename T, typename ... Args, typename = typename std::enable_if<std::is_copy_constructible<T>::value>::type >
             void emplace(Args &&...args) noexcept
             {
-                if (storage) //NOLINT
+                if ( storage ) //NOLINT
                     delete storage;
-                storage = new _data{T(std::forward<Args>(args)...)};
+                storage = new _data {T(std::forward<Args>(args)...)};
             }
 
             [[nodiscard]]const std::type_info &type() const noexcept
@@ -319,62 +338,56 @@ namespace babel::ANY {
             }
         };
 
-
-    }
-
-    template<typename T, typename Any>
-    requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
-            babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-    T& cast_any(Any& any)
-    {
-        if constexpr (babel::CONCEPTS::IS_SAME<Any, VoidAny::any>)
-            return *static_cast<T *>(any.data);
-        if constexpr (babel::CONCEPTS::IS_SAME<Any, PolAny::any>)
+        template< typename T >
+        any make_any(T&& data) noexcept
         {
-            if (auto st = dynamic_cast<PolAny::any::_data<T> *>(any.storage))
-                return st->data;
-            else
-                throw std::bad_cast();
+            return any(std::forward<T>(data));
         }
     }
-    template<typename T, typename Any>
+
+    template< typename T, typename Any >
     requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
              babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-    const T& cast_any(const Any& any)
+    T &cast_any(Any &any)
     {
-        if constexpr (babel::CONCEPTS::IS_SAME<Any, VoidAny::any>)
+        if constexpr ( babel::CONCEPTS::IS_SAME<Any, VoidAny::any> )
             return *static_cast<T *>(any.data);
-        if constexpr (babel::CONCEPTS::IS_SAME<Any, PolAny::any>)
+        if constexpr ( babel::CONCEPTS::IS_SAME<Any, PolAny::any> )
         {
-            if (auto st = dynamic_cast<PolAny::any::_data<T> *>(any.storage))
+            if ( auto st = dynamic_cast<PolAny::any::_data<T> *>(any.storage) )
                 return st->data;
             else
                 throw std::bad_cast();
         }
     }
 
-    template<typename T = void , typename Any>
-    requires babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-             ||
-             (babel::CONCEPTS::IS_SAME<Any, VoidAny::any> &&
-                     babel::CONCEPTS::IS_NOT_SAME<T, void>)
-    void destroy_any(Any& any)
+    template< typename T, typename Any >
+    requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
+             babel::CONCEPTS::IS_SAME<Any, PolAny::any>
+    const T &cast_any(const Any &any)
     {
-        if constexpr (babel::CONCEPTS::IS_SAME<Any, VoidAny::any>)
-            VoidAny::destroy_any<T>(any);
-        if constexpr (babel::CONCEPTS::IS_SAME<Any, PolAny::any>)
-            any.reset();
+        if constexpr ( babel::CONCEPTS::IS_SAME<Any, VoidAny::any> )
+            return *static_cast<T *>(any.data);
+        if constexpr ( babel::CONCEPTS::IS_SAME<Any, PolAny::any> )
+        {
+            if ( auto st = dynamic_cast<PolAny::any::_data<T> *>(any.storage) )
+                return st->data;
+            else
+                throw std::bad_cast();
+        }
     }
 
-    template<size_t ID,typename T, typename U >
-    auto make_any(T&& object) noexcept
+    template< typename T = void, typename Any >
+    requires babel::CONCEPTS::IS_SAME<Any, PolAny::any>
+             ||
+             ( babel::CONCEPTS::IS_SAME<Any, VoidAny::any> &&
+               babel::CONCEPTS::IS_NOT_SAME<T, void> )
+    void destroy_any(Any &any)
     {
-        static_assert(ID < 2, "ID : 0 - VoidAny, 1 - PolAny");
-        if constexpr( ID == 0)
-            return VoidAny::any(std::forward<T>(object));
-        if constexpr(ID == 1)
-            return PolAny::any { .storage = new PolAny::any::_data<U> { std::forward<T>(object) } };
-
+        if constexpr ( babel::CONCEPTS::IS_SAME<Any, VoidAny::any> )
+            VoidAny::destroy_any<T>(any);
+        if constexpr ( babel::CONCEPTS::IS_SAME<Any, PolAny::any> )
+            any.reset();
     }
 }
 

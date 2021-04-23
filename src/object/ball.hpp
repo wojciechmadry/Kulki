@@ -6,10 +6,8 @@
 #define KULKI_BALL_HPP
 
 
-
 #include <cstdint>
 #include <array>
-#include <tuple>
 
 #include "function/random_generator.hpp"
 
@@ -28,26 +26,27 @@ enum class COLOR : byte
     empty = 6
 };
 
-
 class ball
 {
-    [[nodiscard]] static sf::Color sf_color(const COLOR Color, int alpha = -1) noexcept
+    [[nodiscard]] static sf::Color sf_color(const COLOR Color, const int32_t alpha = -1) noexcept
     {
-        static constexpr const std::array<std::tuple<byte, byte, byte, byte>, 7> _color
+        static constexpr const std::array<std::array<byte, 4>, 7> _color
                 {
-                        std::make_tuple<byte, byte, byte, byte>(50,100,83, 255),
-                        std::make_tuple<byte, byte, byte, byte>(254, 127, 0, 255),
-                        std::make_tuple<byte, byte, byte, byte>(255, 255, 0, 255),
-                        std::make_tuple<byte, byte, byte, byte>(173, 216, 230, 255),
-                        std::make_tuple<byte, byte, byte, byte>(165,42,42, 255),
-                        std::make_tuple<byte, byte, byte, byte>(128, 0, 128, 255),
-                        std::make_tuple<byte, byte, byte, byte>(0, 0, 0, 0)
+                        {
+                                {50, 100, 83, 255},
+                                {254, 127, 0, 255},
+                                {255, 255, 0, 255},
+                                {173, 216, 230, 255},
+                                {165, 42, 42, 255},
+                                {128, 0, 128, 255},
+                                {0, 0, 0, 0}
+                        }
                 };
         return sf::Color(
-                std::get<0>(_color[static_cast<byte>(Color)]),
-                std::get<1>(_color[static_cast<byte>(Color)]),
-                std::get<2>(_color[static_cast<byte>(Color)]),
-                (alpha == -1 ? std::get<3>(_color[static_cast<byte>(Color)]) : alpha)
+                _color[static_cast<byte>(Color)][0],
+                _color[static_cast<byte>(Color)][1],
+                _color[static_cast<byte>(Color)][2],
+                ( alpha == -1 ? _color[static_cast<byte>(Color)][3] : alpha )
         );
     }
 
@@ -67,13 +66,15 @@ public:
         _colorID = other._colorID;
         return *this;
     }
-    ball& swap(ball& other) noexcept
+
+    ball &swap(ball &other) noexcept
     {
         COLOR oth = other._colorID;
         other._colorID = _colorID;
         _colorID = oth;
         return *this;
     }
+
     ball &operator=(const COLOR color) noexcept
     {
         _colorID = color;
@@ -99,10 +100,12 @@ public:
     {
         return _colorID != color;
     }
+
     [[nodiscard]] COLOR enum_color() const noexcept
     {
         return _colorID;
     }
+
     [[nodiscard]] sf::Color color() const noexcept
     {
         return sf_color(_colorID);
@@ -114,15 +117,16 @@ public:
     }
 
 
-
     [[nodiscard]] bool is_empty() const noexcept
     {
         return _colorID == COLOR::empty;
     }
+
     void clear() noexcept
     {
         _colorID = COLOR::empty;
     }
+
     void set(const COLOR color) noexcept
     {
         _colorID = color;

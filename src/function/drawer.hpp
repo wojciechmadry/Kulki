@@ -72,7 +72,9 @@ void draw_window(sf::RenderWindow &window, map &Map,
             window.draw(GLOBAL::white_box(pos));
             if ( !Map.at(i_map, j_map).is_empty() )
             {
-                window.draw(GLOBAL::get_ball(Map.at(i_map, j_map).enum_color(), {static_cast<float>(j + 10), static_cast<float>(i + 10)}));
+                pos.x += 10.f;
+                pos.y += 10.f;
+                window.draw(GLOBAL::get_ball(Map.at(i_map, j_map).enum_color(), pos));
             }
             ++j_map;
         }

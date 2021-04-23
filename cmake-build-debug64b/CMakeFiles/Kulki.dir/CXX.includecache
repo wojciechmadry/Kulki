@@ -166,12 +166,20 @@ cmath
 algorithm
 -
 
+../src/function/waiter.hpp
+chrono
+-
+thread
+-
+atomic
+-
+../babel/babel.hpp
+../src/babel/babel.hpp
+
 ../src/object/ball.hpp
 cstdint
 -
 array
--
-tuple
 -
 function/random_generator.hpp
 ../src/object/function/random_generator.hpp
@@ -181,24 +189,14 @@ SFML/Graphics.hpp
 ../src/object/map.hpp
 ball.hpp
 ../src/object/ball.hpp
-
-F:/Kulki/main.cpp
-SFML/Graphics.hpp
--
-function/drawer.hpp
-F:/Kulki/function/drawer.hpp
-function/load.hpp
-F:/Kulki/function/load.hpp
 iostream
 -
-unordered_map
--
 
-G:/SFML/64bit/include/SFML/Config.hpp
+F:/SFML/64bit/include/SFML/Config.hpp
 TargetConditionals.h
-G:/SFML/64bit/include/SFML/TargetConditionals.h
+F:/SFML/64bit/include/SFML/TargetConditionals.h
 
-G:/SFML/64bit/include/SFML/Graphics.hpp
+F:/SFML/64bit/include/SFML/Graphics.hpp
 SFML/Window.hpp
 -
 SFML/Graphics/BlendMode.hpp
@@ -254,21 +252,21 @@ SFML/Graphics/VertexBuffer.hpp
 SFML/Graphics/View.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/BlendMode.hpp
+F:/SFML/64bit/include/SFML/Graphics/BlendMode.hpp
 SFML/Graphics/Export.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/CircleShape.hpp
+F:/SFML/64bit/include/SFML/Graphics/CircleShape.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Shape.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Color.hpp
+F:/SFML/64bit/include/SFML/Graphics/Color.hpp
 SFML/Graphics/Export.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/ConvexShape.hpp
+F:/SFML/64bit/include/SFML/Graphics/ConvexShape.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Shape.hpp
@@ -276,17 +274,17 @@ SFML/Graphics/Shape.hpp
 vector
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Drawable.hpp
+F:/SFML/64bit/include/SFML/Graphics/Drawable.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/RenderStates.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Export.hpp
+F:/SFML/64bit/include/SFML/Graphics/Export.hpp
 SFML/Config.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Font.hpp
+F:/SFML/64bit/include/SFML/Graphics/Font.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Glyph.hpp
@@ -306,7 +304,7 @@ string
 vector
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Glsl.hpp
+F:/SFML/64bit/include/SFML/Graphics/Glsl.hpp
 SFML/Graphics/Transform.hpp
 -
 SFML/Graphics/Color.hpp
@@ -318,15 +316,15 @@ SFML/System/Vector3.hpp
 SFML/Graphics/Glsl.inl
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Glsl.inl
+F:/SFML/64bit/include/SFML/Graphics/Glsl.inl
 
-G:/SFML/64bit/include/SFML/Graphics/Glyph.hpp
+F:/SFML/64bit/include/SFML/Graphics/Glyph.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Rect.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Image.hpp
+F:/SFML/64bit/include/SFML/Graphics/Image.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Color.hpp
@@ -338,9 +336,9 @@ string
 vector
 -
 
-G:/SFML/64bit/include/SFML/Graphics/PrimitiveType.hpp
+F:/SFML/64bit/include/SFML/Graphics/PrimitiveType.hpp
 
-G:/SFML/64bit/include/SFML/Graphics/Rect.hpp
+F:/SFML/64bit/include/SFML/Graphics/Rect.hpp
 SFML/System/Vector2.hpp
 -
 algorithm
@@ -348,15 +346,15 @@ algorithm
 SFML/Graphics/Rect.inl
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Rect.inl
+F:/SFML/64bit/include/SFML/Graphics/Rect.inl
 
-G:/SFML/64bit/include/SFML/Graphics/RectangleShape.hpp
+F:/SFML/64bit/include/SFML/Graphics/RectangleShape.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Shape.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/RenderStates.hpp
+F:/SFML/64bit/include/SFML/Graphics/RenderStates.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/BlendMode.hpp
@@ -364,7 +362,7 @@ SFML/Graphics/BlendMode.hpp
 SFML/Graphics/Transform.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/RenderTarget.hpp
+F:/SFML/64bit/include/SFML/Graphics/RenderTarget.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Color.hpp
@@ -386,7 +384,7 @@ SFML/Graphics/Vertex.hpp
 SFML/System/NonCopyable.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/RenderTexture.hpp
+F:/SFML/64bit/include/SFML/Graphics/RenderTexture.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Texture.hpp
@@ -396,7 +394,7 @@ SFML/Graphics/RenderTarget.hpp
 SFML/Window/ContextSettings.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/RenderWindow.hpp
+F:/SFML/64bit/include/SFML/Graphics/RenderWindow.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/RenderTarget.hpp
@@ -408,7 +406,7 @@ SFML/Window/Window.hpp
 string
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Shader.hpp
+F:/SFML/64bit/include/SFML/Graphics/Shader.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Glsl.hpp
@@ -426,7 +424,7 @@ map
 string
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Shape.hpp
+F:/SFML/64bit/include/SFML/Graphics/Shape.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Drawable.hpp
@@ -438,7 +436,7 @@ SFML/Graphics/VertexArray.hpp
 SFML/System/Vector2.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Sprite.hpp
+F:/SFML/64bit/include/SFML/Graphics/Sprite.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Drawable.hpp
@@ -450,7 +448,7 @@ SFML/Graphics/Vertex.hpp
 SFML/Graphics/Rect.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Text.hpp
+F:/SFML/64bit/include/SFML/Graphics/Text.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Drawable.hpp
@@ -470,7 +468,7 @@ string
 vector
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Texture.hpp
+F:/SFML/64bit/include/SFML/Graphics/Texture.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Image.hpp
@@ -478,7 +476,7 @@ SFML/Graphics/Image.hpp
 SFML/Window/GlResource.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Transform.hpp
+F:/SFML/64bit/include/SFML/Graphics/Transform.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Rect.hpp
@@ -486,13 +484,13 @@ SFML/Graphics/Rect.hpp
 SFML/System/Vector2.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Transformable.hpp
+F:/SFML/64bit/include/SFML/Graphics/Transformable.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Transform.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/Vertex.hpp
+F:/SFML/64bit/include/SFML/Graphics/Vertex.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Color.hpp
@@ -500,7 +498,7 @@ SFML/Graphics/Color.hpp
 SFML/System/Vector2.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/VertexArray.hpp
+F:/SFML/64bit/include/SFML/Graphics/VertexArray.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Vertex.hpp
@@ -514,7 +512,7 @@ SFML/Graphics/Drawable.hpp
 vector
 -
 
-G:/SFML/64bit/include/SFML/Graphics/VertexBuffer.hpp
+F:/SFML/64bit/include/SFML/Graphics/VertexBuffer.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/PrimitiveType.hpp
@@ -524,7 +522,7 @@ SFML/Graphics/Drawable.hpp
 SFML/Window/GlResource.hpp
 -
 
-G:/SFML/64bit/include/SFML/Graphics/View.hpp
+F:/SFML/64bit/include/SFML/Graphics/View.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Rect.hpp
@@ -534,7 +532,7 @@ SFML/Graphics/Transform.hpp
 SFML/System/Vector2.hpp
 -
 
-G:/SFML/64bit/include/SFML/System.hpp
+F:/SFML/64bit/include/SFML/System.hpp
 SFML/Config.hpp
 -
 SFML/System/Clock.hpp
@@ -572,23 +570,23 @@ SFML/System/Vector2.hpp
 SFML/System/Vector3.hpp
 -
 
-G:/SFML/64bit/include/SFML/System/Clock.hpp
+F:/SFML/64bit/include/SFML/System/Clock.hpp
 SFML/System/Export.hpp
 -
 SFML/System/Time.hpp
 -
 
-G:/SFML/64bit/include/SFML/System/Err.hpp
+F:/SFML/64bit/include/SFML/System/Err.hpp
 SFML/System/Export.hpp
 -
 ostream
 -
 
-G:/SFML/64bit/include/SFML/System/Export.hpp
+F:/SFML/64bit/include/SFML/System/Export.hpp
 SFML/Config.hpp
 -
 
-G:/SFML/64bit/include/SFML/System/FileInputStream.hpp
+F:/SFML/64bit/include/SFML/System/FileInputStream.hpp
 SFML/Config.hpp
 -
 SFML/System/Export.hpp
@@ -602,19 +600,19 @@ cstdio
 string
 -
 
-G:/SFML/64bit/include/SFML/System/InputStream.hpp
+F:/SFML/64bit/include/SFML/System/InputStream.hpp
 SFML/Config.hpp
 -
 SFML/System/Export.hpp
 -
 
-G:/SFML/64bit/include/SFML/System/Lock.hpp
+F:/SFML/64bit/include/SFML/System/Lock.hpp
 SFML/System/Export.hpp
 -
 SFML/System/NonCopyable.hpp
 -
 
-G:/SFML/64bit/include/SFML/System/MemoryInputStream.hpp
+F:/SFML/64bit/include/SFML/System/MemoryInputStream.hpp
 SFML/Config.hpp
 -
 SFML/System/InputStream.hpp
@@ -624,23 +622,23 @@ SFML/System/Export.hpp
 cstdlib
 -
 
-G:/SFML/64bit/include/SFML/System/Mutex.hpp
+F:/SFML/64bit/include/SFML/System/Mutex.hpp
 SFML/System/Export.hpp
 -
 SFML/System/NonCopyable.hpp
 -
 
-G:/SFML/64bit/include/SFML/System/NonCopyable.hpp
+F:/SFML/64bit/include/SFML/System/NonCopyable.hpp
 SFML/System/Export.hpp
 -
 
-G:/SFML/64bit/include/SFML/System/Sleep.hpp
+F:/SFML/64bit/include/SFML/System/Sleep.hpp
 SFML/System/Export.hpp
 -
 SFML/System/Time.hpp
 -
 
-G:/SFML/64bit/include/SFML/System/String.hpp
+F:/SFML/64bit/include/SFML/System/String.hpp
 SFML/System/Export.hpp
 -
 SFML/System/Utf.hpp
@@ -654,9 +652,9 @@ string
 SFML/System/String.inl
 -
 
-G:/SFML/64bit/include/SFML/System/String.inl
+F:/SFML/64bit/include/SFML/System/String.inl
 
-G:/SFML/64bit/include/SFML/System/Thread.hpp
+F:/SFML/64bit/include/SFML/System/Thread.hpp
 SFML/System/Export.hpp
 -
 SFML/System/NonCopyable.hpp
@@ -666,9 +664,9 @@ cstdlib
 SFML/System/Thread.inl
 -
 
-G:/SFML/64bit/include/SFML/System/Thread.inl
+F:/SFML/64bit/include/SFML/System/Thread.inl
 
-G:/SFML/64bit/include/SFML/System/ThreadLocal.hpp
+F:/SFML/64bit/include/SFML/System/ThreadLocal.hpp
 SFML/System/Export.hpp
 -
 SFML/System/NonCopyable.hpp
@@ -676,19 +674,19 @@ SFML/System/NonCopyable.hpp
 cstdlib
 -
 
-G:/SFML/64bit/include/SFML/System/ThreadLocalPtr.hpp
+F:/SFML/64bit/include/SFML/System/ThreadLocalPtr.hpp
 SFML/System/ThreadLocal.hpp
 -
 SFML/System/ThreadLocalPtr.inl
 -
 
-G:/SFML/64bit/include/SFML/System/ThreadLocalPtr.inl
+F:/SFML/64bit/include/SFML/System/ThreadLocalPtr.inl
 
-G:/SFML/64bit/include/SFML/System/Time.hpp
+F:/SFML/64bit/include/SFML/System/Time.hpp
 SFML/System/Export.hpp
 -
 
-G:/SFML/64bit/include/SFML/System/Utf.hpp
+F:/SFML/64bit/include/SFML/System/Utf.hpp
 SFML/Config.hpp
 -
 algorithm
@@ -702,21 +700,21 @@ cstdlib
 SFML/System/Utf.inl
 -
 
-G:/SFML/64bit/include/SFML/System/Utf.inl
+F:/SFML/64bit/include/SFML/System/Utf.inl
 
-G:/SFML/64bit/include/SFML/System/Vector2.hpp
+F:/SFML/64bit/include/SFML/System/Vector2.hpp
 SFML/System/Vector2.inl
 -
 
-G:/SFML/64bit/include/SFML/System/Vector2.inl
+F:/SFML/64bit/include/SFML/System/Vector2.inl
 
-G:/SFML/64bit/include/SFML/System/Vector3.hpp
+F:/SFML/64bit/include/SFML/System/Vector3.hpp
 SFML/System/Vector3.inl
 -
 
-G:/SFML/64bit/include/SFML/System/Vector3.inl
+F:/SFML/64bit/include/SFML/System/Vector3.inl
 
-G:/SFML/64bit/include/SFML/Window.hpp
+F:/SFML/64bit/include/SFML/Window.hpp
 SFML/System.hpp
 -
 SFML/Window/Clipboard.hpp
@@ -748,13 +746,13 @@ SFML/Window/WindowHandle.hpp
 SFML/Window/WindowStyle.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/Clipboard.hpp
+F:/SFML/64bit/include/SFML/Window/Clipboard.hpp
 SFML/Window/Export.hpp
 -
 SFML/System/String.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/Context.hpp
+F:/SFML/64bit/include/SFML/Window/Context.hpp
 SFML/Window/Export.hpp
 -
 SFML/Window/GlResource.hpp
@@ -764,11 +762,11 @@ SFML/Window/ContextSettings.hpp
 SFML/System/NonCopyable.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/ContextSettings.hpp
+F:/SFML/64bit/include/SFML/Window/ContextSettings.hpp
 SFML/Config.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/Cursor.hpp
+F:/SFML/64bit/include/SFML/Window/Cursor.hpp
 SFML/Window/Export.hpp
 -
 SFML/System/NonCopyable.hpp
@@ -776,7 +774,7 @@ SFML/System/NonCopyable.hpp
 SFML/System/Vector2.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/Event.hpp
+F:/SFML/64bit/include/SFML/Window/Event.hpp
 SFML/Config.hpp
 -
 SFML/Window/Joystick.hpp
@@ -788,33 +786,33 @@ SFML/Window/Mouse.hpp
 SFML/Window/Sensor.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/Export.hpp
+F:/SFML/64bit/include/SFML/Window/Export.hpp
 SFML/Config.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/GlResource.hpp
+F:/SFML/64bit/include/SFML/Window/GlResource.hpp
 SFML/Window/Export.hpp
 -
 SFML/System/NonCopyable.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/Joystick.hpp
+F:/SFML/64bit/include/SFML/Window/Joystick.hpp
 SFML/Window/Export.hpp
 -
 SFML/System/String.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/Keyboard.hpp
+F:/SFML/64bit/include/SFML/Window/Keyboard.hpp
 SFML/Window/Export.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/Mouse.hpp
+F:/SFML/64bit/include/SFML/Window/Mouse.hpp
 SFML/Window/Export.hpp
 -
 SFML/System/Vector2.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/Sensor.hpp
+F:/SFML/64bit/include/SFML/Window/Sensor.hpp
 SFML/Window/Export.hpp
 -
 SFML/System/Vector3.hpp
@@ -822,19 +820,19 @@ SFML/System/Vector3.hpp
 SFML/System/Time.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/Touch.hpp
+F:/SFML/64bit/include/SFML/Window/Touch.hpp
 SFML/Window/Export.hpp
 -
 SFML/System/Vector2.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/VideoMode.hpp
+F:/SFML/64bit/include/SFML/Window/VideoMode.hpp
 SFML/Window/Export.hpp
 -
 vector
 -
 
-G:/SFML/64bit/include/SFML/Window/Window.hpp
+F:/SFML/64bit/include/SFML/Window/Window.hpp
 SFML/Window/ContextSettings.hpp
 -
 SFML/Window/Cursor.hpp
@@ -858,9 +856,23 @@ SFML/System/String.hpp
 SFML/System/Vector2.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/WindowHandle.hpp
+F:/SFML/64bit/include/SFML/Window/WindowHandle.hpp
 SFML/Config.hpp
 -
 
-G:/SFML/64bit/include/SFML/Window/WindowStyle.hpp
+F:/SFML/64bit/include/SFML/Window/WindowStyle.hpp
+
+F:/kulki/main.cpp
+SFML/Graphics.hpp
+-
+function/drawer.hpp
+F:/kulki/function/drawer.hpp
+function/load.hpp
+F:/kulki/function/load.hpp
+iostream
+-
+unordered_map
+-
+function/waiter.hpp
+F:/kulki/function/waiter.hpp
 

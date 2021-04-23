@@ -63,10 +63,10 @@ RM = "F:\CLion\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = F:\Kulki
+CMAKE_SOURCE_DIR = F:\kulki
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = F:\Kulki\cmake-build-debug64b
+CMAKE_BINARY_DIR = F:\kulki\cmake-build-debug64b
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -113,14 +113,14 @@ src/clean: src/CMakeFiles/source.dir/clean
 CMakeFiles/Kulki.dir/all: src/CMakeFiles/source.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kulki.dir\build.make CMakeFiles/Kulki.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kulki.dir\build.make CMakeFiles/Kulki.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=F:\Kulki\cmake-build-debug64b\CMakeFiles --progress-num=1,2 "Built target Kulki"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=F:\kulki\cmake-build-debug64b\CMakeFiles --progress-num=1,2 "Built target Kulki"
 .PHONY : CMakeFiles/Kulki.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Kulki.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start F:\Kulki\cmake-build-debug64b\CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start F:\kulki\cmake-build-debug64b\CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/Kulki.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start F:\Kulki\cmake-build-debug64b\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start F:\kulki\cmake-build-debug64b\CMakeFiles 0
 .PHONY : CMakeFiles/Kulki.dir/rule
 
 # Convenience name for target.
@@ -140,14 +140,14 @@ CMakeFiles/Kulki.dir/clean:
 src/CMakeFiles/source.dir/all:
 	$(MAKE) $(MAKESILENT) -f src\CMakeFiles\source.dir\build.make src/CMakeFiles/source.dir/depend
 	$(MAKE) $(MAKESILENT) -f src\CMakeFiles\source.dir\build.make src/CMakeFiles/source.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=F:\Kulki\cmake-build-debug64b\CMakeFiles --progress-num=3 "Built target source"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=F:\kulki\cmake-build-debug64b\CMakeFiles --progress-num=3 "Built target source"
 .PHONY : src/CMakeFiles/source.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/source.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start F:\Kulki\cmake-build-debug64b\CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start F:\kulki\cmake-build-debug64b\CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/CMakeFiles/source.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start F:\Kulki\cmake-build-debug64b\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start F:\kulki\cmake-build-debug64b\CMakeFiles 0
 .PHONY : src/CMakeFiles/source.dir/rule
 
 # Convenience name for target.

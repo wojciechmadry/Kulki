@@ -3,35 +3,30 @@
 
 #include "must_have.hpp"
 
-namespace babel::VARIADIC {
-    template<typename Type>
+namespace babel::VARIADIC{
+    template< typename Type >
     requires(babel::CONCEPTS::IS_NOT_ANY_VOID<Type>)
     class holder
     {
-        CONTAINER::dynamic_array<Type> _hold;
+        std::vector<Type> _hold;
 
-        template<typename U = Type>
+        template< typename U = Type >
+        requires (std::is_same_v<std::decay_t<U>, std::decay_t<Type>>)
         constexpr void _put(U &&_a1) noexcept
         {
             _hold.push_back(std::forward<U>(_a1));
         }
 
-        template<typename U = Type, typename ... Args>
+        template< typename U = Type, typename ... Args >
+        requires (std::is_same_v<std::decay_t<U>, std::decay_t<Type>>)
         constexpr void _put(U &&_a1, Args &&...args) noexcept
         {
             _put(std::forward<U>(_a1));
             _put(std::forward<Args>(args)...);
         }
-        template<typename U>
-        using decay = typename std::decay_t<U>;
+
     public:
         constexpr holder() = default;
-
-        template<typename ... Hold>
-        constexpr explicit holder(Hold &&... args) noexcept
-        {
-            _put(std::forward<Hold>(args)...);
-        }
 
 
         constexpr holder(const holder &other) noexcept
@@ -39,10 +34,29 @@ namespace babel::VARIADIC {
             _hold = other._hold;
         }
 
+
         constexpr holder(holder &&other) noexcept
         {
             _hold = std::move(other._hold);
         }
+
+        template< typename T = Type>
+        requires(!std::is_same_v<std::decay_t<T>, std::decay_t<holder>>)
+        constexpr explicit holder(T&& arg) noexcept //NOLINT
+        {
+            _put(std::forward<T>(arg));
+        }
+
+        template< typename T = Type, typename ... Hold>
+        requires(!std::is_same_v<std::decay_t<T>, std::decay_t<holder>>)
+        constexpr explicit holder(T&& arg, Hold &&... args) noexcept
+        {
+            _put(std::forward<T>(arg));
+            _put(std::forward<Hold>(args)...);
+        }
+
+
+
 
         constexpr holder &operator=(const holder &other) noexcept
         {
@@ -80,7 +94,7 @@ namespace babel::VARIADIC {
          *  @brief  Return vector of storage parameter
          *  @return Return vector&
          */
-        constexpr CONTAINER::dynamic_array<Type> &get() noexcept
+        constexpr std::vector<Type> &get() noexcept
         {
             return _hold;
         }
@@ -89,7 +103,7 @@ namespace babel::VARIADIC {
          *  @brief  Return vector of storage parameter
          *  @return Return const vector&
          */
-        constexpr const CONTAINER::dynamic_array<Type> &get() const noexcept
+        constexpr const std::vector<Type> &get() const noexcept
         {
             return _hold;
         }

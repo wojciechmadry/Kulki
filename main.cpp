@@ -3,25 +3,25 @@
 #include "function/drawer.hpp"
 #include "function/load.hpp"
 
+
 #include <iostream>
 #include <unordered_map>
 
+static constexpr double VERSION = 1.00;
 
-#define FPS 1 // Show fps in console
+#define FPS 0 // Show fps in console
 #define MULTITHREAD 1 // 1 - 2 core, 0 - 1 core
 
 
 #if MULTITHREAD == 1
 
-#include <chrono>
-#include <thread>
-#include <atomic>
+#include "function/waiter.hpp"
 
 void
 game_thr(map &Map, const uint32_t fps, std::pair<char, char> &from, const std::pair<char, char> &to,
          std::atomic<int> &operation)
 {
-    uint32_t _fps = 1000 / fps;
+    uint32_t _fps = babel::MATH::min(1000 / fps, 244);
     while ( operation != -1 )
     {
         if ( operation > 0 )
@@ -45,15 +45,8 @@ game_thr(map &Map, const uint32_t fps, std::pair<char, char> &from, const std::p
     }
 }
 
-// Wait until status == expect / refresh fps times per sec
-void wait_for(const std::atomic<int> &status, const int expect, const uint32_t fps)
-{
-    uint32_t _fps = 1000 / fps;
-    while ( status != expect )
-        std::this_thread::sleep_for(std::chrono::milliseconds(_fps));
-}
-
 #endif
+// END MULTITHREAD
 
 int main()
 {
@@ -74,7 +67,7 @@ int main()
     settings.antialiasingLevel = 1;
     sf::RenderWindow window(sf::VideoMode(1000, 670), "Kulki", sf::Style::Default, settings);
 
-    auto fps = std::min(load_fps(), 144u);
+    auto fps = babel::MATH::min(load_fps(), 240u);
     window.setFramerateLimit(fps);
     sf::Image icon;
     icon.loadFromFile("ball.png");
@@ -84,8 +77,10 @@ int main()
 
     std::pair<char, char> picked = {-1, -1};
     std::pair<char, char> new_pick = {-1, -1};
+
 #if MULTITHREAD == 1
     std::atomic<int> operation(0);
+    waiter<decltype(operation)> Waiter(operation, fps);
     std::thread th(game_thr, std::ref(Game), fps, std::ref(picked), std::ref(new_pick), std::ref(operation));
 #endif
 
@@ -96,7 +91,7 @@ int main()
     sf::Time curr;
 #endif
 
-    sf::Event event;
+    sf::Event event; //NOLINT
     while ( window.isOpen() )
     {
 #if FPS == 1
@@ -117,8 +112,7 @@ int main()
             } else if ( event.type == sf::Event::Resized || event.type == sf::Event::GainedFocus )
             {
 #if MULTITHREAD == 1
-                operation = 2; // Game need update here
-                wait_for(operation, 0, fps);
+                Waiter.set_and_wait(2, 0);// Game need update here
 #elif MULTITHREAD == 0
                 Game.set_update(true);
 #endif
@@ -140,8 +134,7 @@ int main()
                         } else if ( picked.first != -1 && !Game.at(picked).is_empty() )
                         {
 #if MULTITHREAD == 1
-                            operation = 1; // MOVE BALL
-                            wait_for(operation, 0, fps);
+                            Waiter.set_and_wait(1, 0);// MOVE BALL
 #elif MULTITHREAD == 0
                             if ( Game.move(picked, new_pick) ) // Try to move ball from picked to new_pick
                             {
@@ -161,8 +154,7 @@ int main()
                                     static_cast<float>(320 + 70 * picked.second), // Scale picked ball to resolution
                                     static_cast<float>(15 + 70 * picked.first));
 #if MULTITHREAD == 1
-                            operation = 2; // Game need update here
-                            wait_for(operation, 0, fps);
+                            Waiter.set_and_wait(2, 0); // Game need update here
 #elif MULTITHREAD == 0
                             Game.set_update(true); // Game need update here
 #endif
@@ -173,8 +165,7 @@ int main()
                         picked = {-1, -1};
                         rect_ptr->setOutlineThickness(0.f);
 #if MULTITHREAD == 1
-                        operation = 3; // reset game
-                        wait_for(operation, 0, fps);
+                        Waiter.set_and_wait(3, 0);// reset game
 #elif MULTITHREAD == 0
                         Game.reset();
 #endif
@@ -186,8 +177,7 @@ int main()
                         picked = {-1, -1};
                         rect_ptr->setOutlineThickness(0.0f);
 #if MULTITHREAD == 1
-                        operation = 2; // Game need update here
-                        wait_for(operation, 0, fps);
+                        Waiter.set_and_wait(2, 0);
 #elif MULTITHREAD == 0
                         Game.set_update(true);
 #endif
@@ -217,8 +207,7 @@ int main()
             ptr_text->setString(std::to_string(record));
             ptr_text->setPosition({120 - 4.0f * ptr_text->getString().getSize(), 290});
 #if MULTITHREAD == 1
-            operation = 2; // Game need update here
-            wait_for(operation, 0, fps);
+            Waiter.set_and_wait(2, 0);// Game need update here
 #elif MULTITHREAD == 0
             Game.set_update(true);
 #endif
@@ -231,5 +220,6 @@ int main()
         prev = curr;
 #endif
     }
+
     return 0;
 }

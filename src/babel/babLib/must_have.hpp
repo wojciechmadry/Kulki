@@ -15,13 +15,19 @@
 #include "concepts/concepts.hpp"
 #include <cassert>
 #include <queue>
+#include <numeric>
+#include <complex>
+#include <numbers>
+#include <list>
+#include <random>
+
 namespace _BABEL_PRIVATE_DO_NOT_USE //NOLINT
 {
 
 
     class _PRIVATE_BABEL //NOLINT
     {
-        static constexpr void babel_mult(uint64_t F[2][2], uint64_t M[2][2])
+        static constexpr void babel_mult(uint64_t F[2][2], uint64_t M[2][2]) noexcept
         {
             uint64_t x = F[0][0] * M[0][0] + F[0][1] * M[1][0];
             uint64_t y = F[0][0] * M[0][1] + F[0][1] * M[1][1];
@@ -34,13 +40,14 @@ namespace _BABEL_PRIVATE_DO_NOT_USE //NOLINT
         }
 
     public:
-        static constexpr void babel_pow(uint64_t F[2][2], unsigned n)
+
+        static constexpr void babel_pow(uint64_t F[2][2], unsigned n) noexcept
         {
-            if (n <= 1)
+            if ( n < 2 )
                 return;
-            babel_pow(F, n / 2);
+            babel_pow(F, n >> 1u);
             babel_mult(F, F);
-            if (n % 2 != 0)
+            if ( n % 2 != 0 )
             {
                 uint64_t x = F[0][0] + F[0][1];
                 uint64_t z = F[1][0] + F[1][1];

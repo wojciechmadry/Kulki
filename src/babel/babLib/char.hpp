@@ -3,7 +3,7 @@
 
 #include "must_have.hpp"
 
-namespace babel::CHAR {
+namespace babel::CHAR{
     class ASCII_CHAR
     {
         char _member;
@@ -54,7 +54,7 @@ namespace babel::CHAR {
         {
         public:
             IS_NOT_ALPHABETICAL() : std::exception()
-            {}
+            { }
 
             [[nodiscard]]const char *what() const noexcept override
             {
@@ -66,7 +66,7 @@ namespace babel::CHAR {
         {
         public:
             IS_NOT_NUMBER() : std::exception()
-            {}
+            { }
 
             [[nodiscard]]const char *what() const noexcept override
             {
@@ -76,27 +76,27 @@ namespace babel::CHAR {
 
     public:
         constexpr explicit ASCII_CHAR() noexcept: _member(0)
-        {}
+        { }
 
         constexpr explicit ASCII_CHAR(char _char) noexcept: _member(_char)
-        {}
+        { }
 
         constexpr ASCII_CHAR(const ASCII_CHAR &other) noexcept: _member(other._member) //NOLINT
-        {}
+        { }
 
-        constexpr ASCII_CHAR &operator=(const ASCII_CHAR &other) //NOLINT
+        constexpr ASCII_CHAR &operator=(const ASCII_CHAR &other) noexcept //NOLINT
         {
             _member = other._member;
             return *this;
         }
 
-        constexpr ASCII_CHAR &operator=(char _char)
+        constexpr ASCII_CHAR &operator=(char _char) noexcept
         {
             _member = _char;
             return *this;
         }
 
-        constexpr explicit operator bool() const
+        constexpr explicit operator bool() const noexcept
         {
             return static_cast<bool>(_member);
         }
@@ -112,7 +112,7 @@ namespace babel::CHAR {
         /**
          *  @return Return by reference stored char
          */
-        constexpr char &get_by_ref() noexcept
+        [[nodiscard]] constexpr char &get_by_ref() noexcept
         {
             return _member;
         }
@@ -129,7 +129,7 @@ namespace babel::CHAR {
          * @brief Set stored char to param
          * @param to_set New char
          * */
-        constexpr void set(char to_set) noexcept
+        constexpr void set(const char to_set) noexcept
         {
             _member = to_set;
         }
@@ -137,7 +137,7 @@ namespace babel::CHAR {
         /**
          * @brief Check if char storage number 0-9
          * */
-        [[nodiscard]]constexpr bool is_number() const noexcept
+        [[nodiscard]] constexpr bool is_number() const noexcept
         {
             return _member > 47 && _member < 58;
         }
@@ -145,15 +145,15 @@ namespace babel::CHAR {
         /**
          * @brief Check if char storage a-z or A-Z
          * */
-        [[nodiscard]]constexpr bool is_alphabetical() const noexcept
+        [[nodiscard]] constexpr bool is_alphabetical() const noexcept
         {
-            return (_member > 64 && _member < 91) || (_member > 96 && _member < 123);
+            return ( _member > 64 && _member < 91 ) || ( _member > 96 && _member < 123 );
         }
 
         /**
         * @brief Check if char storage a-z
         * */
-        [[nodiscard]]constexpr bool is_lower() const noexcept
+        [[nodiscard]] constexpr bool is_lower() const noexcept
         {
             return _member > 96 && _member < 123;
         }
@@ -161,7 +161,7 @@ namespace babel::CHAR {
         /**
         * @brief Check if char storage A-Z
         * */
-        [[nodiscard]]constexpr bool is_upper() const noexcept
+        [[nodiscard]] constexpr bool is_upper() const noexcept
         {
             return _member > 64 && _member < 91;
         }
@@ -179,9 +179,9 @@ namespace babel::CHAR {
         * */
         [[nodiscard]]constexpr char to_upper() const
         {
-            if (is_upper())
+            if ( is_upper() )
                 return _member;
-            if (is_lower())
+            if ( is_lower() )
                 return static_cast<char>(_member - 32);
             throw IS_NOT_ALPHABETICAL();
         }
@@ -191,9 +191,9 @@ namespace babel::CHAR {
          * */
         [[nodiscard]] constexpr char to_lower() const
         {
-            if (is_lower())
+            if ( is_lower() )
                 return _member;
-            if (is_upper())
+            if ( is_upper() )
                 return static_cast<char>(_member + 32);
             throw IS_NOT_ALPHABETICAL();
         }
@@ -204,7 +204,7 @@ namespace babel::CHAR {
          * */
         [[nodiscard]]constexpr int to_int_number() const
         {
-            if (is_number())
+            if ( is_number() )
                 return static_cast<int>(_member - '0');
             throw IS_NOT_NUMBER();
         }
@@ -213,18 +213,18 @@ namespace babel::CHAR {
          * @brief Set char to number 0-9
          * @param number Number 0-9
          * */
-        constexpr void set_number(int number) noexcept
+        constexpr void set_number(const int number) noexcept
         {
             _member = static_cast<char>(number + 48);
         }
 
-        constexpr ASCII_CHAR &operator--()
+        constexpr ASCII_CHAR &operator--() noexcept
         {
             --_member;
             return *this;
         }
 
-        constexpr ASCII_CHAR &operator++()
+        constexpr ASCII_CHAR &operator++() noexcept
         {
             ++_member;
             return *this;

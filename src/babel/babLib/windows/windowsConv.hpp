@@ -6,7 +6,7 @@
 
 namespace babel::WINDOWS::CONVERSION {
 
-    auto str_to_lpcwstr(const std::string &to_conv)
+    auto str_to_lpcwstr(const std::string &to_conv) noexcept
     {
         class LCPWSTR_HOLDER
         {

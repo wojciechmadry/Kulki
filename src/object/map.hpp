@@ -23,30 +23,34 @@ class map
     bool _need_update = true;
 
 
-    [[nodiscard]] bool is_free_at(std::pair<byte, byte> position) const noexcept
+    [[nodiscard]] bool is_free_at(const std::pair<byte, byte> position) const noexcept
     {
         return grid[position.first][position.second].is_empty();
     }
 
-    void free_at(std::pair<byte, byte> position) noexcept
+    [[nodiscard]] bool is_free_at(const byte x, const byte y) const noexcept
+    {
+        return grid[x][y].is_empty();
+    }
+
+
+    void free_on(const std::pair<byte, byte> position) noexcept
     {
         grid[position.first][position.second].clear();
     }
 
-    [[nodiscard]]bool score_there() const noexcept
+    [[nodiscard]] bool score_there() const noexcept
     {
         for ( byte i = 0 ; i < 9 ; ++i )
         {
             //horizontal check
             byte horizontal = !grid[i][0].is_empty();
-            byte horizontal_start = 0;
             for ( byte j = 0 ; j < 8 ; ++j )
             {
                 if ( !grid[i][j].is_empty() && grid[i][j] == grid[i][j + 1] )
                     ++horizontal;
                 else if ( !grid[i][j + 1].is_empty() && horizontal < 5 )
                 {
-                    horizontal_start = j + 1;
                     horizontal = 1;
                 } else if ( horizontal > 4 && grid[i][j] != grid[i][j + 1] )
                     break;
@@ -58,14 +62,12 @@ class map
             // vertical check
 
             byte vertical = !grid[0][i].is_empty();
-            byte vertical_start = 0;
             for ( byte j = 0 ; j < 8 ; ++j )
             {
                 if ( !grid[j][i].is_empty() && grid[j][i] == grid[j + 1][i] )
                     ++vertical;
                 else if ( !grid[j + 1][i].is_empty() && vertical < 5 )
                 {
-                    vertical_start = j + 1;
                     vertical = 1;
                 } else if ( vertical > 4 && grid[j][i] != grid[j + 1][i] )
                     break;
@@ -175,7 +177,7 @@ class map
     {
         bool score_added = false;
         // number should be greater or equal 5 !
-        auto get_scores = [](byte number) -> byte {
+        auto get_scores = [](const byte number) -> byte {
             if ( number < 7 )
                 return number * 2;
             if ( number == 7 )
@@ -409,43 +411,42 @@ class map
         auto type = random_generator::generate<byte>(1, 100);
         if ( type <= 33 ) // X% to generate diffrent next_three than before
         {
-            ball nb[3];
-            for ( auto &b : nb )
-            {
+            std::array<ball, 3> nb;
+            std::for_each(std::begin(nb), std::end(nb), [&](ball &b) {
                 b.random();
                 while ( b == next_three[0] || b == next_three[1] || b == next_three[2] )
                     b.random();
-            }
+            });
 
             if ( nb[2] == nb[1] && nb[2] == nb[0] )
                 while ( nb[2] == nb[1] || nb[2] == next_three[0] || nb[2] == next_three[1] || nb[2] == next_three[2] )
                     nb[2].random();
-            for ( byte i = 0 ; i < 3 ; ++i )
-                next_three[i] = nb[i];
+            next_three = nb;
         } else if ( type <= 45 ) // (X - Y) % you get the least popular balls in board
         {
             std::array<std::pair<byte, byte>, 5> color = {std::make_pair(0, 0), {0, 1}, {0, 2}, {0, 3}, {0, 4}};
-            for ( byte i = 0 ; i < 9 ; ++i )
-                for ( byte j = 0 ; j < 9 ; ++j )
-                {
-                    if ( !grid[i][j].is_empty() )
-                        ++color[static_cast<size_t>(grid[i][j].enum_color())].first;
-                }
-            std::sort(color.begin(), color.end(),
-                      [](const std::pair<byte, byte> &lhs, const std::pair<byte, byte> &rhs) {
+            for ( const auto &ARRAY : grid )
+                for ( auto BALL : ARRAY )
+                    if ( !BALL.is_empty() )
+                        ++color[static_cast<std::size_t>(BALL.enum_color())].first;
+
+            std::sort(std::begin(color), std::end(color),
+                      [](const std::pair<byte, byte> lhs, const std::pair<byte, byte> rhs) {
                           return lhs.first < rhs.first;
                       });
+
             for ( byte i = 0 ; i < 3 ; ++i )
                 next_three[i] = ball(static_cast<COLOR>(color[i].second));
 
 
         } else
         {
-            next_three[0].random();
-            next_three[1].random();
-            next_three[2].random();
+            std::for_each(std::begin(next_three), std::end(next_three),
+                          [](ball &Ball) { Ball.random(); });
+
             while ( next_three[2] == next_three[0] || next_three[2] == next_three[1] )
                 next_three[2].random();
+
             if ( random_generator::generate<byte>(1, 100) <= 5 ) // X% to TWO same ball in next round
             {
                 next_three[0] = next_three[1];
@@ -473,9 +474,12 @@ public:
             for ( byte j = 0 ; j < 9 ; ++j )
                 if ( grid[i][j].is_empty() )
                     free_pos.emplace_back(std::make_pair(i, j));
+
         random_generator::random_shuffle(free_pos);
-        byte to_insert = std::min(free_pos.size(), static_cast<size_t>(3));
+
+        byte to_insert = babel::MATH::min(free_pos.size(), static_cast<size_t>(3));
         int probe = 3;
+
         // Try add three ball, in good position ( no score added )
         while ( to_insert > 0 )
         {
@@ -529,7 +533,7 @@ public:
                 }
             }
         }
-        _filled = std::min(_filled + 3, 81);
+        _filled = babel::MATH::min(_filled + 3, 81);
         generate_next_three();
         check_for_score();
         _need_update = true;
@@ -543,7 +547,7 @@ public:
         {
             auto x = random_generator::generate<byte>(0, 8);
             auto y = random_generator::generate<byte>(0, 8);
-            if ( is_free_at({x, y}) )
+            if ( is_free_at(x, y) )
             {
                 grid[x][y].random();
                 ++_filled;
@@ -586,14 +590,14 @@ public:
         if ( at(from).is_empty() || !at(to).is_empty() || from == to )
             return false;
         auto cor_is_correct = [this](const std::pair<char, char> cor) -> bool {
-            if ( cor.first > 8 || cor.first < 0 || cor.second > 8 || cor.second < 0 ||
-                 !grid[cor.first][cor.second].is_empty() )
-                return false;
-            return true;
+            return !( cor.first > 8 || cor.first < 0 || cor.second > 8 || cor.second < 0 ||
+                      !grid[cor.first][cor.second].is_empty() );
         };
         std::pair<char, char> from_c = {from.first, from.second};
         std::pair<char, char> to_c = {to.first, to.second};
+
         std::vector<std::pair<char, char> > vec(81, std::make_pair(-1, -1));
+        std::array<std::pair<char, char>, 4> Coordinate;
         size_t _size = 1, _start = 0;
         vec[0] = to_c;
         size_t vec_size;
@@ -603,14 +607,19 @@ public:
             for ( size_t i = _start ; i < vec_size ; ++i )
             {
                 auto Cor = vec[i];
-                std::pair<char, char> c[4] =
-                        {
-                                std::make_pair(Cor.first + 1, Cor.second),
-                                std::make_pair(Cor.first - 1, Cor.second),
-                                std::make_pair(Cor.first, Cor.second + 1),
-                                std::make_pair(Cor.first, Cor.second - 1)
-                        };
-                for ( const auto &Item : c )
+                Coordinate[0].first = Cor.first + 1;
+                Coordinate[0].second = Cor.second;
+
+                Coordinate[1].first = Cor.first - 1;
+                Coordinate[1].second = Cor.second;
+
+                Coordinate[2].first = Cor.first;
+                Coordinate[2].second = Cor.second + 1;
+
+                Coordinate[3].first = Cor.first;
+                Coordinate[3].second = Cor.second - 1;
+
+                for ( const auto Item : Coordinate )
                 {
                     if ( Item == from_c )
                         return true;
@@ -626,7 +635,7 @@ public:
     }
 
     // try to move ball 'from' to 'to'
-    bool move(std::pair<byte, byte> from, std::pair<byte, byte> to) noexcept
+    bool move(const std::pair<byte, byte> from, const std::pair<byte, byte> to) noexcept
     {
         if ( can_move(from, to) )
         {
@@ -684,9 +693,9 @@ public:
     {
         _need_update = true;
         _filled = 0;
-        for ( byte i = 0 ; i < 9 ; ++i )
-            for ( byte j = 0 ; j < 9 ; ++j )
-                grid[i][j].clear();
+        for ( auto &Array : grid )
+            for ( auto &Ball : Array )
+                Ball.clear();
         put_next_three();
         score = 0;
     }
@@ -697,9 +706,9 @@ public:
 // and return value is cor {x, y} on grid
 // cor = {320, 15} or cor {325, 15} etc. will show the same position {x, y} on grid
 // Every square of grid is 70x70 pixel.
-std::pair<char, char> MapCorToGrid(const sf::Vector2<float> &cor)
+std::pair<int8_t, int8_t> MapCorToGrid(const sf::Vector2<float> cor)
 {
-    return {static_cast<char>(( cor.y - 15 ) / 70), static_cast<char>(( cor.x - 320 ) / 70)};
+    return {static_cast<int8_t>(( cor.y - 15.f ) / 70.f), static_cast<int8_t>(( cor.x - 320.f ) / 70.f)};
 }
 
 #endif //KULKI_MAP_HPP

@@ -52,7 +52,7 @@ namespace babel::REQ{
         template< typename Func, typename ... Args >
         void send_req(Func
                       function_to_call,
-                      std::nullptr_t NULLPTR, Args
+                      std::nullptr_t, Args
                       &&... args) noexcept
         {
 
