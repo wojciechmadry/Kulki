@@ -73,7 +73,7 @@ int main()
     draw_started_object(to_draw, font);
 
     sf::ContextSettings settings;
-    settings.antialiasingLevel = 1;
+    settings.antialiasingLevel = 16;
 
     sf::RenderWindow window(sf::VideoMode(GLOBAL::get_width(), GLOBAL::get_height()), title, sf::Style::Default,
                             settings);
