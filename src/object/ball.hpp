@@ -21,7 +21,7 @@ enum class COLOR : byte
     orange = 1,
     yellow = 2,
     light_blue = 3,
-    brown = 4,
+    red = 4,
     purple = 5,
     empty = 6
 };

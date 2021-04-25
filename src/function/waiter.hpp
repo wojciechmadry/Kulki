@@ -21,8 +21,7 @@ public:
     waiter(ATOMIC_TYPE& Status, const uint16_t refresh_rate) noexcept
     : _at(&Status)
     {
-        _fps = babel::MATH::min(refresh_rate, 244);
-        _fps = 1000 / _fps;
+        _fps = 1000 / babel::MATH::min(refresh_rate, 244);
     }
 
     void wait(const StorageType expectValue) noexcept

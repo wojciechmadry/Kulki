@@ -701,14 +701,6 @@ public:
     }
 };
 
-//Scales cor on screen to cor on grid
-// ex.: cor can be position on screen {320, 15}
-// and return value is cor {x, y} on grid
-// cor = {320, 15} or cor {325, 15} etc. will show the same position {x, y} on grid
-// Every square of grid is 70x70 pixel.
-std::pair<int8_t, int8_t> MapCorToGrid(const sf::Vector2<float> cor)
-{
-    return {static_cast<int8_t>(( cor.y - 15.f ) / 70.f), static_cast<int8_t>(( cor.x - 320.f ) / 70.f)};
-}
+
 
 #endif //KULKI_MAP_HPP

@@ -219,8 +219,6 @@ cstdint
 -
 array
 -
-tuple
--
 function/random_generator.hpp
 ../src/object/function/random_generator.hpp
 SFML/Graphics.hpp

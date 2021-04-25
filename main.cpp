@@ -7,7 +7,7 @@
 #include <iostream>
 #include <unordered_map>
 
-static constexpr double VERSION = 1.00;
+static constexpr double VERSION = 1.01;
 
 #define FPS 0 // Show fps in console
 #define MULTITHREAD 1 // 1 - 2 core, 0 - 1 core
@@ -50,8 +50,17 @@ game_thr(map &Map, const uint32_t fps, std::pair<char, char> &from, const std::p
 
 int main()
 {
+    std::string title = "Kulki ";
+    title = title + "v." + std::to_string(VERSION);
+    while(title[title.size() - 1] == '0')
+        title.pop_back();
+    size_t width = 1920, height = 1080;
+   //size_t width = 640, height = 480;
+   //size_t width = 1280, height = 720;
+   //size_t width = 1600, height = 1000;
+   // size_t width = 4096, height = 3112;
 
-    GLOBAL::INIT();
+    GLOBAL::INIT(width, height);
 
     map Game = load_map();
     uint16_t record = check_for_record();
@@ -65,7 +74,9 @@ int main()
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 1;
-    sf::RenderWindow window(sf::VideoMode(1000, 670), "Kulki", sf::Style::Default, settings);
+
+    sf::RenderWindow window(sf::VideoMode(GLOBAL::get_width(), GLOBAL::get_height()), title, sf::Style::Default,
+                            settings);
 
     auto fps = babel::MATH::min(load_fps(), 240u);
     window.setFramerateLimit(fps);
@@ -123,8 +134,10 @@ int main()
                 if ( sf::Mouse::isButtonPressed(sf::Mouse::Left) )
                 {
                     auto pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-                    if ( pos.x > 319.0f && pos.x < 951.0f && pos.y > 14.0f &&
-                         pos.y < 646.0f ) // Position of grid of balls
+                    if ( pos.x > 0.3f * width &&
+                         pos.x < 0.3f * width + 9.f * GLOBAL::white_box_size().x &&
+                         pos.y > 0.02f * height &&
+                         pos.y < 0.02f * height + 9.f * GLOBAL::white_box_size().x ) // Position of grid of balls
                     {
                         new_pick = MapCorToGrid(pos);
                         rect_ptr->setOutlineThickness(0.0f);
@@ -149,10 +162,11 @@ int main()
                         if ( picked.first != -1 ) // -1 means no picked ball
                         {
                             // Set red outline on picked ball
-                            rect_ptr->setOutlineThickness(5.f);
+                            auto side_length = static_cast<float>(GLOBAL::white_box_size().x);
+                            rect_ptr->setOutlineThickness(0.07f * GLOBAL::white_box_size().x);
                             rect_ptr->setPosition(
-                                    static_cast<float>(320 + 70 * picked.second), // Scale picked ball to resolution
-                                    static_cast<float>(15 + 70 * picked.first));
+                                    static_cast<float>(0.3f * GLOBAL::get_width() + side_length * static_cast<float>(picked.second)), // Scale picked ball to resolution
+                                    static_cast<float>(0.02f * GLOBAL::get_height() + side_length * static_cast<float>(picked.first)));
 #if MULTITHREAD == 1
                             Waiter.set_and_wait(2, 0); // Game need update here
 #elif MULTITHREAD == 0
@@ -201,11 +215,9 @@ int main()
             // Refresh score and record points
             ptr_text = dynamic_cast<sf::Text *>(to_draw["score"].get());
             ptr_text->setString(std::to_string(old_score));
-            ptr_text->setPosition({120 - 4.0f * ptr_text->getString().getSize(), 140});
 
             ptr_text = dynamic_cast<sf::Text *>(to_draw["record"].get());
             ptr_text->setString(std::to_string(record));
-            ptr_text->setPosition({120 - 4.0f * ptr_text->getString().getSize(), 290});
 #if MULTITHREAD == 1
             Waiter.set_and_wait(2, 0);// Game need update here
 #elif MULTITHREAD == 0
