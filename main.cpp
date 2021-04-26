@@ -7,7 +7,7 @@
 #include <iostream>
 #include <unordered_map>
 
-static constexpr double VERSION = 1.02;
+static constexpr double VERSION = 1.021;
 
 #define FPS 0 // Show fps in console
 
@@ -52,8 +52,6 @@ int main()
     std::pair<char, char> new_pick = {-1, -1};
 
     Thread thread(Game, fps, picked, new_pick);
-    std::set<OperationType> Operation; //Operations that must be performed before drawing
-
 #if FPS == 1
     float fps_f;
     sf::Clock clock;
@@ -79,16 +77,16 @@ int main()
                 window.close();
             } else if ( event.type == sf::Event::Resized || event.type == sf::Event::GainedFocus )
             {
-                Operation.insert(OperationType::UPDATE);// Game need update here
+                thread.operation(OperationType::UPDATE);// Game need update here
             } else if ( event.type == sf::Event::MouseButtonPressed )
             {
                 if ( sf::Mouse::isButtonPressed(sf::Mouse::Left) )
                 {
-                    MOUSE::left_click(Operation,window, new_pick, picked, redbox, Game, to_draw);
+                    MOUSE::left_click(thread,window, new_pick, picked, redbox, Game, to_draw);
                 }
                 else if ( sf::Mouse::isButtonPressed(sf::Mouse::Right) ) // Right mouse click reset picked ball
                 {
-                    MOUSE::right_click(Operation,picked, redbox);
+                    MOUSE::right_click(thread,picked, redbox);
                 }
             }
         }
@@ -111,14 +109,13 @@ int main()
             ptr_text = dynamic_cast<sf::Text *>(to_draw["record"].get());
             ptr_text->setString(std::to_string(record));
 
-            Operation.insert(OperationType::UPDATE);// Game need update here
+            thread.operation(OperationType::UPDATE);// Game need update here
         }
-        for(auto op : Operation)
-            thread.operation(op);
-        Operation.clear();
+
         //If game need update draw it
         if ( Game.need_update() )
             draw_window(window, Game, to_draw);
+        
         window.display();
 #if FPS == 1
         prev = curr;

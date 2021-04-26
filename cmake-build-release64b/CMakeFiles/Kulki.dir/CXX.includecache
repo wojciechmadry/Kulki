@@ -196,6 +196,10 @@ crypt.hpp
 ../object/map.hpp
 ../src/object/map.hpp
 
+../src/function/mouse_click_event.hpp
+thread_wrapper.hpp
+../src/function/thread_wrapper.hpp
+
 ../src/function/random_generator.hpp
 ../babel/babel.hpp
 ../src/babel/babel.hpp
@@ -919,8 +923,8 @@ function/load.hpp
 F:/kulki/function/load.hpp
 object/red_box.hpp
 F:/kulki/object/red_box.hpp
-function/thread_wrapper.hpp
-F:/kulki/function/thread_wrapper.hpp
+function/mouse_click_event.hpp
+F:/kulki/function/mouse_click_event.hpp
 iostream
 -
 unordered_map

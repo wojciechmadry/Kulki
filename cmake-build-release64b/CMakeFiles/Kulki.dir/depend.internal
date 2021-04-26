@@ -28,6 +28,7 @@ CMakeFiles/Kulki.dir/main.cpp.obj
  ../src/function/crypt.hpp
  ../src/function/drawer.hpp
  ../src/function/load.hpp
+ ../src/function/mouse_click_event.hpp
  ../src/function/random_generator.hpp
  ../src/function/thread_wrapper.hpp
  ../src/function/waiter.hpp
