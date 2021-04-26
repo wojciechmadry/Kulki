@@ -1,1 +1,1 @@
--IG:/SFML/32bit/include -IF:/SFML/64bit/include -IF:/kulki/src 
+-IF:/SFML/32bit/include -IF:/SFML/64bit/include -IF:/kulki/src 

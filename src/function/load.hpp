@@ -30,17 +30,16 @@ std::pair<uint32_t, uint32_t> load_resolution() noexcept
         babel::FILE_SYS::close_file(f);
         return {1920u, 1020u};
     }
-    auto lines = babel::FILE_SYS::load_txt("resolution.cfg");
-    auto found = lines.find('\n');
-    if (found == std::string::npos)
+    auto lines = babel::FILE_SYS::load_txt_to_vector("resolution.cfg");
+    if (lines.size() != 2)
     {
         std::ofstream f("resolution.cfg");
         f << 1920 << '\n' << 1020;
         babel::FILE_SYS::close_file(f);
         return {1920u, 1020u};
     }
-    auto x = babel::ALGO::string_to<uint32_t>(lines.substr(0, found));
-    auto y = babel::ALGO::string_to<uint32_t>(lines.substr(found, lines.size()));;
+    auto x = babel::ALGO::string_to<uint32_t>(lines[0]);
+    auto y = babel::ALGO::string_to<uint32_t>(lines[1]);
     return {x, y};
 
 }

@@ -124,6 +124,12 @@ namespace babel::CONCEPTS{
     };
     //END
 
+    template<typename ATOMIC>
+    struct type_in_atomic
+    {
+        typedef decltype(ATOMIC()++) type;
+    };
+
     template< uint8_t bytes, bool IsSigned = true >
     class type_of_number
     {

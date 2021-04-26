@@ -82,7 +82,7 @@ public:
 
     void close_thread() noexcept
     {
-        _waiter.set_and_wait(static_cast<int>(OperationType::EXIT), static_cast<int>(OperationType::NOTHING));
+        operation(OperationType::EXIT);
         _th.join();
     }
 };

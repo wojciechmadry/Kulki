@@ -1,4 +1,4 @@
 ToolSet: 5.4 (local)@C:\MinGW
 Options: 
 
-Options:-DCMAKE_CXX_FLAGS=-target i686-pc-windows-gnu -std=c++20
+Options:-DCMAKE_CXX_COMPILER=C:/msys64/mingw64/bin/clang++.exe

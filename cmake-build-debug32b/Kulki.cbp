@@ -8,25 +8,25 @@
 		<Option virtualFolders="CMake Files\;CMake Files\src\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="F:/Kulki/cmake-build-debug32b"/>
+				<Option working_dir="F:/kulki/cmake-build-debug32b"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Kulki">
-				<Option output="F:/Kulki/cmake-build-debug32b/Kulki.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="F:/Kulki/cmake-build-debug32b"/>
+				<Option output="F:/kulki/cmake-build-debug32b/Kulki.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="F:/kulki/cmake-build-debug32b"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="clang"/>
 				<Compiler>
-					<Add option="-D__32BITVERSION__"/>
-					<Add directory="G:/SFML/32bit/include"/>
-					<Add directory="F:/Kulki/src"/>
+					<Add directory="F:/SFML/32bit/include"/>
+					<Add directory="F:/SFML/64bit/include"/>
+					<Add directory="F:/kulki/src"/>
 					<Add directory="C:/msys64/mingw64\include\c++\10.2.0"/>
 					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\x86_64-w64-mingw32"/>
 					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\backward"/>
@@ -35,22 +35,22 @@
 					<Add directory="C:/msys64/mingw64\include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 Kulki"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 Kulki"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Kulki/fast">
-				<Option output="F:/Kulki/cmake-build-debug32b/Kulki.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="F:/Kulki/cmake-build-debug32b"/>
+				<Option output="F:/kulki/cmake-build-debug32b/Kulki.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="F:/kulki/cmake-build-debug32b"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="clang"/>
 				<Compiler>
-					<Add option="-D__32BITVERSION__"/>
-					<Add directory="G:/SFML/32bit/include"/>
-					<Add directory="F:/Kulki/src"/>
+					<Add directory="F:/SFML/32bit/include"/>
+					<Add directory="F:/SFML/64bit/include"/>
+					<Add directory="F:/kulki/src"/>
 					<Add directory="C:/msys64/mingw64\include\c++\10.2.0"/>
 					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\x86_64-w64-mingw32"/>
 					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\backward"/>
@@ -59,41 +59,42 @@
 					<Add directory="C:/msys64/mingw64\include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 Kulki/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 Kulki/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="F:/Kulki/cmake-build-debug32b"/>
+				<Option working_dir="F:/kulki/cmake-build-debug32b"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="F:/Kulki/cmake-build-debug32b"/>
+				<Option working_dir="F:/kulki/cmake-build-debug32b"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="source">
-				<Option output="F:/Kulki/cmake-build-debug32b/src/libsource.a" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="F:/Kulki/cmake-build-debug32b/src"/>
+				<Option output="F:/kulki/cmake-build-debug32b/src/libsource.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="F:/kulki/cmake-build-debug32b/src"/>
 				<Option object_output="./"/>
 				<Option type="2"/>
 				<Option compiler="clang"/>
 				<Compiler>
 					<Add directory="G:/SFML/32bit/include"/>
-					<Add directory="F:/Kulki/src"/>
+					<Add directory="G:/SFML/64bit/include"/>
+					<Add directory="F:/kulki/src"/>
 					<Add directory="C:/msys64/mingw64\include\c++\10.2.0"/>
 					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\x86_64-w64-mingw32"/>
 					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\backward"/>
@@ -102,21 +103,22 @@
 					<Add directory="C:/msys64/mingw64\include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 source"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 source"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="source/fast">
-				<Option output="F:/Kulki/cmake-build-debug32b/src/libsource.a" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="F:/Kulki/cmake-build-debug32b/src"/>
+				<Option output="F:/kulki/cmake-build-debug32b/src/libsource.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="F:/kulki/cmake-build-debug32b/src"/>
 				<Option object_output="./"/>
 				<Option type="2"/>
 				<Option compiler="clang"/>
 				<Compiler>
 					<Add directory="G:/SFML/32bit/include"/>
-					<Add directory="F:/Kulki/src"/>
+					<Add directory="G:/SFML/64bit/include"/>
+					<Add directory="F:/kulki/src"/>
 					<Add directory="C:/msys64/mingw64\include\c++\10.2.0"/>
 					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\x86_64-w64-mingw32"/>
 					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\backward"/>
@@ -125,41 +127,41 @@
 					<Add directory="C:/msys64/mingw64\include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 source/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/Kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 source/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="F:/Kulki/main.cpp">
+		<Unit filename="F:/kulki/main.cpp">
 			<Option target="Kulki"/>
 		</Unit>
-		<Unit filename="F:/Kulki/src/babel/babel.hpp">
+		<Unit filename="F:/kulki/src/babel/babel.hpp">
 			<Option target="source"/>
 		</Unit>
-		<Unit filename="F:/Kulki/src/function/crypt.hpp">
+		<Unit filename="F:/kulki/src/function/crypt.hpp">
 			<Option target="source"/>
 		</Unit>
-		<Unit filename="F:/Kulki/src/function/drawer.hpp">
+		<Unit filename="F:/kulki/src/function/drawer.hpp">
 			<Option target="source"/>
 		</Unit>
-		<Unit filename="F:/Kulki/src/function/load.hpp">
+		<Unit filename="F:/kulki/src/function/load.hpp">
 			<Option target="source"/>
 		</Unit>
-		<Unit filename="F:/Kulki/src/function/random_generator.hpp">
+		<Unit filename="F:/kulki/src/function/random_generator.hpp">
 			<Option target="source"/>
 		</Unit>
-		<Unit filename="F:/Kulki/src/object/ball.hpp">
+		<Unit filename="F:/kulki/src/object/ball.hpp">
 			<Option target="source"/>
 		</Unit>
-		<Unit filename="F:/Kulki/src/object/map.hpp">
+		<Unit filename="F:/kulki/src/object/map.hpp">
 			<Option target="source"/>
 		</Unit>
-		<Unit filename="F:/Kulki/CMakeLists.txt">
+		<Unit filename="F:/kulki/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="F:/Kulki/src/CMakeLists.txt">
+		<Unit filename="F:/kulki/src/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\src\"/>
 		</Unit>
 	</Project>

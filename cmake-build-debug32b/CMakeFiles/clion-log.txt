@@ -1,4 +1,4 @@
-"F:\CLion\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug32 "-DCMAKE_CXX_FLAGS=-target i686-pc-windows-gnu -std=c++20" -G "CodeBlocks - MinGW Makefiles" F:\Kulki
+"F:\CLion\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=C:/msys64/mingw64/bin/clang++.exe -G "CodeBlocks - MinGW Makefiles" F:\kulki
 -- Configuring done
 -- Generating done
--- Build files have been written to: F:/Kulki/cmake-build-debug32b
+-- Build files have been written to: F:/kulki/cmake-build-debug32b

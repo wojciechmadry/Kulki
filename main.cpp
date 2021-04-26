@@ -7,7 +7,7 @@
 #include <iostream>
 #include <unordered_map>
 
-static constexpr double VERSION = 1.021;
+static constexpr double VERSION = 1.022;
 
 #define FPS 0 // Show fps in console
 
@@ -40,7 +40,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(GLOBAL::get_width(), GLOBAL::get_height()), title, sf::Style::Default,
                             settings);
 
-    auto fps = babel::MATH::min(load_fps(), 240u);
+    auto fps = babel::MATH::min(load_fps(), 244u);
     window.setFramerateLimit(fps);
     sf::Image icon;
     icon.loadFromFile("ball.png");

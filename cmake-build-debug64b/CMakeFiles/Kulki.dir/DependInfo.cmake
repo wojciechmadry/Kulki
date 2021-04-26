@@ -10,7 +10,7 @@ set(CMAKE_CXX_COMPILER_ID "Clang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "G:/SFML/32bit/include"
+  "F:/SFML/32bit/include"
   "F:/SFML/64bit/include"
   "../src"
   )

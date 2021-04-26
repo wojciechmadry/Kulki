@@ -67,10 +67,10 @@ RM = "F:\CLion\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = F:\Kulki
+CMAKE_SOURCE_DIR = F:\kulki
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = F:\Kulki\cmake-build-debug32b
+CMAKE_BINARY_DIR = F:\kulki\cmake-build-debug32b
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,14 +99,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /d F:\Kulki\cmake-build-debug32b && $(CMAKE_COMMAND) -E cmake_progress_start F:\Kulki\cmake-build-debug32b\CMakeFiles F:\Kulki\cmake-build-debug32b\src\CMakeFiles\progress.marks
-	cd /d F:\Kulki\cmake-build-debug32b && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/all
-	$(CMAKE_COMMAND) -E cmake_progress_start F:\Kulki\cmake-build-debug32b\CMakeFiles 0
+	cd /d F:\kulki\cmake-build-debug32b && $(CMAKE_COMMAND) -E cmake_progress_start F:\kulki\cmake-build-debug32b\CMakeFiles F:\kulki\cmake-build-debug32b\src\CMakeFiles\progress.marks
+	cd /d F:\kulki\cmake-build-debug32b && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/all
+	$(CMAKE_COMMAND) -E cmake_progress_start F:\kulki\cmake-build-debug32b\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /d F:\Kulki\cmake-build-debug32b && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/clean
+	cd /d F:\kulki\cmake-build-debug32b && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/clean
 .PHONY : clean
 
 # The main clean target
@@ -116,22 +116,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /d F:\Kulki\cmake-build-debug32b && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/preinstall
+	cd /d F:\kulki\cmake-build-debug32b && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /d F:\Kulki\cmake-build-debug32b && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/preinstall
+	cd /d F:\kulki\cmake-build-debug32b && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /d F:\Kulki\cmake-build-debug32b && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
+	cd /d F:\kulki\cmake-build-debug32b && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/CMakeFiles/source.dir/rule:
-	cd /d F:\Kulki\cmake-build-debug32b && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/CMakeFiles/source.dir/rule
+	cd /d F:\kulki\cmake-build-debug32b && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/CMakeFiles/source.dir/rule
 .PHONY : src/CMakeFiles/source.dir/rule
 
 # Convenience name for target.
@@ -141,7 +141,7 @@ source: src/CMakeFiles/source.dir/rule
 
 # fast build rule for target.
 source/fast:
-	cd /d F:\Kulki\cmake-build-debug32b && $(MAKE) $(MAKESILENT) -f src\CMakeFiles\source.dir\build.make src/CMakeFiles/source.dir/build
+	cd /d F:\kulki\cmake-build-debug32b && $(MAKE) $(MAKESILENT) -f src\CMakeFiles\source.dir\build.make src/CMakeFiles/source.dir/build
 .PHONY : source/fast
 
 # Help Target
@@ -164,6 +164,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /d F:\Kulki\cmake-build-debug32b && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
+	cd /d F:\kulki\cmake-build-debug32b && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

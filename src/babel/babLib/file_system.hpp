@@ -88,6 +88,20 @@ namespace babel::FILE_SYS{
         return filename.find(contain) != std::string::npos;
     }
 
+    std::vector<std::string> load_txt_to_vector(const std::string& filename) noexcept
+    {
+        std::vector<std::string> _out;
+        std::ifstream file(filename, std::ios::in | std::ios::binary);
+        if (!(file.good() && file.is_open()))
+            return {};
+        _out.emplace_back("");
+        while(std::getline(file, _out[_out.size() - 1]))
+            _out.emplace_back("");
+        _out.pop_back();
+        close_file(file);
+        return _out;
+    }
+
     std::string load_txt(const std::string& filename) noexcept
     {
         std::string out, line;
