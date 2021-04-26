@@ -22,10 +22,13 @@ CMakeFiles/Kulki.dir/main.cpp.obj: ../src/babel/babel.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: ../src/function/crypt.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: ../src/function/drawer.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: ../src/function/load.hpp
+CMakeFiles/Kulki.dir/main.cpp.obj: ../src/function/mouse_click_event.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: ../src/function/random_generator.hpp
+CMakeFiles/Kulki.dir/main.cpp.obj: ../src/function/thread_wrapper.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: ../src/function/waiter.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: ../src/object/ball.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: ../src/object/map.hpp
+CMakeFiles/Kulki.dir/main.cpp.obj: ../src/object/red_box.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: F:/SFML/64bit/include/SFML/Config.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: F:/SFML/64bit/include/SFML/Graphics.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: F:/SFML/64bit/include/SFML/Graphics/BlendMode.hpp

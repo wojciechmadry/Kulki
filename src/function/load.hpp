@@ -9,6 +9,7 @@
 #include <string>
 #include <filesystem>
 #include "crypt.hpp"
+#include "../object/map.hpp"
 
 // load font
 sf::Font load_font(const std::string &path)
@@ -19,6 +20,30 @@ sf::Font load_font(const std::string &path)
     return font;
 }
 
+std::pair<uint32_t, uint32_t> load_resolution() noexcept
+{
+    namespace fs = std::filesystem;
+    if ( !fs::exists("resolution.cfg") )
+    {
+        std::ofstream f("resolution.cfg");
+        f << 1920 << '\n' << 1020;
+        babel::FILE_SYS::close_file(f);
+        return {1920u, 1020u};
+    }
+    auto lines = babel::FILE_SYS::load_txt("resolution.cfg");
+    auto found = lines.find('\n');
+    if (found == std::string::npos)
+    {
+        std::ofstream f("resolution.cfg");
+        f << 1920 << '\n' << 1020;
+        babel::FILE_SYS::close_file(f);
+        return {1920u, 1020u};
+    }
+    auto x = babel::ALGO::string_to<uint32_t>(lines.substr(0, found));
+    auto y = babel::ALGO::string_to<uint32_t>(lines.substr(found, lines.size()));;
+    return {x, y};
+
+}
 uint32_t load_fps() noexcept
 {
     namespace fs = std::filesystem;
@@ -26,20 +51,10 @@ uint32_t load_fps() noexcept
     {
         std::ofstream f("fps.cfg");
         f << 30;
-        f.close();
+        babel::FILE_SYS::close_file(f);
         return 30u;
     }
-    std::ifstream f("fps.cfg");
-    if ( !f.is_open() )
-    {
-        std::ofstream ff("fps.cfg");
-        ff << 30;
-        ff.close();
-        return 30u;
-    }
-    std::string line;
-    std::getline(f, line);
-    return babel::ALGO::string_to<uint32_t>(line);
+    return babel::ALGO::string_to<uint32_t>(babel::FILE_SYS::load_txt("fps.cfg"));
 
 }
 
@@ -55,7 +70,7 @@ uint16_t check_for_record()
     {
         std::ofstream f("kulki.bin");
         f << crypt(0);
-        f.close();
+        babel::FILE_SYS::close_file(f);
     }
     std::ifstream file("kulki.bin");
     if ( !file.is_open() )
@@ -66,15 +81,15 @@ uint16_t check_for_record()
         std::string line;
         std::getline(file, line);
         decoded = decrypt(line);
-        file.close();
+        babel::FILE_SYS::close_file(file);
     }
     catch ( ... )
     {
-        file.close();
+        babel::FILE_SYS::close_file(file);
         std::ofstream f("kulki.bin");
         f << crypt(0);
         decoded = 0;
-        f.close();
+        babel::FILE_SYS::close_file(f);
     }
 
     return decoded;
@@ -87,7 +102,7 @@ void save_record(uint16_t new_record)
     if ( !( f.is_open() && f.good() ) )
         throw std::out_of_range("Cant open kulki.bin");
     f << crypt(new_record);
-    f.close();
+    babel::FILE_SYS::close_file(f);
 }
 
 map load_map() noexcept
@@ -125,6 +140,7 @@ map load_map() noexcept
             for ( uint32_t j = 0 ; j < 9 ; ++j )
                 Result.grid[i][j] = _decrypt(line.substr(j * 40, 40));
         }
+        babel::FILE_SYS::close_file(f);
         Result.score = score;
         Result._filled = filled;
         Result.set_update(true);
@@ -178,7 +194,7 @@ void save_map(const map &Map) noexcept
             f << encrypt(static_cast<size_t>(Map.at(i, j).enum_color()));
         f << '\n';
     }
-
+    babel::FILE_SYS::close_file(f);
 }
 
 #endif //KULKI_LOAD_HPP

@@ -9,6 +9,7 @@
 #include <thread>
 #include <atomic>
 #include "../babel/babel.hpp"
+#include "drawer.hpp"
 
 template<typename ATOMIC_TYPE>
 class waiter

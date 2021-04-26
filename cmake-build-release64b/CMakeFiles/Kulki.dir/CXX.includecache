@@ -193,6 +193,8 @@ filesystem
 -
 crypt.hpp
 ../src/function/crypt.hpp
+../object/map.hpp
+../src/object/map.hpp
 
 ../src/function/random_generator.hpp
 ../babel/babel.hpp
@@ -204,6 +206,10 @@ cmath
 algorithm
 -
 
+../src/function/thread_wrapper.hpp
+function/waiter.hpp
+../src/function/function/waiter.hpp
+
 ../src/function/waiter.hpp
 chrono
 -
@@ -213,6 +219,8 @@ atomic
 -
 ../babel/babel.hpp
 ../src/babel/babel.hpp
+drawer.hpp
+../src/function/drawer.hpp
 
 ../src/object/ball.hpp
 cstdint
@@ -228,6 +236,10 @@ SFML/Graphics.hpp
 ball.hpp
 ../src/object/ball.hpp
 iostream
+-
+
+../src/object/red_box.hpp
+SFML/Graphics.hpp
 -
 
 F:/SFML/64bit/include/SFML/Config.hpp
@@ -903,14 +915,14 @@ F:/SFML/64bit/include/SFML/Window/WindowStyle.hpp
 F:/kulki/main.cpp
 SFML/Graphics.hpp
 -
-function/drawer.hpp
-F:/kulki/function/drawer.hpp
 function/load.hpp
 F:/kulki/function/load.hpp
+object/red_box.hpp
+F:/kulki/object/red_box.hpp
+function/thread_wrapper.hpp
+F:/kulki/function/thread_wrapper.hpp
 iostream
 -
 unordered_map
 -
-function/waiter.hpp
-F:/kulki/function/waiter.hpp
 

@@ -29,9 +29,11 @@ CMakeFiles/Kulki.dir/main.cpp.obj
  ../src/function/drawer.hpp
  ../src/function/load.hpp
  ../src/function/random_generator.hpp
+ ../src/function/thread_wrapper.hpp
  ../src/function/waiter.hpp
  ../src/object/ball.hpp
  ../src/object/map.hpp
+ ../src/object/red_box.hpp
  F:/SFML/64bit/include/SFML/Config.hpp
  F:/SFML/64bit/include/SFML/Graphics.hpp
  F:/SFML/64bit/include/SFML/Graphics/BlendMode.hpp

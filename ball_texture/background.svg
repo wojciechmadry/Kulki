@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="background.svg"
+   inkscape:export-filename="F:\kulki\ball_texture\background.png"
+   inkscape:export-xdpi="362.85715"
+   inkscape:export-ydpi="362.85715">
+  <defs
+     id="defs2">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="481.92157 : 106.15719 : 1"
+       inkscape:vp_y="0 : 265.68978 : 0"
+       inkscape:vp_z="561.22097 : 106.15719 : 1"
+       inkscape:persp3d-origin="521.57127 : 93.005537 : 1"
+       id="perspective3195" />
+    <linearGradient
+       id="linearGradient2779"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#08989a;stop-opacity:1;"
+         offset="0"
+         id="stop2777" />
+    </linearGradient>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter3137"
+       x="-0.016497032"
+       width="1.0329941"
+       y="-0.029328058"
+       height="1.0586561">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="13.197626"
+         id="feGaussianBlur3139" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.64"
+     inkscape:cx="461.34824"
+     inkscape:cy="634.62182"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1560"
+     inkscape:window-height="1041"
+     inkscape:window-x="55"
+     inkscape:window-y="143"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Warstwa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#08989a;fill-opacity:1;fill-rule:evenodd;stroke:#007f94;stroke-width:20;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:377.953;stroke-opacity:1;paint-order:markers stroke fill;filter:url(#filter3137)"
+       id="rect833"
+       width="1920"
+       height="1080"
+       x="-100.54166"
+       y="-136.07143"
+       transform="matrix(0.09980941,0,0,0.09980941,16.866937,20.080016)" />
+    <path
+       sodipodi:type="spiral"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.0264079"
+       id="path3141"
+       sodipodi:cx="173.5085"
+       sodipodi:cy="95.413078"
+       sodipodi:expansion="1"
+       sodipodi:revolution="3"
+       sodipodi:radius="23.48847"
+       sodipodi:argument="-18.545046"
+       sodipodi:t0="0"
+       d="m 173.5085,95.413078 c 1.12349,0.353098 0.0783,1.688654 -0.58687,1.867322 -1.80264,0.484179 -3.14195,-1.449573 -3.14777,-3.041063 -0.0104,-2.846804 2.863,-4.68012 5.49525,-4.428223 3.86294,0.369667 6.24927,4.290324 5.70868,7.949448 -0.72054,4.877038 -5.72189,7.830748 -10.40364,6.989128 -5.89151,-1.0591 -9.41843,-7.15531 -8.26958,-12.857837 1.39141,-6.906523 8.58973,-11.009656 15.31202,-9.550026 7.92199,1.720124 12.60312,10.024785 10.83048,17.766213 -2.04658,8.9378 -11.46025,14.19806 -20.22041,12.11093 -9.95385,-2.37153 -15.79404,-12.896011 -13.39138,-22.6746 2.69543,-10.970098 14.332,-17.390785 25.1288,-14.671829 11.9865,3.018557 18.98809,15.768133 15.95228,27.582989" />
+    <text
+       xml:space="preserve"
+       style="font-size:1.05631px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;stroke-width:0.0264079"
+       x="193.01768"
+       y="113.36794"
+       id="text3227"><tspan
+         sodipodi:role="line"
+         id="tspan3225"
+         x="193.01768"
+         y="113.36794"
+         style="stroke-width:0.0264079">© Wojtek</tspan></text>
+  </g>
+</svg>
