@@ -276,7 +276,7 @@ sf::Text make_text(const std::string &text, const sf::Vector2f &pos, const sf::C
 }
 
 
-void draw_started_object(std::unordered_map<std::string, std::unique_ptr<sf::Drawable>> &_drawer, const sf::Font &font)
+void draw_started_object(std::unordered_map<std::string, std::unique_ptr<sf::Drawable>> &_drawer, const sf::Font &font, const uint16_t record, const uint16_t score) noexcept
 {
     auto width = static_cast<float>(GLOBAL::get_width());
     auto height = static_cast<float>(GLOBAL::get_height());
@@ -295,10 +295,10 @@ void draw_started_object(std::unordered_map<std::string, std::unique_ptr<sf::Dra
                       sf::Color::Blue, Font_Size * 0.75f, font));
     //This is map object to draw actually record (Only what you need to change is text
     _drawer["record"] = std::make_unique<sf::Text>(
-            make_text("0", {0.116f * width, 0.43f * height}, sf::Color::White, 0.80f * Font_Size, font));
+            make_text(std::to_string(record), {0.116f * width, 0.43f * height}, sf::Color::White, 0.80f * Font_Size, font));
     //This is map object to draw score on actually game (Only what you need to change is text
     _drawer["score"] = std::make_unique<sf::Text>(
-            make_text("0", {0.116f * width, 0.2f * height}, sf::Color::White, 0.80f * Font_Size, font));
+            make_text(std::to_string(score), {0.116f * width, 0.2f * height}, sf::Color::White, 0.80f * Font_Size, font));
     //"Pseudo button", when you click it new game has started.
     sf::Vector2<float> new_game_pos = {x_start, 0.85f * height};
     _drawer["..newgame"] = std::make_unique<sf::Text>(
@@ -333,7 +333,7 @@ void draw_started_object(std::unordered_map<std::string, std::unique_ptr<sf::Dra
 // and return value is cor {x, y} on grid
 // cor = {320, 15} or cor {325, 15} etc. will show the same position {x, y} on grid
 // Every square of grid is 70x70 pixel.
-std::pair<int8_t, int8_t> MapCorToGrid(const sf::Vector2<float> cor)
+std::pair<int8_t, int8_t> MapCorToGrid(const sf::Vector2<float> cor) noexcept
 {
     auto low_x = 0.3f * GLOBAL::get_width();
     auto low_y = 0.02f * GLOBAL::get_height();
