@@ -5,6 +5,7 @@
 
 
 namespace babel::MATRIX{
+    static constexpr const char* READ_BEFORE_USE = "babel::MATRIX is not ended !!! Work in progress";
     template< typename T >
     requires babel::CONCEPTS::IS_ARITHMETIC<T>
     class matrix

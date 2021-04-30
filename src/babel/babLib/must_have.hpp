@@ -8,7 +8,6 @@
 #include <filesystem>
 #include <utility>
 #include <stdexcept>
-#include <Windows.h>
 #include <variant>
 #include "container/list.hpp"
 #include "container/dynamic_array.hpp"
@@ -21,6 +20,9 @@
 #include <list>
 #include <random>
 
+#ifdef _WIN32
+    #include <Windows.h>
+#endif
 namespace _BABEL_PRIVATE_DO_NOT_USE //NOLINT
 {
 

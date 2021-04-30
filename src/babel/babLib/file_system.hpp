@@ -76,9 +76,9 @@ namespace babel::FILE_SYS{
 
     /**
 *  @brief  ex.: filename = "test.txt" /
-*    contain = "te" -> return 1 /
-*    contain = "txt" -> return 1/
-*    contain = "test.txtt" -> return 0
+*    \Example_1 contain = "te" -> return 1 /
+*    \Example_2 contain = "txt" -> return 1/
+*   \Example_3 contain = "test.txtt" -> return 0
 *  @param  filename filename with extension or without.
 *  @param  contain text we want to find in filename.
 *  @return If filename contains contain return 1 otherwise return 0
@@ -88,6 +88,11 @@ namespace babel::FILE_SYS{
         return filename.find(contain) != std::string::npos;
     }
 
+    /**
+*  @brief  Load file to std::vector, size of vector = number of lines in file
+*  @param  filename File to load
+*  @return Loaded file to vector
+*/
     std::vector<std::string> load_txt_to_vector(const std::string& filename) noexcept
     {
         std::vector<std::string> _out;
@@ -102,6 +107,11 @@ namespace babel::FILE_SYS{
         return _out;
     }
 
+    /**
+*  @brief  Load file to std::string, every line is end with new line
+*  @param  filename File to load
+*  @return Loaded file to string
+*/
     std::string load_txt(const std::string& filename) noexcept
     {
         std::string out, line;

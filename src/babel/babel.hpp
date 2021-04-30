@@ -15,7 +15,10 @@
 #include "babLib/request/request.hpp"
 #include "babLib/graphics/graphics.hpp"
 
+#ifdef _WIN32
+#include "babLib/windows/windowsConv.hpp"
+#endif
 namespace babel{
-    static constexpr const double VERSION = 1.01;
+    static constexpr const double VERSION = 1.08;
 }
 #endif

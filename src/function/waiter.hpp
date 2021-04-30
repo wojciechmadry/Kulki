@@ -14,15 +14,15 @@
 template<typename ATOMIC_TYPE>
 class waiter
 {
-    uint16_t _fps;
+    uint32_t _fps;
     ATOMIC_TYPE* _at;
     using StorageType = decltype(ATOMIC_TYPE()++);
 public:
     waiter() = delete;
-    waiter(ATOMIC_TYPE& Status, const uint16_t refresh_rate) noexcept
+    waiter(ATOMIC_TYPE& Status, const uint32_t refresh_rate) noexcept
     : _at(&Status)
     {
-        _fps = 1000 / babel::MATH::min(refresh_rate, 244);
+        _fps = 1000 / babel::MATH::min(refresh_rate, 244u);
     }
 
     void wait(const StorageType expectValue) noexcept

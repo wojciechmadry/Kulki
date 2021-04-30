@@ -46,7 +46,7 @@ class ball
                 _color[static_cast<byte>(Color)][0],
                 _color[static_cast<byte>(Color)][1],
                 _color[static_cast<byte>(Color)][2],
-                ( alpha == -1 ? _color[static_cast<byte>(Color)][3] : alpha )
+                ( alpha == -1 ? _color[static_cast<byte>(Color)][3] : static_cast<sf::Uint8>(alpha) )
         );
     }
 

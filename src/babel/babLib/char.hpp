@@ -136,6 +136,10 @@ namespace babel::CHAR{
 
         /**
          * @brief Check if char storage number 0-9
+         * \Example_1 '9' -> ture
+         * \Example_2 '3' -> ture
+         * \Example_3 'c' -> false
+         * \Example_4  9 -> false
          * */
         [[nodiscard]] constexpr bool is_number() const noexcept
         {
@@ -144,6 +148,10 @@ namespace babel::CHAR{
 
         /**
          * @brief Check if char storage a-z or A-Z
+         * \Example_1 'A' -> ture
+         * \Example_2 'B' -> ture
+         * \Example_3 'c' -> true
+         * \Example_4 '5' -> false
          * */
         [[nodiscard]] constexpr bool is_alphabetical() const noexcept
         {
@@ -152,6 +160,10 @@ namespace babel::CHAR{
 
         /**
         * @brief Check if char storage a-z
+         * \Example_1 'A' -> false
+         * \Example_2 'B' -> false
+         * \Example_3 'c' -> true
+         * \Example_4 '5' -> false
         * */
         [[nodiscard]] constexpr bool is_lower() const noexcept
         {
@@ -160,6 +172,10 @@ namespace babel::CHAR{
 
         /**
         * @brief Check if char storage A-Z
+         * \Example_1 'A' -> ture
+         * \Example_2 'B' -> ture
+         * \Example_3 'c' -> false
+         * \Example_4 '5' -> false
         * */
         [[nodiscard]] constexpr bool is_upper() const noexcept
         {
@@ -168,6 +184,9 @@ namespace babel::CHAR{
 
         /**
         * @brief Check if char is equal to ' '
+         * \Example_1 ' ' -> true
+         * \Example_2 'c' -> false
+         * @return If _member == ' ' return true
         * */
         [[nodiscard]]constexpr bool is_space() const noexcept
         {
@@ -176,6 +195,10 @@ namespace babel::CHAR{
 
         /**
         * @brief If char is not alphabetical function throw in otherwise return upper letter
+         * \Example_1 'a' -> 'A'
+         * \Example_2 'b' -> 'B'
+         * \Example_2 '5' -> throw IS_NOT_ALPHABETICAL
+          @return upper letter
         * */
         [[nodiscard]]constexpr char to_upper() const
         {
@@ -188,6 +211,10 @@ namespace babel::CHAR{
 
         /**
          * @brief If char is not alphabetical function throw in otherwise return lower letter
+         * \Example_1 'A' -> 'a'
+         * \Example_2 'B' -> 'b'
+         * \Example_2 '5' -> throw IS_NOT_ALPHABETICAL
+         * @return lower letter
          * */
         [[nodiscard]] constexpr char to_lower() const
         {
@@ -200,6 +227,9 @@ namespace babel::CHAR{
 
         /**
          * @brief If char is not a number(0-9) function throw in otherwise return number convert to int
+         * \Example_1 stored element is '5' -> return 5
+         * \Example_2 stored element is '3' -> return 3
+         * \Example_3 stored element is 'a' -> throw IS_NOT_NUMBER
          * @return Number 0-9
          * */
         [[nodiscard]]constexpr int to_int_number() const
@@ -211,6 +241,8 @@ namespace babel::CHAR{
 
         /**
          * @brief Set char to number 0-9
+         * \Example_1 set_number(0) -> stored number is '0'
+         * \Example_2 set_number(5) -> stored number is '5'
          * @param number Number 0-9
          * */
         constexpr void set_number(const int number) noexcept

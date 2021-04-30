@@ -26,6 +26,12 @@ namespace babel::TEXT{
 
         text() noexcept = default;
 
+        /**
+*  @brief  Copy string Str to string stored in class or load text from file
+*  @param  const std::string& Str String to stored in class or filename
+*  @param  isFilename if == true, then load text from file Str
+*  @return No return
+*/
         explicit text(const std::string& Str, const bool IsFilename = false) noexcept
         {
             if (!IsFilename)
@@ -34,6 +40,12 @@ namespace babel::TEXT{
                 _set_text(babel::FILE_SYS::load_txt(Str));
         }
 
+        /**
+*  @brief  Move string Str to string stored in class or load text from file
+*  @param  std::string&& Str String to stored in class or filename
+*  @param  isFilename if == true, then load text from file Str
+*  @return No return
+*/
         explicit text(std::string&& Str, const bool IsFilename = false) noexcept
         {
             if (!IsFilename)
@@ -47,41 +59,73 @@ namespace babel::TEXT{
             clear();
         }
 
+
+        /**
+*  @brief  Copy string Str to string stored in class
+*  @param  const std::string& Str String to stored in class
+*  @return No return
+*/
         void set_text(const std::string& Str) noexcept
         {
             _set_text(Str);
         }
 
+
+        /**
+*  @brief  Move string Str to string stored in class
+*  @param  std::string&& Str String to stored in class
+*  @return No return
+*/
         void set_text(std::string&& Str) noexcept
         {
             _set_text(std::move(Str));
         }
 
+        /**
+*  @brief Load string from file
+*  @param  filename File to load
+*  @return No return
+*/
         void load_from_file(const std::string& filename) noexcept
         {
             _set_text(babel::FILE_SYS::load_txt(filename));
         }
 
-        [[nodiscard]] size_t count(const char Char) const noexcept
+        /**
+*  @brief Count a specific character
+         *  \Example_1 str = "test" -> count('t') -> 2
+*  @param  Char character to count
+*  @return Numbers of character in stored string
+*/
+        [[nodiscard]] size_t count(const uint8_t Char) const noexcept
         {
-            return _lett[Char].size();
+            return _lett[static_cast<std::size_t>(Char)].size();
         }
 
+        /**
+*  @brief Clear string and vector in class
+*  @return No return
+*/
         void clear() noexcept
         {
             _clear_vector();
             _str.clear();
         }
 
+        /**
+*  @brief Find string in stored string
+*  @param  to_find String to find in stored string
+*  @return If string will be found then return pointer to first character in string in otherwise return nullptr
+*/
         [[nodiscard]] const char * find(const std::string& to_find) const noexcept
         {
             if(to_find.empty())
                 return nullptr;
 
-            for(size_t i = 0 ; i < _lett[to_find[0]].size() ; ++i)
+            for(size_t i = 0 ; i < _lett[static_cast<std::size_t>(static_cast<uint8_t>(to_find[0]))].size() ; ++i)
             {
                 size_t j;
-                char* ptr = _lett[to_find[0]][i];
+                char* ptr = _lett[static_cast<std::size_t>(static_cast<uint8_t>(to_find[0]))][i];
                 bool same = true;
                 for(j = 0 ; j < to_find.size() && *ptr != '\0'; ++j, ++ptr)
                     if (to_find[j] != *ptr)
@@ -90,13 +134,17 @@ namespace babel::TEXT{
                         break;
                     }
                 if (same && j == to_find.size())
-                    return _lett[to_find[0]][i];
+                    return _lett[static_cast<std::size_t>(static_cast<uint8_t>(to_find[0]))][i];
 
             }
 
             return nullptr;
         }
 
+        /**
+*  @brief Get string stored in class
+*  @return Return const std::string stored in class
+*/
         [[nodiscard]] const std::string& get_string() const noexcept
         {
             return _str;

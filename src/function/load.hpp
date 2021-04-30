@@ -141,7 +141,7 @@ map load_map() noexcept
         }
         babel::FILE_SYS::close_file(f);
         Result.score = score;
-        Result._filled = filled;
+        Result._filled = static_cast<byte>(filled);
         Result.set_update(true);
         if ( Result.check_for_score() )
             return map();

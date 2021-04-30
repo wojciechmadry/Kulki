@@ -13,28 +13,45 @@ namespace babel::TIME{
             start();
         }
 
+        /**
+*  @brief  Start counting time.
+*  @return No return
+*/
         void start() noexcept
         {
             time = std::chrono::high_resolution_clock::now();
         }
 
+        /**
+*  @return Get time in seconds
+*/
         [[nodiscard]]long double get_time() const noexcept
         {
             return std::chrono::duration<long double>(std::chrono::high_resolution_clock::now() - ( time )).count();
         }
 
+
+        /**
+*  @return Get time in nanoseconds
+*/
         [[nodiscard]]long long get_time_ns() const noexcept
         {
             return std::chrono::duration_cast<std::chrono::nanoseconds>(
                     std::chrono::high_resolution_clock::now() - ( time )).count();
         }
 
+        /**
+*  @return Get time in milliseconds
+*/
         [[nodiscard]]long long get_time_mili() const noexcept
         {
             return std::chrono::duration_cast<std::chrono::milliseconds>(
                     std::chrono::high_resolution_clock::now() - ( time )).count();
         }
 
+        /**
+*  @return Get time in microseconds
+*/
         [[nodiscard]]long long get_time_micro() const noexcept
         {
             return std::chrono::duration_cast<std::chrono::microseconds>(
@@ -46,6 +63,13 @@ namespace babel::TIME{
     };
 
 
+    /**
+*  @brief  Call function N times and measure time.
+*  @param  times How many times you want call function
+*  @param  f Function to call
+*  @param  arg argument to function, f(arg...)
+*  @return Return measured time in seconds
+*/
     template< typename Func, typename ... args >
     long double measure_time(const size_t times, Func f, args &&...  arg)
     {

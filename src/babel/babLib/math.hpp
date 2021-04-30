@@ -6,19 +6,36 @@
 namespace babel::MATH{
     namespace DERIVATIVE{
         namespace FIRST{
-
+            /**
+*  @brief  Calculate first derivative by definition
+*  @param func The function from which we calculate the derivative
+              *  @param h Small value h -> 0
+*  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
+*/
             template< typename Function, typename TYPE = double >
             auto by_definiton(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto { return ( func(x + h) - func(x) ) / h; };
             }
 
+            /**
+*  @brief  Calculate first derivative in three point
+*  @param func The function from which we calculate the derivative
+  *  @param h Small value h -> 0
+*  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
+*/
             template< typename Function, typename TYPE = double >
             auto three_point(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto { return ( func(x + h) - func(x - h) ) / ( 2.0 * h ); };
             }
 
+            /**
+*  @brief  Calculate first derivative in five point
+*  @param func The function from which we calculate the derivative
+*  @param h Small value h -> 0
+*  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
+*/
             template< typename Function, typename TYPE = double >
             auto five_point(const Function func, const double h = 0.00001) noexcept
             {
@@ -28,6 +45,12 @@ namespace babel::MATH{
                 };
             }
 
+            /**
+*  @brief  Calculate first forward derivative
+*  @param func The function from which we calculate the derivative
+*  @param h Small value h -> 0
+*  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
+*/
             template< typename Function, typename TYPE = double >
             auto forward(const Function func, const double h = 0.00001) noexcept
             {
@@ -36,12 +59,24 @@ namespace babel::MATH{
                 };
             }
 
+            /**
+*  @brief  Calculate first central derivative
+*  @param func The function from which we calculate the derivative
+*  @param h Small value h -> 0
+*  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
+*/
             template< typename Function, typename TYPE = double >
             auto central(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto { return ( func(x + h) - func(x - h) ) / ( 2.0 * h ); };
             }
 
+            /**
+*  @brief  Calculate first backward derivative
+*  @param func The function from which we calculate the derivative
+*  @param h Small value h -> 0
+*  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
+*/
             template< typename Function, typename TYPE = double >
             auto backward(const Function func, const double h = 0.00001) noexcept
             {
@@ -51,6 +86,12 @@ namespace babel::MATH{
             }
         }
         namespace SECOND{
+            /**
+*  @brief  Calculate second derivative in three point
+*  @param func The function from which we calculate the second derivative
+*  @param h Small value h -> 0
+*  @return Returns a function that takes one parameter of x, that evaluates to the second derivative of.
+*/
             template< typename Function, typename TYPE = double >
             auto three_point(const Function func, const double h = 0.00001) noexcept
             {
@@ -59,6 +100,12 @@ namespace babel::MATH{
                 };
             }
 
+            /**
+*  @brief  Calculate second derivative in five point
+*  @param func The function from which we calculate the second derivative
+*  @param h Small value h -> 0
+*  @return Returns a function that takes one parameter of x, that evaluates to the second derivative of.
+*/
             template< typename Function, typename TYPE = double >
             auto five_point(const Function func, const double h = 0.00001) noexcept
             {
@@ -112,6 +159,8 @@ namespace babel::MATH{
 
     /**
     *  @brief  Convert negative number to positive.
+     *  \Example_1 abs(-5) -> 5
+     *  \Example_2 abs(7) -> 7
     *  @param  v Number can be positive or negative.
     * Must be arithmetic
     *  @return Return absolute value of number
@@ -126,6 +175,8 @@ namespace babel::MATH{
 
     /**
     *  @brief  Compare two number
+     *  \Example_1 max(-3, 5) -> 5
+     *  \Example_2 max(7, 20) -> 20
     *  @param  value1 First number
     *  @param  value2 Second number
     *  @return Return greater number
@@ -140,6 +191,8 @@ namespace babel::MATH{
 
     /**
 *  @brief  Compare more than two number (its the worst method)
+     *  \Example_1 max(-3, 5,12 ,5 , 3) -> 12
+     *  \Example_2 max(7, 20,4, 8) -> 20
 *  @param  value1 First number
 *  @param  value2 Second number
 *  @param  arg    all other number
@@ -163,6 +216,8 @@ namespace babel::MATH{
 
     /**
     *  @brief  Compare two number
+     *  \Example_1 min(-3, 5) -> -3
+     *  \Example_2 min(7, 20) -> 8
     *  @param  value1 First number
     *  @param  value2 Second number
     *  @return Return lowest number
@@ -176,6 +231,8 @@ namespace babel::MATH{
 
     /**
 *  @brief  Compare more than two number (its the worst method)
+      *  \Example_1 min(-3, 5,12 ,5 , 3) -> -3
+     *  \Example_2 min(7, 20,4, 8) -> 4
 *  @param  value1 First number
 *  @param  value2 Second number
 *  @param  arg    all other number
@@ -198,7 +255,9 @@ namespace babel::MATH{
 
     /**
     *  @brief  Compare few number
-    *  @param   init_list Initializer list of numbers
+     *  \Example_1 max({-3, 5,12 ,5 , 3}) -> 12
+     *  \Example_2 max({7, 20,4, 8}) -> 20
+    *  @param   Container  of numbers
     *  @return Return the largest number
     */
     template< typename T, typename U = typename babel::CONCEPTS::type_in<T>::type >
@@ -219,7 +278,9 @@ namespace babel::MATH{
 
     /**
    *  @brief  Compare few number
-   *  @param   init_list Initializer list of numbers
+     *  \Example_1 min({-3, 5,12 ,5 , 3}) -> -3
+     *  \Example_2 min({7, 20,4, 8}) -> 4
+   *  @param   Container of numbers
    *  @return Return the smallest number
    */
     template< typename T, typename U = typename babel::CONCEPTS::type_in<T>::type >
@@ -240,6 +301,8 @@ namespace babel::MATH{
 
     /**
    *  @brief  Check if number is negative
+     *  \Example_1 is_neg(5) -> false
+     *  \Example_2 is_neg(-5) -> true
    *  @param   val A number
    *  @return If val is negative return 1 otherwise return 0
    */
@@ -250,8 +313,9 @@ namespace babel::MATH{
     }
 
     /**
-    *  @brief  ex.: n = 3, return : 1 * 2 * 3
-    *  @param   n Factorial of n
+*  @brief  Return factorial of n calculate in compiler time
+     *  \Example_1 n = 3, return : 1 * 2 * 3
+     *  \Example_2 n = 4, return : 1 * 2 * 3 * 4
     *  @return Factorial N
     */
     template< uint64_t N >
@@ -264,12 +328,14 @@ namespace babel::MATH{
     }
 
     /**
-*  @brief  ex.: n = 3, return : 1 * 2 * 3
+*  @brief  Return factorial of n
+     *  \Example_1 n = 3, return : 1 * 2 * 3
+     *  \Example_2 n = 4, return : 1 * 2 * 3 * 4
 *  @param   n Factorial of n
 *  @return Factorial N
 */
 
-    constexpr uint64_t factorial(size_t N) noexcept
+    [[nodiscard]] constexpr uint64_t factorial(size_t N) noexcept
     {
         uint64_t res = 1;
         while ( N > 1 )
@@ -281,6 +347,11 @@ namespace babel::MATH{
         return res;
     }
 
+    /**
+*  @brief  Calculate binomial coefficient
+     *  n >= k >= 0
+*  @return Binomial coefficient
+*/
     constexpr double binomial_coefficient(const uint64_t N, const uint64_t K)
     {
         if ( K > N )
@@ -288,6 +359,11 @@ namespace babel::MATH{
         return static_cast<double>(factorial(N)) / static_cast<double>(factorial(K) * factorial(N - K));
     }
 
+    /**
+*  @brief  Calculate binomial coefficient in compiler time
+ *  n >= k >= 0
+*  @return Binomial coefficient
+*/
     template< uint64_t N, uint64_t K >
     consteval double binomial_coefficient() noexcept
     {
@@ -320,7 +396,7 @@ namespace babel::MATH{
     template< typename Type >
     inline constexpr Type delta(const Type a, const Type b, const Type c) noexcept
     {
-        return ( b * b ) - ( a * 4 ) * c;
+        return ( b * b ) - ( a * static_cast<Type>(4) ) * c;
     }
 
     /**
@@ -383,7 +459,7 @@ namespace babel::MATH{
     template< typename Type >
     inline constexpr Type circle_area(const Type r) noexcept
     {
-        return static_cast<Type>(CONSTANT::PI<long double> * r * r);
+        return static_cast<Type>(CONSTANT::PI<Type> * r * r);
     }
 
     /**
@@ -392,7 +468,7 @@ namespace babel::MATH{
     template< typename Type >
     inline constexpr Type circle_circumference(const Type r) noexcept
     {
-        return static_cast<Type>(CONSTANT::PI<long double> * ( r * 2 ));
+        return static_cast<Type>(CONSTANT::PI<Type> * ( r * 2 ));
     }
 
     /**
@@ -401,7 +477,7 @@ namespace babel::MATH{
     template< typename Type >
     inline constexpr Type sphere_volume(const Type R) noexcept
     {
-        return static_cast<Type>(CONSTANT::PI<long double> * ( 4.0 / 3.0 ) * R * R * R);
+        return static_cast<Type>(CONSTANT::PI<Type> * ( 4.0 / 3.0 ) * R * R * R);
     }
 
     /**
@@ -410,7 +486,7 @@ namespace babel::MATH{
     template< typename Type >
     inline constexpr Type cylinder_volume(const Type r, const Type H) noexcept
     {
-        return static_cast<Type>(circle_area<long double>(r) * H);
+        return static_cast<Type>(circle_area<Type>(r) * H);
     }
 
     /**
@@ -419,7 +495,7 @@ namespace babel::MATH{
     template< typename Type >
     inline constexpr Type cone_volume(const Type r, const Type h) noexcept
     {
-        return static_cast<Type>(cylinder_volume<long double>(r, h) * ( 1.0 / 3.0 ));
+        return static_cast<Type>(cylinder_volume<Type>(r, h) * ( 1.0 / 3.0 ));
     }
 
     /**
@@ -457,15 +533,22 @@ namespace babel::MATH{
         return ( ( ( value - fromLow ) * ( toHigh - toLow ) ) / ( fromHigh - fromLow ) ) + toLow;
     }
 
-    template<typename T>
-    requires std::is_integral_v<T>
+    /**
+*  @brief  Decompose the number into prime factors
+ *  \Example_1 (42) -> 2, 3, 7
+ *  \Example_2 (116) -> 2, 2, 29
+*  @param  number to decompose
+*  @return Return vector of prime number
+*/
+    template< typename T >
+    requires (std::is_integral_v<T> && !std::is_signed_v<T>)
     std::vector<T> prime_factors(T number) noexcept
     {
-        if (number <= 2)
+        if ( number <= 2 )
             return {number};
         std::vector<T> _res;
-        for(size_t i = 2; i <= number ; ++i)
-            while(number%i == 0)
+        for ( T i = 2 ; i <= number ; ++i )
+            while ( number % i == 0 )
             {
                 _res.emplace_back(i);
                 number /= i;
@@ -473,56 +556,95 @@ namespace babel::MATH{
         return _res;
     }
 
-    template<typename T>
+    /**
+*  @brief  Greatest common divisor
+*  \Example_1 (36, 6) -> 6
+*  \Example_2 (420, 56) -> 28
+*  @param  x Number 1
+*  @param  y Number 2
+*  @return Greatest common divisor
+*/
+    template< typename T >
     requires std::is_integral_v<T>
     constexpr T nwd(T x, T y) noexcept
     {
-        while (x%y !=0)
+        while ( x % y != 0 )
         {
             T temp = x;
             x = y;
-            y = temp%y;
+            y = temp % y;
         }
         return y;
     }
 
-    template<typename T>
+    /**
+*  @brief  Least common multiple
+*  \Example_1 (36, 6) -> 36
+*  \Example_2 (420, 56) -> 840
+*  @param  x Number 1
+*  @param  y Number 2
+*  @return Least common multiple
+*/
+    template< typename T >
     requires std::is_integral_v<T>
     constexpr inline T nww(T x, T y) noexcept
     {
-        return (x*y) / nwd(x, y);
+        return ( x * y ) / nwd(x, y);
     }
 
-    template<typename T>
+    /**
+*  @brief  Calculate zeros position of the function (can be 0, 1 or 2 zeros) ax^2 + bx + c
+*  \Example_1 (3, 5, -4) -> {0.590667, -2.25733}
+*  \Example_2 (-4, 3, 2) -> {-0.425391, 1.17539}
+*  @param  a, b, c function coefficients
+*  @return zeros position of the function
+*/
+    template< typename T >
     requires std::is_floating_point_v<T>
     std::vector<T> find_x(const T a, const T b, const T c) noexcept
     {
         std::vector<T> zeros;
         auto _delta = delta(a, b, c);
-        if (_delta > 0)
+        if ( _delta > 0 )
         {
             auto sq_delta = std::sqrt(_delta);
             auto two_a = 2.0 * a;
-            zeros.emplace_back(( sq_delta - b) / two_a);
-            zeros.emplace_back(( -sq_delta - b) / two_a);
-        }
-        else if (_delta == 0)
-            zeros.emplace_back((-b)/(2.0 * a));
+            zeros.emplace_back(( sq_delta - b ) / two_a);
+            zeros.emplace_back(( -sq_delta - b ) / two_a);
+        } else if ( _delta == 0 )
+            zeros.emplace_back(( -b ) / ( 2.0 * a ));
         return zeros;
     }
 
-    template<typename T>
+    /**
+*  @brief  Calculate distance between two points in OX
+*  \Example_1 (-3, 2) -> 5
+*  \Example_2 (2, -3) -> 5
+*  \Example_3 (12, 18) -> 6
+*  @param  x1,x2 point in OX
+*  @return Distance between to points
+*/
+    template< typename T >
     requires std::is_floating_point_v<T>
-    constexpr inline T distance(const T Ax, const T Ay) noexcept
+    constexpr inline T distance(const T x1, const T x2) noexcept
     {
-        return babel::MATH::abs(Ax - Ay);
+        return babel::MATH::abs(x1 - x2);
     }
 
-    template<typename T>
+    /**
+*  @brief  Calculate distance between two points in Cartesian matrix
+*  \Example_1 (-3, 2, 4, 7) -> 8.60233
+*  \Example_2 (2, -3, 7, 4) -> 8.60233
+*  \Example_3 (12, 18, 5, 5) -> 14.7648
+*  @param  Ax,Ay first point in matrix
+*  @param  Bx,By second point in matrix
+*  @return Distance between two points
+*/
+    template< typename T >
     requires std::is_floating_point_v<T>
-    constexpr inline T distance(const T Ax, const T Ay, const T Bx , const T By) noexcept
+    constexpr inline T distance(const T Ax, const T Ay, const T Bx, const T By) noexcept
     {
-        return std::sqrt(std::pow(Bx- Ax, 2.0) + std::pow(By - Ay, 2.0));
+        return std::sqrt(std::pow(Bx - Ax, 2.0) + std::pow(By - Ay, 2.0));
     }
 
 }

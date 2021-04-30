@@ -477,7 +477,7 @@ public:
 
         random_generator::random_shuffle(free_pos);
 
-        byte to_insert = babel::MATH::min(free_pos.size(), static_cast<size_t>(3));
+        byte to_insert = static_cast<byte>(babel::MATH::min(free_pos.size(), static_cast<size_t>(3)));
         int probe = 3;
 
         // Try add three ball, in good position ( no score added )
@@ -533,7 +533,7 @@ public:
                 }
             }
         }
-        _filled = babel::MATH::min(_filled + 3, 81);
+        _filled = static_cast<byte>(babel::MATH::min(_filled + 3, 81));
         generate_next_three();
         check_for_score();
         _need_update = true;
@@ -591,7 +591,7 @@ public:
             return false;
         auto cor_is_correct = [this](const std::pair<char, char> cor) -> bool {
             return !( cor.first > 8 || cor.first < 0 || cor.second > 8 || cor.second < 0 ||
-                      !grid[cor.first][cor.second].is_empty() );
+                      !grid[static_cast<std::size_t>(cor.first)][static_cast<std::size_t>(cor.second)].is_empty() );
         };
         std::pair<char, char> from_c = {from.first, from.second};
         std::pair<char, char> to_c = {to.first, to.second};
@@ -619,7 +619,7 @@ public:
                 Coordinate[3].first = Cor.first;
                 Coordinate[3].second = Cor.second - 1;
 
-                for ( const auto Item : Coordinate )
+                for ( const auto& Item : Coordinate )
                 {
                     if ( Item == from_c )
                         return true;

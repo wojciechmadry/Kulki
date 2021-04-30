@@ -34,7 +34,7 @@ public:
     {
         _width = Width;
         _height = Height;
-        float a = ( 0.5f * _width ) / 9.f; // side length of white box
+        float a = ( 0.5f * static_cast<float>(_width) ) / 9.f; // side length of white box
         float radius = a / 2.5f; // radius of circle
 
         for ( byte i = 0 ; i < 6 ; ++i )
@@ -51,7 +51,7 @@ public:
 
         _map = std::make_unique<sf::RectangleShape>(sf::Vector2<float> {a * 9.f, a * 9.f});
         _map->setFillColor(sf::Color(0x8989A9));
-        _map->setPosition({0.3f * _width, 0.02f * _height});
+        _map->setPosition({0.3f * static_cast<float>(_width), 0.02f * static_cast<float>(_height)});
 
         std::string texture_path = "../ball_texture/";
 
@@ -94,8 +94,8 @@ public:
             _bg_sprite->setTexture(*_bg_texture);
             auto text_size = _bg_texture->getSize();
 
-            float scale_x = static_cast<float>(_width) / text_size.x;
-            float scale_y = static_cast<float>(_height) / text_size.y;
+            float scale_x = static_cast<float>(_width) / static_cast<float>(text_size.x);
+            float scale_y = static_cast<float>(_height) / static_cast<float>(text_size.y);
 
             _bg_sprite->setScale({scale_x, scale_y});
         }
@@ -218,7 +218,7 @@ void draw_window(sf::RenderWindow &window, map &Map,
     for ( byte i = 0 ; i < 3 ; ++i )
     {
         sf::Vector2f pos = {static_cast<float>(static_cast<size_t>(GLOBAL::get_width()) >> 4u) +
-                            static_cast<float>(i) * GLOBAL::white_box_size().x, 0.671641f * GLOBAL::get_height()};
+                            static_cast<float>(i) * GLOBAL::white_box_size().x, 0.671641f * static_cast<float>(GLOBAL::get_height())};
         window.draw(GLOBAL::white_box(pos));
         auto radius = wb / 2.0f - GLOBAL::ball_radius();
         pos.x += radius;
@@ -280,7 +280,7 @@ void draw_started_object(std::unordered_map<std::string, std::unique_ptr<sf::Dra
 {
     auto width = static_cast<float>(GLOBAL::get_width());
     auto height = static_cast<float>(GLOBAL::get_height());
-    auto Font_Size = static_cast<size_t>(( width * height ) * 0.000035);
+    auto Font_Size = static_cast<uint32_t>(( width * height ) * 0.000035f);
 
     auto x_start = static_cast<float>(static_cast<size_t>(width) >> 4u); // Where some text start drawing in axis X
     //Draw text "Punkty :" on screen
@@ -292,17 +292,17 @@ void draw_started_object(std::unordered_map<std::string, std::unique_ptr<sf::Dra
     //Draw text "Nastepne:" on screen
     _drawer["..next_three"] = std::make_unique<sf::Text>(
             make_text("Nastepne :", {static_cast<float>(static_cast<size_t>(width) >> 4u), 0.57f * height},
-                      sf::Color::Blue, Font_Size * 0.75f, font));
+                      sf::Color::Blue, static_cast<uint32_t>(static_cast<float>(Font_Size) * 0.75f), font));
     //This is map object to draw actually record (Only what you need to change is text
     _drawer["record"] = std::make_unique<sf::Text>(
-            make_text(std::to_string(record), {0.116f * width, 0.43f * height}, sf::Color::White, 0.80f * Font_Size, font));
+            make_text(std::to_string(record), {0.116f * width, 0.43f * height}, sf::Color::White, static_cast<uint32_t>(0.80f * static_cast<float>(Font_Size)), font));
     //This is map object to draw score on actually game (Only what you need to change is text
     _drawer["score"] = std::make_unique<sf::Text>(
-            make_text(std::to_string(score), {0.116f * width, 0.2f * height}, sf::Color::White, 0.80f * Font_Size, font));
+            make_text(std::to_string(score), {0.116f * width, 0.2f * height}, sf::Color::White, static_cast<uint32_t>(0.80f * static_cast<float>(Font_Size)), font));
     //"Pseudo button", when you click it new game has started.
     sf::Vector2<float> new_game_pos = {x_start, 0.85f * height};
     _drawer["..newgame"] = std::make_unique<sf::Text>(
-            make_text("Nowa gra", new_game_pos, sf::Color::White, 0.72f * Font_Size, font));
+            make_text("Nowa gra", new_game_pos, sf::Color::White, static_cast<uint32_t>(0.72f * static_cast<float>(Font_Size)), font));
 
     //RectangleShape is where mouse is detect click on new game
     sf::RectangleShape rc({static_cast<float>(Font_Size) * 3.2f, static_cast<float>(Font_Size)});
@@ -335,8 +335,8 @@ void draw_started_object(std::unordered_map<std::string, std::unique_ptr<sf::Dra
 // Every square of grid is 70x70 pixel.
 std::pair<int8_t, int8_t> MapCorToGrid(const sf::Vector2<float> cor) noexcept
 {
-    auto low_x = 0.3f * GLOBAL::get_width();
-    auto low_y = 0.02f * GLOBAL::get_height();
+    auto low_x = 0.3f * static_cast<float>(GLOBAL::get_width());
+    auto low_y = 0.02f * static_cast<float>(GLOBAL::get_height());
 
     auto x = ( cor.x - low_x ) / GLOBAL::white_box_size().x;
     auto y = ( cor.y - low_y ) / GLOBAL::white_box_size().x;

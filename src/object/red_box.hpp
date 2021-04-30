@@ -47,8 +47,8 @@ public:
         {
             auto sprite = dynamic_cast<sf::Sprite*>(_draw);
             sf::Vector2f spriteSize(
-                    sprite->getTexture()->getSize().x * sprite->getScale().x,
-                    sprite->getTexture()->getSize().y * sprite->getScale().y);
+                    static_cast<float>(sprite->getTexture()->getSize().x) * sprite->getScale().x,
+                    static_cast<float>(sprite->getTexture()->getSize().y) * sprite->getScale().y);
             _put_out_of_screen(sprite, spriteSize);
         }
         else

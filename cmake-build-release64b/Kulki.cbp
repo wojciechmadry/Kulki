@@ -24,7 +24,6 @@
 				<Option type="1"/>
 				<Option compiler="clang"/>
 				<Compiler>
-					<Add directory="F:/SFML/32bit/include"/>
 					<Add directory="F:/SFML/64bit/include"/>
 					<Add directory="F:/kulki/src"/>
 					<Add directory="C:/msys64/mingw64\include\c++\10.2.0"/>
@@ -48,7 +47,6 @@
 				<Option type="1"/>
 				<Option compiler="clang"/>
 				<Compiler>
-					<Add directory="F:/SFML/32bit/include"/>
 					<Add directory="F:/SFML/64bit/include"/>
 					<Add directory="F:/kulki/src"/>
 					<Add directory="C:/msys64/mingw64\include\c++\10.2.0"/>

@@ -31,6 +31,11 @@ namespace babel::OPT{
         ~optional() noexcept
         { this->reset(); }
 
+
+        /**
+*  @brief  Check if class stored value
+*  @return Return True if value is stored, false otherwise
+*/
         [[nodiscard]]constexpr bool has_value() const noexcept
         {
             return std::holds_alternative<T>(_storage);
@@ -57,11 +62,19 @@ namespace babel::OPT{
             return *this;
         }
 
+        /**
+*  @brief  Check if class stored value
+*  @return Return True if value is stored, false otherwise
+*/
         constexpr explicit operator bool() const noexcept
         {
             return std::holds_alternative<T>(_storage);
         }
 
+        /**
+*  @brief  Clear stored element
+*  @return No return
+*/
         constexpr void reset() noexcept
         {
             _storage = std::monostate();
@@ -69,9 +82,7 @@ namespace babel::OPT{
 
         constexpr void swap(optional &other) noexcept
         {
-            auto temporary = std::move(other._storage);
-            other._storage = std::move(_storage);
-            _storage = std::move(temporary);
+            std::swap(_storage, other._storage);
         }
 
         template< typename ... Args >
@@ -80,6 +91,11 @@ namespace babel::OPT{
             _storage = T(std::forward<Args>(arg)...);
         }
 
+        /**
+*  @brief  If optional has stored data than return it in otherwise return OR
+ *  @param  OR Value to return is there no stored value
+*  @return Return stored data or OR
+*/
         template< typename T2 = T >
         requires(babel::CONCEPTS::IS_SAME_CONVERTIBLE<T2, T>)
         constexpr T value_or(T2 &&OR) noexcept
@@ -89,11 +105,17 @@ namespace babel::OPT{
             return static_cast<T>(OR);
         }
 
+        /**
+*  @return Return value stored in optional
+*/
         [[nodiscard]] constexpr T &value() noexcept
         {
             return std::get<T>(_storage);
         }
 
+        /**
+*  @return Return const value stored in optional
+*/
         [[nodiscard]] constexpr const T &value() const noexcept
         {
             return std::get<T>(_storage);

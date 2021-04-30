@@ -7,7 +7,7 @@
 #include <iostream>
 #include <unordered_map>
 
-static constexpr double VERSION = 1.023;
+static constexpr double VERSION = 1.024;
 
 #define FPS 0 // Show fps in console
 
@@ -36,7 +36,7 @@ int main()
     RedBox redbox(to_draw["picked"].get(), GLOBAL::RED_BOX_TEXTURE()); // picked redbox (can be textured or not)
 
 
-    sf::RenderWindow window(sf::VideoMode(GLOBAL::get_width(), GLOBAL::get_height()), title, sf::Style::Default,
+    sf::RenderWindow window(sf::VideoMode(static_cast<uint32_t>(GLOBAL::get_width()), static_cast<uint32_t>(GLOBAL::get_height())), title, sf::Style::Default,
                             sf::ContextSettings {0, 0, 16});
 
     auto fps = babel::MATH::min(load_fps(), 244u);

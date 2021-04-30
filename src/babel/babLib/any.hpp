@@ -7,24 +7,33 @@ namespace babel::ANY{
     namespace VoidAny{ class any; }; //NOLINT
     namespace PolAny{ class any; }; //NOLINT
 
+    /**
+*  @brief  Cast Any to T type
+*  @param  Any Any to cast
+*  @return Return Any casted to T type
+*/
     template< typename T, typename Any >
     requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
              babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-    T &cast_any(Any &any);
+    [[nodiscard]] T &cast_any(Any &any);
 
+    /**
+*  @brief  Cast Any to T type
+*  @param  const Any const Any to cast
+*  @return Return const Any casted to const T type
+*/
     template< typename T, typename Any >
     requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
              babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-    const T &cast_any(const Any &any);
+    [[nodiscard]] const T &cast_any(const Any &any);
 
-    template< size_t ID, typename T, typename U = typename std::decay_t<T>>
-    auto make_any(T &&object) noexcept;
-    /*
+    /**
+*  @brief
      Void any is faster then PolAny by approx 30-40%
      USE RULES:
-     1. One ANY object can't be another ANY(lvalue, like smart pointers)
+     1. One ANY object can't be another ANY(lvalue, like std::unique_ptr)
      2. When you create ANY object (data is not NULLPTR) then you must use destroy_any to avoid memory leak !
-         */
+*/
     namespace VoidAny{
 
         class any
@@ -67,15 +76,6 @@ namespace babel::ANY{
 
             ~any() = default;
 
-#ifndef NDEBUG
-
-            [[nodiscard]] const void *view_pointer() const noexcept
-            {
-                return data;
-            }
-
-#endif
-
             [[nodiscard]] constexpr  bool has_value() const noexcept
             {
                 return data != nullptr;
@@ -88,16 +88,24 @@ namespace babel::ANY{
                 other.data = temp;
             }
 
+            /**
+*  @brief  cast void* to T&
+*  @return Casted stored object to T&
+*/
             template <typename T>
-            T& cast()
+            [[nodiscard]] T& cast()
             {
                 if (data)
                     return *static_cast<T*>(data);
                 throw std::invalid_argument("Data is nullptr");
             }
 
+            /**
+*  @brief  cast void* to const T&
+*  @return Casted stored object to  const T&
+*/
             template <typename T>
-            const T& cast() const
+            [[nodiscard]] const T& cast() const
             {
                 if (data)
                     return *static_cast<T*>(data);
@@ -129,6 +137,9 @@ namespace babel::ANY{
         };
 
 
+        /**
+*  @brief  Destroy VoidAny -> its required when you end deal with it
+*/
         template< typename T >
         void destroy_any(any &_any) noexcept
         {
@@ -137,24 +148,25 @@ namespace babel::ANY{
         }
 
         template< typename T >
-        any make_any(T &&object) noexcept
+        [[nodiscard]] any make_any(T &&object) noexcept
         {
             return any(std::forward<T>(object));
         }
 
     }
 
-    /*
+    /**
+*  @brief
         Object must by copyable and constructible other way use VoidAny
        You dont need to remember to destroy a object,
        but its a little slower (about 30-40%).
        Its safer to avoid memory leak.
-       */
+*/
     namespace PolAny{
         class any;
 
         template< typename T >
-        any make_any(T&& data) noexcept;
+        [[nodiscard]] any make_any(T&& data) noexcept;
 
         class any
         {
@@ -171,7 +183,7 @@ namespace babel::ANY{
             {
                 virtual ~__base__any() = default;
 
-                [[nodiscard]]  virtual __base__any *duplicate() const noexcept = 0;
+                [[nodiscard]]  virtual std::unique_ptr<__base__any> duplicate() const noexcept = 0;
             };
 
             template< typename T >
@@ -184,20 +196,20 @@ namespace babel::ANY{
                 explicit _data(U &&__data) noexcept: data(std::forward<U>(__data)) //NOLINT
                 { }
 
-                [[nodiscard]] __base__any *duplicate() const noexcept override
+                [[nodiscard]] std::unique_ptr<__base__any> duplicate() const noexcept override
                 {
-                    return new _data<T>(data);
+                    return std::make_unique<_data<T>>(data);
                 }
 
             };
 
-            __base__any *storage = nullptr;
+            std::unique_ptr<__base__any> storage;
         public:
             any() = default;
 
             template< typename T, typename U = typename std::decay_t<T>>
             requires babel::CONCEPTS::IS_NOT_SAME<T, any>
-            explicit any(T &&object) noexcept : storage(new _data<U> {std::forward<T>(object)}) //NOLINT
+            explicit any(T &&object) noexcept : storage(std::make_unique<_data<U>>(std::forward<T>(object))) //NOLINT
             { }
 
             any(const any &other) noexcept
@@ -205,46 +217,59 @@ namespace babel::ANY{
                 storage = other.storage->duplicate();
             }
 
-            any(any &&other) noexcept: storage(other.storage)
+            any(any &&other) noexcept: storage(std::move(other.storage))
             {
                 other.storage = nullptr;
             }
 
             ~any() noexcept
             {
-                delete storage;
-                storage = nullptr;
+                storage.reset();
             }
 
 
+            /**
+*  @brief  cast PolAny to T&
+*  @return Casted stored object to T&
+*/
             template< typename T >
             [[nodiscard]] T &cast()
             {
-                if ( auto st = dynamic_cast<_data<T> *>(storage) )
+                if ( auto st = dynamic_cast<_data<T> *>(storage.get()) )
                     return st->data;
                 else
                     throw std::bad_cast();
             }
 
+            /**
+*  @brief  cast PolAny to const T&
+*  @return Casted stored object to const T&
+*/
             template< typename T >
             [[nodiscard]] const T &cast() const
             {
-                if ( auto st = dynamic_cast<_data<T> *>(storage) )
+                if ( auto st = dynamic_cast<_data<T> *>(storage.get()) )
                     return st->data;
                 else
                     throw std::bad_cast();
             }
 
-            // Check if storage object is T
+            /**
+*  @brief  Check if stored element is T type
+*  @return true -> stored object is type T, otherwise false
+*/
             template< typename T >
             [[nodiscard]] bool is() const noexcept
             {
-                return ( dynamic_cast<_data<T> *>(storage) ) ? 1 : 0;
+                return ( dynamic_cast<_data<T> *>(storage.get()) ) ? 1 : 0;
             }
 
-            //Compare type of storage object and if they are the same, then compare object (full safe)
+            /**
+*  @brief  Compare type of storage object and if they are the same, then compare object (full safe)
+*  @return true -> If stored element are the same T, otherwise false
+*/
             template< typename T >
-            [[nodiscard]] bool cmp(const any &other) noexcept
+            [[nodiscard]] bool cmp(const any &other) const noexcept
             {
                 try
                 {
@@ -258,20 +283,22 @@ namespace babel::ANY{
                 }
             }
 
-            //Compare type of storage object
-            bool operator==(const any &other) noexcept
+            /**
+*  @brief  Compare type of storage object
+*  @return true -> If stored element have the same type
+*/
+            [[nodiscard]] bool operator==(const any &other) const noexcept
             {
                 if ( ( storage && other.storage ) == 0 )
                     return storage == other.storage;
-                return typeid(*storage) == typeid(*other.storage);
+                return typeid(storage.get()) == typeid(other.storage.get());
             }
 
             template< typename T, typename U = typename std::decay_t<T>>
             requires babel::CONCEPTS::IS_NOT_SAME<T, any>
             any &operator=(T &&object) noexcept
             {
-                reset();
-                storage = new _data<U> {std::forward<T>(object)};
+                storage = std::make_unique<_data<U>>(std::forward<T>(object));
                 return *this;
             }
 
@@ -279,7 +306,6 @@ namespace babel::ANY{
             {
                 if ( this == &other )
                     return *this;
-                reset();
                 storage = other.storage->duplicate();
                 return *this;
             }
@@ -288,21 +314,15 @@ namespace babel::ANY{
             {
                 if ( storage == other.storage )
                     return *this;
-                reset();
-                storage = other.storage;
+                storage = std::move(other.storage);
                 other.storage = nullptr;
                 return *this;
             }
 
-#ifndef NDEBUG
-
-            const __base__any *view_pointer() const noexcept //NOLINT
-            {
-                return storage;
-            }
-
-#endif
-
+            /**
+*  @brief  Check if PolAny has value
+*  @return true if has value, false in otherwise
+*/
             [[nodiscard]] bool has_value() const noexcept
             {
                 return storage != nullptr;
@@ -310,36 +330,28 @@ namespace babel::ANY{
 
             void reset() noexcept
             {
-                if ( storage )
-                {
-                    delete storage;
-                    storage = nullptr;
-                }
+                storage.reset();
             }
 
             void swap(any &other) noexcept
             {
-                __base__any *temp = storage;
-                storage = other.storage;
-                other.storage = temp;
+                std::swap(storage, other.storage);
             }
 
             template< typename T, typename ... Args, typename = typename std::enable_if<std::is_copy_constructible<T>::value>::type >
             void emplace(Args &&...args) noexcept
             {
-                if ( storage ) //NOLINT
-                    delete storage;
-                storage = new _data {T(std::forward<Args>(args)...)};
+                storage = std::make_unique<_data<T>>(std::forward<Args>(args)...);
             }
 
             [[nodiscard]]const std::type_info &type() const noexcept
             {
-                return typeid(*storage);
+                return typeid(storage.get());
             }
         };
 
         template< typename T >
-        any make_any(T&& data) noexcept
+        [[nodiscard]] any make_any(T&& data) noexcept
         {
             return any(std::forward<T>(data));
         }
@@ -348,13 +360,13 @@ namespace babel::ANY{
     template< typename T, typename Any >
     requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
              babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-    T &cast_any(Any &any)
+    [[nodiscard]] T &cast_any(Any &any)
     {
         if constexpr ( babel::CONCEPTS::IS_SAME<Any, VoidAny::any> )
             return *static_cast<T *>(any.data);
         if constexpr ( babel::CONCEPTS::IS_SAME<Any, PolAny::any> )
         {
-            if ( auto st = dynamic_cast<PolAny::any::_data<T> *>(any.storage) )
+            if ( auto st = dynamic_cast<PolAny::any::_data<T> *>(any.storage.get()) )
                 return st->data;
             else
                 throw std::bad_cast();
@@ -364,19 +376,23 @@ namespace babel::ANY{
     template< typename T, typename Any >
     requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
              babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-    const T &cast_any(const Any &any)
+    [[nodiscard]] const T &cast_any(const Any &any)
     {
         if constexpr ( babel::CONCEPTS::IS_SAME<Any, VoidAny::any> )
             return *static_cast<T *>(any.data);
         if constexpr ( babel::CONCEPTS::IS_SAME<Any, PolAny::any> )
         {
-            if ( auto st = dynamic_cast<PolAny::any::_data<T> *>(any.storage) )
+            if ( auto st = dynamic_cast<PolAny::any::_data<T> *>(any.storage.get()) )
                 return st->data;
             else
                 throw std::bad_cast();
         }
     }
 
+    /**
+*  @brief  Destroy VoidAny or PolAny, Its requires whe you work with VoidAny
+ *  @param Any Any class to destroy
+*/
     template< typename T = void, typename Any >
     requires babel::CONCEPTS::IS_SAME<Any, PolAny::any>
              ||

@@ -14,7 +14,7 @@ namespace babel::VARIADIC{
         requires (std::is_same_v<std::decay_t<U>, std::decay_t<Type>>)
         constexpr void _put(U &&_a1) noexcept
         {
-            _hold.push_back(std::forward<U>(_a1));
+            _hold.emplace_back(std::forward<U>(_a1));
         }
 
         template< typename U = Type, typename ... Args >
