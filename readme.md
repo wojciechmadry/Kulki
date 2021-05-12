@@ -19,7 +19,7 @@ is 64 bit, if you want 32 bit you need compile project with cmake by your own.
 How to compile
 ---
 
-I compile project with Mingw32.
+I build project with Mingw32.
 You need Cmake install too.
 
 Project requires C++20 (I use Clang 11.0)
@@ -52,7 +52,7 @@ Every file you need to build project:
 `folder - src`
 `folder - Build`(in this folder you build your project)
 
-`file - CMaleLists.txt`
+`file - CMakeLists.txt`
 `file - main.cpp`
 `font - arial.ttf`
 
