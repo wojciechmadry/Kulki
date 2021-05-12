@@ -18,7 +18,8 @@
 #ifdef _WIN32
 #include "babLib/windows/windowsConv.hpp"
 #endif
+
 namespace babel{
-    static constexpr const double VERSION = 1.08;
+    static constexpr const double VERSION = 1.09;
 }
 #endif

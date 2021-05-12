@@ -11,12 +11,12 @@ namespace babel::FILE_SYS{
 */
     template< typename Filestream >
     requires babel::CONCEPTS::MEMBER::HAS_CLOSE<Filestream>
-    void close_file(Filestream &Fstream) noexcept
+    void close_file(Filestream &FileStream) noexcept
     {
         if constexpr( babel::CONCEPTS::IS_POINTER<Filestream> )
-            Fstream->close();
+            FileStream->close();
         else
-            Fstream.close();
+            FileStream.close();
     }
 
     /**
@@ -26,9 +26,9 @@ namespace babel::FILE_SYS{
    */
     template< typename Filestream, typename ... Args >
     requires babel::CONCEPTS::MEMBER::HAS_CLOSE<Filestream>
-    void close_file(Filestream &Fstream, Args &... arg) noexcept//NOLINT
+    void close_file(Filestream &FileStream, Args &... arg) noexcept//NOLINT
     {
-        close_file(Fstream);
+        close_file(FileStream);
         close_file(arg...);
     }
 
@@ -126,6 +126,37 @@ namespace babel::FILE_SYS{
         }
         close_file(file);
         return out;
+    }
+
+    /**
+*  @brief  Check if file with this filename exist
+*  @param  filename File to check
+*  @return True if Exist, False in otherwise
+*/
+    [[nodiscard]] inline bool file_exist(const std::string& filename) noexcept
+    {
+        return std::filesystem::is_regular_file(filename);
+    }
+
+    /**
+*  @brief  Check if folder with this foldername exist
+*  @param  foldername Folder to check
+*  @return True if Exist, False in otherwise
+*/
+    [[nodiscard]] inline  bool folder_exist(const std::string& foldername) noexcept
+    {
+        return std::filesystem::is_directory(foldername);
+    }
+
+
+    /**
+*  @brief  Check if file or folder with this name exist
+*  @param  name File/Folder to check
+*  @return True if Exist, False in otherwise
+*/
+    [[nodiscard]] inline bool file_folder_exist(const std::string& name) noexcept
+    {
+        return folder_exist(name) | file_exist(name);
     }
 }
 

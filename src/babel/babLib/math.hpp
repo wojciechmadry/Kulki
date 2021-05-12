@@ -260,7 +260,7 @@ namespace babel::MATH{
     *  @param   Container  of numbers
     *  @return Return the largest number
     */
-    template< typename T, typename U = typename babel::CONCEPTS::type_in<T>::type >
+    template< typename T, typename U =babel::CONCEPTS::type_in<T>>
     requires babel::CONCEPTS::IS_CONTAINER<T>
     constexpr U max(const T &Container) noexcept
     {
@@ -283,7 +283,7 @@ namespace babel::MATH{
    *  @param   Container of numbers
    *  @return Return the smallest number
    */
-    template< typename T, typename U = typename babel::CONCEPTS::type_in<T>::type >
+    template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires babel::CONCEPTS::IS_CONTAINER<T>
     constexpr U min(const T &Container) noexcept
     {

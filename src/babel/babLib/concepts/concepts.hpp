@@ -114,13 +114,18 @@ namespace babel::CONCEPTS{
     };
 
 
-    //Return type in container T -> can be list/vector etc.
-    template< typename Vec >
-    requires babel::CONCEPTS::IS_CONTAINER<Vec>
-    struct type_in
+    // Check if function return ReturnType
+    template< typename Func, typename ReturnType, typename ... Args >
+    concept FUNCTION_RETURN =
+    requires(Func func, Args...args)
     {
-        typedef std::decay_t<decltype(*Vec { }.begin())> type;
+        { func(args...) } -> babel::CONCEPTS::IS_CONVERTIBLE<std::decay_t<ReturnType>>;
     };
+
+    //Return type in container T -> can be list/vector etc.
+    template< typename Vec>
+    requires babel::CONCEPTS::IS_CONTAINER<Vec>
+    using type_in = std::decay_t<decltype(*Vec { }.begin())>;
     //END
 
     template<typename ATOMIC>

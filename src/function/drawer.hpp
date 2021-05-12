@@ -53,7 +53,11 @@ public:
         _map->setFillColor(sf::Color(0x8989A9));
         _map->setPosition({0.3f * static_cast<float>(_width), 0.02f * static_cast<float>(_height)});
 
-        std::string texture_path = "../ball_texture/";
+        std::string texture_path;
+        if (babel::FILE_SYS::folder_exist( "ball_texture"))
+            texture_path = "ball_texture/";
+        else
+            texture_path = "../ball_texture/";
 
         static const std::array<std::string, 6> ball_name =
                 {

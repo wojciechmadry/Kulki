@@ -19,30 +19,45 @@ int main()
     while ( title[title.size() - 1] == '0' )
         title.pop_back();
 
-    auto [width, height] = load_resolution();
+    auto[width, height] = load_resolution();
 
-    GLOBAL::INIT(width, height);
+    GLOBAL::INIT(width, height); // Load textures, init default settings etc
 
     map Game = load_map();
     uint16_t record = check_for_record(), old_score = Game.get_score();
 
     std::unordered_map<std::string, std::unique_ptr<sf::Drawable>> to_draw; // map of drawing object
 
-
-    sf::Font font = load_font("arial.ttf"); // default font
+    sf::Font font;
+    if ( babel::FILE_SYS::file_exist("arial.ttf") )
+        font = load_font("arial.ttf"); // default font
+    else
+    {
+        std::cout << "Cant find font arial.ttf";
+        std::cin.get();
+        std::cin.get();
+        return 1;
+    }
 
     draw_started_object(to_draw, font, record, old_score);
 
     RedBox redbox(to_draw["picked"].get(), GLOBAL::RED_BOX_TEXTURE()); // picked redbox (can be textured or not)
 
 
-    sf::RenderWindow window(sf::VideoMode(static_cast<uint32_t>(GLOBAL::get_width()), static_cast<uint32_t>(GLOBAL::get_height())), title, sf::Style::Default,
-                            sf::ContextSettings {0, 0, 16});
+    sf::RenderWindow window(
+            sf::VideoMode(static_cast<uint32_t>(GLOBAL::get_width()), static_cast<uint32_t>(GLOBAL::get_height())),
+            title, sf::Style::Default,
+            sf::ContextSettings {0, 0, 16});
 
     auto fps = babel::MATH::min(load_fps(), 244u);
     window.setFramerateLimit(fps);
     sf::Image icon;
-    icon.loadFromFile("ball.png");
+
+    if ( babel::FILE_SYS::folder_exist("ball_texture") )
+        icon.loadFromFile("ball_texture/orange.png");
+    else
+        icon.loadFromFile("../ball_texture/orange.png");
+
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     //Operation on map is doing on another thread

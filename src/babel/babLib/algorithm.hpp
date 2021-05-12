@@ -12,7 +12,7 @@ namespace babel::ALGO{
  *  @return Return string convert to number
  */
     template< typename T >
-    constexpr T string_to(const std::string &_string)
+    constexpr inline T string_to(const std::string &_string)
     {
         if constexpr ( babel::CONCEPTS::IS_SAME<T, int> )
             return std::stoi(_string);
@@ -65,7 +65,7 @@ namespace babel::ALGO{
     *  @param  v Vector of numbers.
     *  @return no return
     */
-    template< typename T, typename U = typename babel::CONCEPTS::type_in<T>::type >
+    template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires(babel::CONCEPTS::IS_CONTAINER<T>)
     constexpr void abs(T &v)
     {
@@ -80,7 +80,7 @@ namespace babel::ALGO{
    *  @param  element Element we want to count
    *  @return Return number of element in data structure
    */
-    template< typename Vec, typename Type = typename babel::CONCEPTS::type_in<Vec>::type >
+    template< typename Vec, typename Type = babel::CONCEPTS::type_in<Vec> >
     requires babel::CONCEPTS::IS_CONTAINER<Vec>
     constexpr size_t count(const Vec &Container, const Type &element)
     {
@@ -135,7 +135,7 @@ namespace babel::ALGO{
  *  @param  container Data structure of elements.
  *  @return Return pair MIN and MAX values in the data structure
  */
-    template< typename T, typename U = typename babel::CONCEPTS::type_in<T>::type >
+    template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires babel::CONCEPTS::IS_CONTAINER<T>
     constexpr std::pair<U, U> find_min_max(const T &container) noexcept
     {
@@ -158,7 +158,7 @@ namespace babel::ALGO{
    *  @param  container Data structure of elements.
    *  @return Return pointers pair MIN and MAX values in the data structure
    */
-    template< typename T, typename U = typename babel::CONCEPTS::type_in<T>::type >
+    template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires babel::CONCEPTS::IS_CONTAINER<T>
     constexpr std::pair<U *, U *> find_min_max_ptr(T &container) noexcept
     {
@@ -183,7 +183,7 @@ namespace babel::ALGO{
 *  @param  container Data structure of elements.
 *  @return Return mean value
 */
-    template< typename T, typename U = typename babel::CONCEPTS::type_in<T>::type >
+    template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires babel::CONCEPTS::IS_CONTAINER<T>
     constexpr U mean(const T &container) noexcept
     {
@@ -205,7 +205,7 @@ namespace babel::ALGO{
 *  @return No return
 */
 
-    template< typename T, typename U = typename babel::CONCEPTS::type_in<T>::type >
+    template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires ( babel::CONCEPTS::IS_CONTAINER<T> && babel::CONCEPTS::IS_FLOATING_POINT<U> )
     constexpr void normalize(T &container) noexcept
     {
@@ -222,7 +222,7 @@ namespace babel::ALGO{
 *  @param  container Data structure of elements.
 *  @return Return sum of elements
 */
-    template< typename T, typename U = typename babel::CONCEPTS::type_in<T>::type >
+    template< typename T, typename U =babel::CONCEPTS::type_in<T> >
     requires babel::CONCEPTS::IS_CONTAINER<T>
     constexpr U sum(const T &container) noexcept
     {
@@ -240,7 +240,7 @@ namespace babel::ALGO{
 *  @param  container Data structure of elements.
 *  @return Return closest element to the mean value
 */
-    template< typename T, typename U = typename babel::CONCEPTS::type_in<T>::type >
+    template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires babel::CONCEPTS::IS_CONTAINER<T>
     constexpr U closest_to_mean(const T &container)
     {
@@ -269,9 +269,9 @@ namespace babel::ALGO{
 *  @param  container Data structure of elements.
 *  @return Return FFT
 */
-    template< typename Container, typename T = typename babel::CONCEPTS::type_in<Container>::type >
+    template< typename Container, typename T = babel::CONCEPTS::type_in<Container> >
     requires ( babel::CONCEPTS::IS_FLOATING_POINT<T> && babel::CONCEPTS::IS_CONTAINER<Container> )
-    std::vector<std::complex<T>> FFT(const Container& probes) noexcept
+    std::vector<std::complex<T>> FFT(const Container &probes) noexcept
     {
         std::function<void(std::vector<std::complex<T>> &)> ditfft2;
         ditfft2 = [&ditfft2](std::vector<std::complex<T>> &fn) -> void {
@@ -288,7 +288,8 @@ namespace babel::ALGO{
             ditfft2(odd);
             for ( size_t k = 0 ; k < N / 2 ; ++k )
             {
-                auto t = std::polar(1.0, -2.0 * std::numbers::pi * static_cast<double>(k) / static_cast<double>(N)) * odd[k];
+                auto t = std::polar(1.0, -2.0 * std::numbers::pi * static_cast<double>(k) / static_cast<double>(N)) *
+                         odd[k];
                 fn[k] = even[k] + t;
                 fn[k + N / 2] = even[k] - t;
             }
@@ -548,7 +549,7 @@ namespace babel::ALGO{
 *  @param  cont Data structure
 *  @return Return container of pair where first is enumerate from(0 to n-1) and second is element from cont
 */
-    template< typename Container, typename T = typename babel::CONCEPTS::type_in<Container>::type >
+    template< typename Container, typename T = babel::CONCEPTS::type_in<Container> >
     requires babel::CONCEPTS::IS_LIKE_VECTOR<Container>
     [[nodiscard]] std::vector<std::pair<size_t, T>> enumerate(const Container &cont) noexcept
     {
@@ -565,7 +566,7 @@ namespace babel::ALGO{
 *  @param  cont Data structure
 *  @return Return container of pairs with counted element
 */
-    template< typename Container, typename T = typename babel::CONCEPTS::type_in<Container>::type >
+    template< typename Container, typename T = babel::CONCEPTS::type_in<Container> >
     requires babel::CONCEPTS::IS_LIKE_VECTOR<Container>
     [[nodiscard]] std::vector<std::pair<size_t, T>> run_length_encode(const Container &cont) noexcept
     {
@@ -606,7 +607,7 @@ namespace babel::ALGO{
             step = -1;
         if ( start == end || step == 0 )
             return {start};
-        if ( (start > end && step > 0) || (start < end && step < 0) )
+        if ( ( start > end && step > 0 ) || ( start < end && step < 0 ) )
             return { };
         std::vector<int64_t> _res;
         if ( start < end )
@@ -689,23 +690,125 @@ namespace babel::ALGO{
 *  @brief  Convert from one type to another
 *  \Example_1 T = std::string AND U is arithmetic -> std::to_string(data)
 *  \Example_2 T is arithmetic AND U = std::string-> babel::ALGO::string_to<T>(data)
-*  \Example_3 In other case return static_cast<T>(data)
-*  @template  T Convert to T
+*  \Example_3 If T/U is base of U/T and T must be pointer !!! You can transform from one Base/Derived to Derived/Base. (using dynamic_cast<>)
+*  \Example_4 Can convert std::list<T> to std::vector<U> T need to be convertible to U etc.
+*  \Example_5 Can convert std::list<int/float...> to std::vector<std::string>
+*  \Example_6 Can convert values with Convert Function -> Top priority!
+     *  T = int*
+     *  U = int
+     *  Func = [] (int Value) -> int* {return new int Value;};
+     *  asType<int*>(15, Func)
+*  \Example_7 Can convert every single value in container
+     *  U = std::vector<int> v1 = {1, 2}
+     *  T = std::vector<std::string> v2 = {}
+     *  Func = [] (int Value) -> std::string {return std::to_string(Value * 2);};
+     *  asType<std::vector<std::string>>(v1, Func) -> v2 = {2, 4}
+* \Example_8
+     * U = std::string s1 = "test"
+     * T = std::string s2 = ""
+     * s2 = asType<std::string>(std::move(s1)) -> s1 = "" and s2 = "test"
+*  \Example_LAST In other case return static_cast<T>(data)
+*  @template  U Convert to T
 *  @param  U (data) Convert from U data to T data
 *  @return Converted type
 */
-    template< typename T, typename U, typename DECAY_T = typename std::decay_t<T>, typename DECAY_U = typename std::decay_t<U>>
-    requires ( std::is_convertible_v<T, U>
-               || (std::is_same_v<std::string, DECAY_T> && std::is_arithmetic_v<U>)
-               || (std::is_same_v<std::string, DECAY_U> && std::is_arithmetic_v<T>) )
-    [[nodiscard]] constexpr T asType(const U &data) noexcept
+    template< typename T, typename ConvertFunction = void *, typename U, typename DECAY_T = typename std::decay_t<T>, typename DECAY_U = typename std::decay_t<U>>
+    requires ( babel::CONCEPTS::IS_SAME_CONVERTIBLE<DECAY_T, DECAY_U>
+               || ( std::is_same_v<std::string, DECAY_T> && std::is_arithmetic_v<DECAY_U> )
+               || ( std::is_same_v<std::string, DECAY_U> && std::is_arithmetic_v<DECAY_T> )
+               || ( std::is_pointer_v<T> && ( std::is_base_of_v<std::remove_pointer_t<DECAY_T>, DECAY_U> ||
+                                              std::is_base_of_v<std::remove_pointer_t<DECAY_T>, std::remove_pointer_t<DECAY_U> > ) )
+               || ( std::is_pointer_v<T> && ( std::is_base_of_v<std::remove_pointer_t<DECAY_U>, DECAY_T> ||
+                                              std::is_base_of_v<std::remove_pointer_t<DECAY_U>, std::remove_pointer_t<DECAY_T> > ) )
+               || ( babel::CONCEPTS::IS_CONTAINER<DECAY_T> && babel::CONCEPTS::IS_CONTAINER<DECAY_U>
+                    &&
+                    babel::CONCEPTS::IS_SAME_CONVERTIBLE<babel::CONCEPTS::type_in<DECAY_T>, babel::CONCEPTS::type_in<DECAY_U>> )
+               || ( babel::CONCEPTS::IS_CONTAINER<DECAY_T> && babel::CONCEPTS::IS_CONTAINER<DECAY_U>
+                    && ( ( std::is_same_v<std::string, babel::CONCEPTS::type_in<DECAY_T>> &&
+                           std::is_arithmetic_v<babel::CONCEPTS::type_in<DECAY_U>> ) ||
+                         ( std::is_same_v<std::string, babel::CONCEPTS::type_in<DECAY_U>> &&
+                           std::is_arithmetic_v<babel::CONCEPTS::type_in<DECAY_T>> ) ) )
+               ||
+               ( !std::is_same_v<ConvertFunction, void *> && babel::CONCEPTS::FUNCTION_RETURN<ConvertFunction, T, U> )
+               || ( !std::is_same_v<ConvertFunction, void *> &&
+                    babel::CONCEPTS::FUNCTION_RETURN<ConvertFunction, babel::CONCEPTS::type_in<DECAY_T>, babel::CONCEPTS::type_in<DECAY_U>> )
+    )
+
+    [[nodiscard]] constexpr inline DECAY_T asType(U &&data, ConvertFunction Func = nullptr) noexcept
     {
-        if constexpr ( std::is_same_v<std::string, DECAY_T> && std::is_arithmetic_v<U> )
+        if constexpr ( !std::is_same_v<ConvertFunction, void *> )
+        {
+            if constexpr ( babel::CONCEPTS::FUNCTION_RETURN<ConvertFunction, T, U> )
+                return Func(std::forward<U>(data));
+            else
+            {
+                T ArrayLike(data.size());
+                if ( ArrayLike.size() == data.size() )
+                {
+                    auto begin = std::begin(ArrayLike);
+                    auto ConvBegin = std::begin(data);
+                    auto end = std::end(ArrayLike);
+                    for ( ; begin != end ; ++begin, ++ConvBegin )
+                    {
+                        *begin = Func(*ConvBegin);
+                    }
+                }
+                return ArrayLike;
+            }
+        } else if constexpr ( std::is_same_v<std::string, DECAY_T> && std::is_arithmetic_v<DECAY_U> )
             return std::to_string(data);
-        else if constexpr ( std::is_arithmetic_v<T> && std::is_same_v<std::string, DECAY_U> )
-            return babel::ALGO::string_to<T>(data);
-        else
+        else if constexpr ( std::is_arithmetic_v<DECAY_T> && std::is_same_v<std::string, DECAY_U> )
+            return babel::ALGO::string_to<DECAY_T>(data);
+        else if constexpr (
+                ( std::is_pointer_v<T> && ( std::is_base_of_v<std::remove_pointer_t<DECAY_T>, DECAY_U> ||
+                                            std::is_base_of_v<std::remove_pointer_t<DECAY_T>, std::remove_pointer_t<DECAY_U> > ) )
+                || ( std::is_pointer_v<T> && ( std::is_base_of_v<std::remove_pointer_t<DECAY_U>, DECAY_T> ||
+                                               std::is_base_of_v<std::remove_pointer_t<DECAY_U>, std::remove_pointer_t<DECAY_T> > ) ) )
+        {
+            if constexpr( std::is_pointer_v<DECAY_U> )
+            {
+                return dynamic_cast<T>(data);
+            } else
+            {
+                return dynamic_cast<T>(&data);
+            }
+        } else if constexpr ( babel::CONCEPTS::IS_CONTAINER<DECAY_T> && babel::CONCEPTS::IS_CONTAINER<DECAY_U> )
+        {
+            if constexpr ( babel::CONCEPTS::IS_SAME_CONVERTIBLE<babel::CONCEPTS::type_in<DECAY_T>, babel::CONCEPTS::type_in<DECAY_U>> )
+            {
+                if constexpr ( std::is_same_v<DECAY_T, DECAY_U> )
+                {
+                    return std::forward<U>(data);
+                } else
+                {
+                    return T {std::begin(data), std::end(data)};
+                }
+            } else if constexpr( ( std::is_same_v<std::string, babel::CONCEPTS::type_in<DECAY_U>> &&
+                                   std::is_arithmetic_v<babel::CONCEPTS::type_in<DECAY_T>> )
+                                 || ( std::is_same_v<std::string, babel::CONCEPTS::type_in<DECAY_T>> &&
+                                      std::is_arithmetic_v<babel::CONCEPTS::type_in<DECAY_U>> ) )
+            {
+                T ArrayLike(data.size());
+                if ( ArrayLike.size() == data.size() )
+                {
+                    auto begin = std::begin(ArrayLike);
+                    auto ConvBegin = std::begin(data);
+                    auto end = std::end(ArrayLike);
+                    for ( ; begin != end ; ++begin, ++ConvBegin )
+                    {
+                        *begin = asType<decltype(*begin)>(*ConvBegin);
+                    }
+                }
+                return ArrayLike;
+            }
+        } else if constexpr ( std::is_same_v<DECAY_T, DECAY_U> )
+        {
+            return std::forward<U>(data);
+        } else
+        {
             return static_cast<T>(data);
+        }
+
     }
 
 
