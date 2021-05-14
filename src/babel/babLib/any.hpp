@@ -4,8 +4,8 @@
 #include "must_have.hpp"
 
 namespace babel::ANY{
-    namespace VoidAny{ class any; }; //NOLINT
-    namespace PolAny{ class any; }; //NOLINT
+    namespace VoidAny{ class any; } //NOLINT
+    namespace PolAny{ class any; } //NOLINT
 
     /**
 *  @brief  Cast Any to T type

@@ -317,7 +317,7 @@ class map
                 score += get_scores(diagonal);
                 _need_update = true;
                 auto color_to_clear = grid[diagonal_start.first][diagonal_start.second].color();
-                while ( diagonal_start.first < 9 && diagonal_start.second >= 0 &&
+                while ( diagonal_start.first < 9  &&
                         at(diagonal_start).color() == color_to_clear )
                 {
                     at(diagonal_start).clear();
@@ -390,7 +390,7 @@ class map
                 score += get_scores(diagonal);
                 _need_update = true;
                 auto color_to_clear = grid[diagonal_start.first][diagonal_start.second].color();
-                while ( diagonal_start.first < 9 && diagonal_start.second >= 0 &&
+                while ( diagonal_start.first < 9 &&
                         at(diagonal_start).color() == color_to_clear )
                 {
                     at(diagonal_start).clear();
