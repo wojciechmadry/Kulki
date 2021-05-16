@@ -335,7 +335,7 @@ namespace babel::MATH{
 *  @return Factorial N
 */
 
-    [[nodiscard]] constexpr uint64_t factorial(size_t N) noexcept
+    [[nodiscard]] constexpr uint64_t factorial(uint64_t N) noexcept
     {
         uint64_t res = 1;
         while ( N > 1 )
@@ -566,7 +566,7 @@ namespace babel::MATH{
 */
     template< typename T >
     requires std::is_integral_v<T>
-    constexpr T nwd(T x, T y) noexcept
+    constexpr T gcd(T x, T y) noexcept
     {
         while ( x % y != 0 )
         {
@@ -587,9 +587,9 @@ namespace babel::MATH{
 */
     template< typename T >
     requires std::is_integral_v<T>
-    constexpr inline T nww(T x, T y) noexcept
+    constexpr inline T lcm(T x, T y) noexcept
     {
-        return ( x * y ) / nwd(x, y);
+        return ( x * y ) / gcd(x, y);
     }
 
     /**

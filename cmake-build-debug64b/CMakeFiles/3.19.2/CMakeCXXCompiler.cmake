@@ -1,7 +1,7 @@
 set(CMAKE_CXX_COMPILER "C:/msys64/mingw64/bin/clang++.exe")
 set(CMAKE_CXX_COMPILER_ARG1 "")
 set(CMAKE_CXX_COMPILER_ID "Clang")
-set(CMAKE_CXX_COMPILER_VERSION "11.0.0")
+set(CMAKE_CXX_COMPILER_VERSION "12.0.0")
 set(CMAKE_CXX_COMPILER_VERSION_INTERNAL "")
 set(CMAKE_CXX_COMPILER_WRAPPER "")
 set(CMAKE_CXX_STANDARD_COMPUTED_DEFAULT "14")
@@ -83,7 +83,7 @@ endif()
 
 
 
-set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES "C:/msys64/mingw64/include/c++/10.2.0;C:/msys64/mingw64/include/c++/10.2.0/x86_64-w64-mingw32;C:/msys64/mingw64/include/c++/10.2.0/backward;C:/msys64/mingw64/lib/clang/11.0.0/include;C:/msys64/mingw64/x86_64-w64-mingw32/include;C:/msys64/mingw64/include")
+set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES "C:/msys64/mingw64/include/c++/10.2.0;C:/msys64/mingw64/include/c++/10.2.0/x86_64-w64-mingw32;C:/msys64/mingw64/include/c++/10.2.0/backward;C:/msys64/mingw64/lib/clang/12.0.0/include;C:/msys64/mingw64/x86_64-w64-mingw32/include;C:/msys64/mingw64/include")
 set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "stdc++;mingw32;gcc_s;gcc;moldname;mingwex;pthread;advapi32;shell32;user32;kernel32;mingw32;gcc_s;gcc;moldname;mingwex;kernel32")
 set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/10.2.0;C:/msys64/mingw64/x86_64-w64-mingw32/lib;C:/msys64/mingw64/lib;C:/msys64/mingw64/x86_64-w64-mingw32/sys-root/mingw/lib")
 set(CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")

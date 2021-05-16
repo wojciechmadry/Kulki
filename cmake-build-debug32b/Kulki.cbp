@@ -27,12 +27,12 @@
 					<Add option="-D__64BITVERSION__"/>
 					<Add directory="F:/SFML/64bit/include"/>
 					<Add directory="F:/kulki/src"/>
-					<Add directory="C:/msys64/mingw64\include\c++\10.2.0"/>
-					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\x86_64-w64-mingw32"/>
-					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\backward"/>
-					<Add directory="C:\msys64\mingw64\lib\clang\11.0.0\include"/>
-					<Add directory="C:/msys64/mingw64\x86_64-w64-mingw32\include"/>
-					<Add directory="C:/msys64/mingw64\include"/>
+					<Add directory="C:/msys64/mingw64/include/c++/10.2.0"/>
+					<Add directory="C:/msys64/mingw64/include/c++/10.2.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/msys64/mingw64/include/c++/10.2.0/backward"/>
+					<Add directory="C:/msys64/mingw64/lib/clang/12.0.0/include"/>
+					<Add directory="C:/msys64/mingw64/x86_64-w64-mingw32/include"/>
+					<Add directory="C:/msys64/mingw64/include"/>
 				</Compiler>
 				<MakeCommands>
 					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 Kulki"/>
@@ -51,12 +51,12 @@
 					<Add option="-D__64BITVERSION__"/>
 					<Add directory="F:/SFML/64bit/include"/>
 					<Add directory="F:/kulki/src"/>
-					<Add directory="C:/msys64/mingw64\include\c++\10.2.0"/>
-					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\x86_64-w64-mingw32"/>
-					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\backward"/>
-					<Add directory="C:\msys64\mingw64\lib\clang\11.0.0\include"/>
-					<Add directory="C:/msys64/mingw64\x86_64-w64-mingw32\include"/>
-					<Add directory="C:/msys64/mingw64\include"/>
+					<Add directory="C:/msys64/mingw64/include/c++/10.2.0"/>
+					<Add directory="C:/msys64/mingw64/include/c++/10.2.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/msys64/mingw64/include/c++/10.2.0/backward"/>
+					<Add directory="C:/msys64/mingw64/lib/clang/12.0.0/include"/>
+					<Add directory="C:/msys64/mingw64/x86_64-w64-mingw32/include"/>
+					<Add directory="C:/msys64/mingw64/include"/>
 				</Compiler>
 				<MakeCommands>
 					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/Makefile&quot;  VERBOSE=1 Kulki/fast"/>
@@ -95,12 +95,12 @@
 					<Add directory="G:/SFML/32bit/include"/>
 					<Add directory="G:/SFML/64bit/include"/>
 					<Add directory="F:/kulki/src"/>
-					<Add directory="C:/msys64/mingw64\include\c++\10.2.0"/>
-					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\x86_64-w64-mingw32"/>
-					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\backward"/>
-					<Add directory="C:\msys64\mingw64\lib\clang\11.0.0\include"/>
-					<Add directory="C:/msys64/mingw64\x86_64-w64-mingw32\include"/>
-					<Add directory="C:/msys64/mingw64\include"/>
+					<Add directory="C:/msys64/mingw64/include/c++/10.2.0"/>
+					<Add directory="C:/msys64/mingw64/include/c++/10.2.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/msys64/mingw64/include/c++/10.2.0/backward"/>
+					<Add directory="C:/msys64/mingw64/lib/clang/12.0.0/include"/>
+					<Add directory="C:/msys64/mingw64/x86_64-w64-mingw32/include"/>
+					<Add directory="C:/msys64/mingw64/include"/>
 				</Compiler>
 				<MakeCommands>
 					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 source"/>
@@ -119,12 +119,12 @@
 					<Add directory="G:/SFML/32bit/include"/>
 					<Add directory="G:/SFML/64bit/include"/>
 					<Add directory="F:/kulki/src"/>
-					<Add directory="C:/msys64/mingw64\include\c++\10.2.0"/>
-					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\x86_64-w64-mingw32"/>
-					<Add directory="C:/msys64/mingw64\include\c++\10.2.0\backward"/>
-					<Add directory="C:\msys64\mingw64\lib\clang\11.0.0\include"/>
-					<Add directory="C:/msys64/mingw64\x86_64-w64-mingw32\include"/>
-					<Add directory="C:/msys64/mingw64\include"/>
+					<Add directory="C:/msys64/mingw64/include/c++/10.2.0"/>
+					<Add directory="C:/msys64/mingw64/include/c++/10.2.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/msys64/mingw64/include/c++/10.2.0/backward"/>
+					<Add directory="C:/msys64/mingw64/lib/clang/12.0.0/include"/>
+					<Add directory="C:/msys64/mingw64/x86_64-w64-mingw32/include"/>
+					<Add directory="C:/msys64/mingw64/include"/>
 				</Compiler>
 				<MakeCommands>
 					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;F:/kulki/cmake-build-debug32b/src/Makefile&quot;  VERBOSE=1 source/fast"/>

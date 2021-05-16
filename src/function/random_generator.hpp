@@ -17,16 +17,6 @@ class random_generator
 #endif
     static std::mt19937 gen;
 
-    template< typename T = double, typename U = typename std::decay<T>::type >
-    constexpr static T _power(const T _number, const T _exp) noexcept
-    {
-        if constexpr ( std::is_same_v<float, U> )
-            return powf(_number, _exp);
-        if constexpr ( std::is_same_v<double, U> )
-            return pow(_number, _exp);
-        return powl(_number, _exp);
-    }
-
 public:
 
     random_generator() = default;

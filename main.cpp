@@ -3,17 +3,20 @@
 #include "function/load.hpp"
 #include "object/red_box.hpp"
 #include "function/mouse_click_event.hpp"
+#include "function/tester.hpp"
 
 #include <iostream>
 #include <unordered_map>
 
-static constexpr double VERSION = 1.024;
+static constexpr double VERSION = 1.025;
 
 #define FPS 0 // Show fps in console
 
 
 int main()
 {
+    //Play_Test_Games(-1, 14); // Test if game can crush.
+
     std::string title = "Kulki v.";
     title = title + std::to_string(VERSION);
     while ( title[title.size() - 1] == '0' )
@@ -108,11 +111,11 @@ int main()
             if ( old_score > record ) // If record were break, then save it
             {
                 record = old_score;
-                dynamic_cast<sf::Text *>(to_draw["record"].get())->setString(_str);
+                babel::ALGO::asType<sf::Text *>(to_draw["record"].get())->setString(_str);
                 save_record(record);
             }
             // Refresh score and record points
-            dynamic_cast<sf::Text *>(to_draw["score"].get())->setString(_str);
+            babel::ALGO::asType<sf::Text *>(to_draw["score"].get())->setString(_str);
             thread.operation(OperationType::UPDATE);// Game need update here
         }
 

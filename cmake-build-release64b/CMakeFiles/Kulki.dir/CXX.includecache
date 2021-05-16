@@ -212,6 +212,20 @@ cmath
 algorithm
 -
 
+../src/function/tester.hpp
+chrono
+-
+thread
+-
+atomic
+-
+../babel/babel.hpp
+../src/babel/babel.hpp
+drawer.hpp
+../src/function/drawer.hpp
+iostream
+-
+
 ../src/function/thread_wrapper.hpp
 function/waiter.hpp
 ../src/function/function/waiter.hpp
@@ -927,6 +941,8 @@ object/red_box.hpp
 F:/kulki/object/red_box.hpp
 function/mouse_click_event.hpp
 F:/kulki/function/mouse_click_event.hpp
+function/tester.hpp
+F:/kulki/function/tester.hpp
 iostream
 -
 unordered_map

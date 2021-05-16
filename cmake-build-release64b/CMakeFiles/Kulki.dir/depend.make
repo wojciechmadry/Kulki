@@ -29,6 +29,7 @@ CMakeFiles/Kulki.dir/main.cpp.obj: ../src/function/drawer.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: ../src/function/load.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: ../src/function/mouse_click_event.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: ../src/function/random_generator.hpp
+CMakeFiles/Kulki.dir/main.cpp.obj: ../src/function/tester.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: ../src/function/thread_wrapper.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: ../src/function/waiter.hpp
 CMakeFiles/Kulki.dir/main.cpp.obj: ../src/object/ball.hpp

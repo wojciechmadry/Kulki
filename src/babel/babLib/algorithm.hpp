@@ -340,11 +340,14 @@ namespace babel::ALGO{
 */
     template< typename Container >
     requires babel::CONCEPTS::IS_CONTAINER<Container>
-    [[nodiscard]] Container drop(const Container &cont, const size_t n) noexcept
+    [[nodiscard]] Container drop(const Container &cont, const int64_t n) noexcept
     {
-        if ( n > cont.size() )
+        if ( n > static_cast<int64_t>(cont.size()) || n <= 0)
             return { };
-        return {std::begin(cont) + static_cast<int64_t>(n), std::end(cont)};
+        if constexpr (babel::COMPILER_IS_64B) //NOLINT
+            return {std::begin(cont) + n, std::end(cont)};
+        else
+            return {std::begin(cont) + static_cast<int>(n), std::end(cont)};
     }
 
     /**
@@ -358,11 +361,14 @@ namespace babel::ALGO{
 */
     template< typename Container >
     requires babel::CONCEPTS::IS_CONTAINER<Container>
-    [[nodiscard]] Container take(const Container &cont, const size_t n) noexcept
+    [[nodiscard]] Container take(const Container &cont, const uint64_t n) noexcept
     {
         if ( n >= cont.size() )
             return cont;
-        return {std::begin(cont), std::begin(cont) + static_cast<int64_t>(n)};
+        if constexpr (babel::COMPILER_IS_64B)//NOLINT
+            return {std::begin(cont), std::begin(cont) + static_cast<int64_t>(n)};
+        else
+            return {std::begin(cont), std::begin(cont) + static_cast<int>(n)};
     }
 
     /**
@@ -465,11 +471,14 @@ namespace babel::ALGO{
 */
     template< typename Container >
     requires babel::CONCEPTS::IS_CONTAINER<Container>
-    [[nodiscard]] Container drop_last(const Container &cont, const size_t n) noexcept
+    [[nodiscard]] Container drop_last(const Container &cont, const uint64_t n) noexcept
     {
         if ( n > cont.size() )
             return { };
-        return {std::begin(cont), std::end(cont) - static_cast<int64_t>(n)};
+        if constexpr (babel::COMPILER_IS_64B) //NOLINT
+            return {std::begin(cont), std::end(cont) - static_cast<int64_t>(n)};
+        else
+            return {std::begin(cont), std::end(cont) - static_cast<int>(n)};
     }
 
 
@@ -488,7 +497,10 @@ namespace babel::ALGO{
     {
         if ( n >= cont.size() )
             return cont;
-        return {std::end(cont) - static_cast<int64_t>(n), std::end(cont)};
+        if constexpr (babel::COMPILER_IS_64B) //NOLINT
+            return {std::end(cont) - static_cast<int64_t>(n), std::end(cont)};
+        else
+            return {std::end(cont) - static_cast<int>(n), std::end(cont)};
     }
 
     /**

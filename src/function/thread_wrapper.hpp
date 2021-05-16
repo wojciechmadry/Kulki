@@ -83,7 +83,8 @@ public:
     void close_thread() noexcept
     {
         operation(OperationType::EXIT);
-        _th.join();
+        if (_th.joinable())
+            _th.join();
     }
 };
 

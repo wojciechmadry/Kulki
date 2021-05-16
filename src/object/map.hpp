@@ -85,7 +85,6 @@ class map
         {
             //diagonal check left down
             byte diagonal = !grid[start][0].is_empty();
-            std::pair<byte, byte> diagonal_start = {start, 0};
             byte add_to_i = 0;
             for ( byte j = 0 ; j < static_cast<byte>(9 - start - 1) ; ++j )
             {
@@ -94,7 +93,6 @@ class map
                     ++diagonal;
                 else if ( !grid[start + add_to_i + 1][j + 1].is_empty() && diagonal < 5 )
                 {
-                    diagonal_start = {start + add_to_i + 1, j + 1};
                     diagonal = 1;
                 } else if ( diagonal > 4 && grid[start + add_to_i][j] != grid[start + add_to_i + 1][j + 1] )
                     break;
@@ -105,7 +103,6 @@ class map
 
             //diagonal check right down
             diagonal = !grid[start][8].is_empty();
-            diagonal_start = {start, 8};
             add_to_i = 0;
             for ( byte j = 8 ; j > start ; --j )
             {
@@ -114,7 +111,6 @@ class map
                     ++diagonal;
                 else if ( !grid[start + add_to_i + 1][j - 1].is_empty() && diagonal < 5 )
                 {
-                    diagonal_start = {start + add_to_i + 1, j - 1};
                     diagonal = 1;
                 } else if ( diagonal > 4 && grid[start + add_to_i][j] != grid[start + add_to_i + 1][j - 1] )
                     break;
@@ -130,7 +126,6 @@ class map
         for ( byte start = 1 ; start < 5 ; ++start )
         {
             byte diagonal = !grid[0][start].is_empty();
-            std::pair<byte, byte> diagonal_start = {0, start};
             byte add_to_i = 0;
             for ( byte j = 0 ; j < static_cast<byte>(9 - start - 1) ; ++j )
             {
@@ -139,7 +134,6 @@ class map
                     ++diagonal;
                 else if ( !grid[j + 1][start + add_to_i + 1].is_empty() && diagonal < 5 )
                 {
-                    diagonal_start = {j + 1, start + add_to_i + 1};
                     diagonal = 1;
                 } else if ( diagonal > 4 && grid[j][start + add_to_i] != grid[j + 1][start + add_to_i + 1] )
                     break;
@@ -154,14 +148,12 @@ class map
         for ( byte start = 7 ; start > 3 ; --start )
         {
             byte diagonal = !grid[0][start].is_empty();
-            std::pair<byte, byte> diagonal_start = {0, start};
             for ( byte i = 0 ; i < start ; ++i )
             {
                 if ( !grid[i][start - i].is_empty() && grid[i][start - i] == grid[i + 1][start - i - 1] )
                     ++diagonal;
                 else if ( !grid[i + 1][start - i - 1].is_empty() && diagonal < 5 )
                 {
-                    diagonal_start = {i + 1, start - i - 1};
                     diagonal = 1;
                 } else if ( diagonal > 4 && grid[i][start - i] != grid[i + 1][start - i - 1] )
                     break;
@@ -409,7 +401,7 @@ class map
     {
         //Generate random next three balls, which show in the next move
         auto type = random_generator::generate<byte>(1, 100);
-        if ( type <= 33 ) // X% to generate diffrent next_three than before
+        if ( type <= 33 ) // X% to generate diffrent next_three then before
         {
             std::array<ball, 3> nb;
             std::for_each(std::begin(nb), std::end(nb), [&](ball &b) {
@@ -596,7 +588,7 @@ public:
         std::pair<char, char> from_c = {from.first, from.second};
         std::pair<char, char> to_c = {to.first, to.second};
 
-        std::vector<std::pair<char, char> > vec(81, std::make_pair(-1, -1));
+        std::array<std::pair<char, char>, 81> vec;
         std::array<std::pair<char, char>, 4> Coordinate;
         size_t _size = 1, _start = 0;
         vec[0] = to_c;
@@ -623,7 +615,7 @@ public:
                 {
                     if ( Item == from_c )
                         return true;
-                    if ( cor_is_correct(Item) && std::find(vec.begin(), vec.end(), Item) == vec.end() )
+                    if ( cor_is_correct(Item) && std::find(vec.begin(), vec.begin() + _size, Item) == vec.begin() + _size )
                         vec[_size++] = Item;
                 }
                 ++_start;

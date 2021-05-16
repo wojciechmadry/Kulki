@@ -20,6 +20,5 @@
 #endif
 
 namespace babel{
-    static constexpr const double VERSION = 1.09;
 }
 #endif

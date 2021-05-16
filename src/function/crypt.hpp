@@ -12,7 +12,7 @@ std::string crypt(uint16_t number)
 {
 
     std::string encrypted = {random_generator::generate<char>(65, 90)};
-    std::string snum = std::to_string(number);
+    auto snum = babel::ALGO::asType<std::string>(number);
     for(auto ch : snum)
     {
         encrypted += char(ch+49);
@@ -39,7 +39,7 @@ uint16_t decrypt(const std::string& cr)
             decrypt += char(cr[i]-49);
         }
     }
-    return babel::ALGO::string_to<uint16_t>(decrypt);
+    return babel::ALGO::asType<uint16_t>(decrypt);
 }
 
 #endif //KULKI_CRYPT_HPP

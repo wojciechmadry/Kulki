@@ -38,11 +38,10 @@ std::pair<uint32_t, uint32_t> load_resolution() noexcept
         babel::FILE_SYS::close_file(f);
         return {1920u, 1020u};
     }
-    auto x = babel::ALGO::string_to<uint32_t>(lines[0]);
-    auto y = babel::ALGO::string_to<uint32_t>(lines[1]);
-    return {x, y};
+    return {babel::ALGO::asType<uint32_t>(lines[0]), babel::ALGO::asType<uint32_t>(lines[1])};
 
 }
+
 uint32_t load_fps() noexcept
 {
     namespace fs = std::filesystem;
@@ -53,7 +52,7 @@ uint32_t load_fps() noexcept
         babel::FILE_SYS::close_file(f);
         return 30u;
     }
-    return babel::ALGO::string_to<uint32_t>(babel::FILE_SYS::load_txt("fps.cfg"));
+    return babel::ALGO::asType<uint32_t>(babel::FILE_SYS::load_txt("fps.cfg"));
 
 }
 
@@ -74,7 +73,7 @@ uint16_t check_for_record()
     std::ifstream file("kulki.bin");
     if ( !file.is_open() )
         throw std::out_of_range("Cant open kulki.bin");
-    uint16_t decoded = 0;
+    uint16_t decoded;
     try
     {
         std::string line;

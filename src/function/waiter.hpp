@@ -16,7 +16,7 @@ class waiter
 {
     uint32_t _fps;
     ATOMIC_TYPE* _at;
-    using StorageType = decltype(ATOMIC_TYPE()++);
+    using StorageType = typename babel::CONCEPTS::type_in_atomic<ATOMIC_TYPE>::type;
 public:
     waiter() = delete;
     waiter(ATOMIC_TYPE& Status, const uint32_t refresh_rate) noexcept

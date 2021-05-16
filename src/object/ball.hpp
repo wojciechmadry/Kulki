@@ -28,25 +28,27 @@ enum class COLOR : byte
 
 class ball
 {
-    [[nodiscard]] static sf::Color sf_color(const COLOR Color, const int32_t alpha = -1) noexcept
+    static constexpr const std::array<std::array<byte, 4>, 7> _color
+            {
+                    {
+                            {50, 100, 83, 255},
+                            {254, 127, 0, 255},
+                            {255, 255, 0, 255},
+                            {173, 216, 230, 255},
+                            {165, 42, 42, 255},
+                            {128, 0, 128, 255},
+                            {0, 0, 0, 0}
+                    }
+            };
+
+    [[nodiscard]] static sf::Color sf_color(const COLOR Color, const int16_t alpha = -1) noexcept
     {
-        static constexpr const std::array<std::array<byte, 4>, 7> _color
-                {
-                        {
-                                {50, 100, 83, 255},
-                                {254, 127, 0, 255},
-                                {255, 255, 0, 255},
-                                {173, 216, 230, 255},
-                                {165, 42, 42, 255},
-                                {128, 0, 128, 255},
-                                {0, 0, 0, 0}
-                        }
-                };
+        auto ColorNumber = static_cast<byte>(Color);
         return sf::Color(
-                _color[static_cast<byte>(Color)][0],
-                _color[static_cast<byte>(Color)][1],
-                _color[static_cast<byte>(Color)][2],
-                ( alpha == -1 ? _color[static_cast<byte>(Color)][3] : static_cast<sf::Uint8>(alpha) )
+                _color[ColorNumber][0],
+                _color[ColorNumber][1],
+                _color[ColorNumber][2],
+                ( alpha == -1 ? _color[ColorNumber][3] : static_cast<sf::Uint8>(alpha) )
         );
     }
 
@@ -120,6 +122,11 @@ public:
     [[nodiscard]] bool is_empty() const noexcept
     {
         return _colorID == COLOR::empty;
+    }
+
+    [[nodiscard]] bool has_value() const noexcept
+    {
+        return _colorID != COLOR::empty;
     }
 
     void clear() noexcept

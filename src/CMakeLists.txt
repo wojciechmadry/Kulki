@@ -19,6 +19,8 @@ add_library(source STATIC
         function/drawer.hpp
         function/load.hpp
         function/crypt.hpp)
+
+target_compile_options(source PRIVATE -Wextra -Werror -W -Wshadow -Wdouble-promotion -Wformat=2 -Wundef -fno-common -Wconversion -pedantic -Wall)
 target_link_libraries(source PUBLIC gcc)
 target_link_libraries(source PUBLIC stdc++.dll)
 target_link_libraries(source PUBLIC sfml-window)
