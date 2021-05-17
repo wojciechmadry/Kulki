@@ -10,41 +10,28 @@ Screen from game are in folder _Screen_.
 
 All nedeed source files are in folder _src_.
 
-Working version
---- 
-
-In this moment only working builded version
-is 64 bit, if you want 32 bit you need compile project with cmake by your own.
-
 How to compile
 ---
 
 I build project with Mingw32.
 You need Cmake install too.
 
-Project requires C++20 (I use Clang 11.0)
+Project requires C++20 (I use Clang 12.0 (works on 11.0 too))
 
 First you need change CMakeLists.
 
 
 If you want hide console after you build this project uncomment `WIN32`
 
-If you compile on 32 bit system you add this definition:
+Set path to header files SFML:
 
-`add_definitions(-D__32BITVERSION__)`
-
-If you compile on 64 bit system you add this definition:
-
-`add_definitions(-D__64BITVERSION__)`
-
-
-Now you set path to header files SFML:  
-
-`include_directories(F:/SFML/64bit/include)`
+`include_directories(F:/SFML/64bit/include)` to 64 bit sfml files.
+`include_directories(F:/SFML/32bit/include)` to 32 bit sfml files.
 
 Now set path to all static SFML library:
 
-`link_directories(F:/SFML/64bit/lib)`
+`link_directories(F:/SFML/64bit/lib)` to 64 bit sfml files.
+`link_directories(F:/SFML/32bit/lib)` to 32 bit sfml files.
 
 Every file you need to build project:
 

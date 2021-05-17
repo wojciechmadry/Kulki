@@ -1,6 +1,6 @@
-F:/Kulki/cmake-build-release32b/CMakeFiles/Kulki.dir
-F:/Kulki/cmake-build-release32b/CMakeFiles/edit_cache.dir
-F:/Kulki/cmake-build-release32b/CMakeFiles/rebuild_cache.dir
-F:/Kulki/cmake-build-release32b/src/CMakeFiles/edit_cache.dir
-F:/Kulki/cmake-build-release32b/src/CMakeFiles/source.dir
-F:/Kulki/cmake-build-release32b/src/CMakeFiles/rebuild_cache.dir
+F:/kulki/cmake-build-release32b/CMakeFiles/Kulki.dir
+F:/kulki/cmake-build-release32b/CMakeFiles/edit_cache.dir
+F:/kulki/cmake-build-release32b/CMakeFiles/rebuild_cache.dir
+F:/kulki/cmake-build-release32b/src/CMakeFiles/edit_cache.dir
+F:/kulki/cmake-build-release32b/src/CMakeFiles/source.dir
+F:/kulki/cmake-build-release32b/src/CMakeFiles/rebuild_cache.dir

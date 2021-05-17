@@ -51,7 +51,7 @@ public:
 };
 
 // idk why std::random_device doesn't
-// work on clang 32bit.
+// work on clang 11.0 32bit.
 #if !defined(__32BITVERSION__)
 std::random_device random_generator::rd; //NOLINT
 std::mt19937  random_generator::gen(random_generator::rd()); //NOLINT

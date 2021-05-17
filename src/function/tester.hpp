@@ -39,9 +39,9 @@ void Play_Test_Games(int64_t test = -1, int32_t threads = -1)
     };
     if (threads <= 0)
         threads = static_cast<decltype(threads)>(std::thread::hardware_concurrency());
-    std::vector<std::thread> ths(static_cast<uint64_t>(threads));
+    std::vector<std::thread> ths(static_cast<std::size_t>(threads));
 
-    for(uint64_t i = 0 ; i < static_cast<uint64_t>(threads) ; ++i)
+    for(std::size_t i = 0 ; i < static_cast<std::size_t>(threads) ; ++i)
         ths[i] = std::thread(game);
 
     for(auto& th : ths)

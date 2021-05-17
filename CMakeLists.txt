@@ -3,16 +3,26 @@ project(Kulki)
 set(CMAKE_CXX_STANDARD 20)
 add_subdirectory(src)
 
-#add_definitions(-D__32BITVERSION__)
-add_definitions(-D__64BITVERSION__)
+if("${CMAKE_SIZEOF_VOID_P}" STREQUAL "4")
+    add_definitions(-D__32BITVERSION__)
+    include_directories(F:/SFML/32bit/include) # Link to 32 bit sfml
+    link_directories(F:/SFML/32bit/lib)
+else()
+    add_definitions(-D__64BITVERSION__)
+    include_directories(F:/SFML/64bit/include) # Link to 64 bit sfml
+    link_directories(F:/SFML/64bit/lib)
+endif()
 
 
-include_directories(F:/SFML/64bit/include)
-link_directories(F:/SFML/64bit/lib)
+
 
 add_executable(Kulki
         #WIN32
         main.cpp
         )
-target_compile_options(Kulki PRIVATE -Wextra -Werror -W -Wshadow -Wdouble-promotion -Wformat=2 -Wundef -fno-common -Wconversion -pedantic -Wall)
+
+if("${CMAKE_SIZEOF_VOID_P}" STREQUAL "8")
+    target_compile_options(Kulki PRIVATE -Wextra -Werror -W -Wshadow -Wdouble-promotion -Wformat=2 -Wundef -fno-common -Wconversion -pedantic -Wall)
+endif()
+
 target_link_libraries(Kulki PRIVATE source)

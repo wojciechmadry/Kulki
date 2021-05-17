@@ -79,15 +79,15 @@ CMakeFiles/Kulki.dir/main.cpp.obj: CMakeFiles/Kulki.dir/flags.make
 CMakeFiles/Kulki.dir/main.cpp.obj: CMakeFiles/Kulki.dir/includes_CXX.rsp
 CMakeFiles/Kulki.dir/main.cpp.obj: ../main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=F:\kulki\cmake-build-debug32b\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Kulki.dir/main.cpp.obj"
-	C:\msys64\mingw64\bin\clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Kulki.dir\main.cpp.obj -c F:\kulki\main.cpp
+	C:\msys64\mingw32\bin\clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Kulki.dir\main.cpp.obj -c F:\kulki\main.cpp
 
 CMakeFiles/Kulki.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Kulki.dir/main.cpp.i"
-	C:\msys64\mingw64\bin\clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E F:\kulki\main.cpp > CMakeFiles\Kulki.dir\main.cpp.i
+	C:\msys64\mingw32\bin\clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E F:\kulki\main.cpp > CMakeFiles\Kulki.dir\main.cpp.i
 
 CMakeFiles/Kulki.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Kulki.dir/main.cpp.s"
-	C:\msys64\mingw64\bin\clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S F:\kulki\main.cpp -o CMakeFiles\Kulki.dir\main.cpp.s
+	C:\msys64\mingw32\bin\clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S F:\kulki\main.cpp -o CMakeFiles\Kulki.dir\main.cpp.s
 
 # Object files for target Kulki
 Kulki_OBJECTS = \

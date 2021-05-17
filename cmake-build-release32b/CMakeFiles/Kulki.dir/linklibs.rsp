@@ -1,1 +1,1 @@
-  -LG:/SFML/32bit/lib  src/libsource.a -lgcc -lstdc++ -lsfml-window -lsfml-graphics -lsfml-system -lfreetype -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
+  -LF:/SFML/32bit/lib  src/libsource.a -lgcc -lstdc++ -lsfml-window -lsfml-graphics -lsfml-system -lfreetype -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
