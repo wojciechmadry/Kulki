@@ -26,11 +26,13 @@ If you want hide console after you build this project uncomment `WIN32`
 Set path to header files SFML:
 
 `include_directories(F:/SFML/64bit/include)` to 64 bit sfml files.
+
 `include_directories(F:/SFML/32bit/include)` to 32 bit sfml files.
 
 Now set path to all static SFML library:
 
 `link_directories(F:/SFML/64bit/lib)` to 64 bit sfml files.
+
 `link_directories(F:/SFML/32bit/lib)` to 32 bit sfml files.
 
 Every file you need to build project:
