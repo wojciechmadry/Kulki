@@ -1,0 +1,5 @@
+.idea
+cmake-build-debug32b
+cmake-build-debug64b
+cmake-build-release32b
+cmake-build-release64b
