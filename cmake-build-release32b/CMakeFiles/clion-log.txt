@@ -1,4 +1,0 @@
-"F:\CLion\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=C:/msys64/mingw64/bin/clang.exe -DCMAKE_CXX_COMPILER=C:/msys64/mingw64/bin/clang++.exe -DCMAKE_C_COMPILER=C:/msys64/mingw32/bin/clang.exe -DCMAKE_CXX_COMPILER=C:/msys64/mingw32/bin/clang++.exe -G "CodeBlocks - MinGW Makefiles" F:\kulki
--- Configuring done
--- Generating done
--- Build files have been written to: F:/kulki/cmake-build-release32b
