@@ -195,4 +195,13 @@ void save_map(const map &Map) noexcept
     babel::FILE_SYS::close_file(f);
 }
 
+
+[[nodiscard]] std::string generate_window_name(const double Version) noexcept
+{
+    std::string title = "Kulki v.";
+    title = title + std::to_string(Version);
+    while ( title[title.size() - 1] == '0' )
+        title.pop_back();
+    return title;
+}
 #endif //KULKI_LOAD_HPP

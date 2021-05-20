@@ -9,7 +9,7 @@
 #include <iostream>
 #include <unordered_map>
 
-static constexpr double VERSION = 1.025;
+static constexpr double VERSION = 1.03;
 
 #define FPS 0 // Show fps in console
 
@@ -17,11 +17,6 @@ static constexpr double VERSION = 1.025;
 int main()
 {
     //Play_Test_Games(-1, 14); // Test if game can crush.
-
-    std::string title = "Kulki v.";
-    title = title + std::to_string(VERSION);
-    while ( title[title.size() - 1] == '0' )
-        title.pop_back();
 
     auto[width, height] = load_resolution();
 
@@ -33,24 +28,17 @@ int main()
     std::unordered_map<std::string, std::unique_ptr<sf::Drawable>> to_draw; // map of drawing object
 
     sf::Font font;
-    std::string PathFont = "C:/Windows/Fonts/arial.ttf";
 
-    if ( babel::FILE_SYS::file_exist(PathFont) )
-        font = load_font(PathFont); // default font
+    auto PathFont = search_font();
+
+    if ( PathFont.has_value() )
+        font = load_font(PathFont.value()); // default font
     else
     {
-        auto OptionalPathFont = search_font();
-        if (OptionalPathFont.has_value())
-        {
-            font = load_font(OptionalPathFont.value());
-        }
-        else
-        {
-            std::cout << "Cant find any font \n";
-            std::cin.get();
-            std::cin.get();
-            return 1;
-        }
+        std::cout << "Cant find any font \n";
+        std::cin.get();
+        std::cin.get();
+        return 1;
     }
 
     draw_started_object(to_draw, font, record, old_score);
@@ -60,7 +48,7 @@ int main()
 
     sf::RenderWindow window(
             sf::VideoMode(static_cast<uint32_t>(GLOBAL::get_width()), static_cast<uint32_t>(GLOBAL::get_height())),
-            title, sf::Style::Default,
+            generate_window_name(VERSION), sf::Style::Default,
             sf::ContextSettings {0, 0, 16});
 
     auto fps = babel::MATH::min(load_fps(), 244u);
