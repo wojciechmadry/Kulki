@@ -4,6 +4,7 @@
 #include "object/red_box.hpp"
 #include "function/mouse_click_event.hpp"
 #include "function/tester.hpp"
+#include "function/search_font.hpp"
 
 #include <iostream>
 #include <unordered_map>
@@ -32,14 +33,24 @@ int main()
     std::unordered_map<std::string, std::unique_ptr<sf::Drawable>> to_draw; // map of drawing object
 
     sf::Font font;
-    if ( babel::FILE_SYS::file_exist("arial.ttf") )
-        font = load_font("arial.ttf"); // default font
+    std::string PathFont = "C:/Windows/Fonts/arial.ttf";
+
+    if ( babel::FILE_SYS::file_exist(PathFont) )
+        font = load_font(PathFont); // default font
     else
     {
-        std::cout << "Cant find font arial.ttf";
-        std::cin.get();
-        std::cin.get();
-        return 1;
+        auto OptionalPathFont = search_font();
+        if (OptionalPathFont.has_value())
+        {
+            font = load_font(OptionalPathFont.value());
+        }
+        else
+        {
+            std::cout << "Cant find any font \n";
+            std::cin.get();
+            std::cin.get();
+            return 1;
+        }
     }
 
     draw_started_object(to_draw, font, record, old_score);

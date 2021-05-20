@@ -6,7 +6,9 @@ add_library(source STATIC
         function/random_generator.hpp
         function/drawer.hpp
         function/load.hpp
-        function/crypt.hpp)
+        function/crypt.hpp
+        function/search_font.hpp
+        )
 
 target_link_libraries(source PUBLIC gcc)
 target_link_libraries(source PUBLIC stdc++.dll)

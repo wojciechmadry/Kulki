@@ -43,7 +43,6 @@ Every file you need to build project:
 
 `file - CMakeLists.txt`
 `file - main.cpp`
-`font - arial.ttf`
 
 Now open console in folder Build and type:
 `cmake -g`
@@ -53,8 +52,6 @@ Now you see available generator, I pick: `MinGW Makefiles`
 Now type `cmake -G 'MinGW Makefiles' ../` to generate project.
 
 To build your project type `cmake --build .`
-
-When your build you project copy font `arial.ttf` to your build project.
 
 Now only to you need to do: copy libraries from SFML folder`../bin`
 
