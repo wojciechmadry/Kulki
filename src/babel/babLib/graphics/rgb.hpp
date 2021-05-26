@@ -1,7 +1,7 @@
 #ifndef BABEL_GRAPHICS_RGB
 #define BABEL_GRAPHICS_RGB
 
-#include "../algorithm.hpp"
+#include "../algorithm/algorithm.hpp"
 
 namespace babel::GRAPHICS{
     class rgb

@@ -19,6 +19,7 @@
 #include <numbers>
 #include <list>
 #include <random>
+#include <thread>
 
 #ifdef _WIN32
     #include <Windows.h>
@@ -26,7 +27,7 @@
 
 namespace babel
 {
-    static constexpr const double VERSION = 1.1;
+    static constexpr const double VERSION = 1.11;
     static constexpr const bool COMPILER_IS_64B = sizeof(void*) == 8 ? true : false; //NOLINT
 }
 

@@ -23,7 +23,7 @@ class Thread
     game_thr(map &Map, const uint32_t fps, std::pair<char, char> &from, const std::pair<char, char> &to,
              std::atomic<int> &operation)
     {
-        uint32_t _fps = babel::MATH::min(fps, 244u);
+        uint32_t _fps = fps;
         _fps = 1000 / _fps;
         while ( operation != -1 )
         {

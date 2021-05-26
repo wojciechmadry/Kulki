@@ -30,16 +30,16 @@ public:
     void set_position(const float x, const float y) noexcept
     {
         if (_text)
-           babel::ALGO::asType<sf::Sprite*>(_draw)->setPosition(x, y);
+           babel::ALGO::CAST::asType<sf::Sprite*>(_draw)->setPosition(x, y);
         else
-            babel::ALGO::asType<sf::RectangleShape*>(_draw)->setPosition(x, y);
+            babel::ALGO::CAST::asType<sf::RectangleShape*>(_draw)->setPosition(x, y);
     }
     void hide() noexcept
     {
 
         if (_text)
         {
-            auto sprite = babel::ALGO::asType<sf::Sprite*>(_draw);
+            auto sprite = babel::ALGO::CAST::asType<sf::Sprite*>(_draw);
             sf::Vector2f spriteSize(
                     static_cast<float>(sprite->getTexture()->getSize().x) * sprite->getScale().x,
                     static_cast<float>(sprite->getTexture()->getSize().y) * sprite->getScale().y);
@@ -47,7 +47,7 @@ public:
         }
         else
         {
-            auto draw = babel::ALGO::asType<sf::RectangleShape*>(_draw);
+            auto draw = babel::ALGO::CAST::asType<sf::RectangleShape*>(_draw);
             _put_out_of_screen(draw, draw->getSize());
         }
     }

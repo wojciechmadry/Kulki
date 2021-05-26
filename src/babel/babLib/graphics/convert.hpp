@@ -12,7 +12,7 @@ namespace babel::GRAPHICS{
         auto rp = static_cast<double>(_rgb.R()) / 255.0;
         auto gp = static_cast<double>(_rgb.G()) / 255.0;
         auto bp = static_cast<double>(_rgb.B()) / 255.0;
-        double k = 1.0 - babel::MATH::max(babel::MATH::max(rp, gp), bp);
+        double k = 1.0 - babel::ALGO::MATH::max(babel::ALGO::MATH::max(rp, gp), bp);
         double o_m_k = 1.0 - k;
         double c = ( ( 1.0 - rp - k ) / o_m_k ) * 100.0;
         double m = ( ( 1.0 - gp - k ) / o_m_k ) * 100.0;

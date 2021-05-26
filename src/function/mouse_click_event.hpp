@@ -37,7 +37,7 @@ namespace MOUSE{
             } else
                 redbox.hide();
 
-        } else if ( babel::ALGO::asType<sf::RectangleShape *>(to_draw["..newgamebox"].get())->getGlobalBounds().contains(pos) )
+        } else if ( babel::ALGO::CAST::asType<sf::RectangleShape *>(to_draw["..newgamebox"].get())->getGlobalBounds().contains(pos) )
         {
             picked = {-1, -1};
             redbox.hide();

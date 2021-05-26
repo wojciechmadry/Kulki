@@ -1,9 +1,9 @@
-#ifndef babel_MATH
-#define babel_MATH
+#ifndef babel_ALGO_MATH
+#define babel_ALGO_MATH
 
-#include "variadic.hpp"
+#include "../variadic.hpp"
 
-namespace babel::MATH{
+namespace babel::ALGO::MATH{
     namespace DERIVATIVE{
         namespace FIRST{
             /**
@@ -157,19 +157,33 @@ namespace babel::MATH{
 
     }
 
+
     /**
-    *  @brief  Convert negative number to positive.
-     *  \Example_1 abs(-5) -> 5
-     *  \Example_2 abs(7) -> 7
-    *  @param  v Number can be positive or negative.
-    * Must be arithmetic
-    *  @return Return absolute value of number
-    */
+     *  @brief  Convert negative number to positive.
+     *  \EXAMPLE_1 abs(-4) -> 4
+     *  \EXAMPLE_2 abs(4) -> 4
+     *  @param  v Number can be positive or negative.
+     *  @return Return absolute value of number
+     */
     template< typename T >
-    requires babel::CONCEPTS::IS_SIGNED<T>
-    constexpr inline T abs(const T v) noexcept
+    requires ( !babel::CONCEPTS::IS_CONTAINER<T> )
+    constexpr inline T abs(const T v)
     {
         return ( v >= 0 ) ? v : -v;
+    }
+
+
+    /**
+ *  @brief  Convert negative number to positive in data structure.
+  *  \EXAMPLE_1  {3, 1, -4, 2, -1} -> {3, 1, 4, 2 , 1}
+ *  @param  v Vector of numbers.
+ *  @return no return
+ */
+    template< typename T, typename U = babel::CONCEPTS::type_in<T> >
+    requires(babel::CONCEPTS::IS_CONTAINER<T>)
+    constexpr void abs(T &v)
+    {
+        std::for_each(std::begin(v), std::end(v), [](U &val) { val = babel::ALGO::MATH::abs(val); });
     }
 
 
@@ -541,7 +555,7 @@ namespace babel::MATH{
 *  @return Return vector of prime number
 */
     template< typename T >
-    requires (std::is_integral_v<T> && !std::is_signed_v<T>)
+    requires ( std::is_integral_v<T> && !std::is_signed_v<T> )
     std::vector<T> prime_factors(T number) noexcept
     {
         if ( number <= 2 )
@@ -628,7 +642,7 @@ namespace babel::MATH{
     requires std::is_floating_point_v<T>
     constexpr inline T distance(const T x1, const T x2) noexcept
     {
-        return babel::MATH::abs(x1 - x2);
+        return babel::ALGO::MATH::abs(x1 - x2);
     }
 
     /**
@@ -645,6 +659,59 @@ namespace babel::MATH{
     constexpr inline T distance(const T Ax, const T Ay, const T Bx, const T By) noexcept
     {
         return std::sqrt(std::pow(Bx - Ax, 2.0) + std::pow(By - Ay, 2.0));
+    }
+
+        /**
+    *  @brief  Check if number is automorphic
+         *  \EXAMPLE_1 (25)^2 == 625 -> true
+         *  \EXAMPLE_2 (76)^2 == 5776 -> true
+    *  @param  n Number
+    *  @return Return 1 if n is automorphic or 0 if not.
+    */
+    constexpr bool is_automorphic(int64_t n) noexcept
+    {
+        n = babel::ALGO::MATH::abs(n);
+        uint16_t digits = 0;
+        for ( int64_t cpy = n ; cpy > 1 ; ++digits )
+            cpy /= 10;
+        return ( static_cast<int64_t>(pow(static_cast<double>(n), 2.0)) % static_cast<int64_t>(pow(10, digits)) ) == n;
+    }
+
+
+    /**
+*  @brief  Calculate FFT from probes.
+*  @param  container Data structure of elements.
+*  @return Return FFT
+*/
+    template< typename Container, typename T = babel::CONCEPTS::type_in<Container> >
+    requires ( babel::CONCEPTS::IS_FLOATING_POINT<T> && babel::CONCEPTS::IS_CONTAINER<Container> )
+    std::vector<std::complex<T>> FFT(const Container &probes) noexcept
+    {
+        std::function<void(std::vector<std::complex<T>> &)> ditfft2;
+        ditfft2 = [&ditfft2](std::vector<std::complex<T>> &fn) -> void {
+            const size_t N = fn.size();
+            if ( N < 2 ) return;
+            std::vector<std::complex<T>> even;
+            std::vector<std::complex<T>> odd;
+            for ( size_t i = 0 ; i < N ; ++i )
+                if ( i % 2 == 0 )
+                    even.emplace_back(fn[i]);
+                else
+                    odd.emplace_back(fn[i]);
+            ditfft2(even);
+            ditfft2(odd);
+            for ( size_t k = 0 ; k < N / 2 ; ++k )
+            {
+                auto t = std::polar(1.0, -2.0 * std::numbers::pi * static_cast<double>(k) / static_cast<double>(N)) *
+                         odd[k];
+                fn[k] = even[k] + t;
+                fn[k + N / 2] = even[k] - t;
+            }
+        };
+
+        std::vector<std::complex<T>> res(std::begin(probes), std::end(probes));
+        ditfft2(res);
+        return res;
     }
 
 }

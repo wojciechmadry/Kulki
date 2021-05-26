@@ -1,7 +1,7 @@
 #ifndef BABEL_GRAPHICS_CMYK
 #define BABEL_GRAPHICS_CMYK
 
-#include "../algorithm.hpp"
+#include "../algorithm/algorithm.hpp"
 
 namespace babel::GRAPHICS{
 

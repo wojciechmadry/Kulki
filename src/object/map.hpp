@@ -469,7 +469,7 @@ public:
 
         random_generator::random_shuffle(free_pos);
 
-        byte to_insert = static_cast<byte>(babel::MATH::min(free_pos.size(), static_cast<size_t>(3)));
+        byte to_insert = static_cast<byte>(babel::ALGO::MATH::min(free_pos.size(), static_cast<size_t>(3)));
         int probe = 3;
 
         // Try add three ball, in good position ( no score added )
@@ -525,7 +525,7 @@ public:
                 }
             }
         }
-        _filled = static_cast<byte>(babel::MATH::min(_filled + 3, 81));
+        _filled = static_cast<byte>(babel::ALGO::MATH::min(_filled + 3, 81));
         generate_next_three();
         check_for_score();
         _need_update = true;

@@ -9,7 +9,7 @@
 #include <iostream>
 #include <unordered_map>
 
-static constexpr double VERSION = 1.03;
+static constexpr double VERSION = 1.04;
 
 #define FPS 0 // Show fps in console
 
@@ -51,13 +51,13 @@ int main()
             generate_window_name(VERSION), sf::Style::Default,
             sf::ContextSettings {0, 0, 16});
 
-    auto fps = babel::MATH::min(load_fps(), 244u);
+    auto fps = load_fps();
     window.setFramerateLimit(fps);
     sf::Image icon;
 
     if ( babel::FILE_SYS::folder_exist("ball_texture") )
         icon.loadFromFile("ball_texture/orange.png");
-    else
+    else if (( babel::FILE_SYS::folder_exist("../ball_texture") ))
         icon.loadFromFile("../ball_texture/orange.png");
 
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
@@ -110,11 +110,11 @@ int main()
             if ( old_score > record ) // If record were break, then save it
             {
                 record = old_score;
-                babel::ALGO::asType<sf::Text *>(to_draw["record"].get())->setString(_str);
+                babel::ALGO::CAST::asType<sf::Text *>(to_draw["record"].get())->setString(_str);
                 save_record(record);
             }
             // Refresh score and record points
-            babel::ALGO::asType<sf::Text *>(to_draw["score"].get())->setString(_str);
+            babel::ALGO::CAST::asType<sf::Text *>(to_draw["score"].get())->setString(_str);
             thread.operation(OperationType::UPDATE);// Game need update here
         }
 
