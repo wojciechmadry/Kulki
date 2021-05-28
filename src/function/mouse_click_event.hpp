@@ -11,10 +11,10 @@
 namespace MOUSE{
     void left_click(Thread &thread, sf::RenderWindow &window, std::pair<char, char> &new_pick,
                     std::pair<char, char> &picked, RedBox &redbox, map &Game,
-                    const sf::RectangleShape& NewGameBox) noexcept
+                    ResourceHolder<sf::Drawable>& Resource) noexcept
     {
         auto pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-        if ( GLOBAL::map().getGlobalBounds().contains(pos) ) // If you click to map grid
+        if ( Resource.get_as<sf::RectangleShape>(ResourceType::MAP_BEFORE_GRID).getGlobalBounds().contains(pos) ) // If you click to map grid
         {
             new_pick = MapCorToGrid(pos);
             if ( !Game.at(new_pick).is_empty() )
@@ -29,7 +29,7 @@ namespace MOUSE{
             {
                 // Set red outline on picked ball
                 auto side_length = static_cast<float>(GLOBAL::white_box_size().x);
-                auto grid_pos = GLOBAL::map().getPosition();
+                auto grid_pos = Resource.get_as<sf::RectangleShape>(ResourceType::MAP_BEFORE_GRID).getPosition();
                 redbox.set_position(
                         static_cast<float>(grid_pos.x + side_length * static_cast<float>(picked.second)),
                         static_cast<float>(grid_pos.y + side_length * static_cast<float>(picked.first)));
@@ -39,7 +39,7 @@ namespace MOUSE{
 
         }
 
-        else if ( NewGameBox.getGlobalBounds().contains(pos) )
+        else if (  Resource.get_as<sf::RectangleShape>(ResourceType::NEW_GAME_BOX).getGlobalBounds().contains(pos) )
         {
             picked = {-1, -1};
             redbox.hide();

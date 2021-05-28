@@ -18,14 +18,12 @@ int main()
 {
     //Play_Test_Games(-1, 14); // Test if game can crush.
 
-    auto[width, height] = load_resolution();
+    ResourceHolder<sf::Drawable> Resource;
 
-    GLOBAL::INIT(width, height); // Load textures, init default settings etc
+    GLOBAL::INIT(Resource); // Load textures, init default settings etc
 
     map Game = load_map();
     uint16_t record = check_for_record(), old_score = Game.get_score();
-
-    ResourceHolder<std::string, sf::Drawable> Resource;
 
     sf::Font font;
 
@@ -97,7 +95,7 @@ int main()
             } else if ( event.type == sf::Event::MouseButtonPressed )
             {
                 if ( sf::Mouse::isButtonPressed(sf::Mouse::Left) )
-                    MOUSE::left_click(thread, window, new_pick, picked, redbox, Game, Resource.get_as<sf::RectangleShape>("..newgamebox"));
+                    MOUSE::left_click(thread, window, new_pick, picked, redbox, Game,Resource);
                 else if ( sf::Mouse::isButtonPressed(sf::Mouse::Right) ) // Right mouse click reset picked ball
                     MOUSE::right_click(thread, picked, redbox);
             }
@@ -110,11 +108,11 @@ int main()
             if ( old_score > record ) // If record were break, then save it
             {
                 record = old_score;
-                Resource.get_as<sf::Text>("record").setString(_str);
+                Resource.get_as<sf::Text>(ResourceType::RECORD).setString(_str);
                 save_record(record);
             }
             // Refresh score and record points
-            Resource.get_as<sf::Text>("score").setString(_str);
+            Resource.get_as<sf::Text>(ResourceType::SCORE).setString(_str);
             thread.operation(OperationType::UPDATE);// Game need update here
         }
 

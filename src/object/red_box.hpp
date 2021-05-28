@@ -40,10 +40,10 @@ class RedBox
 
 public:
     RedBox() = delete;
-    RedBox(ResourceHolder<std::string,sf::Drawable>& Resources, const bool Textured) noexcept
+    RedBox(ResourceHolder<sf::Drawable>& Resources, const bool Textured) noexcept
     : _text(Textured)
     {
-        _box = AnyType(Resources.get_as<sf::Drawable>("picked"));
+        _box = AnyType(Resources.get_as<sf::Drawable>(ResourceType::PICKED));
         hide();
     }
     void set_position(const float x, const float y) noexcept
