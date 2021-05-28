@@ -11,7 +11,7 @@
 namespace MOUSE{
     void left_click(Thread &thread, sf::RenderWindow &window, std::pair<char, char> &new_pick,
                     std::pair<char, char> &picked, RedBox &redbox, map &Game,
-                    std::unordered_map<std::string, std::unique_ptr<sf::Drawable>> &to_draw) noexcept
+                    const sf::RectangleShape& NewGameBox) noexcept
     {
         auto pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
         if ( GLOBAL::map().getGlobalBounds().contains(pos) ) // If you click to map grid
@@ -37,7 +37,9 @@ namespace MOUSE{
             } else
                 redbox.hide();
 
-        } else if ( babel::ALGO::CAST::asType<sf::RectangleShape *>(to_draw["..newgamebox"].get())->getGlobalBounds().contains(pos) )
+        }
+
+        else if ( NewGameBox.getGlobalBounds().contains(pos) )
         {
             picked = {-1, -1};
             redbox.hide();

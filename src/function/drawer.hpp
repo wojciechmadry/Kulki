@@ -6,6 +6,7 @@
 #define KULKI_DRAWER_HPP
 
 #include "object/map.hpp"
+#include "object/resource.hpp"
 
 class GLOBAL
 {
@@ -54,7 +55,7 @@ public:
         _map->setPosition({0.3f * static_cast<float>(_width), 0.02f * static_cast<float>(_height)});
 
         std::string texture_path;
-        if (babel::FILE_SYS::folder_exist( "ball_texture"))
+        if ( babel::FILE_SYS::folder_exist("ball_texture") )
             texture_path = "ball_texture/";
         else
             texture_path = "../ball_texture/";
@@ -195,6 +196,8 @@ public:
 
 };
 
+
+//TODO - Put this to resource class
 std::array<std::unique_ptr<sf::CircleShape>, 6>  GLOBAL::ball_shape; //NOLINT
 std::array<std::unique_ptr<sf::Sprite>, 6>  GLOBAL::sprites;
 std::array<std::unique_ptr<sf::Texture>, 6> GLOBAL::textures;
@@ -206,7 +209,7 @@ std::unique_ptr<sf::Sprite> GLOBAL::_redbox_sprite; //Red box sprite
 std::unique_ptr<sf::Texture> GLOBAL::_redbox_texture; // Red box texture
 
 void draw_window(sf::RenderWindow &window, map &Map,
-                 const std::unordered_map<std::string, std::unique_ptr<sf::Drawable>> &to_draw)
+                 const ResourceHolder<std::string, sf::Drawable> &Resource)
 {
     auto width = static_cast<float>(GLOBAL::get_width()); // RESOLUTION OF SCREEN
     auto height = static_cast<float>(GLOBAL::get_height());
@@ -222,7 +225,8 @@ void draw_window(sf::RenderWindow &window, map &Map,
     for ( byte i = 0 ; i < 3 ; ++i )
     {
         sf::Vector2f pos = {static_cast<float>(static_cast<size_t>(GLOBAL::get_width()) >> 4u) +
-                            static_cast<float>(i) * GLOBAL::white_box_size().x, 0.671641f * static_cast<float>(GLOBAL::get_height())};
+                            static_cast<float>(i) * GLOBAL::white_box_size().x,
+                            0.671641f * static_cast<float>(GLOBAL::get_height())};
         window.draw(GLOBAL::white_box(pos));
         auto radius = wb / 2.0f - GLOBAL::ball_radius();
         pos.x += radius;
@@ -260,8 +264,12 @@ void draw_window(sf::RenderWindow &window, map &Map,
         }
     }
 
+
+    //TODO - Better iteration
+
     //Draw all object from map (object to draw)
-    for ( const auto &Item : to_draw )
+    const auto &unordered_map = Resource.get_map();
+    for ( const auto &Item : unordered_map )
         if ( Item.second )
             window.draw(*Item.second);
     Map.updated();
@@ -280,7 +288,9 @@ sf::Text make_text(const std::string &text, const sf::Vector2f &pos, const sf::C
 }
 
 
-void draw_started_object(std::unordered_map<std::string, std::unique_ptr<sf::Drawable>> &_drawer, const sf::Font &font, const uint16_t record, const uint16_t score) noexcept
+void
+draw_started_object(ResourceHolder<std::string, sf::Drawable> &Resource, const sf::Font &font, const uint16_t record,
+                    const uint16_t score) noexcept
 {
     auto width = static_cast<float>(GLOBAL::get_width());
     auto height = static_cast<float>(GLOBAL::get_height());
@@ -288,25 +298,37 @@ void draw_started_object(std::unordered_map<std::string, std::unique_ptr<sf::Dra
 
     auto x_start = static_cast<float>(static_cast<size_t>(width) >> 4u); // Where some text start drawing in axis X
     //Draw text "Punkty :" on screen
-    _drawer["..score"] = std::make_unique<sf::Text>(
-            make_text("Punkty :", {x_start, 0.12f * height}, sf::Color::Black, Font_Size, font));
+
+    Resource.insert("..score", make_text("Punkty :", {x_start, 0.12f * height}, sf::Color::Black, Font_Size, font));
+
     //Draw text "Rekord :" on screen
-    _drawer["..record"] = std::make_unique<sf::Text>(
-            make_text("Rekord :", {x_start, 0.34f * height}, sf::Color::Yellow, Font_Size, font));
+
+    Resource.insert("..record", make_text("Rekord :", {x_start, 0.34f * height}, sf::Color::Yellow, Font_Size, font));
+
     //Draw text "Nastepne:" on screen
-    _drawer["..next_three"] = std::make_unique<sf::Text>(
-            make_text("Nastepne :", {static_cast<float>(static_cast<size_t>(width) >> 4u), 0.57f * height},
-                      sf::Color::Blue, static_cast<uint32_t>(static_cast<float>(Font_Size) * 0.75f), font));
+
+
+    Resource.insert("..next_three",
+                    make_text("Nastepne :", {static_cast<float>(static_cast<size_t>(width) >> 4u), 0.57f * height},
+                              sf::Color::Blue, static_cast<uint32_t>(static_cast<float>(Font_Size) * 0.75f), font));
+
     //This is map object to draw actually record (Only what you need to change is text
-    _drawer["record"] = std::make_unique<sf::Text>(
-            make_text(std::to_string(record), {0.116f * width, 0.43f * height}, sf::Color::White, static_cast<uint32_t>(0.80f * static_cast<float>(Font_Size)), font));
+
+    Resource.insert("record", make_text(std::to_string(record), {0.116f * width, 0.43f * height}, sf::Color::White,
+                                        static_cast<uint32_t>(0.80f * static_cast<float>(Font_Size)), font));
+
     //This is map object to draw score on actually game (Only what you need to change is text
-    _drawer["score"] = std::make_unique<sf::Text>(
-            make_text(std::to_string(score), {0.116f * width, 0.2f * height}, sf::Color::White, static_cast<uint32_t>(0.80f * static_cast<float>(Font_Size)), font));
+
+    Resource.insert("score", make_text(std::to_string(score), {0.116f * width, 0.2f * height}, sf::Color::White,
+                                       static_cast<uint32_t>(0.80f * static_cast<float>(Font_Size)), font));
+
     //"Pseudo button", when you click it new game has started.
     sf::Vector2<float> new_game_pos = {x_start, 0.85f * height};
-    _drawer["..newgame"] = std::make_unique<sf::Text>(
-            make_text("Nowa gra", new_game_pos, sf::Color::White, static_cast<uint32_t>(0.72f * static_cast<float>(Font_Size)), font));
+
+
+    Resource.insert("..newgame", make_text("Nowa gra", new_game_pos, sf::Color::White,
+                                           static_cast<uint32_t>(0.72f * static_cast<float>(Font_Size)), font));
+
 
     //RectangleShape is where mouse is detect click on new game
     sf::RectangleShape rc({static_cast<float>(Font_Size) * 3.2f, static_cast<float>(Font_Size)});
@@ -315,7 +337,8 @@ void draw_started_object(std::unordered_map<std::string, std::unique_ptr<sf::Dra
     rc.setOutlineThickness(2.0f);
 
     rc.setPosition(new_game_pos);
-    _drawer["..newgamebox"] = std::make_unique<sf::RectangleShape>(std::move(rc));
+    Resource.insert("..newgamebox", std::move(rc));
+
     // There is empty box with red outline to pick selected ball
     if ( !GLOBAL::RED_BOX_TEXTURE() )
     {
@@ -323,11 +346,11 @@ void draw_started_object(std::unordered_map<std::string, std::unique_ptr<sf::Dra
         rc1.setFillColor(sf::Color::Transparent);
         rc1.setOutlineColor(sf::Color::Red);
         rc1.setOutlineThickness(0.07f * GLOBAL::white_box_size().x);
-        _drawer["picked"] = std::make_unique<sf::RectangleShape>(std::move(rc1));
+        Resource.insert("picked", std::move(rc1));
 
     } else
     {
-        _drawer["picked"] = GLOBAL::RedBox();
+        Resource.insert("picked", GLOBAL::RedBox());
     }
 
 }

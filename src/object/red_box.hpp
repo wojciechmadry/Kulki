@@ -6,49 +6,68 @@
 #define KULKI_RED_BOX_HPP
 
 #include <SFML/Graphics.hpp>
-
+#include "resource.hpp"
 
 class RedBox
 {
-    sf::Drawable* _draw = nullptr;
+    babel::ANY::PolAny::any _box;
     bool _text = false;
+
+    //Set position of object
+    template<typename T>
+    void _set_position(T& Object, const sf::Vector2<float>& position) noexcept
+    {
+        Object.setPosition(position);
+    }
 
 //Set position of object to be outside screen
     template<typename T>
-    void _put_out_of_screen(T Object, const sf::Vector2<float>& size) noexcept
+    void _put_out_of_screen(T& Object, const sf::Vector2<float>& size) noexcept
     {
-        Object->setPosition(sf::Vector2<float>{-(1.5f * size.x), -(1.5f * size.y)});
+        _set_position(Object, {-(1.5f * size.x), -(1.5f * size.y)});
+    }
+    using AnyType = std::reference_wrapper<sf::Drawable>;
+
+    template<typename T>
+    requires(!babel::CONCEPTS::IS_ANY_POINTER<T>)
+    T& get_any() noexcept
+    {
+        return *babel::ALGO::CAST::asType<T*>(&_box.cast<AnyType>().get());
+
+        //TODO Possibly new implementation (need to upgrade CAST::asType)
+       // return babel::ALGO::CAST::asType<T&>(_box.cast<AnyType>().get());
     }
 
 public:
     RedBox() = delete;
-    RedBox(sf::Drawable* Ptr, const bool Textured) noexcept
-    : _draw(Ptr), _text(Textured)
+    RedBox(ResourceHolder<std::string,sf::Drawable>& Resources, const bool Textured) noexcept
+    : _text(Textured)
     {
+        _box = AnyType(Resources.get_as<sf::Drawable>("picked"));
         hide();
     }
     void set_position(const float x, const float y) noexcept
     {
         if (_text)
-           babel::ALGO::CAST::asType<sf::Sprite*>(_draw)->setPosition(x, y);
+            get_any<sf::Sprite>().setPosition(x,y);
         else
-            babel::ALGO::CAST::asType<sf::RectangleShape*>(_draw)->setPosition(x, y);
+            get_any<sf::RectangleShape>().setPosition(x,y);
     }
     void hide() noexcept
     {
 
         if (_text)
         {
-            auto sprite = babel::ALGO::CAST::asType<sf::Sprite*>(_draw);
+            auto& sprite = get_any<sf::Sprite>();
             sf::Vector2f spriteSize(
-                    static_cast<float>(sprite->getTexture()->getSize().x) * sprite->getScale().x,
-                    static_cast<float>(sprite->getTexture()->getSize().y) * sprite->getScale().y);
+                    static_cast<float>(sprite.getTexture()->getSize().x) * sprite.getScale().x,
+                    static_cast<float>(sprite.getTexture()->getSize().y) * sprite.getScale().y);
             _put_out_of_screen(sprite, spriteSize);
         }
         else
         {
-            auto draw = babel::ALGO::CAST::asType<sf::RectangleShape*>(_draw);
-            _put_out_of_screen(draw, draw->getSize());
+            auto& draw = get_any<sf::RectangleShape>();
+            _put_out_of_screen(draw, draw.getSize());
         }
     }
     ~RedBox() = default;

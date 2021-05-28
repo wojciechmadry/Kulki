@@ -6,8 +6,8 @@
 #include "function/tester.hpp"
 #include "function/search_font.hpp"
 
+
 #include <iostream>
-#include <unordered_map>
 
 static constexpr double VERSION = 1.04;
 
@@ -25,7 +25,7 @@ int main()
     map Game = load_map();
     uint16_t record = check_for_record(), old_score = Game.get_score();
 
-    std::unordered_map<std::string, std::unique_ptr<sf::Drawable>> to_draw; // map of drawing object
+    ResourceHolder<std::string, sf::Drawable> Resource;
 
     sf::Font font;
 
@@ -41,9 +41,9 @@ int main()
         return 1;
     }
 
-    draw_started_object(to_draw, font, record, old_score);
+    draw_started_object(Resource, font, record, old_score);
 
-    RedBox redbox(to_draw["picked"].get(), GLOBAL::RED_BOX_TEXTURE()); // picked redbox (can be textured or not)
+    RedBox redbox(Resource, GLOBAL::RED_BOX_TEXTURE()); // picked redbox (can be textured or not)
 
 
     sf::RenderWindow window(
@@ -97,7 +97,7 @@ int main()
             } else if ( event.type == sf::Event::MouseButtonPressed )
             {
                 if ( sf::Mouse::isButtonPressed(sf::Mouse::Left) )
-                    MOUSE::left_click(thread, window, new_pick, picked, redbox, Game, to_draw);
+                    MOUSE::left_click(thread, window, new_pick, picked, redbox, Game, Resource.get_as<sf::RectangleShape>("..newgamebox"));
                 else if ( sf::Mouse::isButtonPressed(sf::Mouse::Right) ) // Right mouse click reset picked ball
                     MOUSE::right_click(thread, picked, redbox);
             }
@@ -110,17 +110,17 @@ int main()
             if ( old_score > record ) // If record were break, then save it
             {
                 record = old_score;
-                babel::ALGO::CAST::asType<sf::Text *>(to_draw["record"].get())->setString(_str);
+                Resource.get_as<sf::Text>("record").setString(_str);
                 save_record(record);
             }
             // Refresh score and record points
-            babel::ALGO::CAST::asType<sf::Text *>(to_draw["score"].get())->setString(_str);
+            Resource.get_as<sf::Text>("score").setString(_str);
             thread.operation(OperationType::UPDATE);// Game need update here
         }
 
         //If game need update draw it
         if ( Game.need_update() )
-            draw_window(window, Game, to_draw);
+            draw_window(window, Game, Resource);
 
         window.display();
 

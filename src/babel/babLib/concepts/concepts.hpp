@@ -67,6 +67,29 @@ namespace babel::CONCEPTS{
     };
 
     template< typename T >
+    concept IS_ANY_POINTER =
+    requires(T ptr)
+    {
+        *ptr;
+    }
+    ||
+    requires(T ptr)
+    {
+        // Check for unique or shared ptr
+        *ptr;
+        std::is_pointer_v<decltype(ptr.get())>;
+    }
+    ||
+    requires(T ptr)
+    {
+        // Check for weak pointer
+        ptr.lock();
+        ptr.reset();
+        ptr.expired();
+    };
+
+
+    template< typename T >
     concept IS_LIKE_VECTOR =
     requires(T cont)
     {
@@ -123,12 +146,12 @@ namespace babel::CONCEPTS{
     };
 
     //Return type in container T -> can be list/vector etc.
-    template< typename Vec>
+    template< typename Vec >
     requires babel::CONCEPTS::IS_CONTAINER<Vec>
     using type_in = std::decay_t<decltype(*Vec { }.begin())>;
     //END
 
-    template<typename ATOMIC>
+    template< typename ATOMIC >
     struct type_in_atomic
     {
         typedef decltype(ATOMIC()++) type;
