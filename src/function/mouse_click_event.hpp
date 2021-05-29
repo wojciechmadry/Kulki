@@ -28,7 +28,7 @@ namespace MOUSE{
             if ( picked.first != -1 ) // -1 means no picked ball
             {
                 // Set red outline on picked ball
-                auto side_length = static_cast<float>(GLOBAL::white_box_size().x);
+                auto side_length = static_cast<float>(GLOBAL::get_white_box_size());
                 auto grid_pos = Resource.get_as<sf::RectangleShape>(ResourceType::MAP_BEFORE_GRID).getPosition();
                 redbox.set_position(
                         static_cast<float>(grid_pos.x + side_length * static_cast<float>(picked.second)),

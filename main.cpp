@@ -9,18 +9,16 @@
 
 #include <iostream>
 
-static constexpr double VERSION = 1.04;
+static constexpr double VERSION = 1.05;
 
 #define FPS 0 // Show fps in console
 
-
 int main()
 {
-    //Play_Test_Games(-1, 14); // Test if game can crush.
 
-    ResourceHolder<sf::Drawable> Resource;
+   // Play_Test_Games(-1, 14); // Test if game can crush.
 
-    GLOBAL::INIT(Resource); // Load textures, init default settings etc
+    ResourceHolder<sf::Drawable, sf::Texture> Resource;
 
     map Game = load_map();
     uint16_t record = check_for_record(), old_score = Game.get_score();
@@ -39,7 +37,7 @@ int main()
         return 1;
     }
 
-    draw_started_object(Resource, font, record, old_score);
+    GLOBAL::INIT(Resource, font, {record, old_score} ); // Load textures, init default settings, draw started object etc
 
     RedBox redbox(Resource, GLOBAL::RED_BOX_TEXTURE()); // picked redbox (can be textured or not)
 
