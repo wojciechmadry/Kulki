@@ -418,16 +418,21 @@ class map
         } else if ( type <= 45 ) // (X - Y) % you get the least popular balls in board
         {
             std::array<std::pair<byte, byte>, 5> color = {std::make_pair(0, 0), {0, 1}, {0, 2}, {0, 3}, {0, 4}};
-            for ( const auto &ARRAY : grid )
-                for ( auto BALL : ARRAY )
-                    if ( !BALL.is_empty() )
-                        ++color[static_cast<std::size_t>(BALL.enum_color())].first;
+            std::for_each(grid.begin(), grid.end(),
+                          [&color](const auto &Row) mutable {
+                              std::for_each(std::begin(Row), std::end(Row),
+                                            [&color](const auto &Ball) mutable {
+                                                if ( Ball.has_value() )
+                                                    ++color[static_cast<std::size_t>(Ball.enum_color())].first;
+                                            });
+                          });
 
             std::sort(std::begin(color), std::end(color),
                       [](const std::pair<byte, byte> lhs, const std::pair<byte, byte> rhs) {
                           return lhs.first < rhs.first;
                       });
 
+            //TODO When enumerate
             for ( byte i = 0 ; i < 3 ; ++i )
                 next_three[i] = ball(static_cast<COLOR>(color[i].second));
 
@@ -463,6 +468,7 @@ public:
         if ( _filled == 81 )
             return;
         std::vector<std::pair<byte, byte>> free_pos;
+        //TODO When enumerate operator!
         for ( byte i = 0 ; i < 9 ; ++i )
             for ( byte j = 0 ; j < 9 ; ++j )
                 if ( grid[i][j].is_empty() )
@@ -536,17 +542,7 @@ public:
     map() noexcept
     {
         //Map started with 3 balls.
-        do
-        {
-            auto x = random_generator::generate<byte>(0, 8);
-            auto y = random_generator::generate<byte>(0, 8);
-            if ( is_free_at(x, y) )
-            {
-                grid[x][y].random();
-                ++_filled;
-            }
-        } while ( _filled != 3 );
-        generate_next_three();
+        reset();
     }
 
     [[nodiscard]] ball &at(const std::pair<byte, byte> position)
@@ -589,7 +585,6 @@ public:
         std::pair<char, char> from_c = {from.first, from.second};
         std::pair<char, char> to_c = {to.first, to.second};
 
-        //std::stack<std::pair<char, char>> vec;
         std::array<std::pair<char, char>, 81> vec;
         std::array<std::pair<char, char>, 4> Coordinate;
         size_t _size = 1, _start = 0;
@@ -598,32 +593,41 @@ public:
         do
         {
             vec_size = _size;
-            for ( size_t i = _start ; i < vec_size ; ++i )
-            {
-                auto Cor = vec[i];
-                Coordinate[0].first = Cor.first + 1;
-                Coordinate[0].second = Cor.second;
+            auto found = std::find_if(vec.begin() + _start, vec.begin() + vec_size,
+                                      [&](const auto &Cor) mutable -> bool {
+                                          Coordinate[0].first = Cor.first + 1;
+                                          Coordinate[0].second = Cor.second;
 
-                Coordinate[1].first = Cor.first - 1;
-                Coordinate[1].second = Cor.second;
+                                          Coordinate[1].first = Cor.first - 1;
+                                          Coordinate[1].second = Cor.second;
 
-                Coordinate[2].first = Cor.first;
-                Coordinate[2].second = Cor.second + 1;
+                                          Coordinate[2].first = Cor.first;
+                                          Coordinate[2].second = Cor.second + 1;
 
-                Coordinate[3].first = Cor.first;
-                Coordinate[3].second = Cor.second - 1;
+                                          Coordinate[3].first = Cor.first;
+                                          Coordinate[3].second = Cor.second - 1;
 
-                for ( const auto &Item : Coordinate )
-                {
-                    if ( Item == from_c )
-                        return true;
-                    if ( cor_is_correct(Item) &&
-                         std::find(vec.begin(), vec.begin() + _size, Item) == vec.begin() + _size )
-                        vec[_size++] = Item;
-                }
-                ++_start;
-            }
-
+                                          auto found = std::find_if(Coordinate.begin(), Coordinate.end(),
+                                                                    [&from_c, &cor_is_correct, &vec, &_size](
+                                                                            const auto &Item) mutable -> bool {
+                                                                        bool res_type = ( Item == from_c );
+                                                                        if ( !res_type )
+                                                                        {
+                                                                            if ( cor_is_correct(Item) &&
+                                                                                 std::find(vec.begin(),
+                                                                                           vec.begin() + _size, Item) ==
+                                                                                 vec.begin() + _size )
+                                                                                vec[_size++] = Item;
+                                                                        }
+                                                                        return res_type;
+                                                                    });
+                                          if ( found != Coordinate.end() )
+                                              return true;
+                                          ++_start;
+                                          return false;
+                                      });
+            if ( found != vec.begin() + vec_size )
+                return true;
         } while ( vec_size != _size );
 
         return false;
