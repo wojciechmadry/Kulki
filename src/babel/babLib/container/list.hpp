@@ -134,8 +134,10 @@ namespace babel::CONTAINER {
         template<typename U = T, typename = is_s_c<U, T> >
         list(std::initializer_list<U> &&init_list) noexcept
         {
-            for (const auto &item : init_list)
-                push_back(item);
+            std::for_each(init_list.begin(), init_list.end(), [this](const U& Data)
+            {
+                this->template push_back(Data);
+            });
         }
 
         list(list &&other) noexcept
@@ -185,8 +187,10 @@ namespace babel::CONTAINER {
         list &operator=(std::initializer_list<U> &&init_list) noexcept
         {
             clear();
-            for (const auto &obj : init_list)
-                push_back(obj);
+            std::for_each(init_list.begin(), init_list.end(), [this](const U& Data)
+            {
+                this->template push_back(Data);
+            });
             return *this;
         }
 
@@ -199,8 +203,10 @@ namespace babel::CONTAINER {
         template<typename U = T, typename = is_s_c<U, T> >
         void push_back(std::initializer_list<U> &&init) noexcept
         {
-            for (const auto &elem : init)
-                push_back(elem);
+            std::for_each(init.begin(), init.end(), [this](const U& Data)
+            {
+                this->template push_back(Data);
+            });
         }
 
         template<typename U = T, typename = is_s_c<U, T> >

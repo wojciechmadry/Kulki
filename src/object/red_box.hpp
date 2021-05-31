@@ -32,10 +32,8 @@ class RedBox
     requires(!babel::CONCEPTS::IS_ANY_POINTER<T>)
     T& get_any() noexcept
     {
-        return *babel::ALGO::CAST::asType<T*>(&_box.cast<AnyType>().get());
-
-        //TODO Possibly new implementation (need to upgrade CAST::asType)
-       // return babel::ALGO::CAST::asType<T&>(_box.cast<AnyType>().get());
+          return *babel::ALGO::CAST::asType<T*>(&_box.cast<AnyType>().get());
+      //  return babel::ALGO::CAST::asType<T&>(_box.cast<AnyType>().get());
     }
 
 public:

@@ -68,10 +68,10 @@ namespace babel::WINDOWS::SYSTEM{
     std::vector<std::string> all_discs() noexcept
     {
         std::vector<std::string> Discs;
-        for ( char alph = 'A' ; alph <= 'Z' ; ++alph )
+        for ( char letter = 'A' ; letter <= 'Z' ; ++letter )
         {
             std::string disc;
-            disc = alph;
+            disc = letter;
             disc += ":/";
             if ( babel::FILE_SYS::folder_exist(disc) )
                 Discs.emplace_back(std::move(disc));

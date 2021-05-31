@@ -4,11 +4,11 @@
 #include "must_have.hpp"
 
 namespace babel::VARIADIC{
-    template< typename Type >
+    template< typename Type, typename Container = std::vector<Type> >
     requires(babel::CONCEPTS::IS_NOT_ANY_VOID<Type>)
     class holder
     {
-        std::vector<Type> _hold;
+        Container _hold;
 
         template< typename U = Type >
         requires (std::is_same_v<std::decay_t<U>, std::decay_t<Type>>)
@@ -55,9 +55,6 @@ namespace babel::VARIADIC{
             _put(std::forward<Hold>(args)...);
         }
 
-
-
-
         constexpr holder &operator=(const holder &other) noexcept
         {
             _hold = other._hold;
@@ -94,7 +91,7 @@ namespace babel::VARIADIC{
          *  @brief  Return vector of storage parameter
          *  @return Return vector&
          */
-        constexpr std::vector<Type> &get() noexcept
+        constexpr Container &get() noexcept
         {
             return _hold;
         }
@@ -103,7 +100,7 @@ namespace babel::VARIADIC{
          *  @brief  Return vector of storage parameter
          *  @return Return const vector&
          */
-        constexpr const std::vector<Type> &get() const noexcept
+        constexpr const Container &get() const noexcept
         {
             return _hold;
         }

@@ -36,7 +36,7 @@ public:
         _height = res.second;
         float a = ( 0.5f * static_cast<float>(_width) ) / 9.f; // side length of white box
         float radius = a / 2.5f; // radius of circle
-
+        //TODO Maybe range iterator ?
         for ( byte i = 0 ; i < 6 ; ++i )
         {
             ball b(static_cast<COLOR>(i));
@@ -72,6 +72,7 @@ public:
                         "purple.png"
                 };
         bool texture_is_loaded = true;
+        //TODO Put this to for_each when enumerate iterator will work
         for ( std::size_t i = 0 ; i < ball_name.size() ; ++i )
         {
             auto sprite = std::make_unique<sf::Sprite>();
@@ -206,6 +207,8 @@ void draw_window(sf::RenderWindow &window, map &Map,
 
     //Draw map before grid 9x9 (darker aquamarine)
     window.draw(Resource.get_as<sf::RectangleShape>(ResourceType::MAP_BEFORE_GRID));
+    //TODO for_each when enumerate iterator work
+
     // Draw 3 Next ball
     for ( byte i = 0 ; i < 3 ; ++i )
     {
@@ -237,6 +240,7 @@ void draw_window(sf::RenderWindow &window, map &Map,
     byte x_map = 0, y_map;
 
     //Draw ball on grid 9x9
+    //TODO for_each when enumerate iterator work
     for ( ; x_map < 9 ; ++x_map )
     {
         for ( y_map = 0 ; y_map < 9 ; ++y_map )
@@ -267,11 +271,12 @@ void draw_window(sf::RenderWindow &window, map &Map,
         }
     }
     //Draw other items where AutoDraw = true
-    for ( const auto &Item : Resource.get_resources() )
-        if ( Item )
-        {
-            window.draw(*Item);
-        }
+    const auto& Res = Resource.get_resources();
+    std::for_each(Res.cbegin(), Res.cend(), [&window](const auto& Item) mutable
+    {
+       if (Item)
+           window.draw(*Item);
+    });
     Map.updated();
 }
 

@@ -4,24 +4,27 @@
 #include "file_system.hpp"
 
 namespace babel::TEXT{
-    class text{
+    class text
+    {
 
         std::string _str;
-        std::array<std::vector<char*>, 256> _lett;
+        std::array<std::vector<char *>, 256> _lett;
 
-        template<typename T>
-        void _set_text(T&& str) noexcept
+        template< typename T >
+        void _set_text(T &&str) noexcept
         {
             _clear_vector();
             _str = std::forward<T>(str);
-            for(  auto& CHAR : _str)
-                _lett[static_cast<uint8_t>(CHAR)].emplace_back(&CHAR);
+            std::for_each(std::begin(_str), std::end(_str), [this](char &CHAR) mutable {
+                this->_lett[static_cast<uint8_t>(CHAR)].emplace_back(&CHAR);
+            });
         }
 
         void _clear_vector() noexcept
         {
-            std::for_each(std::begin(_lett), std::end(_lett), [](std::vector<char*>& Vec) { Vec.clear();});
+            std::for_each(std::begin(_lett), std::end(_lett), [](std::vector<char *> &Vec) { Vec.clear(); });
         }
+
     public:
 
         text() noexcept = default;
@@ -32,9 +35,9 @@ namespace babel::TEXT{
 *  @param  isFilename if == true, then load text from file Str
 *  @return No return
 */
-        explicit text(const std::string& Str, const bool IsFilename = false) noexcept
+        explicit text(const std::string &Str, const bool IsFilename = false) noexcept
         {
-            if (!IsFilename)
+            if ( !IsFilename )
                 _set_text(Str);
             else
                 _set_text(babel::FILE_SYS::load_txt(Str));
@@ -46,9 +49,9 @@ namespace babel::TEXT{
 *  @param  isFilename if == true, then load text from file Str
 *  @return No return
 */
-        explicit text(std::string&& Str, const bool IsFilename = false) noexcept
+        explicit text(std::string &&Str, const bool IsFilename = false) noexcept
         {
-            if (!IsFilename)
+            if ( !IsFilename )
                 _set_text(std::move(Str));
             else
                 _set_text(babel::FILE_SYS::load_txt(Str));
@@ -65,7 +68,7 @@ namespace babel::TEXT{
 *  @param  const std::string& Str String to stored in class
 *  @return No return
 */
-        void set_text(const std::string& Str) noexcept
+        void set_text(const std::string &Str) noexcept
         {
             _set_text(Str);
         }
@@ -76,7 +79,7 @@ namespace babel::TEXT{
 *  @param  std::string&& Str String to stored in class
 *  @return No return
 */
-        void set_text(std::string&& Str) noexcept
+        void set_text(std::string &&Str) noexcept
         {
             _set_text(std::move(Str));
         }
@@ -86,7 +89,7 @@ namespace babel::TEXT{
 *  @param  filename File to load
 *  @return No return
 */
-        void load_from_file(const std::string& filename) noexcept
+        void load_from_file(const std::string &filename) noexcept
         {
             _set_text(babel::FILE_SYS::load_txt(filename));
         }
@@ -117,35 +120,28 @@ namespace babel::TEXT{
 *  @param  to_find String to find in stored string
 *  @return If string will be found then return pointer to first character in string in otherwise return nullptr
 */
-        [[nodiscard]] const char * find(const std::string& to_find) const noexcept
+        [[nodiscard]] const char *find(const std::string &to_find) const noexcept
         {
-            if(to_find.empty())
+            if ( to_find.empty() )
                 return nullptr;
-
-            for(size_t i = 0 ; i < _lett[static_cast<std::size_t>(static_cast<uint8_t>(to_find[0]))].size() ; ++i)
+            auto& LetterVector = _lett[static_cast<std::size_t>(static_cast<uint8_t>(to_find[0]))];
+            char* ReturnValue {nullptr};
+            std::any_of(LetterVector.begin(), LetterVector.end(),
+            [&to_find, &ReturnValue](char* CharPtr) mutable -> bool
             {
-                size_t j;
-                char* ptr = _lett[static_cast<std::size_t>(static_cast<uint8_t>(to_find[0]))][i];
-                bool same = true;
-                for(j = 0 ; j < to_find.size() && *ptr != '\0'; ++j, ++ptr)
-                    if (to_find[j] != *ptr)
-                    {
-                        same = false;
-                        break;
-                    }
-                if (same && j == to_find.size())
-                    return _lett[static_cast<std::size_t>(static_cast<uint8_t>(to_find[0]))][i];
-
-            }
-
-            return nullptr;
+                auto found = std::equal(CharPtr, CharPtr + to_find.size(), to_find.data(), to_find.data() + to_find.size());
+                if (found)
+                    ReturnValue = CharPtr;
+                return found;
+            });
+            return ReturnValue;
         }
 
         /**
 *  @brief Get string stored in class
 *  @return Return const std::string stored in class
 */
-        [[nodiscard]] const std::string& get_string() const noexcept
+        [[nodiscard]] const std::string &get_string() const noexcept
         {
             return _str;
         }

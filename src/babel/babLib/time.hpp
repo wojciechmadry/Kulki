@@ -71,10 +71,10 @@ namespace babel::TIME{
 *  @return Return measured time in seconds
 */
     template< typename Func, typename ... args >
-    long double measure_time(const size_t times, Func f, args &&...  arg)
+    long double measure_time(const std::size_t times, Func f, args &&...  arg)
     {
         timer T;
-        for ( size_t i = 0 ; i < times ; ++i )
+        for ( std::size_t i = 0 ; i < times ; ++i )
             f(std::forward<args>(arg)...);
         return T.get_time();
     }

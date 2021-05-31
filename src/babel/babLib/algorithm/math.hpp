@@ -13,7 +13,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
 */
             template< typename Function, typename TYPE = double >
-            auto by_definiton(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] auto by_definiton(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto { return ( func(x + h) - func(x) ) / h; };
             }
@@ -25,7 +25,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
 */
             template< typename Function, typename TYPE = double >
-            auto three_point(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] auto three_point(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto { return ( func(x + h) - func(x - h) ) / ( 2.0 * h ); };
             }
@@ -37,7 +37,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
 */
             template< typename Function, typename TYPE = double >
-            auto five_point(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] auto five_point(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto {
                     return ( -func(x + 2.0 * h) + 8 * func(x + h) - 8.0 * func(x - h) + func(x - 2.0 * h) ) /
@@ -52,7 +52,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
 */
             template< typename Function, typename TYPE = double >
-            auto forward(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] auto forward(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto {
                     return ( -3.0 * func(x) + 4.0 * func(x + h) - func(x + 2.0 * h) ) / ( 2.0 * h );
@@ -66,7 +66,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
 */
             template< typename Function, typename TYPE = double >
-            auto central(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] auto central(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto { return ( func(x + h) - func(x - h) ) / ( 2.0 * h ); };
             }
@@ -78,7 +78,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
 */
             template< typename Function, typename TYPE = double >
-            auto backward(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] auto backward(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto {
                     return ( func(x - 2.0 * h) - 4.0 * func(x - h) + 3.0 * func(x) ) / ( 2.0 * h );
@@ -93,7 +93,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the second derivative of.
 */
             template< typename Function, typename TYPE = double >
-            auto three_point(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] auto three_point(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto {
                     return ( func(x + h) - 2.0 * func(x) + func(x - h) ) / ( std::pow(h, 2.0) );
@@ -107,7 +107,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the second derivative of.
 */
             template< typename Function, typename TYPE = double >
-            auto five_point(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] auto five_point(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto {
                     return ( -func(x + 2.0 * h) + 16.0 * func(x + h) - 30.0 * func(x) + 16.0 * func(x - h) -
@@ -167,7 +167,7 @@ namespace babel::ALGO::MATH{
      */
     template< typename T >
     requires ( !babel::CONCEPTS::IS_CONTAINER<T> )
-    constexpr inline T abs(const T v)
+    [[nodiscard]] constexpr inline T abs(const T v)
     {
         return ( v >= 0 ) ? v : -v;
     }
@@ -198,7 +198,7 @@ namespace babel::ALGO::MATH{
     template< typename T, typename T2 >
     requires ( babel::CONCEPTS::IS_SAME_CONVERTIBLE<T, T2> && !babel::CONCEPTS::IS_CONTAINER<T> &&
                !babel::CONCEPTS::IS_CONTAINER<T2> )
-    constexpr inline auto max(const T value1, const T2 value2) noexcept
+    [[nodiscard]] constexpr inline auto max(const T value1, const T2 value2) noexcept
     {
         return value1 > value2 ? value1 : value2;
     }
@@ -214,17 +214,18 @@ namespace babel::ALGO::MATH{
 */
     template< typename T, typename ... Args >
     requires ( !babel::CONCEPTS::IS_CONTAINER<T> )
-    constexpr T max(T value1, T value2, Args... arg) noexcept
+    [[nodiscard]] constexpr T max(T value1, T value2, Args... arg) noexcept
     {
         if ( value1 < value2 )
             value1 = value2;
         babel::VARIADIC::holder<T> _hold(arg...);
         const auto &vec = _hold.get();
-        auto begin = std::begin(vec);
-        auto end = std::end(vec);
-        for ( ; begin != end ; ++begin )
-            if ( *begin > value1 )
-                value1 = *begin;
+        std::for_each(vec.begin(), vec.end(),
+                      [&value1](const T &Data) mutable {
+                          if ( Data > value1 )
+                              value1 = Data;
+                      }
+        );
         return value1;
     }
 
@@ -238,7 +239,7 @@ namespace babel::ALGO::MATH{
     */
     template< typename T, typename T2 >
     requires babel::CONCEPTS::IS_SAME_CONVERTIBLE<T, T2>
-    constexpr inline auto min(const T value1, const T2 value2) noexcept
+    [[nodiscard]] constexpr inline auto min(const T value1, const T2 value2) noexcept
     {
         return value1 < value2 ? value1 : value2;
     }
@@ -253,17 +254,18 @@ namespace babel::ALGO::MATH{
 *  @return Return the lowest number
 */
     template< typename T, typename ... Args >
-    constexpr T min(T value1, T value2, Args... arg) noexcept
+    [[nodiscard]] constexpr T min(T value1, T value2, Args... arg) noexcept
     {
         if ( value1 > value2 )
             value1 = value2;
         babel::VARIADIC::holder<T> _hold(arg...);
         const auto &vec = _hold.get();
-        auto begin = std::begin(vec);
-        auto end = std::end(vec);
-        for ( ; begin != end ; ++begin )
-            if ( *begin < value1 )
-                value1 = *begin;
+        std::for_each(vec.begin(), vec.end(),
+                      [&value1](const T &Data) mutable {
+                          if ( Data < value1 )
+                              value1 = Data;
+                      }
+        );
         return value1;
     }
 
@@ -276,17 +278,16 @@ namespace babel::ALGO::MATH{
     */
     template< typename T, typename U =babel::CONCEPTS::type_in<T>>
     requires babel::CONCEPTS::IS_CONTAINER<T>
-    constexpr U max(const T &Container) noexcept
+    [[nodiscard]] constexpr U max(const T &Container) noexcept
     {
         if ( Container.size() == 0 )
             return { };
-
-        auto _it = std::begin(Container);
-        auto end = std::end(Container);
-        U MAX = *_it;
-        ++_it;
-        for ( ; _it != end ; ++_it )
-            MAX = max(MAX, *_it);
+        U MAX = std::numeric_limits<U>::min();
+        std::for_each(std::begin(Container), std::end(Container),
+                      [&MAX](const U &Data) mutable {
+                          if ( Data > MAX )
+                              MAX = Data;
+                      });
         return MAX;
     }
 
@@ -299,18 +300,17 @@ namespace babel::ALGO::MATH{
    */
     template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires babel::CONCEPTS::IS_CONTAINER<T>
-    constexpr U min(const T &Container) noexcept
+    [[nodiscard]] constexpr U min(const T &Container) noexcept
     {
         if ( Container.size() == 0 )
             return { };
-        auto _it = std::begin(Container);
-        auto end = std::end(Container);
-        U MIN = *_it;
-        ++_it;
-        for ( ; _it != end ; ++_it )
-            MIN = min(MIN, *_it);
+        U MIN = std::numeric_limits<U>::max();
+        std::for_each(std::begin(Container), std::end(Container),
+                      [&MIN](const U &Data) mutable {
+                          if ( Data < MIN )
+                              MIN = Data;
+                      });
         return MIN;
-
     }
 
     /**
@@ -321,7 +321,7 @@ namespace babel::ALGO::MATH{
    *  @return If val is negative return 1 otherwise return 0
    */
     template< typename T >
-    constexpr inline bool is_neg(const T val) noexcept
+    [[nodiscard]] constexpr inline bool is_neg(const T val) noexcept
     {
         return val < 0 ? 1 : 0;
     }
@@ -333,7 +333,7 @@ namespace babel::ALGO::MATH{
     *  @return Factorial N
     */
     template< uint64_t N >
-    consteval uint64_t factorial() noexcept
+    [[nodiscard]] consteval uint64_t factorial() noexcept
     {
         uint64_t res = 1;
         for ( size_t i = 2 ; i <= N ; ++i )
@@ -366,7 +366,7 @@ namespace babel::ALGO::MATH{
      *  n >= k >= 0
 *  @return Binomial coefficient
 */
-    constexpr double binomial_coefficient(const uint64_t N, const uint64_t K)
+    [[nodiscard]] constexpr double binomial_coefficient(const uint64_t N, const uint64_t K)
     {
         if ( K > N )
             throw std::out_of_range("K > N.");
@@ -379,7 +379,7 @@ namespace babel::ALGO::MATH{
 *  @return Binomial coefficient
 */
     template< uint64_t N, uint64_t K >
-    consteval double binomial_coefficient() noexcept
+    [[nodiscard]] consteval double binomial_coefficient() noexcept
     {
         if ( K > N )
             throw std::out_of_range("K > N.");
@@ -390,7 +390,7 @@ namespace babel::ALGO::MATH{
    *  @param   n Fibonacci number
    *  @return Fibonacci N
    */
-    constexpr uint64_t fib(unsigned n) noexcept
+    [[nodiscard]] constexpr uint64_t fib(unsigned n) noexcept
     {
         uint64_t F[2][2] = {{1, 1},
                             {1, 0}};
@@ -408,7 +408,7 @@ namespace babel::ALGO::MATH{
    *  @return b^2 - 4 * a * c
    */
     template< typename Type >
-    inline constexpr Type delta(const Type a, const Type b, const Type c) noexcept
+    [[nodiscard]] inline constexpr Type delta(const Type a, const Type b, const Type c) noexcept
     {
         return ( b * b ) - ( a * static_cast<Type>(4) ) * c;
     }
@@ -417,7 +417,7 @@ namespace babel::ALGO::MATH{
    *  @return a * a 
    */
     template< typename Type >
-    inline constexpr Type square_area(const Type a) noexcept
+    [[nodiscard]] inline constexpr Type square_area(const Type a) noexcept
     {
         return a * a;
     }
@@ -426,7 +426,7 @@ namespace babel::ALGO::MATH{
    *  @return 4 * a
    */
     template< typename Type >
-    inline constexpr Type square_circumference(const Type a) noexcept
+    [[nodiscard]] inline constexpr Type square_circumference(const Type a) noexcept
     {
         return a * 4;
     }
@@ -435,7 +435,7 @@ namespace babel::ALGO::MATH{
    *  @return a * a * a 
    */
     template< typename Type >
-    inline constexpr Type cube_volume(const Type a) noexcept
+    [[nodiscard]] inline constexpr Type cube_volume(const Type a) noexcept
     {
         return a * a * a;
     }
@@ -444,7 +444,7 @@ namespace babel::ALGO::MATH{
    *  @return a * b
    */
     template< typename Type >
-    inline constexpr Type rectangle_area(const Type a, const Type b) noexcept
+    [[nodiscard]] inline constexpr Type rectangle_area(const Type a, const Type b) noexcept
     {
         return a * b;
     }
@@ -453,7 +453,7 @@ namespace babel::ALGO::MATH{
    *  @return a * 2 + b * 2
    */
     template< typename Type >
-    inline constexpr Type rectangle_circumference(const Type a, const Type b) noexcept
+    [[nodiscard]] inline constexpr Type rectangle_circumference(const Type a, const Type b) noexcept
     {
         return a * 2 + b * 2;
     }
@@ -462,7 +462,7 @@ namespace babel::ALGO::MATH{
    *  @return a * b * c
    */
     template< typename Type >
-    inline constexpr Type cuboid_volume(const Type a, const Type b, const Type c) noexcept
+    [[nodiscard]] inline constexpr Type cuboid_volume(const Type a, const Type b, const Type c) noexcept
     {
         return a * b * c;
     }
@@ -471,7 +471,7 @@ namespace babel::ALGO::MATH{
    *  @return PI * r * r
    */
     template< typename Type >
-    inline constexpr Type circle_area(const Type r) noexcept
+    [[nodiscard]] inline constexpr Type circle_area(const Type r) noexcept
     {
         return static_cast<Type>(CONSTANT::PI<Type> * r * r);
     }
@@ -480,7 +480,7 @@ namespace babel::ALGO::MATH{
    *  @return 2 * PI * r
    */
     template< typename Type >
-    inline constexpr Type circle_circumference(const Type r) noexcept
+    [[nodiscard]] inline constexpr Type circle_circumference(const Type r) noexcept
     {
         return static_cast<Type>(CONSTANT::PI<Type> * ( r * 2 ));
     }
@@ -489,7 +489,7 @@ namespace babel::ALGO::MATH{
    *  @return 4/3 * PI * R^3
    */
     template< typename Type >
-    inline constexpr Type sphere_volume(const Type R) noexcept
+    [[nodiscard]] inline constexpr Type sphere_volume(const Type R) noexcept
     {
         return static_cast<Type>(CONSTANT::PI<Type> * ( 4.0 / 3.0 ) * R * R * R);
     }
@@ -498,7 +498,7 @@ namespace babel::ALGO::MATH{
    *  @return circle_area(r) * H
    */
     template< typename Type >
-    inline constexpr Type cylinder_volume(const Type r, const Type H) noexcept
+    [[nodiscard]] inline constexpr Type cylinder_volume(const Type r, const Type H) noexcept
     {
         return static_cast<Type>(circle_area<Type>(r) * H);
     }
@@ -507,7 +507,7 @@ namespace babel::ALGO::MATH{
    *  @return cylinder_volume(r, h) * 1/3
    */
     template< typename Type >
-    inline constexpr Type cone_volume(const Type r, const Type h) noexcept
+    [[nodiscard]] inline constexpr Type cone_volume(const Type r, const Type h) noexcept
     {
         return static_cast<Type>(cylinder_volume<Type>(r, h) * ( 1.0 / 3.0 ));
     }
@@ -516,7 +516,7 @@ namespace babel::ALGO::MATH{
    *  @brief Convert kW to HP
    */
     template< typename Type >
-    inline constexpr Type kW_to_HP(const Type kW) noexcept
+    [[nodiscard]] inline constexpr Type kW_to_HP(const Type kW) noexcept
     {
         return static_cast<Type>(1.341022 * kW);
     }
@@ -525,7 +525,7 @@ namespace babel::ALGO::MATH{
    *  @brief Convert HP to kw
    */
     template< typename Type >
-    inline constexpr Type HP_to_kW(const Type HP) noexcept
+    [[nodiscard]] inline constexpr Type HP_to_kW(const Type HP) noexcept
     {
         return static_cast<Type>(0.745699872 * HP);
     }
@@ -541,7 +541,7 @@ namespace babel::ALGO::MATH{
      */
     template< typename Type = double >
     requires babel::CONCEPTS::IS_FLOATING_POINT<Type>
-    inline constexpr Type
+    [[nodiscard]] inline constexpr Type
     map(const Type value, const Type fromLow, const Type fromHigh, const Type toLow, const Type toHigh)
     {
         return ( ( ( value - fromLow ) * ( toHigh - toLow ) ) / ( fromHigh - fromLow ) ) + toLow;
@@ -556,7 +556,7 @@ namespace babel::ALGO::MATH{
 */
     template< typename T >
     requires ( std::is_integral_v<T> && !std::is_signed_v<T> )
-    std::vector<T> prime_factors(T number) noexcept
+    [[nodiscard]] std::vector<T> prime_factors(T number) noexcept
     {
         if ( number <= 2 )
             return {number};
@@ -580,7 +580,7 @@ namespace babel::ALGO::MATH{
 */
     template< typename T >
     requires std::is_integral_v<T>
-    constexpr T gcd(T x, T y) noexcept
+    [[nodiscard]] constexpr T gcd(T x, T y) noexcept
     {
         while ( x % y != 0 )
         {
@@ -601,7 +601,7 @@ namespace babel::ALGO::MATH{
 */
     template< typename T >
     requires std::is_integral_v<T>
-    constexpr inline T lcm(T x, T y) noexcept
+    [[nodiscard]] constexpr inline T lcm(T x, T y) noexcept
     {
         return ( x * y ) / gcd(x, y);
     }
@@ -615,7 +615,7 @@ namespace babel::ALGO::MATH{
 */
     template< typename T >
     requires std::is_floating_point_v<T>
-    std::vector<T> find_x(const T a, const T b, const T c) noexcept
+    [[nodiscard]] std::vector<T> find_x(const T a, const T b, const T c) noexcept
     {
         std::vector<T> zeros;
         auto _delta = delta(a, b, c);
@@ -640,7 +640,7 @@ namespace babel::ALGO::MATH{
 */
     template< typename T >
     requires std::is_floating_point_v<T>
-    constexpr inline T distance(const T x1, const T x2) noexcept
+    [[nodiscard]] constexpr inline T distance(const T x1, const T x2) noexcept
     {
         return babel::ALGO::MATH::abs(x1 - x2);
     }
@@ -656,19 +656,19 @@ namespace babel::ALGO::MATH{
 */
     template< typename T >
     requires std::is_floating_point_v<T>
-    constexpr inline T distance(const T Ax, const T Ay, const T Bx, const T By) noexcept
+    [[nodiscard]] constexpr inline T distance(const T Ax, const T Ay, const T Bx, const T By) noexcept
     {
         return std::sqrt(std::pow(Bx - Ax, 2.0) + std::pow(By - Ay, 2.0));
     }
 
-        /**
-    *  @brief  Check if number is automorphic
-         *  \EXAMPLE_1 (25)^2 == 625 -> true
-         *  \EXAMPLE_2 (76)^2 == 5776 -> true
-    *  @param  n Number
-    *  @return Return 1 if n is automorphic or 0 if not.
-    */
-    constexpr bool is_automorphic(int64_t n) noexcept
+    /**
+*  @brief  Check if number is automorphic
+     *  \EXAMPLE_1 (25)^2 == 625 -> true
+     *  \EXAMPLE_2 (76)^2 == 5776 -> true
+*  @param  n Number
+*  @return Return 1 if n is automorphic or 0 if not.
+*/
+    [[nodiscard]] constexpr bool is_automorphic(int64_t n) noexcept
     {
         n = babel::ALGO::MATH::abs(n);
         uint16_t digits = 0;
@@ -685,7 +685,7 @@ namespace babel::ALGO::MATH{
 */
     template< typename Container, typename T = babel::CONCEPTS::type_in<Container> >
     requires ( babel::CONCEPTS::IS_FLOATING_POINT<T> && babel::CONCEPTS::IS_CONTAINER<Container> )
-    std::vector<std::complex<T>> FFT(const Container &probes) noexcept
+    [[nodiscard]] std::vector<std::complex<T>> FFT(const Container &probes) noexcept
     {
         std::function<void(std::vector<std::complex<T>> &)> ditfft2;
         ditfft2 = [&ditfft2](std::vector<std::complex<T>> &fn) -> void {

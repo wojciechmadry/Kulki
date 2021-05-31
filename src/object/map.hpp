@@ -7,6 +7,7 @@
 
 #include "ball.hpp"
 #include <iostream>
+#include <stack>
 
 class map;
 
@@ -309,7 +310,7 @@ class map
                 score += get_scores(diagonal);
                 _need_update = true;
                 auto color_to_clear = grid[diagonal_start.first][diagonal_start.second].color();
-                while ( diagonal_start.first < 9  &&
+                while ( diagonal_start.first < 9 &&
                         at(diagonal_start).color() == color_to_clear )
                 {
                     at(diagonal_start).clear();
@@ -588,6 +589,7 @@ public:
         std::pair<char, char> from_c = {from.first, from.second};
         std::pair<char, char> to_c = {to.first, to.second};
 
+        //std::stack<std::pair<char, char>> vec;
         std::array<std::pair<char, char>, 81> vec;
         std::array<std::pair<char, char>, 4> Coordinate;
         size_t _size = 1, _start = 0;
@@ -611,11 +613,12 @@ public:
                 Coordinate[3].first = Cor.first;
                 Coordinate[3].second = Cor.second - 1;
 
-                for ( const auto& Item : Coordinate )
+                for ( const auto &Item : Coordinate )
                 {
                     if ( Item == from_c )
                         return true;
-                    if ( cor_is_correct(Item) && std::find(vec.begin(), vec.begin() + _size, Item) == vec.begin() + _size )
+                    if ( cor_is_correct(Item) &&
+                         std::find(vec.begin(), vec.begin() + _size, Item) == vec.begin() + _size )
                         vec[_size++] = Item;
                 }
                 ++_start;
@@ -685,14 +688,16 @@ public:
     {
         _need_update = true;
         _filled = 0;
-        for ( auto &Array : grid )
-            for ( auto &Ball : Array )
-                Ball.clear();
+        std::for_each(grid.begin(), grid.end(),
+                      [](auto &Row) {
+                          std::for_each(std::begin(Row), std::end(Row), [](auto &Ball) {
+                              Ball.clear();
+                          });
+                      });
         put_next_three();
         score = 0;
     }
 };
-
 
 
 #endif //KULKI_MAP_HPP

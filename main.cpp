@@ -9,14 +9,14 @@
 
 #include <iostream>
 
-static constexpr double VERSION = 1.05;
+static constexpr double VERSION = 1.06;
 
 #define FPS 0 // Show fps in console
 
 int main()
 {
 
-   // Play_Test_Games(-1, 14); // Test if game can crush.
+   // Play_Test_Games(-1, 14); // Test if game crush.
 
     ResourceHolder<sf::Drawable, sf::Texture> Resource;
 

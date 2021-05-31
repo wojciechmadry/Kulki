@@ -23,8 +23,7 @@ sf::Font load_font(const std::string &path)
 std::pair<uint32_t, uint32_t> load_resolution() noexcept
 {
     const std::string FileName = "resolution.cfg";
-    auto load_default_settings = [&FileName]() -> std::pair<uint32_t, uint32_t>
-    {
+    auto load_default_settings = [&FileName]() -> std::pair<uint32_t, uint32_t> {
         std::pair<uint32_t, uint32_t> res = babel::WINDOWS::DISPLAY::get_screen_resolution();
         std::ofstream f(FileName);
         f << res.first << '\n' << res.second;
@@ -38,10 +37,9 @@ std::pair<uint32_t, uint32_t> load_resolution() noexcept
         return load_default_settings();
     }
     auto lines = babel::FILE_SYS::load_txt_to_vector(FileName);
-    for(auto& Str : lines)
-        Str = babel::ALGO::STRING::get_only_numbers(Str);
-
-    if (lines.size() != 2 || lines[0].size() > 4  || lines[1].size() > 4 || lines[0].size() <= 2 || lines[1].size() <= 2)
+    std::for_each(lines.begin(), lines.end(), babel::ALGO::STRING::get_only_numbers);
+    if ( lines.size() != 2 || lines[0].size() > 4 || lines[1].size() > 4 || lines[0].size() <= 2 ||
+         lines[1].size() <= 2 )
     {
         return load_default_settings();
     }
@@ -53,8 +51,7 @@ uint32_t load_fps() noexcept
 {
     const std::string FileName = "fps.cfg";
     const constexpr uint32_t DefaultFPS = 30u;
-    auto LoadDefault = [&FileName]() -> uint32_t
-    {
+    auto LoadDefault = [&FileName]() -> uint32_t {
         std::ofstream f(FileName);
         f << DefaultFPS;
         babel::FILE_SYS::close_file(f);
@@ -71,7 +68,7 @@ uint32_t load_fps() noexcept
     auto uFPS = babel::ALGO::CAST::asType<uint32_t>(babel::ALGO::STRING::get_only_numbers(FPS));
 
     uFPS = babel::ALGO::MATH::min(uFPS, 10u * DefaultFPS);
-    uFPS = babel::ALGO::MATH::max(uFPS,  DefaultFPS);
+    uFPS = babel::ALGO::MATH::max(uFPS, DefaultFPS);
 
     return uFPS;
 
@@ -86,13 +83,13 @@ uint16_t check_for_record()
     namespace fs = std::filesystem;
     const std::string FileName = "kulki.bin";
 
-    if ( !fs::exists(FileName ) )
+    if ( !fs::exists(FileName) )
     {
-        std::ofstream f(FileName );
+        std::ofstream f(FileName);
         f << crypt(0);
         babel::FILE_SYS::close_file(f);
     }
-    std::ifstream file(FileName );
+    std::ifstream file(FileName);
     if ( !file.is_open() )
         throw std::out_of_range("Cant open " + FileName);
     uint16_t decoded;
@@ -106,7 +103,7 @@ uint16_t check_for_record()
     catch ( ... )
     {
         babel::FILE_SYS::close_file(file);
-        std::ofstream f(FileName );
+        std::ofstream f(FileName);
         f << crypt(0);
         decoded = 0;
         babel::FILE_SYS::close_file(f);
@@ -139,10 +136,7 @@ map load_map() noexcept
         std::string line;
         std::getline(f, line); // just fake key
         auto _decrypt = [](const std::string &to_decode) -> ball {
-            size_t encrypt {0};
-            for ( auto ch : to_decode )
-                if ( ch == '1' )
-                    ++encrypt;
+            auto encrypt = static_cast<std::size_t>(std::count(to_decode.begin(), to_decode.end(), '1'));
             if ( to_decode.size() != 40 || encrypt > 7 )
                 return ball(COLOR::empty);
             return ball(static_cast<COLOR>(encrypt - 1));
@@ -152,14 +146,23 @@ map load_map() noexcept
         std::getline(f, line);
         auto filled = decrypt(line);
         std::getline(f, line);
-        for ( uint32_t i = 0 ; i < 3 ; ++i )
-            Result.next_three[i] = _decrypt(line.substr(i * 40, 40));
-        for ( uint32_t i = 0 ; i < 9 ; ++i )
-        {
-            std::getline(f, line);
-            for ( uint32_t j = 0 ; j < 9 ; ++j )
-                Result.grid[i][j] = _decrypt(line.substr(j * 40, 40));
-        }
+        //TODO need to implement enumerate iterator in babLib
+        std::size_t i {0};
+        std::for_each(Result.next_three.begin(), Result.next_three.end(),
+                      [&i, &_decrypt, &line](auto &Ball) mutable {
+                          Ball = _decrypt(line.substr(( i++ ) * 40, 40));
+                      });
+
+        std::for_each(Result.grid.begin(), Result.grid.end(),
+                      [&line, &f, &_decrypt](auto &Row) mutable {
+                          std::getline(f, line);
+                          std::size_t j {0};
+                          std::for_each(std::begin(Row), std::end(Row),
+                                        [&j, &line, &_decrypt](auto &Ball) mutable {
+                                            Ball = _decrypt(line.substr(( j++ ) * 40, 40));
+                                        });
+                      });
+
         babel::FILE_SYS::close_file(f);
         Result.score = score;
         Result._filled = static_cast<byte>(filled);
@@ -167,10 +170,13 @@ map load_map() noexcept
         if ( Result.check_for_score() )
             return map();
         byte fill_fix = 0;
-        for ( byte i = 0 ; i < 9 ; ++i )
-            for ( byte j = 0 ; j < 9 ; ++j )
-                if ( !Result.grid[i][j].is_empty() )
-                    ++fill_fix;
+        std::for_each(Result.grid.begin(), Result.grid.end(),
+                      [&fill_fix](const auto &Row) mutable {
+                          fill_fix += static_cast<byte>(std::count_if(std::begin(Row), std::end(Row),
+                                                                      [](const auto &Ball) -> bool {
+                                                                          return Ball.has_value();
+                                                                      }));
+                      });
         if ( fill_fix != filled )
             return map();
         return Result;
@@ -191,29 +197,26 @@ void save_map(const map &Map) noexcept
     auto fil_crypt = crypt(Map.filled()); // encrypt filled number
     f << sc_crypt << '\n' << fil_crypt << '\n';
     auto encrypt = [](size_t to_encode) -> std::string {
-        ++to_encode;
         std::string crypt(40, '0');
-        while ( to_encode > 0 )
-        {
-            auto pos = random_generator::generate<byte>(0, 39);
-            if ( crypt[pos] == '0' )
-            {
-                crypt[pos] = '1';
-                --to_encode;
-            }
-        }
+        std::fill_n(crypt.begin(), to_encode + 1, '1');
+        random_generator::random_shuffle(crypt);
         return crypt;
     };
     auto next_three = Map.get_next_three();
-    for ( auto Bal : next_three )
-        f << encrypt(static_cast<size_t>(Bal.enum_color()));
+    std::for_each(next_three.begin(), next_three.end(),
+                  [&f, &encrypt](const auto &Ball) mutable {
+                      f << encrypt(static_cast<size_t>(Ball.enum_color()));;
+                  });
     f << '\n';
-    for ( byte i = 0 ; i < 9 ; ++i )
-    {
-        for ( byte j = 0 ; j < 9 ; ++j )
-            f << encrypt(static_cast<size_t>(Map.at(i, j).enum_color()));
-        f << '\n';
-    }
+    //TODO Add back inserter iterator to insert to file in babLib
+    std::for_each(Map.get_grid().begin(), Map.get_grid().end(),
+                  [&f, &encrypt](const auto &Row) mutable {
+                      std::for_each(std::begin(Row), std::end(Row),
+                                    [&f, &encrypt](const auto &Ball) mutable {
+                                        f << encrypt(static_cast<size_t>(Ball.enum_color()));
+                                    });
+                      f << '\n';
+                  });
     babel::FILE_SYS::close_file(f);
 }
 
@@ -226,4 +229,5 @@ void save_map(const map &Map) noexcept
         title.pop_back();
     return title;
 }
+
 #endif //KULKI_LOAD_HPP

@@ -17,10 +17,10 @@ namespace babel::ALGO::VECTOR{
     constexpr size_t count(const Vec &Container, const Type &element)
     {
         size_t counter = 0;
-        auto begin = std::begin(Container);
-        auto end = std::end(Container);
-        for ( ; begin != end ; ++begin )
-            counter += ( *begin == element );
+        std::for_each(std::begin(Container), std::end(Container),
+                      [&counter, &element](const auto &Data) mutable {
+                          counter += (Data == element );
+                      });
         return counter;
     }
 
@@ -37,12 +37,12 @@ namespace babel::ALGO::VECTOR{
     requires babel::CONCEPTS::IS_CONTAINER<Vec>
     constexpr size_t count_if(const Vec &Container, Pr prediction)
     {
-        auto begin = std::begin(Container);
-        auto end = std::end(Container);
         size_t counter = 0;
-        for ( ; begin != end ; ++begin )
-            if ( prediction(*begin) )
-                ++counter;
+        std::for_each(std::begin(Container), std::end(Container),
+                      [&counter, prediction](const auto &Data) mutable {
+                          if ( prediction(Data) )
+                              ++counter;
+                      });
         return counter;
     }
 
@@ -60,14 +60,14 @@ namespace babel::ALGO::VECTOR{
         if ( container.size() == 0 )
             return { };
         auto begin = std::begin(container);
-        auto end = std::end(container);
         std::pair<U, U> minimaxi = {*begin, *begin};
         ++begin;
-        for ( ; begin != end ; ++begin )
-            if ( *begin > minimaxi.second )
-                minimaxi.second = *begin;
-            else if ( *begin < minimaxi.first )
-                minimaxi.first = *begin;
+        std::for_each(begin, std::end(container), [&minimaxi](const U &Data) mutable {
+            if ( Data > minimaxi.second )
+                minimaxi.second = Data;
+            else if ( Data < minimaxi.first )
+                minimaxi.first = Data;
+        });
         return minimaxi;
     }
 
@@ -83,14 +83,15 @@ namespace babel::ALGO::VECTOR{
         if ( container.size() == 0 )
             return {nullptr, nullptr};
         auto begin = std::begin(container);
-        auto end = std::end(container);
         std::pair<U *, U *> minimaxi = {&( *begin ), &( *begin )};
         ++begin;
-        for ( ; begin != end ; ++begin )
-            if ( *begin > *minimaxi.second )
-                minimaxi.second = &( *begin );
-            else if ( *begin < *minimaxi.first )
-                minimaxi.first = &( *begin );
+        std::for_each(begin, std::end(container), [&minimaxi](const U &Data) mutable {
+            if ( Data > *minimaxi.second )
+                minimaxi.second = &Data;
+            else if ( Data < *minimaxi.first )
+                minimaxi.first = &Data;
+        });
+
         return std::move(minimaxi);
     }
 
@@ -107,12 +108,7 @@ namespace babel::ALGO::VECTOR{
     {
         if ( container.size() == 0 )
             return { };
-        auto begin = std::begin(container);
-        auto end = std::end(container);
-        U Mean = *begin;
-        ++begin;
-        for ( ; begin != end ; ++begin )
-            Mean += *begin;
+        U Mean = std::accumulate(std::begin(container), std::end(container), 0);
         return Mean / static_cast<U>(container.size());
     }
 
@@ -134,7 +130,7 @@ namespace babel::ALGO::VECTOR{
     }
 
     /**
-*  @brief  Sum all element in data structure
+*  @brief  Sum all element in data structure (accumulate wraper)
      *  \Example_1 {3,4,2} -> 9
      *  \Example_2 {-2, 5, 5} -> 8
 *  @param  container Data structure of elements.
@@ -144,11 +140,7 @@ namespace babel::ALGO::VECTOR{
     requires babel::CONCEPTS::IS_CONTAINER<T>
     constexpr U sum(const T &container) noexcept
     {
-        auto begin = std::begin(container);
-        auto end = std::end(container);
-        auto first = *begin;
-        ++begin;
-        return std::accumulate(begin, end, first);
+        return std::accumulate(std::begin(container), std::end(container), 0);
     }
 
     /**
@@ -170,15 +162,14 @@ namespace babel::ALGO::VECTOR{
         U closest = *begin;
         U diff = babel::ALGO::MATH::abs(_mean - *begin);
         ++begin;
-        for ( ; begin != end ; ++begin )
-        {
-            U temp = babel::ALGO::MATH::abs(_mean - *begin);
+        std::for_each(begin, end, [&closest, &diff, &_mean](const U &Data) {
+            U temp = babel::ALGO::MATH::abs(_mean - Data);
             if ( temp < diff )
             {
                 diff = temp;
-                closest = *begin;
+                closest = Data;
             }
-        }
+        });
         return closest;
     }
 
@@ -277,15 +268,12 @@ namespace babel::ALGO::VECTOR{
     {
         if ( n <= 1 )
             return cont;
-        size_t k = 0;
         size_t index = 0;
         Container res(static_cast<size_t>(std::ceil(static_cast<double>(cont.size()) / static_cast<double>(n))));
-        while ( k < res.size() )
-        {
-            res[k] = cont[index];
-            ++k;
+        std::for_each(std::begin(res), std::end(res), [&cont, &index, n](auto &Value) mutable {
+            Value = cont[index];
             index += n;
-        }
+        });
         return res;
     }
 
@@ -305,11 +293,11 @@ namespace babel::ALGO::VECTOR{
     {
         if ( cont.empty() || index >= cont.size() )
             return cont;
-        Container res(cont.size() - 1);
-        for ( size_t i = 0 ; i < index ; ++i )
-            res[i] = cont[i];
-        for ( size_t i = index + 1 ; i < cont.size() ; ++i )
-            res[i - 1] = cont[i];
+        Container res;
+        auto back_inserter = std::back_inserter(res);
+        auto _get = [](const auto &data) { return data; };
+        std::transform(std::begin(cont), std::begin(cont) + static_cast<long long>(index), back_inserter, _get);
+        std::transform(std::begin(cont) + static_cast<long long>(index) + 1, std::end(cont), back_inserter, _get);
         return res;
     }
 
@@ -372,9 +360,13 @@ namespace babel::ALGO::VECTOR{
         if ( n == cont.size() || cont.size() == 0 )
             return cont;
         Container res(n);
-        auto N = cont.size();
-        for ( size_t i = 0 ; i < res.size() ; ++i )
-            res[i] = cont[i % N];
+        auto begin = std::begin(cont);
+        std::for_each(std::begin(res), std::end(res), [&begin, &cont](auto &Data) {
+            Data = *begin;
+            ++begin;
+            if ( begin == std::end(cont) )
+                begin = std::begin(cont);
+        });
         return res;
     }
 
@@ -395,15 +387,12 @@ namespace babel::ALGO::VECTOR{
             return { };
         else if ( n == 1 )
             return cont;
-
-        Container res(n * cont.size());
-        auto N = cont.size();
-        size_t index = 0;
-        for ( size_t i = 0 ; i < N ; ++i )
-            for ( size_t j = 0 ; j < n ; ++j, ++index )
-            {
-                res[index] = cont[i];
-            }
+        Container res;
+        auto back_inserter = std::back_inserter(res);
+        std::for_each(std::begin(cont), std::end(cont),
+                      [&back_inserter, n](const auto &Data) mutable {
+                          std::fill_n(back_inserter, n, Data);
+                      });
         return res;
     }
 
@@ -418,9 +407,13 @@ namespace babel::ALGO::VECTOR{
     requires babel::CONCEPTS::IS_LIKE_VECTOR<Container>
     [[nodiscard]] std::vector<std::pair<size_t, T>> enumerate(const Container &cont) noexcept
     {
-        std::vector<std::pair<size_t, T>> res;
-        for ( size_t i = 0 ; i < cont.size() ; ++i )
-            res.emplace_back(i, cont[i]);
+        std::size_t index {0};
+        std::vector<std::pair<std::size_t, T>> res;
+        auto back_inserter = std::back_inserter(res);
+        std::transform(std::begin(cont), std::end(cont), back_inserter,
+                       [&index](const T &Data) mutable -> std::pair<std::size_t, T> {
+                           return {index++, Data};
+                       });
         return res;
     }
 
@@ -436,19 +429,21 @@ namespace babel::ALGO::VECTOR{
     [[nodiscard]] std::vector<std::pair<size_t, T>> run_length_encode(const Container &cont) noexcept
     {
         std::vector<std::pair<size_t, T>> res;
-        if ( cont.size() == 1 )
-            return {{1, cont[0]}};
-        else if ( cont.size() == 0 )
+        if ( cont.size() == 0 )
             return { };
+        auto begin = std::begin(cont);
         size_t counter = 1;
-        for ( size_t i = 1 ; i < cont.size() ; ++i )
-            if ( cont[i] == cont[i - 1ull] )
-                ++counter;
-            else
-            {
-                res.emplace_back(counter, cont[i - 1ull]);
-                counter = 1;
-            }
+        std::for_each(std::begin(cont) + 1, std::end(cont),
+                      [&begin, &counter, &res](const auto &Data) mutable {
+                          if ( Data == *begin )
+                              ++counter;
+                          else
+                          {
+                              res.emplace_back(counter, *begin);
+                              counter = 1;
+                          }
+                          ++begin;
+                      });
         res.emplace_back(counter, cont[cont.size() - 1ull]);
         return res;
     }

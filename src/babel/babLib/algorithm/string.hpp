@@ -33,27 +33,32 @@ namespace babel::ALGO::STRING{
         if ( Str.empty() )
             return "0";
         std::string Res;
-        for ( const auto Element : Str )
-        {
-            if ( Element >= '0' && Element <= '9' )
-                Res.push_back(Element);
-        }
+        std::for_each(Str.begin(), Str.end(),
+                      [&Res](char CHAR) mutable
+                      {
+                          if ( CHAR >= '0' && CHAR <= '9' )
+                              Res.push_back(CHAR);
+                      });
         return Res.empty() ? "0" : Res;
     }
 
     [[nodiscard]] std::string str_to_upper(const std::string &Str) noexcept
     {
         std::string Res = Str;
-        for ( auto &CHAR : Res )
-            CHAR = static_cast<std::decay_t<decltype(CHAR)>>(std::toupper(CHAR));
+        std::for_each(Res.begin(), Res.end(),[](char& CHAR)
+        {
+            CHAR =  static_cast<char>(std::toupper(CHAR));
+        });
         return Res;
     }
 
     [[nodiscard]] std::string str_to_lower(const std::string &Str) noexcept
     {
         std::string Res = Str;
-        for ( auto &CHAR : Res )
-            CHAR = static_cast<std::decay_t<decltype(CHAR)>>(std::tolower(CHAR));
+        std::for_each(Res.begin(), Res.end(),[](char& CHAR)
+        {
+            CHAR =  static_cast<char>(std::tolower(CHAR));
+        });
         return Res;
     }
 }

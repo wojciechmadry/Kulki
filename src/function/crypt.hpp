@@ -13,11 +13,11 @@ std::string crypt(uint16_t number)
 
     std::string encrypted = {random_generator::generate<char>(65, 90)};
     auto snum = babel::ALGO::CAST::asType<std::string>(number);
-    for(auto ch : snum)
+    std::for_each(snum.begin(), snum.end(),[&encrypted](const char C) mutable
     {
-        encrypted += char(ch+49);
+        encrypted += static_cast<char>(C+49);
         encrypted += random_generator::generate<char>(65, 90);
-    }
+    });
     return encrypted;
 }
 
@@ -36,7 +36,7 @@ uint16_t decrypt(const std::string& cr)
         }
         else
         {
-            decrypt += char(cr[i]-49);
+            decrypt += static_cast<char>(cr[i]-49);
         }
     }
     return babel::ALGO::CAST::asType<uint16_t>(decrypt);
