@@ -22,7 +22,7 @@ add_executable(Kulki
         )
 
 if("${CMAKE_SIZEOF_VOID_P}" STREQUAL "8")
-    target_compile_options(Kulki PRIVATE -Wextra -Werror -W -Wshadow -Wdouble-promotion -Wformat=2 -Wundef -fno-common -Wconversion -pedantic -Wall)
+    target_compile_options(Kulki PRIVATE -O3 -Wextra -Werror -W -Wshadow -Wdouble-promotion -Wformat=2 -Wundef -fno-common -Wconversion -pedantic -Wall)
 endif()
 
 target_link_libraries(Kulki PRIVATE source)

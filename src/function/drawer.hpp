@@ -13,8 +13,8 @@ void
 draw_started_object(ResourceHolder<sf::Drawable> &Resource, const sf::Font &font, uint16_t record,
                     uint16_t score) noexcept;
 
-sf::RectangleShape make_rectangle(sf::Vector2f Size, sf::Vector2f Position,sf::Color Color
-        ,  float OutlineThick = 0.0f,  sf::Color OutlineColor = sf::Color::Transparent) noexcept;
+sf::RectangleShape make_rectangle(sf::Vector2f Size, sf::Vector2f Position, sf::Color Color, float OutlineThick = 0.0f,
+                                  sf::Color OutlineColor = sf::Color::Transparent) noexcept;
 
 class GLOBAL
 {
@@ -36,24 +36,23 @@ public:
         _height = res.second;
         float a = ( 0.5f * static_cast<float>(_width) ) / 9.f; // side length of white box
         float radius = a / 2.5f; // radius of circle
-        //TODO Maybe range iterator ?
-        for ( byte i = 0 ; i < 6 ; ++i )
+        for ( const auto i : babel::ITERATOR::range(0, 6) )
         {
             ball b(static_cast<COLOR>(i));
             auto ball_shape = std::make_unique<sf::CircleShape>(radius);
             ball_shape->setFillColor(b.color());
-            auto ballID = static_cast<ResourceType>(static_cast<std::size_t>(ResourceType::BALL_CIRCLE_START) + i);
+            auto ballID = static_cast<ResourceType>(static_cast<decltype(i)>(ResourceType::BALL_CIRCLE_START) + i);
             Resource.insert(ballID, std::move(ball_shape), false);
         }
 
         _wb_size = a;
         Resource.insert(ResourceType::WHITE_BOX,
-                        make_rectangle({a, a}, {0,0 },sf::Color(0x8989A9), 1.0f, sf::Color::White)
-                        , false);
+                        make_rectangle({a, a}, {0, 0}, sf::Color(0x8989A9), 1.0f, sf::Color::White), false);
 
         Resource.insert(ResourceType::MAP_BEFORE_GRID,
-                        make_rectangle({a * 9.f, a * 9.f}, {0.3f * static_cast<float>(_width), 0.02f * static_cast<float>(_height)},sf::Color(0x8989A9))
-                        , false);
+                        make_rectangle({a * 9.f, a * 9.f},
+                                       {0.3f * static_cast<float>(_width), 0.02f * static_cast<float>(_height)},
+                                       sf::Color(0x8989A9)), false);
 
 
         std::string texture_path;
@@ -72,7 +71,6 @@ public:
                         "purple.png"
                 };
         bool texture_is_loaded = true;
-        //TODO Put this to for_each when enumerate iterator will work
         for ( std::size_t i = 0 ; i < ball_name.size() ; ++i )
         {
             auto sprite = std::make_unique<sf::Sprite>();
@@ -137,8 +135,8 @@ public:
         {
             // There is empty box with red outline to pick selected ball
             Resource.insert(ResourceType::PICKED, make_rectangle(
-                    {_wb_size, _wb_size}, {0, 0}, sf::Color::Transparent,0.07f * _wb_size, sf::Color::Red)
-                    );
+                    {_wb_size, _wb_size}, {0, 0}, sf::Color::Transparent, 0.07f * _wb_size, sf::Color::Red)
+            );
         }
 
         draw_started_object(Resource, Font, RECORDS.first, RECORDS.second);
@@ -190,11 +188,10 @@ void draw_window(sf::RenderWindow &window, map &Map,
     auto &WhiteBox = Resource.get_as<sf::RectangleShape>(ResourceType::WHITE_BOX);
 
     // Return textured ball
-    auto get_textured_ball = [&Resource] (COLOR id, const sf::Vector2f pos ) mutable -> const sf::Sprite&
-    {
+    auto get_textured_ball = [&Resource](COLOR id, const sf::Vector2f pos) mutable -> const sf::Sprite & {
         auto i = static_cast<std::size_t>(id);
         auto SpriteID = static_cast<ResourceType>(static_cast<std::size_t>(ResourceType::BALL_SPRITE_START) + i);
-        auto& Sprite = Resource.get_as<sf::Sprite>(SpriteID);
+        auto &Sprite = Resource.get_as<sf::Sprite>(SpriteID);
         Sprite.setPosition(pos);
         return Sprite;
     };
@@ -207,54 +204,55 @@ void draw_window(sf::RenderWindow &window, map &Map,
 
     //Draw map before grid 9x9 (darker aquamarine)
     window.draw(Resource.get_as<sf::RectangleShape>(ResourceType::MAP_BEFORE_GRID));
-    //TODO for_each when enumerate iterator work
 
     // Draw 3 Next ball
-    for ( byte i = 0 ; i < 3 ; ++i )
-    {
-        sf::Vector2f pos = {static_cast<float>(static_cast<size_t>(GLOBAL::get_width()) >> 4u) +
-                            static_cast<float>(i) * wb,
-                            0.671641f * static_cast<float>(GLOBAL::get_height())};
-        WhiteBox.setPosition(pos);
-        // Draw whitebox around ball.
-        window.draw(WhiteBox);
-        auto ballID = static_cast<ResourceType>(static_cast<std::size_t>(ResourceType::BALL_CIRCLE_START) + i);
-        auto& Ball = Resource.get_as<sf::CircleShape>(ballID); // No textured ball
-        auto radius = wb / 2.0f - Ball.getRadius();
-        pos.x += radius;
-        pos.y += radius;
-        //Draw ball (can be textured or not)
-        if ( !GLOBAL::BALL_TEXTURE() )
-        {
-            Ball.setPosition(pos);
-            window.draw(Ball);
-        }
-        else
-        {
-            window.draw(get_textured_ball(Map.get_next_three()[i].enum_color(), pos));
-        }
-    }
-
+    babel::ITERATOR::enumerator NextThreeEum(Map.get_next_three());
+    std::for_each(NextThreeEum.begin(), NextThreeEum.end(),
+                  [&WhiteBox, &window, &Resource, wb, &get_textured_ball](const auto &NextEnum) mutable {
+                      sf::Vector2f pos = {static_cast<float>(static_cast<size_t>(GLOBAL::get_width()) >> 4u) +
+                                          static_cast<float>(NextEnum.first()) * wb,
+                                          0.671641f * static_cast<float>(GLOBAL::get_height())};
+                      WhiteBox.setPosition(pos);
+                      // Draw whitebox around ball.
+                      window.draw(WhiteBox);
+                      auto ballID = static_cast<ResourceType>(
+                              static_cast<decltype(NextEnum.first())>(ResourceType::BALL_CIRCLE_START) +
+                              NextEnum.first());
+                      auto &Ball = Resource.get_as<sf::CircleShape>(ballID); // No textured ball
+                      auto radius = wb / 2.0f - Ball.getRadius();
+                      pos.x += radius;
+                      pos.y += radius;
+                      //Draw ball (can be textured or not)
+                      if ( !GLOBAL::BALL_TEXTURE() )
+                      {
+                          Ball.setPosition(pos);
+                          window.draw(Ball);
+                      } else
+                      {
+                          window.draw(get_textured_ball(NextEnum.second().enum_color(), pos));
+                      }
+                  });
     // Map
 
-    byte x_map = 0, y_map;
-
     //Draw ball on grid 9x9
-    //TODO for_each when enumerate iterator work
-    for ( ; x_map < 9 ; ++x_map )
+    babel::ITERATOR::range Range(0, static_cast<int64_t>(Map.get_grid().size()));
+    for ( auto x_it : Range )
     {
-        for ( y_map = 0 ; y_map < 9 ; ++y_map )
+        auto x_map = static_cast<byte>(x_it);
+        for ( auto y_it : Range )
         {
+            auto y_map = static_cast<byte>(y_it);
             float x = 0.3f * width + static_cast<float>(x_map) * wb;
             float y = 0.02f * height + static_cast<float>(y_map) * wb;
             sf::Vector2f pos = {x, y};
             WhiteBox.setPosition(pos);
             // Draw whitebox around ball.
             window.draw(WhiteBox);
-            if ( !Map.at(y_map, x_map).is_empty() )
+            if ( Map.at(y_map, x_map).has_value() )
             {
-                auto ballID = static_cast<ResourceType>(static_cast<std::size_t>(ResourceType::BALL_CIRCLE_START) + static_cast<std::size_t>(Map.at(y_map, x_map).enum_color()));
-                auto& Ball = Resource.get_as<sf::CircleShape>(ballID); // No textured ball
+                auto ballID = static_cast<ResourceType>(static_cast<std::size_t>(ResourceType::BALL_CIRCLE_START) +
+                                                        static_cast<std::size_t>(Map.at(y_map, x_map).enum_color()));
+                auto &Ball = Resource.get_as<sf::CircleShape>(ballID); // No textured ball
 
                 auto radius = wb / 2.0f - Ball.getRadius();
                 pos.x += radius;
@@ -264,18 +262,17 @@ void draw_window(sf::RenderWindow &window, map &Map,
                 {
                     Ball.setPosition(pos);
                     window.draw(Ball);
-                }
-                else
+                } else
                     window.draw(get_textured_ball(Map.at(y_map, x_map).enum_color(), pos));
             }
         }
     }
+
     //Draw other items where AutoDraw = true
-    const auto& Res = Resource.get_resources();
-    std::for_each(Res.cbegin(), Res.cend(), [&window](const auto& Item) mutable
-    {
-       if (Item)
-           window.draw(*Item);
+    const auto &Res = Resource.get_resources();
+    std::for_each(Res.cbegin(), Res.cend(), [&window](const auto &Item) mutable {
+        if ( Item )
+            window.draw(*Item);
     });
     Map.updated();
 }
@@ -293,8 +290,10 @@ sf::Text make_text(const std::string &text, const sf::Vector2f &pos, const sf::C
 }
 
 // Simplify sf::RectangleShape
-sf::RectangleShape make_rectangle(const sf::Vector2f Size, const sf::Vector2f Position,const sf::Color Color
-                                  , const float OutlineThick, const sf::Color OutlineColor) noexcept
+sf::RectangleShape
+make_rectangle(const sf::Vector2f Size, const sf::Vector2f Position, const sf::Color Color,
+               const float OutlineThick,
+               const sf::Color OutlineColor) noexcept
 {
     sf::RectangleShape rc(Size);
     rc.setFillColor(Color);
@@ -303,6 +302,7 @@ sf::RectangleShape make_rectangle(const sf::Vector2f Size, const sf::Vector2f Po
     rc.setPosition(Position);
     return rc;
 }
+
 void
 draw_started_object(ResourceHolder<sf::Drawable> &Resource, const sf::Font &font, const uint16_t record,
                     const uint16_t score) noexcept
@@ -347,14 +347,17 @@ draw_started_object(ResourceHolder<sf::Drawable> &Resource, const sf::Font &font
 
 
     Resource.insert(ResourceType::NEW_GAME_TEXT, make_text("Nowa gra", new_game_pos, sf::Color::White,
-                                                           static_cast<uint32_t>(0.72f * static_cast<float>(Font_Size)),
+                                                           static_cast<uint32_t>(0.72f *
+                                                                                 static_cast<float>(Font_Size)),
                                                            font));
 
 
     //RectangleShape is where mouse is detect click on new game
     Resource.insert(ResourceType::NEW_GAME_BOX, make_rectangle(
-            {static_cast<float>(Font_Size) * 3.2f, static_cast<float>(Font_Size)}, new_game_pos, sf::Color::Transparent, 2.0f, sf::Color::White)
-            );
+            {static_cast<float>(Font_Size) * 3.2f, static_cast<float>(Font_Size)}, new_game_pos,
+            sf::Color::Transparent,
+            2.0f, sf::Color::White)
+    );
 
 
 }

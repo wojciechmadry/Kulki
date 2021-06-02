@@ -461,7 +461,7 @@ namespace babel::ALGO::VECTOR{
 *  @param  step What step
 *  @return Return vector
 */
-    [[nodiscard]] std::vector<int64_t> range(int64_t start, int64_t end, int64_t step = 1) noexcept
+    [[deprecated("Use ITERATOR::range instead.")]] [[nodiscard]] std::vector<int64_t> range(int64_t start, int64_t end, int64_t step = 1) noexcept
     {
         if ( start > end && step == 1 )
             step = -1;
@@ -491,7 +491,7 @@ namespace babel::ALGO::VECTOR{
 *  @param  end Where end
 *  @return Return vector
 */
-    [[nodiscard]] std::vector<int64_t> range(int64_t end) noexcept
+    [[deprecated("Use ITERATOR::range instead.")]][[nodiscard]] std::vector<int64_t> range(int64_t end) noexcept
     {
         return range(0, end);
     }

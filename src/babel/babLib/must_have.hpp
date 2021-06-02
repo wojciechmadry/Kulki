@@ -27,8 +27,8 @@
 
 namespace babel
 {
-    static constexpr const double VERSION = 1.13;
-    static constexpr const bool COMPILER_IS_64B = sizeof(void*) == 8 ? true : false; //NOLINT
+    static constexpr const double VERSION = 1.15;
+    static constexpr const bool COMPILER_IS_64B = (sizeof(void*) == 8); //NOLINT
 }
 
 namespace _BABEL_PRIVATE_DO_NOT_USE //NOLINT

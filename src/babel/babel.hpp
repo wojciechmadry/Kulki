@@ -14,9 +14,12 @@
 #include "babLib/request/request.hpp"
 #include "babLib/graphics/graphics.hpp"
 #include "babLib/system.hpp"
+#include "babLib/iterators/iterator.hpp"
 
 #ifdef _WIN32
+
 #include "babLib/windows/windows.hpp"
+
 #endif
 
 namespace babel{

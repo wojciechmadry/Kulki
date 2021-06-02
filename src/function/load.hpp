@@ -146,20 +146,21 @@ map load_map() noexcept
         std::getline(f, line);
         auto filled = decrypt(line);
         std::getline(f, line);
-        //TODO need to implement enumerate iterator in babLib
-        std::size_t i {0};
-        std::for_each(Result.next_three.begin(), Result.next_three.end(),
-                      [&i, &_decrypt, &line](auto &Ball) mutable {
-                          Ball = _decrypt(line.substr(( i++ ) * 40, 40));
+
+        babel::ITERATOR::enumerator NextThreeEnum(Result.next_three);
+        std::for_each(NextThreeEnum.begin(), NextThreeEnum.end(),
+                      [&_decrypt, &line](auto En_Ball) mutable {
+                          En_Ball.second() = _decrypt(line.substr(static_cast<std::size_t>(En_Ball.first()) * 40, 40));
                       });
 
         std::for_each(Result.grid.begin(), Result.grid.end(),
                       [&line, &f, &_decrypt](auto &Row) mutable {
                           std::getline(f, line);
-                          std::size_t j {0};
-                          std::for_each(std::begin(Row), std::end(Row),
-                                        [&j, &line, &_decrypt](auto &Ball) mutable {
-                                            Ball = _decrypt(line.substr(( j++ ) * 40, 40));
+                          babel::ITERATOR::enumerator RowEnum(Row);
+                          std::for_each(RowEnum.begin(), RowEnum.end(),
+                                        [&line, &_decrypt](auto Ball) mutable {
+                                            Ball.second() = _decrypt(
+                                                    line.substr(static_cast<std::size_t>(Ball.first()) * 40, 40));
                                         });
                       });
 

@@ -432,11 +432,11 @@ class map
                           return lhs.first < rhs.first;
                       });
 
-            //TODO When enumerate
-            for ( byte i = 0 ; i < 3 ; ++i )
-                next_three[i] = ball(static_cast<COLOR>(color[i].second));
-
-
+            babel::ITERATOR::range Range(0, 3);
+            std::transform(Range.begin(), Range.end(), next_three.begin(),
+                           [&color](const std::size_t i) {
+                               return ball(static_cast<COLOR>(color[i].second));;
+                           });
         } else
         {
             std::for_each(std::begin(next_three), std::end(next_three),
@@ -468,11 +468,16 @@ public:
         if ( _filled == 81 )
             return;
         std::vector<std::pair<byte, byte>> free_pos;
-        //TODO When enumerate operator!
-        for ( byte i = 0 ; i < 9 ; ++i )
-            for ( byte j = 0 ; j < 9 ; ++j )
-                if ( grid[i][j].is_empty() )
-                    free_pos.emplace_back(std::make_pair(i, j));
+        babel::ITERATOR::enumerator GridEnum(grid);
+        std::for_each(GridEnum.begin(), GridEnum.end(), [&free_pos](const auto &RowEn) mutable {
+            babel::ITERATOR::enumerator RowEnum(RowEn.second());
+            std::for_each(RowEnum.begin(), RowEnum.end(),
+                          [&free_pos, &RowEn](const auto &BallEnum) mutable {
+                              if ( BallEnum.second().is_empty() )
+                                  free_pos.template emplace_back(std::make_pair(RowEn.first(), BallEnum.first()));
+                          });
+
+        });
 
         random_generator::random_shuffle(free_pos);
 
@@ -542,6 +547,7 @@ public:
     map() noexcept
     {
         //Map started with 3 balls.
+        generate_next_three();
         reset();
     }
 
@@ -577,7 +583,9 @@ public:
     [[nodiscard]] bool can_move(std::pair<byte, byte> from, std::pair<byte, byte> to) const noexcept
     {
         if ( at(from).is_empty() || !at(to).is_empty() || from == to )
+        {
             return false;
+        }
         auto cor_is_correct = [this](const std::pair<char, char> cor) -> bool {
             return !( cor.first > 8 || cor.first < 0 || cor.second > 8 || cor.second < 0 ||
                       !grid[static_cast<std::size_t>(cor.first)][static_cast<std::size_t>(cor.second)].is_empty() );
@@ -590,6 +598,7 @@ public:
         size_t _size = 1, _start = 0;
         vec[0] = to_c;
         size_t vec_size;
+
         do
         {
             vec_size = _size;

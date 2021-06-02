@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-static constexpr double VERSION = 1.06;
+static constexpr double VERSION = 1.07;
 
 #define FPS 0 // Show fps in console
 
@@ -17,7 +17,6 @@ int main()
 {
 
    // Play_Test_Games(-1, 14); // Test if game crush.
-
     ResourceHolder<sf::Drawable, sf::Texture> Resource;
 
     map Game = load_map();
