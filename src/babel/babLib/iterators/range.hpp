@@ -4,25 +4,26 @@
 #include "../must_have.hpp"
 
 namespace babel::ITERATOR{
+    template<typename Type = int64_t>
     class range
     {
-        int64_t _start, _stop, _step;
+        Type _start, _stop, _step;
     public:
 
         class Iterator
         {
-            int64_t _val, _step;
+            Type _val, _step;
         public:
-            constexpr Iterator(const int64_t Val, const int64_t Step) noexcept: _val(Val), _step(Step)
+            constexpr Iterator(const Type Val, const Type Step) noexcept: _val(Val), _step(Step)
             { }
             constexpr ~Iterator() = default;
 
-            [[nodiscard]] constexpr int64_t operator*() const noexcept
+            [[nodiscard]] constexpr Type operator*() const noexcept
             {
                 return _val;
             }
 
-            [[nodiscard]] constexpr int64_t &operator*() noexcept
+            [[nodiscard]] constexpr Type &operator*() noexcept
             {
                 return _val;
             }
@@ -58,10 +59,10 @@ namespace babel::ITERATOR{
 
         constexpr range() noexcept: _start(0), _stop(0), _step(0)
         { }
-        constexpr range(int64_t Start, int64_t Stop, int64_t Step = 1)
+        constexpr range(Type Start, Type Stop, Type Step = 1)
         {
             if ( Start > Stop && Step == 1 )
-                Step = -1;
+                Step = static_cast<Type>(-1);
             if ( Start != Stop && Step == 0 )
                 throw std::out_of_range("When Start != Stop then Step can't be 0.");
             if ( Start > Stop && Step > 0 )
@@ -75,32 +76,32 @@ namespace babel::ITERATOR{
 
         constexpr ~range() = default;
 
-        [[nodiscard]]constexpr int64_t Start() const noexcept
+        [[nodiscard]]constexpr Type Start() const noexcept
         {
             return _start;
         }
 
-        [[nodiscard]]constexpr int64_t Stop() const noexcept
+        [[nodiscard]]constexpr Type Stop() const noexcept
         {
             return _start;
         }
 
-        [[nodiscard]]constexpr int64_t Step() const noexcept
+        [[nodiscard]]constexpr Type Step() const noexcept
         {
             return _start;
         }
 
-        [[nodiscard]]constexpr int64_t &Start() noexcept
+        [[nodiscard]]constexpr Type &Start() noexcept
         {
             return _start;
         }
 
-        [[nodiscard]]constexpr int64_t &Stop() noexcept
+        [[nodiscard]]constexpr Type &Stop() noexcept
         {
             return _start;
         }
 
-        [[nodiscard]]constexpr int64_t &Step() noexcept
+        [[nodiscard]]constexpr Type &Step() noexcept
         {
             return _start;
         }

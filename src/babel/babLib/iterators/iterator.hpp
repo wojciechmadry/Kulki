@@ -3,5 +3,8 @@
 
 #include "enumerate.hpp"
 #include "range.hpp"
+#include "read.hpp"
+#include "write.hpp"
+#include "generator.hpp"
 
 #endif

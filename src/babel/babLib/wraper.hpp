@@ -9,13 +9,16 @@ namespace babel::WRAPER{
     {
         T _data;
     public:
-        constexpr wrap() noexcept: _data()
+        constexpr wrap() = default;
+
+        constexpr ~wrap() = default;
+
+        constexpr explicit wrap(T &&data) noexcept: _data(std::move(data))
         { }
 
-        template< typename U = T >
-        requires ( babel::CONCEPTS::IS_SAME_CONVERTIBLE<U, T> && babel::CONCEPTS::IS_NOT_SAME<U, wrap<T>> )
-        constexpr wrap(U &&data) noexcept: _data(std::forward<U>(data)) //NOLINT
+        constexpr explicit wrap(const T &data) noexcept: _data(data)
         { }
+
 
         constexpr wrap(const wrap &other) noexcept: _data(other._data)
         { }

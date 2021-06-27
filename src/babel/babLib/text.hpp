@@ -15,8 +15,8 @@ namespace babel::TEXT{
         {
             _clear_vector();
             _str = std::forward<T>(str);
-            std::for_each(std::begin(_str), std::end(_str), [this](char &CHAR) mutable {
-                this->_lett[static_cast<uint8_t>(CHAR)].emplace_back(&CHAR);
+            std::for_each(std::begin(_str), std::end(_str), [this](char &_char) mutable {
+                this->_lett[static_cast<uint8_t>(_char)].emplace_back(&_char);
             });
         }
 

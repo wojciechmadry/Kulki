@@ -14,7 +14,7 @@ namespace babel::ITERATOR{
 
         class Pair
         {
-            using In = std::remove_reference_t<decltype(*Iter{})>;
+            using In = std::remove_reference_t<decltype(*Iter { })>;
             int64_t _index;
             std::reference_wrapper<In> _value;
         public:
@@ -64,6 +64,7 @@ namespace babel::ITERATOR{
 
     public:
         using value_type = Pair;
+
         constexpr enumerate() = delete;
 
         explicit constexpr enumerate(Iter iterator, const int64_t Start = 0) noexcept: _index(Start),
@@ -106,12 +107,12 @@ namespace babel::ITERATOR{
 
         [[nodiscard]] constexpr auto operator*() noexcept
         {
-            return Pair{_index, *_iterator};
+            return Pair {_index, *_iterator};
         }
 
         [[nodiscard]] constexpr auto operator*() const noexcept
         {
-            return Pair{_index, *_iterator};
+            return Pair {_index, *_iterator};
         }
 
         constexpr enumerate &operator++() noexcept

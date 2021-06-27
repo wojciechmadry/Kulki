@@ -212,5 +212,7 @@ namespace babel::CONCEPTS{
     public:
         typedef decltype(_babel_type_of()) type;
     };
+
+    using IteratorAddType = type_of_number<sizeof(void*)>::type;
 }
 #endif

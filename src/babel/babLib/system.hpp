@@ -2,7 +2,6 @@
 #define BABEL_SYSTEM
 
 #include "must_have.hpp"
-
 namespace babel::SYSTEM{
 
     /**
@@ -13,7 +12,8 @@ namespace babel::SYSTEM{
 */
     [[nodiscard]] std::size_t number_of_threads() noexcept
     {
-        return std::thread::hardware_concurrency();
+        //TODO hardware_concurrency doesnt work on 32bit clang
+        return babel::COMPILER_IS_64B ? std::thread::hardware_concurrency() : 0; //NOLINT
     }
 
 

@@ -13,7 +13,7 @@
 
 #include <SFML/Graphics.hpp>
 
-using byte = unsigned char;
+using byte = u8;
 
 enum class COLOR : byte
 {

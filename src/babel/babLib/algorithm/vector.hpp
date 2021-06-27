@@ -188,10 +188,7 @@ namespace babel::ALGO::VECTOR{
     {
         if ( n > static_cast<int64_t>(cont.size()) || n <= 0 )
             return { };
-        if constexpr ( babel::COMPILER_IS_64B ) //NOLINT
-            return {std::begin(cont) + n, std::end(cont)};
-        else
-            return {std::begin(cont) + static_cast<int>(n), std::end(cont)};
+        return {std::begin(cont) + static_cast<babel::CONCEPTS::IteratorAddType>(n), std::end(cont)};
     }
 
     /**
@@ -209,10 +206,7 @@ namespace babel::ALGO::VECTOR{
     {
         if ( n >= cont.size() )
             return cont;
-        if constexpr ( babel::COMPILER_IS_64B )//NOLINT
-            return {std::begin(cont), std::begin(cont) + static_cast<int64_t>(n)};
-        else
-            return {std::begin(cont), std::begin(cont) + static_cast<int>(n)};
+        return {std::begin(cont), std::begin(cont) + static_cast<babel::CONCEPTS::IteratorAddType>(n)};
     }
 
     /**
@@ -296,8 +290,8 @@ namespace babel::ALGO::VECTOR{
         Container res;
         auto back_inserter = std::back_inserter(res);
         auto _get = [](const auto &data) { return data; };
-        std::transform(std::begin(cont), std::begin(cont) + static_cast<long long>(index), back_inserter, _get);
-        std::transform(std::begin(cont) + static_cast<long long>(index) + 1, std::end(cont), back_inserter, _get);
+        std::transform(std::begin(cont), std::begin(cont) + static_cast<babel::CONCEPTS::IteratorAddType>(index), back_inserter, _get);
+        std::transform(std::begin(cont) + static_cast<babel::CONCEPTS::IteratorAddType>(index) + 1, std::end(cont), back_inserter, _get);
         return res;
     }
 
@@ -316,10 +310,7 @@ namespace babel::ALGO::VECTOR{
     {
         if ( n > cont.size() )
             return { };
-        if constexpr ( babel::COMPILER_IS_64B ) //NOLINT
-            return {std::begin(cont), std::end(cont) - static_cast<int64_t>(n)};
-        else
-            return {std::begin(cont), std::end(cont) - static_cast<int>(n)};
+        return {std::begin(cont), std::end(cont) - static_cast<babel::CONCEPTS::IteratorAddType>(n)};
     }
 
 
@@ -338,10 +329,8 @@ namespace babel::ALGO::VECTOR{
     {
         if ( n >= cont.size() )
             return cont;
-        if constexpr ( babel::COMPILER_IS_64B ) //NOLINT
-            return {std::end(cont) - static_cast<int64_t>(n), std::end(cont)};
-        else
-            return {std::end(cont) - static_cast<int>(n), std::end(cont)};
+        return {std::end(cont) - static_cast<babel::CONCEPTS::IteratorAddType>(n), std::end(cont)};
+
     }
 
     /**
@@ -481,7 +470,6 @@ namespace babel::ALGO::VECTOR{
                 _res.emplace_back(start);
             }
         return _res;
-
     }
 
     /**
@@ -493,7 +481,26 @@ namespace babel::ALGO::VECTOR{
 */
     [[deprecated("Use ITERATOR::range instead.")]][[nodiscard]] std::vector<int64_t> range(int64_t end) noexcept
     {
-        return range(0, end);
+        int64_t start = 0;
+        int64_t step = 1;
+        if ( start > end )
+            step = -1;
+        if ( start == end )
+            return {start};
+        if ( ( start > end && step > 0 ) || ( start < end && step < 0 ) )
+            return { };
+        std::vector<int64_t> _res;
+        if ( start < end )
+            for ( ; start < end ; start += step )
+            {
+                _res.emplace_back(start);
+            }
+        else
+            for ( ; start > end ; start += step )
+            {
+                _res.emplace_back(start);
+            }
+        return _res;
     }
 
     /**

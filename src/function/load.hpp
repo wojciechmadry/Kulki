@@ -197,38 +197,31 @@ void save_map(const map &Map) noexcept
     auto sc_crypt = crypt(Map.get_score()); // encrypt score
     auto fil_crypt = crypt(Map.filled()); // encrypt filled number
     f << sc_crypt << '\n' << fil_crypt << '\n';
-    auto encrypt = [](size_t to_encode) -> std::string {
+    auto encrypt = [](std::size_t to_encode) -> std::string {
         std::string crypt(40, '0');
         std::fill_n(crypt.begin(), to_encode + 1, '1');
         random_generator::random_shuffle(crypt);
         return crypt;
     };
     auto next_three = Map.get_next_three();
-    std::for_each(next_three.begin(), next_three.end(),
-                  [&f, &encrypt](const auto &Ball) mutable {
-                      f << encrypt(static_cast<size_t>(Ball.enum_color()));;
-                  });
-    f << '\n';
-    //TODO Add back inserter iterator to insert to file in babLib
+    auto back_inserter_file = babel::ITERATOR::writer(f);
+    std::transform(next_three.begin(), next_three.end(),
+                   back_inserter_file.back_inserter(false),
+                   [&encrypt](const auto &Ball)
+                   {
+                        return encrypt(static_cast<std::size_t>(Ball.enum_color()));
+                   });
+    back_inserter_file.push_back("\n");
     std::for_each(Map.get_grid().begin(), Map.get_grid().end(),
-                  [&f, &encrypt](const auto &Row) mutable {
-                      std::for_each(std::begin(Row), std::end(Row),
-                                    [&f, &encrypt](const auto &Ball) mutable {
-                                        f << encrypt(static_cast<size_t>(Ball.enum_color()));
+                  [&back_inserter_file, &encrypt](const auto &Row) mutable {
+                     std::transform(std::begin(Row), std::end(Row), back_inserter_file.back_inserter(false),
+                                    [&encrypt](const auto &Ball)
+                                    {
+                                        return encrypt(static_cast<size_t>(Ball.enum_color()));
                                     });
-                      f << '\n';
+                      back_inserter_file.push_back("\n");
                   });
-    babel::FILE_SYS::close_file(f);
-}
-
-
-[[nodiscard]] std::string generate_window_name(const double Version) noexcept
-{
-    std::string title = "Kulki v.";
-    title = title + std::to_string(Version);
-    while ( title[title.size() - 1] == '0' )
-        title.pop_back();
-    return title;
+    back_inserter_file.close();
 }
 
 #endif //KULKI_LOAD_HPP

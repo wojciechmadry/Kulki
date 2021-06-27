@@ -33,7 +33,6 @@ class RedBox
     T& get_any() noexcept
     {
           return *babel::ALGO::CAST::asType<T*>(&_box.cast<AnyType>().get());
-      //  return babel::ALGO::CAST::asType<T&>(_box.cast<AnyType>().get());
     }
 
 public:

@@ -62,7 +62,7 @@ namespace babel::WINDOWS::DISPLAY
 
 namespace babel::WINDOWS::SYSTEM{
     /**
-*  @brief  Find all avaliable disc
+*  @brief  Find all available disc
 *  @return Vector of discs ex.: "C:/", "D:/" etc.
 */
     std::vector<std::string> all_discs() noexcept

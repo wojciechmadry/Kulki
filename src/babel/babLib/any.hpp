@@ -53,10 +53,6 @@ namespace babel::ANY{
             template< typename T >
             friend any make_any(T &&object) noexcept;
 
-            template< typename T >
-            friend void destroy_any(any &_any) noexcept;
-
-
         public:
 
             any() noexcept: data(nullptr)
@@ -69,14 +65,14 @@ namespace babel::ANY{
 
             any(const any &other) = delete;
 
-            any(any &&other) noexcept : data(other.data)
+            any(any &&other) noexcept: data(other.data)
             {
                 other.data = nullptr;
             }
 
             ~any() = default;
 
-            [[nodiscard]] constexpr  bool has_value() const noexcept
+            [[nodiscard]] constexpr bool has_value() const noexcept
             {
                 return data != nullptr;
             }
@@ -92,11 +88,11 @@ namespace babel::ANY{
 *  @brief  cast void* to T&
 *  @return Casted stored object to T&
 */
-            template <typename T>
-            [[nodiscard]] T& cast()
+            template< typename T >
+            [[nodiscard]] T &cast()
             {
-                if (data)
-                    return *static_cast<T*>(data);
+                if ( data )
+                    return *static_cast<T *>(data);
                 throw std::invalid_argument("Data is nullptr");
             }
 
@@ -104,11 +100,11 @@ namespace babel::ANY{
 *  @brief  cast void* to const T&
 *  @return Casted stored object to  const T&
 */
-            template <typename T>
-            [[nodiscard]] const T& cast() const
+            template< typename T >
+            [[nodiscard]] const T &cast() const
             {
-                if (data)
-                    return *static_cast<T*>(data);
+                if ( data )
+                    return *static_cast<T *>(data);
                 throw std::invalid_argument("Data is nullptr");
             }
 
@@ -134,18 +130,18 @@ namespace babel::ANY{
                 _any.data = nullptr;
                 return *this;
             }
-        };
 
-
-        /**
+            /**
 *  @brief  Destroy VoidAny -> its required when you end deal with it
 */
-        template< typename T >
-        void destroy_any(any &_any) noexcept
-        {
-            delete static_cast<T *>(_any.data);
-            _any.data = nullptr;
-        }
+            template< typename T >
+            void destroy_any() noexcept
+            {
+                delete static_cast<T *>(data);
+                data = nullptr;
+            }
+        };
+
 
         template< typename T >
         [[nodiscard]] any make_any(T &&object) noexcept
@@ -166,7 +162,7 @@ namespace babel::ANY{
         class any;
 
         template< typename T >
-        [[nodiscard]] any make_any(T&& data) noexcept;
+        [[nodiscard]] any make_any(T &&data) noexcept;
 
         class any
         {
@@ -351,7 +347,7 @@ namespace babel::ANY{
         };
 
         template< typename T >
-        [[nodiscard]] any make_any(T&& data) noexcept
+        [[nodiscard]] any make_any(T &&data) noexcept
         {
             return any(std::forward<T>(data));
         }
@@ -401,7 +397,7 @@ namespace babel::ANY{
     void destroy_any(Any &any)
     {
         if constexpr ( babel::CONCEPTS::IS_SAME<Any, VoidAny::any> )
-            VoidAny::destroy_any<T>(any);
+            any.template destroy_any<T>();
         if constexpr ( babel::CONCEPTS::IS_SAME<Any, PolAny::any> )
             any.reset();
     }

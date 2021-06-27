@@ -24,9 +24,7 @@ namespace babel::CONTAINER{
                 _max_size = GROW * GROW;
 
             T *temp = new T[_max_size];
-            std::transform(_array, _array + _size, temp, [](T &Data) {
-                return std::move(Data);
-            });
+            std::transform(_array, _array + _size, temp, std::move<T&>);
             delete[] _array;
             _array = temp;
         }
@@ -96,11 +94,11 @@ namespace babel::CONTAINER{
             });
         }
 
-        dynamic_array(size_t SIZE, const T &data)
+        dynamic_array(size_t _SIZE, const T &data)
         {
-            _max_size = SIZE + GROW;
+            _max_size = _SIZE + GROW;
             _array = new T[_max_size];
-            _size = SIZE;
+            _size = _SIZE;
             std::for_each(_array, _array + _size, [&data](T &ArrayElement) {
                 ArrayElement = data;
             });

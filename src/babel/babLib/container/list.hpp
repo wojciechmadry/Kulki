@@ -125,9 +125,9 @@ namespace babel::CONTAINER {
         list() = default;
 
         template<typename U = T, typename = is_s_c<U, T> >
-        list(size_t SIZE, U &&data) noexcept
+        list(size_t _SIZE, U &&data) noexcept
         {
-            while (SIZE-- > 0)
+            while (_SIZE-- > 0)
                 push_back(data);
         }
 

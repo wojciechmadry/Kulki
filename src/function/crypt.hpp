@@ -27,7 +27,7 @@ uint16_t decrypt(const std::string& cr)
     if(cr.size()%2 == 0)
         throw std::out_of_range("bad decrypt");
     std::string decrypt;
-    for(size_t i = 0 ; i < cr.size() ; ++i)
+    for(auto i : babel::ITERATOR::range<std::size_t>(0, cr.size()))
     {
         if (i%2 == 0)
         {

@@ -99,8 +99,7 @@ namespace babel::REQ{
 
         void clear() noexcept
         {
-            std::queue<std::function<void()>> empty;
-            _que = std::move(empty);
+            _que = {};
         }
 
         [[nodiscard]] bool has_request() const noexcept

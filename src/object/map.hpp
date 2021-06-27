@@ -42,11 +42,11 @@ class map
 
     [[nodiscard]] bool score_there() const noexcept
     {
-        for ( byte i = 0 ; i < 9 ; ++i )
+        for ( auto i : babel::ITERATOR::range<byte>(0, 9) )
         {
             //horizontal check
             byte horizontal = !grid[i][0].is_empty();
-            for ( byte j = 0 ; j < 8 ; ++j )
+            for ( auto j : babel::ITERATOR::range<byte>(0, 8) )
             {
                 if ( !grid[i][j].is_empty() && grid[i][j] == grid[i][j + 1] )
                     ++horizontal;
@@ -63,7 +63,7 @@ class map
             // vertical check
 
             byte vertical = !grid[0][i].is_empty();
-            for ( byte j = 0 ; j < 8 ; ++j )
+            for ( auto j : babel::ITERATOR::range<byte>(0, 8))
             {
                 if ( !grid[j][i].is_empty() && grid[j][i] == grid[j + 1][i] )
                     ++vertical;
@@ -82,12 +82,12 @@ class map
 
 
         //diagonal check left/right down
-        for ( byte start = 0 ; start < 5 ; ++start )
+        for ( auto start : babel::ITERATOR::range<byte>(0, 5) )
         {
             //diagonal check left down
             byte diagonal = !grid[start][0].is_empty();
             byte add_to_i = 0;
-            for ( byte j = 0 ; j < static_cast<byte>(9 - start - 1) ; ++j )
+            for ( auto j : babel::ITERATOR::range<byte>(0, 9 - start - 1) )
             {
                 if ( !grid[start + add_to_i][j].is_empty() &&
                      grid[start + add_to_i][j] == grid[start + add_to_i + 1][j + 1] )
@@ -124,11 +124,11 @@ class map
 
 
         //diagonal check left up
-        for ( byte start = 1 ; start < 5 ; ++start )
+        for ( auto start : babel::ITERATOR::range<byte>(1, 5) )
         {
             byte diagonal = !grid[0][start].is_empty();
             byte add_to_i = 0;
-            for ( byte j = 0 ; j < static_cast<byte>(9 - start - 1) ; ++j )
+            for ( auto j : babel::ITERATOR::range<byte>(0, 9 - start - 1))
             {
                 if ( !grid[j][start + add_to_i].is_empty() &&
                      grid[j][start + add_to_i] == grid[j + 1][start + add_to_i + 1] )
@@ -186,12 +186,12 @@ class map
         // 9 balls 42 score
 
 
-        for ( byte i = 0 ; i < 9 ; ++i )
+        for ( auto i : babel::ITERATOR::range<byte>(0, 9) )
         {
             //horizontal check
             byte horizontal = !grid[i][0].is_empty();
             byte horizontal_start = 0;
-            for ( byte j = 0 ; j < 8 ; ++j )
+            for ( auto j : babel::ITERATOR::range<byte>(0, 8))
             {
                 if ( !grid[i][j].is_empty() && grid[i][j] == grid[i][j + 1] )
                     ++horizontal;
@@ -221,7 +221,7 @@ class map
 
             byte vertical = !grid[0][i].is_empty();
             byte vertical_start = 0;
-            for ( byte j = 0 ; j < 8 ; ++j )
+            for ( auto j : babel::ITERATOR::range<byte>(0, 8) )
             {
                 if ( !grid[j][i].is_empty() && grid[j][i] == grid[j + 1][i] )
                     ++vertical;
@@ -251,13 +251,13 @@ class map
 
 
         //diagonal check left/right down
-        for ( byte start = 0 ; start < 5 ; ++start )
+        for ( auto start : babel::ITERATOR::range<byte>(0, 5) )
         {
             //diagonal check left down
             byte diagonal = !grid[start][0].is_empty();
             std::pair<byte, byte> diagonal_start = {start, 0};
             byte add_to_i = 0;
-            for ( byte j = 0 ; j < static_cast<byte>(9 - start - 1) ; ++j )
+            for (auto j : babel::ITERATOR::range<byte>(0, 9 - start - 1))
             {
                 if ( !grid[start + add_to_i][j].is_empty() &&
                      grid[start + add_to_i][j] == grid[start + add_to_i + 1][j + 1] )
@@ -324,12 +324,12 @@ class map
 
 
         //diagonal check left up
-        for ( byte start = 1 ; start < 5 ; ++start )
+        for ( auto start : babel::ITERATOR::range<byte>(1, 5) )
         {
             byte diagonal = !grid[0][start].is_empty();
             std::pair<byte, byte> diagonal_start = {0, start};
             byte add_to_i = 0;
-            for ( byte j = 0 ; j < static_cast<byte>(9 - start - 1) ; ++j )
+            for ( auto j : babel::ITERATOR::range<byte>(0, 9 - start - 1) )
             {
                 if ( !grid[j][start + add_to_i].is_empty() &&
                      grid[j][start + add_to_i] == grid[j + 1][start + add_to_i + 1] )

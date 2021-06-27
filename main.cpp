@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-static constexpr double VERSION = 1.07;
+static constexpr const char* VERSION = "1.08";
 
 #define FPS 0 // Show fps in console
 
@@ -43,7 +43,7 @@ int main()
 
     sf::RenderWindow window(
             sf::VideoMode(static_cast<uint32_t>(GLOBAL::get_width()), static_cast<uint32_t>(GLOBAL::get_height())),
-            generate_window_name(VERSION), sf::Style::Default,
+            VERSION, sf::Style::Default,
             sf::ContextSettings {0, 0, 16});
 
     auto fps = load_fps();
@@ -105,8 +105,8 @@ int main()
             if ( old_score > record ) // If record were break, then save it
             {
                 record = old_score;
-                Resource.get_as<sf::Text>(ResourceType::RECORD).setString(_str);
                 save_record(record);
+                Resource.get_as<sf::Text>(ResourceType::RECORD).setString(_str);
             }
             // Refresh score and record points
             Resource.get_as<sf::Text>(ResourceType::SCORE).setString(_str);

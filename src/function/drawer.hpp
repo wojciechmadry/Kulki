@@ -71,7 +71,8 @@ public:
                         "purple.png"
                 };
         bool texture_is_loaded = true;
-        for ( std::size_t i = 0 ; i < ball_name.size() ; ++i )
+
+        for ( auto i : babel::ITERATOR::range<std::size_t>(0, ball_name.size()))
         {
             auto sprite = std::make_unique<sf::Sprite>();
             auto texture = std::make_unique<sf::Texture>();
@@ -235,13 +236,11 @@ void draw_window(sf::RenderWindow &window, map &Map,
     // Map
 
     //Draw ball on grid 9x9
-    babel::ITERATOR::range Range(0, static_cast<int64_t>(Map.get_grid().size()));
-    for ( auto x_it : Range )
+    babel::ITERATOR::range<byte> Range(0, static_cast<byte>(Map.get_grid().size()));
+    for ( auto x_map : Range )
     {
-        auto x_map = static_cast<byte>(x_it);
-        for ( auto y_it : Range )
+        for ( auto y_map : Range )
         {
-            auto y_map = static_cast<byte>(y_it);
             float x = 0.3f * width + static_cast<float>(x_map) * wb;
             float y = 0.02f * height + static_cast<float>(y_map) * wb;
             sf::Vector2f pos = {x, y};
