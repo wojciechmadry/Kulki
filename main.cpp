@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-static constexpr const char* VERSION = "1.08";
+static constexpr const char* VERSION = "1.09";
 
 #define FPS 0 // Show fps in console
 
@@ -61,7 +61,9 @@ int main()
 
     std::pair<char, char> picked = {-1, -1}, new_pick = {-1, -1};
 
-    Thread thread(Game, fps, picked, new_pick);
+    std::mutex Mutex;
+
+    Thread thread(Game, picked, new_pick, Mutex);
 #if FPS == 1
     float fps_f;
     sf::Clock clock;

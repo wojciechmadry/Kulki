@@ -3,6 +3,8 @@
 
 #include <unordered_map>
 #include <memory>
+#include <mutex>
+#include <condition_variable>
 #include "../babel/babel.hpp"
 
 enum class ResourceType
