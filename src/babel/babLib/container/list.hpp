@@ -1,5 +1,6 @@
-#ifndef _A_LIST
-#define _A_LIST
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_CONTAINER_LIST_HPP_
+#define BABLIB_CONTAINER_LIST_HPP_
 
 #include <string>
 #include <type_traits>
@@ -26,17 +27,17 @@ namespace babel::CONTAINER {
             {} //NOLINT
         };
 
-        node *head = nullptr, *tail = nullptr;
-        size_t _size = 0;
+        node *m_head = nullptr, *m_tail = nullptr;
+        size_t m_size = 0;
 
         bool __remove(node *&to_del) noexcept //NOLINT
         {
             if (to_del == nullptr)
                 return false;
 
-            if (to_del == head)
+            if (to_del == m_head)
                 pop_front();
-            else if (to_del == tail)
+            else if (to_del == m_tail)
                 pop_back();
             else
             {
@@ -44,7 +45,7 @@ namespace babel::CONTAINER {
                 to_del->next->prev = to_del->prev;
                 delete to_del;
                 to_del = nullptr;
-                --_size;
+                --m_size;
             }
             return true;
         }
@@ -52,7 +53,7 @@ namespace babel::CONTAINER {
         template<typename U = T, typename = is_s_c<U, T> >
         void __insert_in_order(U &&data, node *ins) noexcept //NOLINT
         {
-            if (ins == head)
+            if (ins == m_head)
                 push_front(std::forward<U>(data));
             else if (ins == nullptr)
                 push_back(std::forward<U>(data));
@@ -63,7 +64,7 @@ namespace babel::CONTAINER {
                 ins->prev->next = ins;
                 ins->prev->prev = temp;
                 temp->next = ins->prev;
-                ++_size;
+                ++m_size;
             }
         }
 
@@ -125,9 +126,9 @@ namespace babel::CONTAINER {
         list() = default;
 
         template<typename U = T, typename = is_s_c<U, T> >
-        list(size_t _SIZE, U &&data) noexcept
+        list(size_t NEW_SIZE, U &&data) noexcept
         {
-            while (_SIZE-- > 0)
+            while (NEW_SIZE-- > 0)
                 push_back(data);
         }
 
@@ -157,10 +158,10 @@ namespace babel::CONTAINER {
 
         list &operator=(const list &other) noexcept //NOLINT
         {
-            if (head == other.head)
+            if (m_head == other.m_head)
                 return *this;
             clear();
-            node *temp = other.head;
+            node *temp = other.m_head;
             while (temp)
             {
                 push_back(temp->data);
@@ -171,15 +172,15 @@ namespace babel::CONTAINER {
 
         list &operator=(list &&other) noexcept
         {
-            if (head == other.head)
+            if (m_head == other.m_head)
                 return *this;
             clear();
-            head = other.head;
-            tail = other.tail;
-            _size = other._size;
-            other.head = nullptr;
-            other.tail = nullptr;
-            other._size = 0;
+            m_head = other.m_head;
+            m_tail = other.m_tail;
+            m_size = other.m_size;
+            other.m_head = nullptr;
+            other.m_tail = nullptr;
+            other.m_size = 0;
             return *this;
         }
 
@@ -196,7 +197,7 @@ namespace babel::CONTAINER {
 
         [[nodiscard]] size_t size() const noexcept
         {
-            return _size;
+            return m_size;
         }
 
         //  a)
@@ -212,21 +213,21 @@ namespace babel::CONTAINER {
         template<typename U = T, typename = is_s_c<U, T> >
         void push_back(U &&data) noexcept
         {
-            if (_size > 1)
+            if (m_size > 1)
             {
-                tail->next = new node{std::forward<U>(data)};
-                tail->next->prev = tail;
-                tail = tail->next;
-            } else if (_size == 1)
+                m_tail->next = new node{std::forward<U>(data)};
+                m_tail->next->prev = m_tail;
+                m_tail = m_tail->next;
+            } else if (m_size == 1)
             {
-                tail = new node{std::forward<U>(data)};
-                tail->prev = head;
-                head->next = tail;
+                m_tail = new node{std::forward<U>(data)};
+                m_tail->prev = m_head;
+                m_head->next = m_tail;
             } else
             {
-                head = new node{std::forward<U>(data)};
+                m_head = new node{std::forward<U>(data)};
             }
-            ++_size;
+            ++m_size;
         }
 
         // end a)
@@ -235,87 +236,87 @@ namespace babel::CONTAINER {
         template<typename U = T, typename = is_s_c<U, T> >
         void push_front(U &&data) noexcept
         {
-            if (_size > 1)
+            if (m_size > 1)
             {
-                head->prev = new node{std::forward<U>(data)};
-                head->prev->next = head;
-                head = head->prev;
-            } else if (_size == 1)
+                m_head->prev = new node{std::forward<U>(data)};
+                m_head->prev->next = m_head;
+                m_head = m_head->prev;
+            } else if (m_size == 1)
             {
-                tail = head;
-                head = new node{std::forward<U>(data)};
-                tail->prev = head;
-                head->next = tail;
+                m_tail = m_head;
+                m_head = new node{std::forward<U>(data)};
+                m_tail->prev = m_head;
+                m_head->next = m_tail;
             } else
             {
-                head = new node{std::forward<U>(data)};
+                m_head = new node{std::forward<U>(data)};
             }
-            ++_size;
+            ++m_size;
         }
 
         // end b)
         // c)
         void pop_back() noexcept
         {
-            if (_size > 2)
+            if (m_size > 2)
             {
-                tail = tail->prev;
-                delete tail->next;
-                tail->next = nullptr;
-            } else if (_size == 2)
+                m_tail = m_tail->prev;
+                delete m_tail->next;
+                m_tail->next = nullptr;
+            } else if (m_size == 2)
             {
-                head->next = nullptr;
-                delete tail;
-                tail = nullptr;
-            } else if (_size == 1)
+                m_head->next = nullptr;
+                delete m_tail;
+                m_tail = nullptr;
+            } else if (m_size == 1)
             {
-                delete head;
-                head = nullptr;
+                delete m_head;
+                m_head = nullptr;
             } else
                 return;
-            --_size;
+            --m_size;
         }
 
         // end c)
         // d)
         void pop_front() noexcept
         {
-            if (_size > 2)
+            if (m_size > 2)
             {
-                head = head->next;
-                delete head->prev;
-                head->prev = nullptr;
-            } else if (_size == 2)
+                m_head = m_head->next;
+                delete m_head->prev;
+                m_head->prev = nullptr;
+            } else if (m_size == 2)
             {
-                delete head;
-                head = tail;
-                head->prev = nullptr;
-                tail = nullptr;
-            } else if (_size == 1)
+                delete m_head;
+                m_head = m_tail;
+                m_head->prev = nullptr;
+                m_tail = nullptr;
+            } else if (m_size == 1)
             {
-                delete head;
-                head = nullptr;
+                delete m_head;
+                m_head = nullptr;
             } else
                 return;
-            --_size;
+            --m_size;
         }
 
         // end d)
         // e) && f)
         T &operator[](size_t index)
         {
-            if (index >= _size)
+            if (index >= m_size)
                 throw std::out_of_range("Index is out of range!");
             node *temp;
-            if (index <= (_size >> 1)) //NOLINT
+            if (index <= (m_size >> 1)) //NOLINT
             {
-                temp = head;
+                temp = m_head;
                 while (index-- > 0)
                     temp = temp->next;
             } else
             {
-                index = _size - index;
-                temp = tail;
+                index = m_size - index;
+                temp = m_tail;
                 while (index-- > 1)
                     temp = temp->prev;
             }
@@ -324,18 +325,18 @@ namespace babel::CONTAINER {
 
         const T &operator[](size_t index) const
         {
-            if (index >= _size)
+            if (index >= m_size)
                 throw std::out_of_range("Index is out of range!");
             node *temp;
-            if (index <= (_size >> 1)) //NOLINT
+            if (index <= (m_size >> 1)) //NOLINT
             {
-                temp = head;
+                temp = m_head;
                 while (index-- > 0)
                     temp = temp->next;
             } else
             {
-                index = _size - index;
-                temp = tail;
+                index = m_size - index;
+                temp = m_tail;
                 while (index-- > 1)
                     temp = temp->prev;
             }
@@ -348,7 +349,7 @@ namespace babel::CONTAINER {
                 !std::is_same<T, Cmp>::value && !std::is_convertible<T, Cmp>::value>::type>
         T *find(const Cmp &comparator) noexcept
         {
-            node *temp = head;
+            node *temp = m_head;
             while (temp && !comparator(temp->data))
                 temp = temp->next;
             if (temp)
@@ -358,7 +359,7 @@ namespace babel::CONTAINER {
 
         T *find(const T &data) noexcept
         {
-            node *temp = head;
+            node *temp = m_head;
             while (temp && temp->data != data)
                 temp = temp->next;
             if (temp)
@@ -370,7 +371,7 @@ namespace babel::CONTAINER {
                 !std::is_same<T, Cmp>::value && !std::is_convertible<T, Cmp>::value>::type>
         const T *find(const Cmp &comparator) const noexcept
         {
-            node *temp = head;
+            node *temp = m_head;
             while (temp && !comparator(temp->data))
                 temp = temp->next;
             if (temp)
@@ -380,7 +381,7 @@ namespace babel::CONTAINER {
 
         const T *find(const T &data) const noexcept
         {
-            node *temp = head;
+            node *temp = m_head;
             while (temp && temp->data != data)
                 temp = temp->next;
             if (temp)
@@ -394,7 +395,7 @@ namespace babel::CONTAINER {
                 !std::is_same<T, Cmp>::value && !std::is_convertible<T, Cmp>::value>::type>
         bool remove(const Cmp &comparator) noexcept
         {
-            node *temp = head;
+            node *temp = m_head;
             while (temp && !comparator(temp->data))
                 temp = temp->next;
             return __remove(temp);
@@ -402,7 +403,7 @@ namespace babel::CONTAINER {
 
         bool remove(const T &data) noexcept
         {
-            node *temp = head;
+            node *temp = m_head;
             while (temp && temp->data != data)
                 temp = temp->next;
             return __remove(temp);
@@ -414,7 +415,7 @@ namespace babel::CONTAINER {
         template<typename Cmp, typename U = T, typename = is_s_c<U, T>>
         void push_in_order(U &&data, const Cmp &comparator) noexcept
         {
-            node *temp = head;
+            node *temp = m_head;
             while (temp && comparator(data, temp->data))
                 temp = temp->next;
             __insert_in_order(std::forward<U>(data), temp);
@@ -424,22 +425,22 @@ namespace babel::CONTAINER {
         // j)
         void clear() noexcept
         {
-            if (_size == 1)
+            if (m_size == 1)
             {
-                delete head;
-                head = nullptr;
-                _size = 0;
+                delete m_head;
+                m_head = nullptr;
+                m_size = 0;
                 return;
             }
-            _size = 0;
-            while (head)
+            m_size = 0;
+            while (m_head)
             {
-                delete head->prev;
-                head = head->next;
+                delete m_head->prev;
+                m_head = m_head->next;
             }
-            delete tail;
-            head = nullptr;
-            tail = nullptr;
+            delete m_tail;
+            m_head = nullptr;
+            m_tail = nullptr;
         }
 
         // end j)
@@ -452,17 +453,17 @@ namespace babel::CONTAINER {
                 return ps.str();
             };
             std::string res =
-                    "Size : " + std::to_string(_size) + '\n'
-                    + "Head : " + p_to_s(head) + '\n'
-                    + "Tail : " + p_to_s(tail) + '\n';
+                    std::string("Size : ") + std::to_string(m_size) + '\n'
+                    + "Head : " + p_to_s(m_head) + '\n'
+                    + "Tail : " + p_to_s(m_tail) + '\n';
             if (to_string_conv)
             {
-                if (head)
-                    res += "First element : " + std::to_string(head->data) + "\n";
-                if ((_size >> 1) > 1) //NOLINT
-                    res += "Middle element : " + std::to_string(operator[](_size >> 1)) + "\n"; //NOLINT
-                if (tail)
-                    res += "Last element : " + std::to_string(tail->data) + "\n";
+                if (m_head)
+                    res += "First element : " + std::to_string(m_head->data) + "\n";
+                if ((m_size >> 1) > 1) //NOLINT
+                    res += "Middle element : " + std::to_string(operator[](m_size >> 1)) + "\n"; //NOLINT
+                if (m_tail)
+                    res += "Last element : " + std::to_string(m_tail->data) + "\n";
             }
             return res;
         }
@@ -470,7 +471,7 @@ namespace babel::CONTAINER {
 
         iterator begin()
         {
-            return iterator(head);
+            return iterator(m_head);
         }
 
         iterator end()
@@ -480,7 +481,7 @@ namespace babel::CONTAINER {
 
         iterator rbegin()
         {
-            return tail ? iterator(tail) : iterator(head);
+            return m_tail ? iterator(m_tail) : iterator(m_head);
         }
 
         iterator rend()
@@ -488,6 +489,6 @@ namespace babel::CONTAINER {
             return iterator(nullptr);
         }
     };
-}
+}  // namespace babel::CONTAINER
 
-#endif
+#endif  // BABLIB_CONTAINER_LIST_HPP_

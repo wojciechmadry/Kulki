@@ -1,18 +1,33 @@
 cmake_minimum_required(VERSION 3.17)
 project(Kulki)
 set(CMAKE_CXX_STANDARD 20)
+
+if(UNIX)
+    set(THREADS_PREFER_PTHREAD_FLAG ON)
+    find_package(Threads REQUIRED)
+endif(UNIX)
+
+include_directories(src/babel)
+include_directories(src/function)
+include_directories(src/object)
+
+set(INCLUDE /home/wojtek/SFML-2.5.1/include/)
+set(LIB /home/wojtek/SFML-2.5.1/lib/)
+
+
+include_directories(${INCLUDE})
+link_directories(${LIB})
+
 add_subdirectory(src)
+
+
 
 if("${CMAKE_SIZEOF_VOID_P}" STREQUAL "4")
     add_definitions(-D__32BITVERSION__)
-    include_directories(F:/SFML/32bit/include) # Link to 32 bit sfml
-    link_directories(F:/SFML/32bit/lib)
+
 else()
     add_definitions(-D__64BITVERSION__)
-    include_directories(F:/SFML/64bit/include) # Link to 64 bit sfml
-    link_directories(F:/SFML/64bit/lib)
 endif()
-
 
 
 
@@ -25,4 +40,9 @@ if("${CMAKE_SIZEOF_VOID_P}" STREQUAL "8")
     target_compile_options(Kulki PRIVATE -O3 -Wextra -Werror -W -Wshadow -Wdouble-promotion -Wformat=2 -Wundef -fno-common -Wconversion -pedantic -Wall)
 endif()
 
+if(UNIX)
+    target_link_libraries(Kulki PUBLIC Threads::Threads)
+endif(UNIX)
+
 target_link_libraries(Kulki PRIVATE source)
+

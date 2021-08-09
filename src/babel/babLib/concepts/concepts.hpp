@@ -1,8 +1,10 @@
-#ifndef babel_CONCEPTS
-#define babel_CONCEPTS
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_CONCEPTS_CONCEPTS_HPP_
+#define BABLIB_CONCEPTS_CONCEPTS_HPP_
 
 #include <type_traits>
-#include "../must_have.hpp"
+#include <cstdint>
+#include <iterator>
 
 namespace babel::CONCEPTS{
     namespace TYPE_TRAITS{
@@ -128,7 +130,7 @@ namespace babel::CONCEPTS{
         requires(T object){
             object->get();
         };
-    }
+    }  // namespace MEMBER
     template< typename Func, typename ... Args >
     concept IS_VOID_RETURN =
     requires(Func func, Args...args)
@@ -213,6 +215,6 @@ namespace babel::CONCEPTS{
         typedef decltype(_babel_type_of()) type;
     };
 
-    using IteratorAddType = type_of_number<sizeof(void*)>::type;
-}
-#endif
+    using IteratorAddType = type_of_number<sizeof(void *)>::type;
+}  // namespace babel::CONCEPTS
+#endif  // BABLIB_CONCEPTS_CONCEPTS_HPP_

@@ -1,81 +1,84 @@
-#ifndef BABEL_GRAPHICS_RGB
-#define BABEL_GRAPHICS_RGB
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_GRAPHICS_RGB_HPP_
+#define BABLIB_GRAPHICS_RGB_HPP_
 
 #include "../algorithm/algorithm.hpp"
 
 namespace babel::GRAPHICS{
     class rgb
     {
-        using byte = uint8_t;
-        std::array<byte, 3> _RGB; //NOLINT
     public:
-        constexpr explicit rgb(const byte R = 0, const byte G = 0, const byte B = 0) noexcept: _RGB({R, G, B})
+        using byte = uint8_t;
+    private:
+        std::array<byte, 3> m_RGB; //NOLINT
+    public:
+        constexpr explicit rgb(const byte R = 0, const byte G = 0, const byte B = 0) noexcept: m_RGB({R, G, B})
         { }
 
         constexpr rgb(const rgb &other) noexcept = default;
 
         [[nodiscard]]  constexpr std::array<byte, 3> &get_array() noexcept
         {
-            return _RGB;
+            return m_RGB;
         }
 
         [[nodiscard]] constexpr const std::array<byte, 3> &get_array() const noexcept
         {
-            return _RGB;
+            return m_RGB;
         }
 
         [[nodiscard]] constexpr byte &R() noexcept
         {
-            return _RGB[0];
+            return m_RGB[0];
         }
 
         [[nodiscard]] constexpr byte &G() noexcept
         {
-            return _RGB[1];
+            return m_RGB[1];
         }
 
         [[nodiscard]] constexpr byte &B() noexcept
         {
-            return _RGB[2];
+            return m_RGB[2];
         }
 
         [[nodiscard]] constexpr byte R() const noexcept
         {
-            return _RGB[0];
+            return m_RGB[0];
         }
 
         [[nodiscard]] constexpr byte G() const noexcept
         {
-            return _RGB[1];
+            return m_RGB[1];
         }
 
         [[nodiscard]] constexpr byte B() const noexcept
         {
-            return _RGB[2];
+            return m_RGB[2];
         }
 
         [[nodiscard]] constexpr byte &operator[](const byte index)
         {
             if ( index > 2 )
                 throw std::out_of_range("Array out of range.");
-            return _RGB[index];
+            return m_RGB[index];
         }
 
         [[nodiscard]] constexpr byte operator[](const byte index) const
         {
             if ( index > 2 )
                 throw std::out_of_range("Array out of range.");
-            return _RGB[index];
+            return m_RGB[index];
         }
 
         constexpr void set(const byte R, const byte G, const byte B) noexcept
         {
-            _RGB[0] = R;
-            _RGB[1] = G;
-            _RGB[2] = B;
+            m_RGB[0] = R;
+            m_RGB[1] = G;
+            m_RGB[2] = B;
         }
     };
 
-}
+}  // namespace babel::GRAPHICS
 
-#endif
+#endif  // BABLIB_GRAPHICS_RGB_HPP_

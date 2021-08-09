@@ -24,7 +24,7 @@ std::pair<uint32_t, uint32_t> load_resolution() noexcept
 {
     const std::string FileName = "resolution.cfg";
     auto load_default_settings = [&FileName]() -> std::pair<uint32_t, uint32_t> {
-        std::pair<uint32_t, uint32_t> res = babel::WINDOWS::DISPLAY::get_screen_resolution();
+        std::pair<uint32_t, uint32_t> res = babel::SYSTEM::DISPLAY::get_screen_resolution();
         std::ofstream f(FileName);
         f << res.first << '\n' << res.second;
         babel::FILE_SYS::close_file(f);
@@ -166,14 +166,14 @@ map load_map() noexcept
 
         babel::FILE_SYS::close_file(f);
         Result.score = score;
-        Result._filled = static_cast<byte>(filled);
+        Result._filled = static_cast<uint8_t>(filled);
         Result.set_update(true);
         if ( Result.check_for_score() )
-            return map();
-        byte fill_fix = 0;
+            return map{};
+        uint8_t fill_fix = 0;
         std::for_each(Result.grid.begin(), Result.grid.end(),
                       [&fill_fix](const auto &Row) mutable {
-                          fill_fix += static_cast<byte>(std::count_if(std::begin(Row), std::end(Row),
+                          fill_fix += static_cast<uint8_t>(std::count_if(std::begin(Row), std::end(Row),
                                                                       [](const auto &Ball) -> bool {
                                                                           return Ball.has_value();
                                                                       }));
@@ -192,7 +192,7 @@ void save_map(const map &Map) noexcept
 {
 
     std::ofstream f("kulkim.bin");
-    auto key = random_generator::generate<size_t>(100000, 100000000);
+    auto key = babel::ALGO::MATH::random_generator::generate<size_t>(100000, 100000000);
     f << key << '\n';
     auto sc_crypt = crypt(Map.get_score()); // encrypt score
     auto fil_crypt = crypt(Map.filled()); // encrypt filled number
@@ -200,7 +200,7 @@ void save_map(const map &Map) noexcept
     auto encrypt = [](std::size_t to_encode) -> std::string {
         std::string crypt(40, '0');
         std::fill_n(crypt.begin(), to_encode + 1, '1');
-        random_generator::random_shuffle(crypt);
+        babel::ALGO::MATH::random_generator::random_shuffle(crypt);
         return crypt;
     };
     auto next_three = Map.get_next_three();

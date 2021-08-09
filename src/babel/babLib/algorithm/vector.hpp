@@ -1,7 +1,13 @@
-#ifndef BABEL_ALGO_VECTOR
-#define BABEL_ALGO_VECTOR
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_ALGORITHM_VECTOR_HPP_
+#define BABLIB_ALGORITHM_VECTOR_HPP_
 
-#include "../must_have.hpp"
+#include <vector>
+#include <algorithm>
+#include "../concepts/concepts.hpp"
+#include <numeric>
+#include <cmath>
+#include "math.hpp"
 
 namespace babel::ALGO::VECTOR{
     /**
@@ -19,7 +25,7 @@ namespace babel::ALGO::VECTOR{
         size_t counter = 0;
         std::for_each(std::begin(Container), std::end(Container),
                       [&counter, &element](const auto &Data) mutable {
-                          counter += (Data == element );
+                          counter += ( Data == element );
                       });
         return counter;
     }
@@ -78,7 +84,7 @@ namespace babel::ALGO::VECTOR{
    */
     template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires babel::CONCEPTS::IS_CONTAINER<T>
-    constexpr std::pair<U *, U *> find_min_max_ptr(T &container) noexcept
+    constexpr std::pair<U *, U *> find_min_max_ptr(const T &container) noexcept
     {
         if ( container.size() == 0 )
             return {nullptr, nullptr};
@@ -290,8 +296,10 @@ namespace babel::ALGO::VECTOR{
         Container res;
         auto back_inserter = std::back_inserter(res);
         auto _get = [](const auto &data) { return data; };
-        std::transform(std::begin(cont), std::begin(cont) + static_cast<babel::CONCEPTS::IteratorAddType>(index), back_inserter, _get);
-        std::transform(std::begin(cont) + static_cast<babel::CONCEPTS::IteratorAddType>(index) + 1, std::end(cont), back_inserter, _get);
+        std::transform(std::begin(cont), std::begin(cont) + static_cast<babel::CONCEPTS::IteratorAddType>(index),
+                       back_inserter, _get);
+        std::transform(std::begin(cont) + static_cast<babel::CONCEPTS::IteratorAddType>(index) + 1, std::end(cont),
+                       back_inserter, _get);
         return res;
     }
 
@@ -450,7 +458,8 @@ namespace babel::ALGO::VECTOR{
 *  @param  step What step
 *  @return Return vector
 */
-    [[deprecated("Use ITERATOR::range instead.")]] [[nodiscard]] std::vector<int64_t> range(int64_t start, int64_t end, int64_t step = 1) noexcept
+    [[deprecated("Use ITERATOR::range instead.")]] [[nodiscard]] std::vector<int64_t>
+    range(int64_t start, int64_t end, int64_t step = 1) noexcept
     {
         if ( start > end && step == 1 )
             step = -1;
@@ -460,15 +469,18 @@ namespace babel::ALGO::VECTOR{
             return { };
         std::vector<int64_t> _res;
         if ( start < end )
+        {
             for ( ; start < end ; start += step )
             {
                 _res.emplace_back(start);
             }
-        else
+        } else
+        {
             for ( ; start > end ; start += step )
             {
                 _res.emplace_back(start);
             }
+        }
         return _res;
     }
 
@@ -491,15 +503,18 @@ namespace babel::ALGO::VECTOR{
             return { };
         std::vector<int64_t> _res;
         if ( start < end )
+        {
             for ( ; start < end ; start += step )
             {
                 _res.emplace_back(start);
             }
-        else
+        } else
+        {
             for ( ; start > end ; start += step )
             {
                 _res.emplace_back(start);
             }
+        }
         return _res;
     }
 
@@ -553,5 +568,5 @@ namespace babel::ALGO::VECTOR{
         return std::vector<int64_t>(columns, 1);
     }
 
-}
-#endif
+}  // namespace babel::ALGO::VECTOR
+#endif  // BABLIB_ALGORITHM_VECTOR_HPP_

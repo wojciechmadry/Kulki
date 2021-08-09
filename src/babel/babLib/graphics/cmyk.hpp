@@ -1,42 +1,42 @@
-#ifndef BABEL_GRAPHICS_CMYK
-#define BABEL_GRAPHICS_CMYK
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_GRAPHICS_CMYK_HPP_
+#define BABLIB_GRAPHICS_CMYK_HPP_
 
 #include "../algorithm/algorithm.hpp"
 
 namespace babel::GRAPHICS{
-
-
-
     //------------------CMYK---------------
     class cmyk
     {
+    public:
         using byte = uint8_t;
-        std::array<byte, 4> _CMYK; //NOLINT
+    private:
+        std::array<byte, 4> m_CMYK; //NOLINT
 
         [[nodiscard]] static constexpr byte _max(const byte Value) noexcept
         {
-            return Value > 100 ? 100 : Value;
+            return Value > 100 ? static_cast<byte>(100) : Value;
         }
 
         constexpr void _check_and_fix() noexcept
         {
-            _CMYK[0] = _max(_CMYK[0]);
-            _CMYK[1] = _max(_CMYK[1]);
-            _CMYK[2] = _max(_CMYK[2]);
-            _CMYK[3] = _max(_CMYK[3]);
+            m_CMYK[0] = _max(m_CMYK[0]);
+            m_CMYK[1] = _max(m_CMYK[1]);
+            m_CMYK[2] = _max(m_CMYK[2]);
+            m_CMYK[3] = _max(m_CMYK[3]);
         }
 
         constexpr void _set(const byte C, const byte M, const byte Y, const byte K) noexcept
         {
-            _CMYK[0] = _max(C);
-            _CMYK[1] = _max(M);
-            _CMYK[2] = _max(Y);
-            _CMYK[3] = _max(K);
+            m_CMYK[0] = _max(C);
+            m_CMYK[1] = _max(M);
+            m_CMYK[2] = _max(Y);
+            m_CMYK[3] = _max(K);
         }
 
         constexpr void _set_at(const byte index, const byte Value) noexcept
         {
-            _CMYK[index] = _max(Value);
+            m_CMYK[index] = _max(Value);
         }
 
     public:
@@ -51,27 +51,27 @@ namespace babel::GRAPHICS{
 
         [[nodiscard]] constexpr const std::array<byte, 4> &get_array() const noexcept
         {
-            return _CMYK;
+            return m_CMYK;
         }
 
         [[nodiscard]] constexpr byte C() const noexcept
         {
-            return _CMYK[0];
+            return m_CMYK[0];
         }
 
         [[nodiscard]] constexpr byte M() const noexcept
         {
-            return _CMYK[1];
+            return m_CMYK[1];
         }
 
         [[nodiscard]] constexpr byte Y() const noexcept
         {
-            return _CMYK[2];
+            return m_CMYK[2];
         }
 
         [[nodiscard]] constexpr byte K() const noexcept
         {
-            return _CMYK[3];
+            return m_CMYK[3];
         }
 
 
@@ -79,7 +79,7 @@ namespace babel::GRAPHICS{
         {
             if ( index > 3 )
                 throw std::out_of_range("Array out of range.");
-            return _CMYK[index];
+            return m_CMYK[index];
         }
 
         constexpr void set(const byte C, const byte M, const byte Y, const byte K) noexcept
@@ -110,6 +110,6 @@ namespace babel::GRAPHICS{
     };
 
 
-}
+}  // namespace babel::GRAPHICS
 
-#endif
+#endif  // BABLIB_GRAPHICS_CMYK_HPP_

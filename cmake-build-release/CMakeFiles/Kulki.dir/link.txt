@@ -1,0 +1,1 @@
+/usr/local/bin/g++ -O3 -DNDEBUG CMakeFiles/Kulki.dir/main.cpp.o -o Kulki   -L/home/wojtek/SFML-2.5.1/lib  -Wl,-rpath,/home/wojtek/SFML-2.5.1/lib:/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/ball src/libsource.a -pthread src/object/ball/libOBJECT_BALL.so -lstdc++ -lsfml-window -lsfml-graphics -lsfml-system -lfreetype 

@@ -1,53 +1,54 @@
-#ifndef babel_ITERATOR_READ
-#define babel_ITERATOR_READ
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_ITERATORS_READ_HPP_
+#define BABLIB_ITERATORS_READ_HPP_
 
-#include "../must_have.hpp"
+#include <fstream>
 
 namespace babel::ITERATOR{
 
     class reader
     {
-        bool _end_line {true}; // it false when no lines in file left
-        std::ifstream *_if {nullptr};
-        std::string _line; // line read
+        bool m_end_line {true}; // it false when no lines in file left
+        std::ifstream *m_if {nullptr};
+        std::string m_line; // line read
 
         class Iterator
         {
-            bool _end_line {true};
-            std::ifstream *_if {nullptr};
-            std::string _line;
+            bool m_end_line {true};
+            std::ifstream *m_if {nullptr};
+            std::string m_line;
         public:
             Iterator() = default;
 
-            Iterator(std::ifstream *If, const bool _end) : _end_line(_end), _if(If)
+            Iterator(std::ifstream *If, const bool _end) : m_end_line(_end), m_if(If)
             { }
 
             ~Iterator() = default;
 
             [[nodiscard]] const std::string &operator*() const noexcept
             {
-                return _line;
+                return m_line;
             }
 
             [[nodiscard]] std::string &operator*() noexcept
             {
-                return _line;
+                return m_line;
             }
 
             Iterator &operator++() noexcept
             {
-                _end_line = static_cast<bool>(std::getline(*_if, _line));
+                m_end_line = static_cast<bool>(std::getline(*m_if, m_line));
                 return *this;
             }
 
             bool operator==(const Iterator &other) const noexcept
             {
-                return _end_line == other._end_line;
+                return m_end_line == other.m_end_line;
             }
 
             bool operator!=(const Iterator &other) const noexcept
             {
-                return _end_line != other._end_line;
+                return m_end_line != other.m_end_line;
             }
         };
 
@@ -56,44 +57,41 @@ namespace babel::ITERATOR{
 
         reader(const reader &) = default;
 
-        reader(reader &&Reader) noexcept
+        reader(reader &&Reader) noexcept : m_end_line(Reader.m_end_line),  m_if(Reader.m_if), m_line( std::move(Reader.m_line))
         {
-            _end_line = Reader._end_line;
-            _if = Reader._if;
-            _line = std::move(Reader._line);
         }
 
         explicit reader(std::ifstream &&) = delete;
 
-        explicit reader(std::ifstream &IfStream) noexcept: _if(&IfStream)
+        explicit reader(std::ifstream &IfStream) noexcept: m_if(&IfStream)
         { }
 
-        explicit reader(std::ifstream *IfStream) noexcept: _if(IfStream)
+        explicit reader(std::ifstream *IfStream) noexcept: m_if(IfStream)
         { }
 
         ~reader() = default;
 
         reader &operator=(std::ifstream &IfStream) noexcept
         {
-            _line.clear();
-            _end_line = true;
-            _if = &IfStream;
+            m_line.clear();
+            m_end_line = true;
+            m_if = &IfStream;
             return *this;
         }
 
         reader &operator=(std::ifstream *IfStream) noexcept
         {
-            _line.clear();
-            _end_line = true;
-            _if = IfStream;
+            m_line.clear();
+            m_end_line = true;
+            m_if = IfStream;
             return *this;
         }
 
         reader &operator=(reader &&Reader) noexcept
         {
-            _end_line = Reader._end_line;
-            _if = Reader._if;
-            _line = std::move(Reader._line);
+            m_end_line = Reader.m_end_line;
+            m_if = Reader.m_if;
+            m_line = std::move(Reader.m_line);
             return *this;
         }
 
@@ -101,53 +99,52 @@ namespace babel::ITERATOR{
 
         [[nodiscard]] std::ifstream &get() noexcept
         {
-            return *_if;
+            return *m_if;
         }
 
         [[nodiscard]] const std::ifstream &get() const noexcept
         {
-            return *_if;
+            return *m_if;
         }
 
         std::string &read() noexcept
         {
-            _end_line = static_cast<bool>(std::getline(*_if, _line));
-            return _line;
+            m_end_line = static_cast<bool>(std::getline(*m_if, m_line));
+            return m_line;
         }
 
         explicit operator bool() noexcept
         {
-            _end_line = static_cast<bool>(std::getline(*_if, _line));
-            return _end_line;
+            m_end_line = static_cast<bool>(std::getline(*m_if, m_line));
+            return m_end_line;
         }
 
         [[nodiscard]] const std::string &line() const noexcept
         {
-            return _line;
+            return m_line;
         }
 
         [[nodiscard]] std::string &line() noexcept
         {
-            return _line;
+            return m_line;
         }
 
         auto begin() noexcept
         {
-            return ++Iterator(_if, _end_line);
+            return ++Iterator(m_if, m_end_line);
         }
 
         auto end() noexcept
         {
-            return Iterator(_if, false);
+            return Iterator(m_if, false);
         }
 
         void close() noexcept
         {
-            _if->close();
+            m_if->close();
         }
-
     };
-}
+}  // namespace babel::ITERATOR
 
 std::ostream &operator<<(std::ostream &Of, const babel::ITERATOR::reader &Reader) noexcept
 {
@@ -155,4 +152,4 @@ std::ostream &operator<<(std::ostream &Of, const babel::ITERATOR::reader &Reader
     return Of;
 }
 
-#endif
+#endif  // BABLIB_ITERATORS_READ_HPP_

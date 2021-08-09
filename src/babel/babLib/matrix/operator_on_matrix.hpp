@@ -1,27 +1,33 @@
-#ifndef babel_MATRIX_operator_on_matrix
-#define babel_MATRIX_operator_on_matrix
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_MATRIX_OPERATOR_ON_MATRIX_HPP_
+#define BABLIB_MATRIX_OPERATOR_ON_MATRIX_HPP_
 
-#include "../must_have.hpp"
+#include "../concepts/concepts.hpp"
+#include <cstdint>
+#include <numeric>
+#include <vector>
 
 namespace babel::MATRIX{
     template< typename T = double >
     requires babel::CONCEPTS::IS_ARITHMETIC<T>
     class matrix;
 
-    using POSITION = long long int;
+    using POSITION = uint64_t;
 
     template< typename T = double >
-    matrix<T> zeros(const POSITION first_size, const POSITION second_size = -1) noexcept
+    matrix<T>
+    zeros(const POSITION first_size, const POSITION second_size = std::numeric_limits<POSITION>::max()) noexcept
     {
-        if ( second_size == -1 )
+        if ( second_size == std::numeric_limits<POSITION>::max() )
             return matrix<T>(first_size, first_size, 0);
         return matrix<T>(first_size, second_size, 0);
     }
 
     template< typename T = double >
-    matrix<T> ones(const POSITION first_size, const POSITION second_size = -1) noexcept
+    matrix<T>
+    ones(const POSITION first_size, const POSITION second_size = std::numeric_limits<POSITION>::max()) noexcept
     {
-        if ( second_size == -1 )
+        if ( second_size == std::numeric_limits<POSITION>::max() )
             return matrix<T>(first_size, first_size, 1);
         return matrix<T>(first_size, second_size, 1);
     }
@@ -34,7 +40,7 @@ namespace babel::MATRIX{
         auto cols = Matrix.cols();
         for ( auto i = 0 ; i < rows ; ++i )
             for ( auto j = 0 ; j < cols ; ++j )
-                cpy(i, j) +=  number;
+                cpy(i, j) += number;
         return cpy;
     }
 
@@ -83,10 +89,9 @@ namespace babel::MATRIX{
     template< typename T = double >
     matrix<T> transpose(const matrix<T> &Matrix1) noexcept
     {
-       return matrix<T>(Matrix1).transpose();
+        return matrix<T>(Matrix1).transpose();
     }
 
+}  // namespace babel::MATRIX
 
-}
-
-#endif
+#endif  // BABLIB_MATRIX_OPERATOR_ON_MATRIX_HPP_

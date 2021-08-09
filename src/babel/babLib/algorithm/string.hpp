@@ -1,7 +1,8 @@
-#ifndef BABEL_ALGO_STRING
-#define BABEL_ALGO_STRING
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_ALGORITHM_STRING_HPP_
+#define BABLIB_ALGORITHM_STRING_HPP_
 
-#include "../must_have.hpp"
+#include <string>
 
 namespace babel::ALGO::STRING{
     /**
@@ -34,8 +35,7 @@ namespace babel::ALGO::STRING{
             return "0";
         std::string Res;
         std::for_each(Str.begin(), Str.end(),
-                      [&Res](char CHAR) mutable
-                      {
+                      [&Res](char CHAR) mutable {
                           if ( CHAR >= '0' && CHAR <= '9' )
                               Res.push_back(CHAR);
                       });
@@ -45,9 +45,8 @@ namespace babel::ALGO::STRING{
     [[nodiscard]] std::string str_to_upper(const std::string &Str) noexcept
     {
         std::string Res = Str;
-        std::for_each(Res.begin(), Res.end(),[](char& CHAR)
-        {
-            CHAR =  static_cast<char>(std::toupper(CHAR));
+        std::for_each(Res.begin(), Res.end(), [](char &CHAR) {
+            CHAR = static_cast<char>(std::toupper(CHAR));
         });
         return Res;
     }
@@ -55,12 +54,11 @@ namespace babel::ALGO::STRING{
     [[nodiscard]] std::string str_to_lower(const std::string &Str) noexcept
     {
         std::string Res = Str;
-        std::for_each(Res.begin(), Res.end(),[](char& CHAR)
-        {
-            CHAR =  static_cast<char>(std::tolower(CHAR));
+        std::for_each(Res.begin(), Res.end(), [](char &CHAR) {
+            CHAR = static_cast<char>(std::tolower(CHAR));
         });
         return Res;
     }
-}
+}  // namespace babel::ALGO::STRING
 
-#endif
+#endif  // BABLIB_ALGORITHM_STRING_HPP_

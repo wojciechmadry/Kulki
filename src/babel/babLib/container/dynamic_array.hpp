@@ -1,9 +1,11 @@
-#ifndef _A_D_ARRAY
-#define _A_D_ARRAY
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_CONTAINER_DYNAMIC_ARRAY_HPP_
+#define BABLIB_CONTAINER_DYNAMIC_ARRAY_HPP_
 
 #include <type_traits>
 #include <string>
 #include <initializer_list>
+#include <stdexcept>
 
 namespace babel::CONTAINER{
     template< typename T, size_t GROW = 2 >
@@ -14,19 +16,19 @@ namespace babel::CONTAINER{
         template< typename LHS, typename RHS, typename LHS_d = decay<LHS>, typename RHS_d = decay<RHS> >
         using is_s_c = typename std::enable_if_t<std::is_same_v<LHS_d, RHS_d> || std::is_convertible_v<LHS_d, RHS_d>>;
         static_assert(GROW >= 2, "GROW must be greater or equal than 2");
-        T *_array = nullptr;
-        size_t _size = 0, _max_size = 0;
+        T *m_array = nullptr;
+        size_t m_size = 0, m_max_size = 0;
 
         void __reallocate() //NOLINT
         {
-            _max_size *= GROW;
-            if (_max_size == 0)
-                _max_size = GROW * GROW;
+            m_max_size *= GROW;
+            if ( m_max_size == 0 )
+                m_max_size = GROW * GROW;
 
-            T *temp = new T[_max_size];
-            std::transform(_array, _array + _size, temp, std::move<T&>);
-            delete[] _array;
-            _array = temp;
+            T *temp = new T[m_max_size];
+            std::transform(m_array, m_array + m_size, temp, std::move<T &>);
+            delete[] m_array;
+            m_array = temp;
         }
 
     public:
@@ -83,78 +85,80 @@ namespace babel::CONTAINER{
             }
         };
 
-        dynamic_array() noexcept{}
+        dynamic_array() = default;
 
         dynamic_array(const std::initializer_list<T> &init)
         {
-            _max_size = init.size() + GROW;
-            _array = new T[_max_size];
+            m_max_size = init.size() + GROW;
+            m_array = new T[m_max_size];
             std::for_each(init.begin(), init.end(), [this](const T &Element) {
                 this->template push_back(Element);
             });
         }
 
-        dynamic_array(size_t _SIZE, const T &data)
+        dynamic_array(size_t NEW_SIZE, const T &data)
         {
-            _max_size = _SIZE + GROW;
-            _array = new T[_max_size];
-            _size = _SIZE;
-            std::for_each(_array, _array + _size, [&data](T &ArrayElement) {
+            m_max_size = NEW_SIZE + GROW;
+            m_array = new T[m_max_size];
+            m_size = NEW_SIZE;
+            std::for_each(m_array, m_array + m_size, [&data](T &ArrayElement) {
                 ArrayElement = data;
             });
         }
 
-        template< typename U = dynamic_array, typename = typename std::enable_if_t<std::is_same_v<std::decay_t<U>, dynamic_array>> >
-        dynamic_array(U &&other) noexcept //NOLINT
+        dynamic_array(dynamic_array &&other) noexcept
         {
-            *this = std::forward<U>(other);
+            *this = std::move(other);
+        }
+
+        dynamic_array(const dynamic_array &other) noexcept
+        {
+            *this = other;
         }
 
         ~dynamic_array() noexcept
         {
-            delete[] _array;
-            _array = nullptr;
+            delete[] m_array;
+            m_array = nullptr;
         }
 
         [[nodiscard]] size_t size() const noexcept
         {
-            return _size;
+            return m_size;
         }
 
         dynamic_array &operator=(dynamic_array &&other) noexcept
         {
-            if ( _array == other._array )
+            if ( this == &other )
                 return *this;
-            delete[] _array;
-            _array = other._array;
-            _size = other._size;
-            _max_size = other._max_size;
-            other._array = nullptr;
-            other._size = 0;
-            other._max_size = 0;
+            delete[] m_array;
+            m_array = other.m_array;
+            m_size = other.m_size;
+            m_max_size = other.m_max_size;
+            other.m_array = nullptr;
+            other.m_size = 0;
+            other.m_max_size = 0;
             return *this;
         }
 
         dynamic_array &operator=(const dynamic_array &other) noexcept
         {
-            if ( _array == other._array )
+            if ( this == &other )
                 return *this;
-            if ( other._size < _max_size )
+            if ( other.m_size < m_max_size )
             {
-                _size = other._size;
-                std::transform(other._array, other._array + _size, _array, [](const T &data) {
+                m_size = other.m_size;
+                std::transform(other.m_array, other.m_array + m_size, m_array, [](const T &data) {
                     return data;
                 });
             } else
             {
-                std::transform(other._array, other._array + _size, _array, [](const T& data)
-                {
+                std::transform(other.m_array, other.m_array + m_size, m_array, [](const T &data) {
                     return data;
                 });
-                std::size_t Size = other.size() - _size;
-                std::for_each(other._array + _size, other._array + Size, [this](const T& data)
-                {
-                   this->template push_back(data);
+                std::size_t Size = other.size() - m_size;
+                std::for_each(other.m_array + m_size, other.m_array + Size, [this](const T &data) {
+                    this->template push_back(data);
                 });
             }
             return *this;
@@ -164,9 +168,9 @@ namespace babel::CONTAINER{
         template< typename U = T, typename = is_s_c<U, T>>
         void push_back(U &&data) noexcept
         {
-            if ( _size >= _max_size )
+            if ( m_size >= m_max_size )
                 __reallocate();
-            _array[_size++] = std::forward<U>(data);
+            m_array[m_size++] = std::forward<U>(data);
         }
 
         void push_back(std::initializer_list<T> &&init) noexcept
@@ -180,35 +184,35 @@ namespace babel::CONTAINER{
         // b) && c)
         T &operator[](const size_t index)
         {
-            if ( index >= _size )
+            if ( index >= m_size )
                 throw std::out_of_range("Array out of range!");
-            return _array[index];
+            return m_array[index];
         }
 
         const T &operator[](const size_t index) const
         {
-            if ( index >= _size )
+            if ( index >= m_size )
                 throw std::out_of_range("Array out of range!");
-            return _array[index];
+            return m_array[index];
         }
 
         // end b) && c)
         // d)
         void clear() noexcept
         {
-            delete[] _array;
-            _size = 0;
-            _max_size = GROW;
-            _array = new T[_max_size];
+            delete[] m_array;
+            m_size = 0;
+            m_max_size = GROW;
+            m_array = new T[m_max_size];
         }
 
         // end d)
         // e)
         [[nodiscard]] std::string to_string() const noexcept
         {
-            return "Size : " + std::to_string(_size)
-                   + "\nMax Size : " + std::to_string(_max_size)
-                   + "\nMemory usage : " + std::to_string(sizeof(dynamic_array<T>) + _max_size * sizeof(T)) + "\n";
+            return "Size : " + std::to_string(m_size)
+                   + "\nMax Size : " + std::to_string(m_max_size)
+                   + "\nMemory usage : " + std::to_string(sizeof(dynamic_array<T>) + m_max_size * sizeof(T)) + "\n";
         }
 
         // end e)
@@ -217,46 +221,46 @@ namespace babel::CONTAINER{
         template< typename ... Args >
         void emplace_back(Args &&... args) noexcept
         {
-            if ( _size >= _max_size )
+            if ( m_size >= m_max_size )
                 __reallocate();
-            _array[_size++] = T(std::forward<Args>(args)...);
+            m_array[m_size++] = T(std::forward<Args>(args)...);
         }
 
         template< typename ... Args >
         void emplace(size_t index, Args &&... args) noexcept
         {
-            _array[index] = T(std::forward<Args>(args)...);
+            m_array[index] = T(std::forward<Args>(args)...);
         }
 
         void pop_back() noexcept
         {
-            if ( _size > 0 )
+            if ( m_size > 0 )
             {
-                --_size;
-                _array[_size].~T();
+                --m_size;
+                m_array[m_size].~T();
             }
         }
 
         iterator begin()
         {
-            return iterator(_array);
+            return iterator(m_array);
         }
 
         iterator end()
         {
-            return iterator(_array + _size);
+            return iterator(m_array + m_size);
         }
 
         iterator rbegin()
         {
-            return iterator(_array + _size - 1);
+            return iterator(m_array + m_size - 1);
         }
 
         iterator rend()
         {
-            return iterator(_array - 1);
+            return iterator(m_array - 1);
         }
     };
-}
+}  // namespace babel::CONTAINER"
 
-#endif
+#endif  // BABLIB_CONTAINER_DYNAMIC_ARRAY_HPP_

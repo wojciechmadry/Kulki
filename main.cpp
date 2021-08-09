@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-static constexpr const char* VERSION = "1.09";
+static constexpr const char* VERSION = "1.1";
 
 #define FPS 0 // Show fps in console
 
@@ -30,7 +30,7 @@ int main()
         font = load_font(PathFont.value()); // default font
     else
     {
-        std::cout << "Cant find any font \n";
+        std::cout << "Cant find any font\n";
         std::cin.get();
         std::cin.get();
         return 1;

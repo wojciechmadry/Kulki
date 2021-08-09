@@ -5,7 +5,7 @@
 #ifndef KULKI_MAP_HPP
 #define KULKI_MAP_HPP
 
-#include "ball.hpp"
+#include "ball/ball.hpp"
 #include <iostream>
 #include <stack>
 
@@ -20,33 +20,33 @@ class map
     std::array<std::array<ball, 9>, 9> grid;
     std::array<ball, 3> next_three;
     uint16_t score = 0;
-    byte _filled = 0;
+    uint8_t _filled = 0;
     bool _need_update = true;
 
 
-    [[nodiscard]] bool is_free_at(const std::pair<byte, byte> position) const noexcept
+    [[nodiscard]] bool is_free_at(const std::pair<uint8_t, uint8_t> position) const noexcept
     {
         return grid[position.first][position.second].is_empty();
     }
 
-    [[nodiscard]] bool is_free_at(const byte x, const byte y) const noexcept
+    [[nodiscard]] bool is_free_at(const uint8_t x, const uint8_t y) const noexcept
     {
         return grid[x][y].is_empty();
     }
 
 
-    void free_on(const std::pair<byte, byte> position) noexcept
+    void free_on(const std::pair<uint8_t, uint8_t> position) noexcept
     {
         grid[position.first][position.second].clear();
     }
 
     [[nodiscard]] bool score_there() const noexcept
     {
-        for ( auto i : babel::ITERATOR::range<byte>(0, 9) )
+        for ( auto i : babel::ITERATOR::range<uint8_t>(0, 9) )
         {
             //horizontal check
-            byte horizontal = !grid[i][0].is_empty();
-            for ( auto j : babel::ITERATOR::range<byte>(0, 8) )
+            uint8_t horizontal = !grid[i][0].is_empty();
+            for ( auto j : babel::ITERATOR::range<uint8_t>(0, 8) )
             {
                 if ( !grid[i][j].is_empty() && grid[i][j] == grid[i][j + 1] )
                     ++horizontal;
@@ -62,8 +62,8 @@ class map
 
             // vertical check
 
-            byte vertical = !grid[0][i].is_empty();
-            for ( auto j : babel::ITERATOR::range<byte>(0, 8))
+            uint8_t vertical = !grid[0][i].is_empty();
+            for ( auto j : babel::ITERATOR::range<uint8_t>(0, 8))
             {
                 if ( !grid[j][i].is_empty() && grid[j][i] == grid[j + 1][i] )
                     ++vertical;
@@ -82,12 +82,12 @@ class map
 
 
         //diagonal check left/right down
-        for ( auto start : babel::ITERATOR::range<byte>(0, 5) )
+        for ( auto start : babel::ITERATOR::range<uint8_t>(0, 5) )
         {
             //diagonal check left down
-            byte diagonal = !grid[start][0].is_empty();
-            byte add_to_i = 0;
-            for ( auto j : babel::ITERATOR::range<byte>(0, 9 - start - 1) )
+            uint8_t diagonal = !grid[start][0].is_empty();
+            uint8_t add_to_i = 0;
+            for ( auto j : babel::ITERATOR::range<uint8_t>(0, 9 - start - 1) )
             {
                 if ( !grid[start + add_to_i][j].is_empty() &&
                      grid[start + add_to_i][j] == grid[start + add_to_i + 1][j + 1] )
@@ -105,7 +105,7 @@ class map
             //diagonal check right down
             diagonal = !grid[start][8].is_empty();
             add_to_i = 0;
-            for ( byte j = 8 ; j > start ; --j )
+            for ( uint8_t j = 8 ; j > start ; --j )
             {
                 if ( !grid[start + add_to_i][j].is_empty() &&
                      grid[start + add_to_i][j] == grid[start + add_to_i + 1][j - 1] )
@@ -124,11 +124,11 @@ class map
 
 
         //diagonal check left up
-        for ( auto start : babel::ITERATOR::range<byte>(1, 5) )
+        for ( auto start : babel::ITERATOR::range<uint8_t>(1, 5) )
         {
-            byte diagonal = !grid[0][start].is_empty();
-            byte add_to_i = 0;
-            for ( auto j : babel::ITERATOR::range<byte>(0, 9 - start - 1))
+            uint8_t diagonal = !grid[0][start].is_empty();
+            uint8_t add_to_i = 0;
+            for ( auto j : babel::ITERATOR::range<uint8_t>(0, 9 - start - 1))
             {
                 if ( !grid[j][start + add_to_i].is_empty() &&
                      grid[j][start + add_to_i] == grid[j + 1][start + add_to_i + 1] )
@@ -146,10 +146,10 @@ class map
 
 
         //diagonal check right up
-        for ( byte start = 7 ; start > 3 ; --start )
+        for ( uint8_t start = 7 ; start > 3 ; --start )
         {
-            byte diagonal = !grid[0][start].is_empty();
-            for ( byte i = 0 ; i < start ; ++i )
+            uint8_t diagonal = !grid[0][start].is_empty();
+            for ( uint8_t i = 0 ; i < start ; ++i )
             {
                 if ( !grid[i][start - i].is_empty() && grid[i][start - i] == grid[i + 1][start - i - 1] )
                     ++diagonal;
@@ -170,7 +170,7 @@ class map
     {
         bool score_added = false;
         // number should be greater or equal 5 !
-        auto get_scores = [](const byte number) -> byte {
+        auto get_scores = [](const uint8_t number) -> uint8_t {
             if ( number < 7 )
                 return number * 2;
             if ( number == 7 )
@@ -186,12 +186,12 @@ class map
         // 9 balls 42 score
 
 
-        for ( auto i : babel::ITERATOR::range<byte>(0, 9) )
+        for ( auto i : babel::ITERATOR::range<uint8_t>(0, 9) )
         {
             //horizontal check
-            byte horizontal = !grid[i][0].is_empty();
-            byte horizontal_start = 0;
-            for ( auto j : babel::ITERATOR::range<byte>(0, 8))
+            uint8_t horizontal = !grid[i][0].is_empty();
+            uint8_t horizontal_start = 0;
+            for ( auto j : babel::ITERATOR::range<uint8_t>(0, 8))
             {
                 if ( !grid[i][j].is_empty() && grid[i][j] == grid[i][j + 1] )
                     ++horizontal;
@@ -209,7 +209,7 @@ class map
                 score_added = true;
                 score += get_scores(horizontal);
                 _need_update = true;
-                byte end_in = horizontal_start + horizontal;
+                uint8_t end_in = horizontal_start + horizontal;
                 do
                 {
                     grid[i][horizontal_start++].clear(); // Clear ball from grid
@@ -219,9 +219,9 @@ class map
 
             // vertical check
 
-            byte vertical = !grid[0][i].is_empty();
-            byte vertical_start = 0;
-            for ( auto j : babel::ITERATOR::range<byte>(0, 8) )
+            uint8_t vertical = !grid[0][i].is_empty();
+            uint8_t vertical_start = 0;
+            for ( auto j : babel::ITERATOR::range<uint8_t>(0, 8) )
             {
                 if ( !grid[j][i].is_empty() && grid[j][i] == grid[j + 1][i] )
                     ++vertical;
@@ -239,7 +239,7 @@ class map
                 score_added = true;
                 score += get_scores(vertical);
                 _need_update = true;
-                byte end_in = vertical_start + vertical;
+                uint8_t end_in = vertical_start + vertical;
                 do
                 {
                     grid[vertical_start++][i].clear();
@@ -251,13 +251,13 @@ class map
 
 
         //diagonal check left/right down
-        for ( auto start : babel::ITERATOR::range<byte>(0, 5) )
+        for ( auto start : babel::ITERATOR::range<uint8_t>(0, 5) )
         {
             //diagonal check left down
-            byte diagonal = !grid[start][0].is_empty();
-            std::pair<byte, byte> diagonal_start = {start, 0};
-            byte add_to_i = 0;
-            for (auto j : babel::ITERATOR::range<byte>(0, 9 - start - 1))
+            uint8_t diagonal = !grid[start][0].is_empty();
+            std::pair<uint8_t, uint8_t> diagonal_start = {start, 0};
+            uint8_t add_to_i = 0;
+            for (auto j : babel::ITERATOR::range<uint8_t>(0, 9 - start - 1))
             {
                 if ( !grid[start + add_to_i][j].is_empty() &&
                      grid[start + add_to_i][j] == grid[start + add_to_i + 1][j + 1] )
@@ -290,7 +290,7 @@ class map
             diagonal = !grid[start][8].is_empty();
             diagonal_start = {start, 8};
             add_to_i = 0;
-            for ( byte j = 8 ; j > start ; --j )
+            for ( uint8_t j = 8 ; j > start ; --j )
             {
                 if ( !grid[start + add_to_i][j].is_empty() &&
                      grid[start + add_to_i][j] == grid[start + add_to_i + 1][j - 1] )
@@ -324,12 +324,12 @@ class map
 
 
         //diagonal check left up
-        for ( auto start : babel::ITERATOR::range<byte>(1, 5) )
+        for ( auto start : babel::ITERATOR::range<uint8_t>(1, 5) )
         {
-            byte diagonal = !grid[0][start].is_empty();
-            std::pair<byte, byte> diagonal_start = {0, start};
-            byte add_to_i = 0;
-            for ( auto j : babel::ITERATOR::range<byte>(0, 9 - start - 1) )
+            uint8_t diagonal = !grid[0][start].is_empty();
+            std::pair<uint8_t, uint8_t> diagonal_start = {0, start};
+            uint8_t add_to_i = 0;
+            for ( auto j : babel::ITERATOR::range<uint8_t>(0, 9 - start - 1) )
             {
                 if ( !grid[j][start + add_to_i].is_empty() &&
                      grid[j][start + add_to_i] == grid[j + 1][start + add_to_i + 1] )
@@ -361,11 +361,11 @@ class map
 
 
         //diagonal check right up
-        for ( byte start = 7 ; start > 3 ; --start )
+        for ( uint8_t start = 7 ; start > 3 ; --start )
         {
-            byte diagonal = !grid[0][start].is_empty();
-            std::pair<byte, byte> diagonal_start = {0, start};
-            for ( byte i = 0 ; i < start ; ++i )
+            uint8_t diagonal = !grid[0][start].is_empty();
+            std::pair<uint8_t, uint8_t> diagonal_start = {0, start};
+            for ( uint8_t i = 0 ; i < start ; ++i )
             {
                 if ( !grid[i][start - i].is_empty() && grid[i][start - i] == grid[i + 1][start - i - 1] )
                     ++diagonal;
@@ -401,7 +401,7 @@ class map
     void generate_next_three() noexcept
     {
         //Generate random next three balls, which show in the next move
-        auto type = random_generator::generate<byte>(1, 100);
+        auto type = babel::ALGO::MATH::random_generator::generate<uint8_t>(1, 100);
         if ( type <= 33 ) // X% to generate diffrent next_three then before
         {
             std::array<ball, 3> nb;
@@ -417,7 +417,7 @@ class map
             next_three = nb;
         } else if ( type <= 45 ) // (X - Y) % you get the least popular balls in board
         {
-            std::array<std::pair<byte, byte>, 5> color = {std::make_pair(0, 0), {0, 1}, {0, 2}, {0, 3}, {0, 4}};
+            std::array<std::pair<uint8_t, uint8_t>, 5> color = {std::make_pair(0, 0), {0, 1}, {0, 2}, {0, 3}, {0, 4}};
             std::for_each(grid.begin(), grid.end(),
                           [&color](const auto &Row) mutable {
                               std::for_each(std::begin(Row), std::end(Row),
@@ -428,7 +428,7 @@ class map
                           });
 
             std::sort(std::begin(color), std::end(color),
-                      [](const std::pair<byte, byte> lhs, const std::pair<byte, byte> rhs) {
+                      [](const std::pair<uint8_t, uint8_t> lhs, const std::pair<uint8_t, uint8_t> rhs) {
                           return lhs.first < rhs.first;
                       });
 
@@ -445,12 +445,12 @@ class map
             while ( next_three[2] == next_three[0] || next_three[2] == next_three[1] )
                 next_three[2].random();
 
-            if ( random_generator::generate<byte>(1, 100) <= 5 ) // X% to TWO same ball in next round
+            if ( babel::ALGO::MATH::random_generator::generate<uint8_t>(1, 100) <= 5 ) // X% to TWO same ball in next round
             {
                 next_three[0] = next_three[1];
-                if ( random_generator::generate<byte>(0, 1) == 0 )
+                if ( babel::ALGO::MATH::random_generator::generate<uint8_t>(0, 1) == 0 )
                 {
-                    auto rnd = random_generator::generate<byte>(0, 1);
+                    auto rnd = babel::ALGO::MATH::random_generator::generate<uint8_t>(0, 1);
                     next_three[2].swap(next_three[rnd]);
                 }
             } else
@@ -467,7 +467,7 @@ public:
     {
         if ( _filled == 81 )
             return;
-        std::vector<std::pair<byte, byte>> free_pos;
+        std::vector<std::pair<uint8_t, uint8_t>> free_pos;
         babel::ITERATOR::enumerator GridEnum(grid);
         std::for_each(GridEnum.begin(), GridEnum.end(), [&free_pos](const auto &RowEn) mutable {
             babel::ITERATOR::enumerator RowEnum(RowEn.second());
@@ -479,15 +479,15 @@ public:
 
         });
 
-        random_generator::random_shuffle(free_pos);
+        babel::ALGO::MATH::random_generator::random_shuffle(free_pos);
 
-        byte to_insert = static_cast<byte>(babel::ALGO::MATH::min(free_pos.size(), static_cast<size_t>(3)));
+        uint8_t to_insert = static_cast<uint8_t>(babel::ALGO::MATH::min(free_pos.size(), static_cast<size_t>(3)));
         int probe = 3;
 
         // Try add three ball, in good position ( no score added )
         while ( to_insert > 0 )
         {
-            auto pos = random_generator::generate<size_t>(0, free_pos.size() - 1);
+            auto pos = babel::ALGO::MATH::random_generator::generate<size_t>(0, free_pos.size() - 1);
             if ( at(free_pos[pos]).is_empty() )
             {
                 at(free_pos[pos]) = next_three[to_insert - 1];
@@ -537,7 +537,7 @@ public:
                 }
             }
         }
-        _filled = static_cast<byte>(babel::ALGO::MATH::min(_filled + 3, 81));
+        _filled = static_cast<uint8_t>(babel::ALGO::MATH::min(_filled + 3, 81));
         generate_next_three();
         check_for_score();
         _need_update = true;
@@ -551,28 +551,28 @@ public:
         reset();
     }
 
-    [[nodiscard]] ball &at(const std::pair<byte, byte> position)
+    [[nodiscard]] ball &at(const std::pair<uint8_t, uint8_t> position)
     {
         if ( position.first > 8 || position.second > 8 )
             throw std::out_of_range("Grid out ouf range");
         return grid[position.first][position.second];
     }
 
-    [[nodiscard]] ball at(const std::pair<byte, byte> position) const
+    [[nodiscard]] ball at(const std::pair<uint8_t, uint8_t> position) const
     {
         if ( position.first > 8 || position.second > 8 )
             throw std::out_of_range("Grid out ouf range");
         return grid[position.first][position.second];
     }
 
-    [[nodiscard]] ball &at(byte i, byte j)
+    [[nodiscard]] ball &at(uint8_t i, uint8_t j)
     {
         if ( i > 8 || j > 8 )
             throw std::out_of_range("Grid out ouf range");
         return grid[i][j];
     }
 
-    [[nodiscard]] ball at(byte i, byte j) const
+    [[nodiscard]] ball at(uint8_t i, uint8_t j) const
     {
         if ( i > 8 || j > 8 )
             throw std::out_of_range("Grid out ouf range");
@@ -580,7 +580,7 @@ public:
     }
 
     //Check if ball on 'from' can move to 'to'
-    [[nodiscard]] bool can_move(std::pair<byte, byte> from, std::pair<byte, byte> to) const noexcept
+    [[nodiscard]] bool can_move(std::pair<uint8_t, uint8_t> from, std::pair<uint8_t, uint8_t> to) const noexcept
     {
         if ( at(from).is_empty() || !at(to).is_empty() || from == to )
         {
@@ -616,7 +616,7 @@ public:
                                           Coordinate[3].first = Cor.first;
                                           Coordinate[3].second = Cor.second - 1;
 
-                                          auto found = std::find_if(Coordinate.begin(), Coordinate.end(),
+                                          auto found_cor = std::find_if(Coordinate.begin(), Coordinate.end(),
                                                                     [&from_c, &cor_is_correct, &vec, &_size](
                                                                             const auto &Item) mutable -> bool {
                                                                         bool res_type = ( Item == from_c );
@@ -630,7 +630,7 @@ public:
                                                                         }
                                                                         return res_type;
                                                                     });
-                                          if ( found != Coordinate.end() )
+                                          if ( found_cor != Coordinate.end() )
                                               return true;
                                           ++_start;
                                           return false;
@@ -643,7 +643,7 @@ public:
     }
 
     // try to move ball 'from' to 'to'
-    bool move(const std::pair<byte, byte> from, const std::pair<byte, byte> to) noexcept
+    bool move(const std::pair<uint8_t, uint8_t> from, const std::pair<uint8_t, uint8_t> to) noexcept
     {
         if ( can_move(from, to) )
         {

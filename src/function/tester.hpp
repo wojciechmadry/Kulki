@@ -5,7 +5,7 @@
 #include <chrono>
 #include <thread>
 #include <atomic>
-#include "../babel/babel.hpp"
+#include "babel.hpp"
 #include "drawer.hpp"
 #include <iostream>
 
@@ -18,7 +18,7 @@ void Play_Test_Games(int64_t test = -1, int32_t threads = -1)
         map Game;
         while(is_inf || counter < test)
         {
-            std::pair<byte, byte> from, to;
+            std::pair<uint8_t, uint8_t> from, to;
             if(Game.game_over())
             {
                 auto th_id = std::this_thread::get_id();
@@ -32,10 +32,10 @@ void Play_Test_Games(int64_t test = -1, int32_t threads = -1)
             }
             do
             {
-                from.first = random_generator::generate<byte>(0, 8);
-                from.second = random_generator::generate<byte>(0, 8);
-                to.first = random_generator::generate<byte>(0, 8);
-                to.second = random_generator::generate<byte>(0, 8);
+                from.first = babel::ALGO::MATH::random_generator::generate<uint8_t>(0, 8);
+                from.second = babel::ALGO::MATH::random_generator::generate<uint8_t>(0, 8);
+                to.first = babel::ALGO::MATH::random_generator::generate<uint8_t>(0, 8);
+                to.second = babel::ALGO::MATH::random_generator::generate<uint8_t>(0, 8);
             }while(!Game.can_move(from, to));
             Game.move(from, to);
             ++counter;

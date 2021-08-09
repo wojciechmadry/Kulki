@@ -4,19 +4,18 @@
 
 #ifndef KULKI_CRYPT_HPP
 #define KULKI_CRYPT_HPP
-#include "../babel/babel.hpp"
-#include "random_generator.hpp"
+#include "babel.hpp"
 
 //Easy crypted function
 std::string crypt(uint16_t number)
 {
 
-    std::string encrypted = {random_generator::generate<char>(65, 90)};
+    std::string encrypted = {babel::ALGO::MATH::random_generator::generate<char>(65, 90)};
     auto snum = babel::ALGO::CAST::asType<std::string>(number);
     std::for_each(snum.begin(), snum.end(),[&encrypted](const char C) mutable
     {
         encrypted += static_cast<char>(C+49);
-        encrypted += random_generator::generate<char>(65, 90);
+        encrypted += babel::ALGO::MATH::random_generator::generate<char>(65, 90);
     });
     return encrypted;
 }

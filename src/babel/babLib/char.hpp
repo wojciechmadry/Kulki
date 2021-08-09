@@ -1,12 +1,13 @@
-#ifndef BABEL_CHAR
-#define BABEL_CHAR
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_CHAR_HPP_
+#define BABLIB_CHAR_HPP_
 
-#include "must_have.hpp"
+#include <fstream>
 
 namespace babel::CHAR{
     class ASCII_CHAR
     {
-        char _member;
+        char m_member;
 
         //FRIENDS
         friend constexpr bool operator==(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs);
@@ -49,7 +50,7 @@ namespace babel::CHAR{
 
         friend std::ostream &operator<<(std::ostream &os, const ASCII_CHAR &_asci);
 
-        //END OF FRIEND
+        // END OF FRIEND
         class IS_NOT_ALPHABETICAL : public std::exception
         {
         public:
@@ -75,30 +76,30 @@ namespace babel::CHAR{
         };
 
     public:
-        constexpr explicit ASCII_CHAR() noexcept: _member(0)
+        constexpr ASCII_CHAR() noexcept: m_member(0)
         { }
 
-        constexpr explicit ASCII_CHAR(char _char) noexcept: _member(_char)
+        constexpr explicit ASCII_CHAR(char _char) noexcept: m_member(_char)
         { }
 
-        constexpr ASCII_CHAR(const ASCII_CHAR &other) noexcept: _member(other._member) //NOLINT
+        constexpr ASCII_CHAR(const ASCII_CHAR &other) noexcept: m_member(other.m_member) //NOLINT
         { }
 
         constexpr ASCII_CHAR &operator=(const ASCII_CHAR &other) noexcept //NOLINT
         {
-            _member = other._member;
+            m_member = other.m_member;
             return *this;
         }
 
         constexpr ASCII_CHAR &operator=(char _char) noexcept
         {
-            _member = _char;
+            m_member = _char;
             return *this;
         }
 
         constexpr explicit operator bool() const noexcept
         {
-            return static_cast<bool>(_member);
+            return static_cast<bool>(m_member);
         }
 
         /**
@@ -106,7 +107,7 @@ namespace babel::CHAR{
          */
         [[nodiscard]]constexpr char get() const noexcept
         {
-            return _member;
+            return m_member;
         }
 
         /**
@@ -114,7 +115,7 @@ namespace babel::CHAR{
          */
         [[nodiscard]] constexpr char &get_by_ref() noexcept
         {
-            return _member;
+            return m_member;
         }
 
         /**
@@ -122,7 +123,7 @@ namespace babel::CHAR{
          */
         [[nodiscard]]constexpr const char &get_by_ref() const noexcept
         {
-            return _member;
+            return m_member;
         }
 
         /**
@@ -131,7 +132,7 @@ namespace babel::CHAR{
          * */
         constexpr void set(const char to_set) noexcept
         {
-            _member = to_set;
+            m_member = to_set;
         }
 
         /**
@@ -143,7 +144,7 @@ namespace babel::CHAR{
          * */
         [[nodiscard]] constexpr bool is_number() const noexcept
         {
-            return _member > 47 && _member < 58;
+            return m_member > 47 && m_member < 58;
         }
 
         /**
@@ -155,7 +156,7 @@ namespace babel::CHAR{
          * */
         [[nodiscard]] constexpr bool is_alphabetical() const noexcept
         {
-            return ( _member > 64 && _member < 91 ) || ( _member > 96 && _member < 123 );
+            return ( m_member > 64 && m_member < 91 ) || ( m_member > 96 && m_member < 123 );
         }
 
         /**
@@ -167,7 +168,7 @@ namespace babel::CHAR{
         * */
         [[nodiscard]] constexpr bool is_lower() const noexcept
         {
-            return _member > 96 && _member < 123;
+            return m_member > 96 && m_member < 123;
         }
 
         /**
@@ -179,18 +180,18 @@ namespace babel::CHAR{
         * */
         [[nodiscard]] constexpr bool is_upper() const noexcept
         {
-            return _member > 64 && _member < 91;
+            return m_member > 64 && m_member < 91;
         }
 
         /**
         * @brief Check if char is equal to ' '
          * \Example_1 ' ' -> true
          * \Example_2 'c' -> false
-         * @return If _member == ' ' return true
+         * @return If m_member == ' ' return true
         * */
         [[nodiscard]]constexpr bool is_space() const noexcept
         {
-            return _member == 32;
+            return m_member == 32;
         }
 
         /**
@@ -203,9 +204,9 @@ namespace babel::CHAR{
         [[nodiscard]]constexpr char to_upper() const
         {
             if ( is_upper() )
-                return _member;
+                return m_member;
             if ( is_lower() )
-                return static_cast<char>(_member - 32);
+                return static_cast<char>(m_member - 32);
             throw IS_NOT_ALPHABETICAL();
         }
 
@@ -219,9 +220,9 @@ namespace babel::CHAR{
         [[nodiscard]] constexpr char to_lower() const
         {
             if ( is_lower() )
-                return _member;
+                return m_member;
             if ( is_upper() )
-                return static_cast<char>(_member + 32);
+                return static_cast<char>(m_member + 32);
             throw IS_NOT_ALPHABETICAL();
         }
 
@@ -235,7 +236,7 @@ namespace babel::CHAR{
         [[nodiscard]]constexpr int to_int_number() const
         {
             if ( is_number() )
-                return static_cast<int>(_member - '0');
+                return static_cast<int>(m_member - '0');
             throw IS_NOT_NUMBER();
         }
 
@@ -247,127 +248,125 @@ namespace babel::CHAR{
          * */
         constexpr void set_number(const int number) noexcept
         {
-            _member = static_cast<char>(number + 48);
+            m_member = static_cast<char>(number + 48);
         }
 
         constexpr ASCII_CHAR &operator--() noexcept
         {
-            --_member;
+            --m_member;
             return *this;
         }
 
         constexpr ASCII_CHAR &operator++() noexcept
         {
-            ++_member;
+            ++m_member;
             return *this;
         }
     };
 
 
-//OPERATORS
+    // OPERATORS
     std::ostream &operator<<(std::ostream &os, const ASCII_CHAR &_asci)
     {
-        return os << _asci._member;
+        return os << _asci.m_member;
     }
 
     std::istream &operator>>(std::istream &is, ASCII_CHAR &_asci)
     {
-        is >> _asci._member;
+        is >> _asci.m_member;
         return is;
     }
 
     constexpr bool operator==(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
     {
-        return lhs._member == rhs._member;
+        return lhs.m_member == rhs.m_member;
     }
 
     constexpr bool operator==(const ASCII_CHAR &lhs, const char &rhs)
     {
-        return lhs._member == rhs;
+        return lhs.m_member == rhs;
     }
 
     constexpr bool operator==(const char &lhs, const ASCII_CHAR &rhs)
     {
-        return lhs == rhs._member;
+        return lhs == rhs.m_member;
     }
 
     constexpr bool operator>(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
     {
-        return lhs._member > rhs._member;
+        return lhs.m_member > rhs.m_member;
     }
 
     constexpr bool operator>(const char &lhs, const ASCII_CHAR &rhs)
     {
-        return lhs > rhs._member;
+        return lhs > rhs.m_member;
     }
 
     constexpr bool operator>(const ASCII_CHAR &lhs, const char &rhs)
     {
-        return lhs._member > rhs;
+        return lhs.m_member > rhs;
     }
 
     constexpr bool operator>=(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
     {
-        return lhs._member >= rhs._member;
+        return lhs.m_member >= rhs.m_member;
     }
 
     constexpr bool operator>=(const char &lhs, const ASCII_CHAR &rhs)
     {
-        return lhs >= rhs._member;
+        return lhs >= rhs.m_member;
     }
 
     constexpr bool operator>=(const ASCII_CHAR &lhs, const char &rhs)
     {
-        return lhs._member >= rhs;
+        return lhs.m_member >= rhs;
     }
 
     constexpr bool operator<(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
     {
-        return lhs._member < rhs._member;
+        return lhs.m_member < rhs.m_member;
     }
 
     constexpr bool operator<(const char &lhs, const ASCII_CHAR &rhs)
     {
-        return lhs < rhs._member;
+        return lhs < rhs.m_member;
     }
 
     constexpr bool operator<(const ASCII_CHAR &lhs, const char &rhs)
     {
-        return lhs._member < rhs;
+        return lhs.m_member < rhs;
     }
 
     constexpr bool operator<=(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
     {
-        return lhs._member <= rhs._member;
+        return lhs.m_member <= rhs.m_member;
     }
 
     constexpr bool operator<=(const char &lhs, const ASCII_CHAR &rhs)
     {
-        return lhs <= rhs._member;
+        return lhs <= rhs.m_member;
     }
 
     constexpr bool operator<=(const ASCII_CHAR &lhs, const char &rhs)
     {
-        return lhs._member <= rhs;
+        return lhs.m_member <= rhs;
     }
 
     constexpr bool operator!=(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
     {
-        return lhs._member != rhs._member;
+        return lhs.m_member != rhs.m_member;
     }
 
     constexpr bool operator!=(const char &lhs, const ASCII_CHAR &rhs)
     {
-        return lhs != rhs._member;
+        return lhs != rhs.m_member;
     }
 
     constexpr bool operator!=(const ASCII_CHAR &lhs, const char &rhs)
     {
-        return lhs._member != rhs;
+        return lhs.m_member != rhs;
     }
 
 
-}
-
-
-#endif
+}  // namespace babel::CHAR
+#endif  // BABLIB_CHAR_HPP_

@@ -1,5 +1,6 @@
-#ifndef BABEL_GRAPHICS_CONVERT
-#define BABEL_GRAPHICS_CONVERT
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_GRAPHICS_CONVERT_HPP_
+#define BABLIB_GRAPHICS_CONVERT_HPP_
 
 #include "rgb.hpp"
 #include "cmyk.hpp"
@@ -23,15 +24,15 @@ namespace babel::GRAPHICS{
 
     constexpr rgb CMYK_TO_RGB(const cmyk &_cmyk) noexcept
     {
-        auto c = static_cast<double>(_cmyk.C())/100.0;
-        auto m = static_cast<double>(_cmyk.M())/100.0;
-        auto y = static_cast<double>(_cmyk.Y())/100.0;
-        auto k = static_cast<double>(_cmyk.K())/100.0;
-        byte r = static_cast<byte>(255 *(1.0-c) * (1.0-k));
-        byte g = static_cast<byte>(255 * (1.0-m) * (1.0-k));
-        byte b = static_cast<byte>(255 * (1.0-y) * (1.0-k));
+        auto c = static_cast<double>(_cmyk.C()) / 100.0;
+        auto m = static_cast<double>(_cmyk.M()) / 100.0;
+        auto y = static_cast<double>(_cmyk.Y()) / 100.0;
+        auto k = static_cast<double>(_cmyk.K()) / 100.0;
+        byte r = static_cast<byte>(255 * ( 1.0 - c ) * ( 1.0 - k ));
+        byte g = static_cast<byte>(255 * ( 1.0 - m ) * ( 1.0 - k ));
+        byte b = static_cast<byte>(255 * ( 1.0 - y ) * ( 1.0 - k ));
         return rgb(r, g, b);
     }
 
-}
-#endif
+}  // namespace babel::GRAPHICS
+#endif  // BABLIB_GRAPHICS_CONVERT_HPP_

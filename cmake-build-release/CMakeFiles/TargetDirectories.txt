@@ -1,0 +1,11 @@
+/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles/rebuild_cache.dir
+/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles/edit_cache.dir
+/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles/Kulki.dir
+/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/CMakeFiles/rebuild_cache.dir
+/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/CMakeFiles/edit_cache.dir
+/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/CMakeFiles/source.dir
+/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/CMakeFiles/rebuild_cache.dir
+/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/CMakeFiles/edit_cache.dir
+/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/ball/CMakeFiles/edit_cache.dir
+/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/ball/CMakeFiles/rebuild_cache.dir
+/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/ball/CMakeFiles/OBJECT_BALL.dir

@@ -1,7 +1,15 @@
-#ifndef babel_ALGO_MATH
-#define babel_ALGO_MATH
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_ALGORITHM_MATH_HPP_
+#define BABLIB_ALGORITHM_MATH_HPP_
 
 #include "../variadic.hpp"
+#include "../concepts/concepts.hpp"
+
+#include <functional>
+#include <cmath>
+#include <complex>
+#include <random>
+#include <chrono>
 
 namespace babel::ALGO::MATH{
     namespace DERIVATIVE{
@@ -84,7 +92,7 @@ namespace babel::ALGO::MATH{
                     return ( func(x - 2.0 * h) - 4.0 * func(x - h) + 3.0 * func(x) ) / ( 2.0 * h );
                 };
             }
-        }
+        }  // namespace FIRST
         namespace SECOND{
             /**
 *  @brief  Calculate second derivative in three point
@@ -114,8 +122,8 @@ namespace babel::ALGO::MATH{
                              func(x - 2.0 * h) ) / ( 12.0 * std::pow(h, 2.0) );
                 };
             }
-        }
-    }
+        }  // namespace SECOND
+    }  // namespace DERIVATIVE
 
     namespace CONSTANT{
 
@@ -155,7 +163,7 @@ namespace babel::ALGO::MATH{
         template< typename Type >
         constexpr Type golden_ratio = static_cast<Type>(1.61803398874989484820);
 
-    }
+    }  // namespace CONSTANT
 
 
     /**
@@ -214,10 +222,12 @@ namespace babel::ALGO::MATH{
 */
     template< typename T, typename ... Args >
     requires ( !babel::CONCEPTS::IS_CONTAINER<T> )
-    [[nodiscard]] constexpr T max(T value1, T value2, Args... arg) noexcept
+    [[nodiscard]] constexpr T max(T value1, T value2, T value3, Args... arg) noexcept
     {
         if ( value1 < value2 )
             value1 = value2;
+        if ( value1 < value3 )
+            value1 = value3;
         babel::VARIADIC::holder<T> _hold(arg...);
         const auto &vec = _hold.get();
         std::for_each(vec.begin(), vec.end(),
@@ -254,10 +264,12 @@ namespace babel::ALGO::MATH{
 *  @return Return the lowest number
 */
     template< typename T, typename ... Args >
-    [[nodiscard]] constexpr T min(T value1, T value2, Args... arg) noexcept
+    [[nodiscard]] constexpr T min(T value1, T value2, T value3, Args... arg) noexcept
     {
         if ( value1 > value2 )
             value1 = value2;
+        if ( value1 > value3 )
+            value1 = value3;
         babel::VARIADIC::holder<T> _hold(arg...);
         const auto &vec = _hold.get();
         std::for_each(vec.begin(), vec.end(),
@@ -323,7 +335,7 @@ namespace babel::ALGO::MATH{
     template< typename T >
     [[nodiscard]] constexpr inline bool is_neg(const T val) noexcept
     {
-        return val < 0 ? 1 : 0;
+        return val < 0;
     }
 
     /**
@@ -379,7 +391,7 @@ namespace babel::ALGO::MATH{
 *  @return Binomial coefficient
 */
     template< uint64_t N, uint64_t K >
-    [[nodiscard]] consteval double binomial_coefficient() noexcept
+    [[nodiscard]] consteval double binomial_coefficient()
     {
         if ( K > N )
             throw std::out_of_range("K > N.");
@@ -390,13 +402,39 @@ namespace babel::ALGO::MATH{
    *  @param   n Fibonacci number
    *  @return Fibonacci N
    */
-    [[nodiscard]] constexpr uint64_t fib(unsigned n) noexcept
+    [[nodiscard]] uint64_t fib(unsigned n) noexcept
     {
         uint64_t F[2][2] = {{1, 1},
                             {1, 0}};
         if ( n == 0 )
             return 0;
-        _BABEL_PRIVATE_DO_NOT_USE::_PRIVATE_BABEL::babel_pow(F, n - 1);
+        constexpr auto babel_mult = [](uint64_t a_F[2][2], uint64_t a_M[2][2]) {
+            uint64_t x = a_F[0][0] * a_M[0][0] + a_F[0][1] * a_M[1][0];
+            uint64_t y = a_F[0][0] * a_M[0][1] + a_F[0][1] * a_M[1][1];
+            uint64_t z = a_F[1][0] * a_M[0][0] + a_F[1][1] * a_M[1][0];
+            uint64_t w = a_F[1][0] * a_M[0][1] + a_F[1][1] * a_M[1][1];
+            a_F[0][0] = x;
+            a_F[0][1] = y;
+            a_F[1][0] = z;
+            a_F[1][1] = w;
+        };
+        std::function<void(uint64_t a_F[2][2], unsigned a_n)> babel_pow;
+        babel_pow = [&babel_pow, &babel_mult](uint64_t a_F[2][2], unsigned a_n) {
+            if ( a_n < 2 )
+                return;
+            babel_pow(a_F, a_n >> 1u);
+            babel_mult(a_F, a_F);
+            if ( a_n % 2 != 0 )
+            {
+                uint64_t x = a_F[0][0] + a_F[0][1];
+                uint64_t z = a_F[1][0] + a_F[1][1];
+                a_F[0][1] = a_F[0][0];
+                a_F[0][0] = x;
+                a_F[1][1] = a_F[1][0];
+                a_F[1][0] = z;
+            }
+        };
+        babel_pow(F, n - 1);
         return F[0][0];
     }
 
@@ -714,7 +752,45 @@ namespace babel::ALGO::MATH{
         return res;
     }
 
-}
+
+    class random_generator
+    {
+        inline static std::mt19937 gen {
+                static_cast<unsigned int>(std::chrono::system_clock::now().time_since_epoch().count())}; //NOLINT
+    public:
+        random_generator() = default;
+
+        ~random_generator() = default;
+
+        template< typename Vec >
+        requires babel::CONCEPTS::IS_CONTAINER<Vec>
+        static void random_shuffle(Vec &to_shuffle) noexcept
+        {
+            std::shuffle(to_shuffle.begin(), to_shuffle.end(), gen);
+        }
+
+        [[nodiscard]] static bool generate() noexcept
+        {
+            return std::uniform_int_distribution<uint8_t>(0, 1)(gen);
+        }
+
+        template< typename T = int >
+        requires ( std::is_integral_v<T> && !std::is_same_v<std::decay_t<T>, bool> )
+        [[nodiscard]] static T generate(const T min, const T max) noexcept
+        {
+            return std::uniform_int_distribution<T>(min, max)(gen);
+        }
+
+        template< typename T = float, uint8_t after_coma = 2 >
+        requires(std::is_floating_point_v<T>)
+        [[nodiscard]] static T generate(const T min, const T max) noexcept
+        {
+            return std::uniform_real_distribution<T>(min, max)(gen);
+        }
+    };
 
 
-#endif
+}  // namespace babel::ALGO::MATH"
+
+
+#endif  // BABLIB_ALGORITHM_MATH_HPP_

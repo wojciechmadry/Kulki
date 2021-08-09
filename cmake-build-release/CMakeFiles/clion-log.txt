@@ -1,0 +1,4 @@
+/home/wojtek/clion/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=/usr/local/bin/gcc -DCMAKE_CXX_COMPILER=/usr/local/bin/g++ -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /home/wojtek/Desktop/Git/kulki
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/wojtek/Desktop/Git/kulki/cmake-build-release

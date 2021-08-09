@@ -28,7 +28,7 @@ class GLOBAL
     inline static float _wb_size {0.0f}; // Side length of white box
 public:
 
-    static void INIT(ResourceHolder<sf::Drawable> &Resource, const sf::Font &Font,
+    static void INIT(ResourceHolder<sf::Drawable> &Resource, const sf::Font &sfFont,
                      const std::pair<uint16_t, uint16_t> RECORDS) noexcept
     {
         auto res = load_resolution();
@@ -41,7 +41,7 @@ public:
             ball b(static_cast<COLOR>(i));
             auto ball_shape = std::make_unique<sf::CircleShape>(radius);
             ball_shape->setFillColor(b.color());
-            auto ballID = static_cast<ResourceType>(static_cast<decltype(i)>(ResourceType::BALL_CIRCLE_START) + i);
+            auto ballID = static_cast<ResourceType>(static_cast<std::decay_t<decltype(i)>>(ResourceType::BALL_CIRCLE_START) + i);
             Resource.insert(ballID, std::move(ball_shape), false);
         }
 
@@ -140,7 +140,7 @@ public:
             );
         }
 
-        draw_started_object(Resource, Font, RECORDS.first, RECORDS.second);
+        draw_started_object(Resource, sfFont, RECORDS.first, RECORDS.second);
     }
 
     //Resolution of screen
@@ -236,7 +236,7 @@ void draw_window(sf::RenderWindow &window, map &Map,
     // Map
 
     //Draw ball on grid 9x9
-    babel::ITERATOR::range<byte> Range(0, static_cast<byte>(Map.get_grid().size()));
+    babel::ITERATOR::range<uint8_t> Range(0, static_cast<uint8_t>(Map.get_grid().size()));
     for ( auto x_map : Range )
     {
         for ( auto y_map : Range )
