@@ -4,9 +4,9 @@
 #ifndef KULKI_BALL_HPP
 #define KULKI_BALL_HPP
 
-namespace sf{
-    class Color;
-}
+#include <SFML/Graphics.hpp>
+
+#include "babel/babel.hpp"
 
 enum class COLOR : unsigned char
 {
@@ -21,7 +21,9 @@ enum class COLOR : unsigned char
 
 class ball
 {
-    [[nodiscard]] static sf::Color sf_color(const COLOR Color, const short alpha = -1) noexcept;
+    babel::ALGO::MATH::random_generator m_random_generator;
+
+    [[nodiscard]] static sf::Color sf_color(COLOR Color, short alpha = -1) noexcept;
 
     COLOR _colorID;
 public:
@@ -31,21 +33,21 @@ public:
 
     ball(const ball &other);
 
-    explicit ball(const COLOR color) noexcept;
+    explicit ball(COLOR color) noexcept;
 
-    ball &operator=(const ball other) noexcept;
+    ball &operator=(ball other) noexcept;
 
     ball &swap(ball &other) noexcept;
 
-    ball &operator=(const COLOR color) noexcept;
+    ball &operator=(COLOR color) noexcept;
 
-    [[nodiscard]] bool operator==(const ball other) const noexcept;
+    [[nodiscard]] bool operator==(ball other) const noexcept;
 
-    [[nodiscard]] bool operator==(const COLOR color) const noexcept;
+    [[nodiscard]] bool operator==(COLOR color) const noexcept;
 
-    [[nodiscard]] bool operator!=(const ball other) const noexcept;
+    [[nodiscard]] bool operator!=(ball other) const noexcept;
 
-    [[nodiscard]] bool operator!=(const COLOR color) const noexcept;
+    [[nodiscard]] bool operator!=(COLOR color) const noexcept;
 
     [[nodiscard]] COLOR enum_color() const noexcept;
 
@@ -60,7 +62,7 @@ public:
 
     void clear() noexcept;
 
-    void set(const COLOR color) noexcept;
+    void set(COLOR color) noexcept;
 
     void random() noexcept;
 };

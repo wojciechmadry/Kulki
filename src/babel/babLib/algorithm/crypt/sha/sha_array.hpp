@@ -6,13 +6,12 @@
 #include <vector>
 #include <type_traits>
 #include <cstdint>
+
 namespace _BABEL_PRIVATE_DO_NOT_USE //NOLINT
 {
-    class _PRIVATE_BABEL //NOLINT
+    namespace _PRIVATE_BABEL //NOLINT
     {
-
-    public:
-        static const constexpr std::array<std::uint64_t, 80> PRIME_SHA_ARRAY_64 = {
+        const constexpr std::array<std::uint64_t, 80> PRIME_SHA_ARRAY_64 = {
                 0x428a2f98d728ae22, 0x7137449123ef65cd, 0xb5c0fbcfec4d3b2f, 0xe9b5dba58189dbbc,
                 0x3956c25bf348b538, 0x59f111f1b605d019, 0x923f82a4af194f9b, 0xab1c5ed5da6d8118,
                 0xd807aa98a3030242, 0x12835b0145706fbe, 0x243185be4ee4b28c, 0x550c7dc3d5ffb4e2,
@@ -35,7 +34,7 @@ namespace _BABEL_PRIVATE_DO_NOT_USE //NOLINT
                 0x4cc5d4becb3e42b6, 0x597f299cfc657e2a, 0x5fcb6fab3ad6faec, 0x6c44198c4a475817
         };
 
-        static const constexpr std::array<std::uint32_t, 80> PRIME_SHA_ARRAY_32 = {
+        const constexpr std::array<std::uint32_t, 80> PRIME_SHA_ARRAY_32 = {
                 0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
                 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
                 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
@@ -57,7 +56,7 @@ namespace _BABEL_PRIVATE_DO_NOT_USE //NOLINT
         template< typename INT, std::size_t MAX_BIT = sizeof(INT) * 8 >
         class INT_HOLDER
         {
-            std::vector <INT> _holder;
+            std::vector<INT> _holder;
             std::size_t nob = 0;
             INT data = 0;
 
@@ -81,7 +80,7 @@ namespace _BABEL_PRIVATE_DO_NOT_USE //NOLINT
             }
 
         public:
-            [[nodiscard]] std::vector <INT> &&get_vec() noexcept
+            [[nodiscard]] std::vector<INT> &&get_vec() noexcept
             {
                 return std::move(_holder);
             }
@@ -95,7 +94,7 @@ namespace _BABEL_PRIVATE_DO_NOT_USE //NOLINT
             }
 
             template< typename ToPush >
-            requires ( !std::is_same_v < std::decay_t < ToPush > , bool > )
+            requires ( !std::is_same_v<std::decay_t<ToPush>, bool> )
             void push(ToPush DATA) noexcept
             {
                 if constexpr( sizeof(ToPush) > sizeof(INT) )
@@ -135,6 +134,6 @@ namespace _BABEL_PRIVATE_DO_NOT_USE //NOLINT
         };
 
 
-    };
+    }  // namespace _PRIVATE_BABEL
 }
 #endif  // BABLIB_ALGORITHM_CRYPT_SHA_ARRAY_HPP_

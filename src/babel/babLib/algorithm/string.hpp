@@ -14,7 +14,7 @@ namespace babel::ALGO::STRING{
   *  @param  String to change
   *  @return String without \n at the end
   */
-    void pop_newline_from_string(std::string &Str) noexcept
+    inline void pop_newline_from_string(std::string &Str) noexcept
     {
         while ( !Str.empty() && Str[Str.size() - 1] == '\n' )
             Str.pop_back();
@@ -29,7 +29,7 @@ namespace babel::ALGO::STRING{
 *  @param  String to filter
 *  @return All numbers form string
 */
-    [[nodiscard]] std::string get_only_numbers(const std::string &Str) noexcept
+    [[nodiscard]] inline std::string get_only_numbers(const std::string &Str) noexcept
     {
         if ( Str.empty() )
             return "0";
@@ -42,7 +42,7 @@ namespace babel::ALGO::STRING{
         return Res.empty() ? "0" : Res;
     }
 
-    [[nodiscard]] std::string str_to_upper(const std::string &Str) noexcept
+    [[nodiscard]] inline std::string str_to_upper(const std::string &Str) noexcept
     {
         std::string Res = Str;
         std::for_each(Res.begin(), Res.end(), [](char &CHAR) {
@@ -51,7 +51,7 @@ namespace babel::ALGO::STRING{
         return Res;
     }
 
-    [[nodiscard]] std::string str_to_lower(const std::string &Str) noexcept
+    [[nodiscard]] inline std::string str_to_lower(const std::string &Str) noexcept
     {
         std::string Res = Str;
         std::for_each(Res.begin(), Res.end(), [](char &CHAR) {

@@ -80,33 +80,148 @@ clean: src/clean
 # Directory level rules for directory src
 
 # Recursive "all" directory target.
-src/all: src/CMakeFiles/source.dir/all
-src/all: src/object/all
+src/all: src/function/crypt/all
+src/all: src/function/font/all
+src/all: src/object/ball/all
+src/all: src/object/map/all
+src/all: src/object/red_box/all
+src/all: src/function/load/all
+src/all: src/function/drawer/all
+src/all: src/function/thread/all
+src/all: src/function/mouse/all
+src/all: src/function/tester/all
 .PHONY : src/all
 
 # Recursive "preinstall" directory target.
-src/preinstall: src/object/preinstall
+src/preinstall: src/function/crypt/preinstall
+src/preinstall: src/function/font/preinstall
+src/preinstall: src/object/ball/preinstall
+src/preinstall: src/object/map/preinstall
+src/preinstall: src/object/red_box/preinstall
+src/preinstall: src/function/load/preinstall
+src/preinstall: src/function/drawer/preinstall
+src/preinstall: src/function/thread/preinstall
+src/preinstall: src/function/mouse/preinstall
+src/preinstall: src/function/tester/preinstall
 .PHONY : src/preinstall
 
 # Recursive "clean" directory target.
-src/clean: src/CMakeFiles/source.dir/clean
-src/clean: src/object/clean
+src/clean: src/function/crypt/clean
+src/clean: src/function/font/clean
+src/clean: src/object/ball/clean
+src/clean: src/object/map/clean
+src/clean: src/object/red_box/clean
+src/clean: src/function/load/clean
+src/clean: src/function/drawer/clean
+src/clean: src/function/thread/clean
+src/clean: src/function/mouse/clean
+src/clean: src/function/tester/clean
 .PHONY : src/clean
 
 #=============================================================================
-# Directory level rules for directory src/object
+# Directory level rules for directory src/function/crypt
 
 # Recursive "all" directory target.
-src/object/all: src/object/ball/all
-.PHONY : src/object/all
+src/function/crypt/all: src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/all
+.PHONY : src/function/crypt/all
 
 # Recursive "preinstall" directory target.
-src/object/preinstall: src/object/ball/preinstall
-.PHONY : src/object/preinstall
+src/function/crypt/preinstall:
+.PHONY : src/function/crypt/preinstall
 
 # Recursive "clean" directory target.
-src/object/clean: src/object/ball/clean
-.PHONY : src/object/clean
+src/function/crypt/clean: src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/clean
+.PHONY : src/function/crypt/clean
+
+#=============================================================================
+# Directory level rules for directory src/function/drawer
+
+# Recursive "all" directory target.
+src/function/drawer/all: src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/all
+.PHONY : src/function/drawer/all
+
+# Recursive "preinstall" directory target.
+src/function/drawer/preinstall:
+.PHONY : src/function/drawer/preinstall
+
+# Recursive "clean" directory target.
+src/function/drawer/clean: src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/clean
+.PHONY : src/function/drawer/clean
+
+#=============================================================================
+# Directory level rules for directory src/function/font
+
+# Recursive "all" directory target.
+src/function/font/all: src/function/font/CMakeFiles/FUNCTION_FONT.dir/all
+.PHONY : src/function/font/all
+
+# Recursive "preinstall" directory target.
+src/function/font/preinstall:
+.PHONY : src/function/font/preinstall
+
+# Recursive "clean" directory target.
+src/function/font/clean: src/function/font/CMakeFiles/FUNCTION_FONT.dir/clean
+.PHONY : src/function/font/clean
+
+#=============================================================================
+# Directory level rules for directory src/function/load
+
+# Recursive "all" directory target.
+src/function/load/all: src/function/load/CMakeFiles/FUNCTION_LOAD.dir/all
+.PHONY : src/function/load/all
+
+# Recursive "preinstall" directory target.
+src/function/load/preinstall:
+.PHONY : src/function/load/preinstall
+
+# Recursive "clean" directory target.
+src/function/load/clean: src/function/load/CMakeFiles/FUNCTION_LOAD.dir/clean
+.PHONY : src/function/load/clean
+
+#=============================================================================
+# Directory level rules for directory src/function/mouse
+
+# Recursive "all" directory target.
+src/function/mouse/all: src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/all
+.PHONY : src/function/mouse/all
+
+# Recursive "preinstall" directory target.
+src/function/mouse/preinstall:
+.PHONY : src/function/mouse/preinstall
+
+# Recursive "clean" directory target.
+src/function/mouse/clean: src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/clean
+.PHONY : src/function/mouse/clean
+
+#=============================================================================
+# Directory level rules for directory src/function/tester
+
+# Recursive "all" directory target.
+src/function/tester/all: src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/all
+.PHONY : src/function/tester/all
+
+# Recursive "preinstall" directory target.
+src/function/tester/preinstall:
+.PHONY : src/function/tester/preinstall
+
+# Recursive "clean" directory target.
+src/function/tester/clean: src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/clean
+.PHONY : src/function/tester/clean
+
+#=============================================================================
+# Directory level rules for directory src/function/thread
+
+# Recursive "all" directory target.
+src/function/thread/all: src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/all
+.PHONY : src/function/thread/all
+
+# Recursive "preinstall" directory target.
+src/function/thread/preinstall:
+.PHONY : src/function/thread/preinstall
+
+# Recursive "clean" directory target.
+src/function/thread/clean: src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/clean
+.PHONY : src/function/thread/clean
 
 #=============================================================================
 # Directory level rules for directory src/object/ball
@@ -124,19 +239,55 @@ src/object/ball/clean: src/object/ball/CMakeFiles/OBJECT_BALL.dir/clean
 .PHONY : src/object/ball/clean
 
 #=============================================================================
+# Directory level rules for directory src/object/map
+
+# Recursive "all" directory target.
+src/object/map/all: src/object/map/CMakeFiles/OBJECT_MAP.dir/all
+.PHONY : src/object/map/all
+
+# Recursive "preinstall" directory target.
+src/object/map/preinstall:
+.PHONY : src/object/map/preinstall
+
+# Recursive "clean" directory target.
+src/object/map/clean: src/object/map/CMakeFiles/OBJECT_MAP.dir/clean
+.PHONY : src/object/map/clean
+
+#=============================================================================
+# Directory level rules for directory src/object/red_box
+
+# Recursive "all" directory target.
+src/object/red_box/all: src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/all
+.PHONY : src/object/red_box/all
+
+# Recursive "preinstall" directory target.
+src/object/red_box/preinstall:
+.PHONY : src/object/red_box/preinstall
+
+# Recursive "clean" directory target.
+src/object/red_box/clean: src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/clean
+.PHONY : src/object/red_box/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/Kulki.dir
 
 # All Build rule for target.
-CMakeFiles/Kulki.dir/all: src/CMakeFiles/source.dir/all
+CMakeFiles/Kulki.dir/all: src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/all
+CMakeFiles/Kulki.dir/all: src/function/font/CMakeFiles/FUNCTION_FONT.dir/all
 CMakeFiles/Kulki.dir/all: src/object/ball/CMakeFiles/OBJECT_BALL.dir/all
+CMakeFiles/Kulki.dir/all: src/object/map/CMakeFiles/OBJECT_MAP.dir/all
+CMakeFiles/Kulki.dir/all: src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/all
+CMakeFiles/Kulki.dir/all: src/function/load/CMakeFiles/FUNCTION_LOAD.dir/all
+CMakeFiles/Kulki.dir/all: src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/all
+CMakeFiles/Kulki.dir/all: src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Kulki.dir/build.make CMakeFiles/Kulki.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Kulki.dir/build.make CMakeFiles/Kulki.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=1,2 "Built target Kulki"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=19,20 "Built target Kulki"
 .PHONY : CMakeFiles/Kulki.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Kulki.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 31
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Kulki.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 0
 .PHONY : CMakeFiles/Kulki.dir/rule
@@ -151,30 +302,56 @@ CMakeFiles/Kulki.dir/clean:
 .PHONY : CMakeFiles/Kulki.dir/clean
 
 #=============================================================================
-# Target rules for target src/CMakeFiles/source.dir
+# Target rules for target src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir
 
 # All Build rule for target.
-src/CMakeFiles/source.dir/all: src/object/ball/CMakeFiles/OBJECT_BALL.dir/all
-	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/source.dir/build.make src/CMakeFiles/source.dir/depend
-	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/source.dir/build.make src/CMakeFiles/source.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=5 "Built target source"
-.PHONY : src/CMakeFiles/source.dir/all
+src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/all:
+	$(MAKE) $(MAKESILENT) -f src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/build.make src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/build.make src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=1,2 "Built target FUNCTION_CRYPT"
+.PHONY : src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/all
 
 # Build rule for subdir invocation for target.
-src/CMakeFiles/source.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 3
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/source.dir/all
+src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 0
-.PHONY : src/CMakeFiles/source.dir/rule
+.PHONY : src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/rule
 
 # Convenience name for target.
-source: src/CMakeFiles/source.dir/rule
-.PHONY : source
+FUNCTION_CRYPT: src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/rule
+.PHONY : FUNCTION_CRYPT
 
 # clean rule for target.
-src/CMakeFiles/source.dir/clean:
-	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/source.dir/build.make src/CMakeFiles/source.dir/clean
-.PHONY : src/CMakeFiles/source.dir/clean
+src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/build.make src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/clean
+.PHONY : src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/clean
+
+#=============================================================================
+# Target rules for target src/function/font/CMakeFiles/FUNCTION_FONT.dir
+
+# All Build rule for target.
+src/function/font/CMakeFiles/FUNCTION_FONT.dir/all:
+	$(MAKE) $(MAKESILENT) -f src/function/font/CMakeFiles/FUNCTION_FONT.dir/build.make src/function/font/CMakeFiles/FUNCTION_FONT.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/function/font/CMakeFiles/FUNCTION_FONT.dir/build.make src/function/font/CMakeFiles/FUNCTION_FONT.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=7,8 "Built target FUNCTION_FONT"
+.PHONY : src/function/font/CMakeFiles/FUNCTION_FONT.dir/all
+
+# Build rule for subdir invocation for target.
+src/function/font/CMakeFiles/FUNCTION_FONT.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/function/font/CMakeFiles/FUNCTION_FONT.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 0
+.PHONY : src/function/font/CMakeFiles/FUNCTION_FONT.dir/rule
+
+# Convenience name for target.
+FUNCTION_FONT: src/function/font/CMakeFiles/FUNCTION_FONT.dir/rule
+.PHONY : FUNCTION_FONT
+
+# clean rule for target.
+src/function/font/CMakeFiles/FUNCTION_FONT.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/function/font/CMakeFiles/FUNCTION_FONT.dir/build.make src/function/font/CMakeFiles/FUNCTION_FONT.dir/clean
+.PHONY : src/function/font/CMakeFiles/FUNCTION_FONT.dir/clean
 
 #=============================================================================
 # Target rules for target src/object/ball/CMakeFiles/OBJECT_BALL.dir
@@ -183,7 +360,7 @@ src/CMakeFiles/source.dir/clean:
 src/object/ball/CMakeFiles/OBJECT_BALL.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/object/ball/CMakeFiles/OBJECT_BALL.dir/build.make src/object/ball/CMakeFiles/OBJECT_BALL.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/object/ball/CMakeFiles/OBJECT_BALL.dir/build.make src/object/ball/CMakeFiles/OBJECT_BALL.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=3,4 "Built target OBJECT_BALL"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=21,22 "Built target OBJECT_BALL"
 .PHONY : src/object/ball/CMakeFiles/OBJECT_BALL.dir/all
 
 # Build rule for subdir invocation for target.
@@ -201,6 +378,195 @@ OBJECT_BALL: src/object/ball/CMakeFiles/OBJECT_BALL.dir/rule
 src/object/ball/CMakeFiles/OBJECT_BALL.dir/clean:
 	$(MAKE) $(MAKESILENT) -f src/object/ball/CMakeFiles/OBJECT_BALL.dir/build.make src/object/ball/CMakeFiles/OBJECT_BALL.dir/clean
 .PHONY : src/object/ball/CMakeFiles/OBJECT_BALL.dir/clean
+
+#=============================================================================
+# Target rules for target src/object/map/CMakeFiles/OBJECT_MAP.dir
+
+# All Build rule for target.
+src/object/map/CMakeFiles/OBJECT_MAP.dir/all: src/object/ball/CMakeFiles/OBJECT_BALL.dir/all
+	$(MAKE) $(MAKESILENT) -f src/object/map/CMakeFiles/OBJECT_MAP.dir/build.make src/object/map/CMakeFiles/OBJECT_MAP.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/object/map/CMakeFiles/OBJECT_MAP.dir/build.make src/object/map/CMakeFiles/OBJECT_MAP.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=23,24,25,26,27,28,29 "Built target OBJECT_MAP"
+.PHONY : src/object/map/CMakeFiles/OBJECT_MAP.dir/all
+
+# Build rule for subdir invocation for target.
+src/object/map/CMakeFiles/OBJECT_MAP.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 9
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/object/map/CMakeFiles/OBJECT_MAP.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 0
+.PHONY : src/object/map/CMakeFiles/OBJECT_MAP.dir/rule
+
+# Convenience name for target.
+OBJECT_MAP: src/object/map/CMakeFiles/OBJECT_MAP.dir/rule
+.PHONY : OBJECT_MAP
+
+# clean rule for target.
+src/object/map/CMakeFiles/OBJECT_MAP.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/object/map/CMakeFiles/OBJECT_MAP.dir/build.make src/object/map/CMakeFiles/OBJECT_MAP.dir/clean
+.PHONY : src/object/map/CMakeFiles/OBJECT_MAP.dir/clean
+
+#=============================================================================
+# Target rules for target src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir
+
+# All Build rule for target.
+src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/all:
+	$(MAKE) $(MAKESILENT) -f src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/build.make src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/build.make src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=30,31 "Built target OBJECT_REDBOX"
+.PHONY : src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/all
+
+# Build rule for subdir invocation for target.
+src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 0
+.PHONY : src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/rule
+
+# Convenience name for target.
+OBJECT_REDBOX: src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/rule
+.PHONY : OBJECT_REDBOX
+
+# clean rule for target.
+src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/build.make src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/clean
+.PHONY : src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/clean
+
+#=============================================================================
+# Target rules for target src/function/load/CMakeFiles/FUNCTION_LOAD.dir
+
+# All Build rule for target.
+src/function/load/CMakeFiles/FUNCTION_LOAD.dir/all: src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/all
+	$(MAKE) $(MAKESILENT) -f src/function/load/CMakeFiles/FUNCTION_LOAD.dir/build.make src/function/load/CMakeFiles/FUNCTION_LOAD.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/function/load/CMakeFiles/FUNCTION_LOAD.dir/build.make src/function/load/CMakeFiles/FUNCTION_LOAD.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=9,10,11,12 "Built target FUNCTION_LOAD"
+.PHONY : src/function/load/CMakeFiles/FUNCTION_LOAD.dir/all
+
+# Build rule for subdir invocation for target.
+src/function/load/CMakeFiles/FUNCTION_LOAD.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 23
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/function/load/CMakeFiles/FUNCTION_LOAD.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 0
+.PHONY : src/function/load/CMakeFiles/FUNCTION_LOAD.dir/rule
+
+# Convenience name for target.
+FUNCTION_LOAD: src/function/load/CMakeFiles/FUNCTION_LOAD.dir/rule
+.PHONY : FUNCTION_LOAD
+
+# clean rule for target.
+src/function/load/CMakeFiles/FUNCTION_LOAD.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/function/load/CMakeFiles/FUNCTION_LOAD.dir/build.make src/function/load/CMakeFiles/FUNCTION_LOAD.dir/clean
+.PHONY : src/function/load/CMakeFiles/FUNCTION_LOAD.dir/clean
+
+#=============================================================================
+# Target rules for target src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir
+
+# All Build rule for target.
+src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/all: src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/all
+	$(MAKE) $(MAKESILENT) -f src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/build.make src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/build.make src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=3,4,5,6 "Built target FUNCTION_DRAWER"
+.PHONY : src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/all
+
+# Build rule for subdir invocation for target.
+src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 19
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 0
+.PHONY : src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/rule
+
+# Convenience name for target.
+FUNCTION_DRAWER: src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/rule
+.PHONY : FUNCTION_DRAWER
+
+# clean rule for target.
+src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/build.make src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/clean
+.PHONY : src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/clean
+
+#=============================================================================
+# Target rules for target src/function/thread/CMakeFiles/FUNCTION_THREAD.dir
+
+# All Build rule for target.
+src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/all: src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/all
+src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/all: src/object/ball/CMakeFiles/OBJECT_BALL.dir/all
+src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/all: src/object/map/CMakeFiles/OBJECT_MAP.dir/all
+src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/all: src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/all
+	$(MAKE) $(MAKESILENT) -f src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/build.make src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/build.make src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=17,18 "Built target FUNCTION_THREAD"
+.PHONY : src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/all
+
+# Build rule for subdir invocation for target.
+src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 15
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 0
+.PHONY : src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/rule
+
+# Convenience name for target.
+FUNCTION_THREAD: src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/rule
+.PHONY : FUNCTION_THREAD
+
+# clean rule for target.
+src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/build.make src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/clean
+.PHONY : src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/clean
+
+#=============================================================================
+# Target rules for target src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir
+
+# All Build rule for target.
+src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/all:
+	$(MAKE) $(MAKESILENT) -f src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/build.make src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/build.make src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=13,14 "Built target FUNCTION_MOUSE"
+.PHONY : src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/all
+
+# Build rule for subdir invocation for target.
+src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 0
+.PHONY : src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/rule
+
+# Convenience name for target.
+FUNCTION_MOUSE: src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/rule
+.PHONY : FUNCTION_MOUSE
+
+# clean rule for target.
+src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/build.make src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/clean
+.PHONY : src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/clean
+
+#=============================================================================
+# Target rules for target src/function/tester/CMakeFiles/FUNCTION_TESTER.dir
+
+# All Build rule for target.
+src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/all: src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/all
+src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/all: src/object/ball/CMakeFiles/OBJECT_BALL.dir/all
+src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/all: src/object/map/CMakeFiles/OBJECT_MAP.dir/all
+src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/all: src/function/load/CMakeFiles/FUNCTION_LOAD.dir/all
+src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/all: src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/all
+	$(MAKE) $(MAKESILENT) -f src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/build.make src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/build.make src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=15,16 "Built target FUNCTION_TESTER"
+.PHONY : src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/all
+
+# Build rule for subdir invocation for target.
+src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 25
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles 0
+.PHONY : src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/rule
+
+# Convenience name for target.
+FUNCTION_TESTER: src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/rule
+.PHONY : FUNCTION_TESTER
+
+# clean rule for target.
+src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/build.make src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/clean
+.PHONY : src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

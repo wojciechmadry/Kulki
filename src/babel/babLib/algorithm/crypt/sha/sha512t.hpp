@@ -11,7 +11,7 @@
 
 namespace babel::ALGO::CRYPT{
     template< std::size_t T >
-    std::string sha512t(const std::string &HASH) noexcept
+    inline std::string sha512t(const std::string &HASH) noexcept
     {
         using WORD = babel::CONCEPTS::type_of_number<8, false>::type;
 

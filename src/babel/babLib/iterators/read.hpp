@@ -146,7 +146,7 @@ namespace babel::ITERATOR{
     };
 }  // namespace babel::ITERATOR
 
-std::ostream &operator<<(std::ostream &Of, const babel::ITERATOR::reader &Reader) noexcept
+inline std::ostream &operator<<(std::ostream &Of, const babel::ITERATOR::reader &Reader) noexcept
 {
     Of << Reader.line();
     return Of;

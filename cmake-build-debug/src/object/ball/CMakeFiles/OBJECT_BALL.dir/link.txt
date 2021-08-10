@@ -1,1 +1,2 @@
-/usr/local/bin/g++ -fPIC -g -shared -Wl,-soname,libOBJECT_BALL.so -o libOBJECT_BALL.so CMakeFiles/OBJECT_BALL.dir/ball.cpp.o   -L/home/wojtek/SFML-2.5.1/lib 
+/usr/bin/ar qc libOBJECT_BALL.a CMakeFiles/OBJECT_BALL.dir/ball.cpp.o
+/usr/bin/ranlib libOBJECT_BALL.a

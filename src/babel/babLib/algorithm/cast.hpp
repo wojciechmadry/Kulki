@@ -57,7 +57,7 @@ namespace babel::ALGO::CAST{
 */
     template< typename T >
     requires ( std::is_signed_v<T> || std::is_unsigned_v<T> )
-    constexpr auto signed_unsigned_conv(const T data) noexcept
+    inline constexpr auto signed_unsigned_conv(const T data) noexcept
     {
         return static_cast< typename babel::CONCEPTS::type_of_number<static_cast<uint8_t>(sizeof(data)), !std::is_signed_v<T>>::type >(data);
     }
@@ -203,7 +203,7 @@ namespace babel::ALGO::CAST{
     *  @return No return
     */
     template< typename T >
-    void swap(T &lhs, T &rhs) noexcept
+    inline void swap(T &lhs, T &rhs) noexcept
     {
         T temp = std::move(lhs);
         lhs = std::move(rhs);
@@ -212,7 +212,7 @@ namespace babel::ALGO::CAST{
 
     template< typename T >
     requires(std::is_integral_v<std::decay_t<T>>)
-    [[nodiscard]] std::string to_hex(const T number) noexcept
+    [[nodiscard]] inline std::string to_hex(const T number) noexcept
     {
         std::string res;
         res.reserve(sizeof(T) * 2);
@@ -233,7 +233,7 @@ namespace babel::ALGO::CAST{
     }
 
     template< typename T >
-    [[nodiscard]] std::string to_bits(const T number) noexcept
+    [[nodiscard]] inline std::string to_bits(const T number) noexcept
     {
         return std::bitset<sizeof(T) << 3>(static_cast<uint64_t>(number)).to_string();
     }

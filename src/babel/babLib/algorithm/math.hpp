@@ -21,7 +21,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
 */
             template< typename Function, typename TYPE = double >
-            [[nodiscard]] auto by_definiton(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] inline auto by_definiton(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto { return ( func(x + h) - func(x) ) / h; };
             }
@@ -33,7 +33,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
 */
             template< typename Function, typename TYPE = double >
-            [[nodiscard]] auto three_point(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] inline auto three_point(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto { return ( func(x + h) - func(x - h) ) / ( 2.0 * h ); };
             }
@@ -45,7 +45,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
 */
             template< typename Function, typename TYPE = double >
-            [[nodiscard]] auto five_point(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] inline auto five_point(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto {
                     return ( -func(x + 2.0 * h) + 8 * func(x + h) - 8.0 * func(x - h) + func(x - 2.0 * h) ) /
@@ -60,7 +60,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
 */
             template< typename Function, typename TYPE = double >
-            [[nodiscard]] auto forward(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] inline auto forward(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto {
                     return ( -3.0 * func(x) + 4.0 * func(x + h) - func(x + 2.0 * h) ) / ( 2.0 * h );
@@ -74,7 +74,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
 */
             template< typename Function, typename TYPE = double >
-            [[nodiscard]] auto central(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] inline auto central(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto { return ( func(x + h) - func(x - h) ) / ( 2.0 * h ); };
             }
@@ -86,7 +86,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the derivative of.
 */
             template< typename Function, typename TYPE = double >
-            [[nodiscard]] auto backward(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] inline auto backward(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto {
                     return ( func(x - 2.0 * h) - 4.0 * func(x - h) + 3.0 * func(x) ) / ( 2.0 * h );
@@ -101,7 +101,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the second derivative of.
 */
             template< typename Function, typename TYPE = double >
-            [[nodiscard]] auto three_point(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] inline auto three_point(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto {
                     return ( func(x + h) - 2.0 * func(x) + func(x - h) ) / ( std::pow(h, 2.0) );
@@ -115,7 +115,7 @@ namespace babel::ALGO::MATH{
 *  @return Returns a function that takes one parameter of x, that evaluates to the second derivative of.
 */
             template< typename Function, typename TYPE = double >
-            [[nodiscard]] auto five_point(const Function func, const double h = 0.00001) noexcept
+            [[nodiscard]] inline auto five_point(const Function func, const double h = 0.00001) noexcept
             {
                 return [func, h](const TYPE x) -> auto {
                     return ( -func(x + 2.0 * h) + 16.0 * func(x + h) - 30.0 * func(x) + 16.0 * func(x - h) -
@@ -189,7 +189,7 @@ namespace babel::ALGO::MATH{
  */
     template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires(babel::CONCEPTS::IS_CONTAINER<T>)
-    constexpr void abs(T &v)
+    constexpr inline void abs(T &v)
     {
         std::for_each(std::begin(v), std::end(v), [](U &val) { val = babel::ALGO::MATH::abs(val); });
     }
@@ -222,7 +222,7 @@ namespace babel::ALGO::MATH{
 */
     template< typename T, typename ... Args >
     requires ( !babel::CONCEPTS::IS_CONTAINER<T> )
-    [[nodiscard]] constexpr T max(T value1, T value2, T value3, Args... arg) noexcept
+    [[nodiscard]] inline constexpr T max(T value1, T value2, T value3, Args... arg) noexcept
     {
         if ( value1 < value2 )
             value1 = value2;
@@ -264,7 +264,7 @@ namespace babel::ALGO::MATH{
 *  @return Return the lowest number
 */
     template< typename T, typename ... Args >
-    [[nodiscard]] constexpr T min(T value1, T value2, T value3, Args... arg) noexcept
+    [[nodiscard]] inline constexpr T min(T value1, T value2, T value3, Args... arg) noexcept
     {
         if ( value1 > value2 )
             value1 = value2;
@@ -290,7 +290,7 @@ namespace babel::ALGO::MATH{
     */
     template< typename T, typename U =babel::CONCEPTS::type_in<T>>
     requires babel::CONCEPTS::IS_CONTAINER<T>
-    [[nodiscard]] constexpr U max(const T &Container) noexcept
+    [[nodiscard]] inline constexpr U max(const T &Container) noexcept
     {
         if ( Container.size() == 0 )
             return { };
@@ -312,7 +312,7 @@ namespace babel::ALGO::MATH{
    */
     template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires babel::CONCEPTS::IS_CONTAINER<T>
-    [[nodiscard]] constexpr U min(const T &Container) noexcept
+    [[nodiscard]] inline constexpr U min(const T &Container) noexcept
     {
         if ( Container.size() == 0 )
             return { };
@@ -345,7 +345,7 @@ namespace babel::ALGO::MATH{
     *  @return Factorial N
     */
     template< uint64_t N >
-    [[nodiscard]] consteval uint64_t factorial() noexcept
+    [[nodiscard]] inline consteval uint64_t factorial() noexcept
     {
         uint64_t res = 1;
         for ( size_t i = 2 ; i <= N ; ++i )
@@ -361,7 +361,7 @@ namespace babel::ALGO::MATH{
 *  @return Factorial N
 */
 
-    [[nodiscard]] constexpr uint64_t factorial(uint64_t N) noexcept
+    [[nodiscard]] inline constexpr uint64_t factorial(uint64_t N) noexcept
     {
         uint64_t res = 1;
         while ( N > 1 )
@@ -378,7 +378,7 @@ namespace babel::ALGO::MATH{
      *  n >= k >= 0
 *  @return Binomial coefficient
 */
-    [[nodiscard]] constexpr double binomial_coefficient(const uint64_t N, const uint64_t K)
+    [[nodiscard]] inline constexpr double binomial_coefficient(const uint64_t N, const uint64_t K)
     {
         if ( K > N )
             throw std::out_of_range("K > N.");
@@ -391,7 +391,7 @@ namespace babel::ALGO::MATH{
 *  @return Binomial coefficient
 */
     template< uint64_t N, uint64_t K >
-    [[nodiscard]] consteval double binomial_coefficient()
+    [[nodiscard]] inline consteval double binomial_coefficient()
     {
         if ( K > N )
             throw std::out_of_range("K > N.");
@@ -402,7 +402,7 @@ namespace babel::ALGO::MATH{
    *  @param   n Fibonacci number
    *  @return Fibonacci N
    */
-    [[nodiscard]] uint64_t fib(unsigned n) noexcept
+    [[nodiscard]] inline uint64_t fib(unsigned n) noexcept
     {
         uint64_t F[2][2] = {{1, 1},
                             {1, 0}};
@@ -594,7 +594,7 @@ namespace babel::ALGO::MATH{
 */
     template< typename T >
     requires ( std::is_integral_v<T> && !std::is_signed_v<T> )
-    [[nodiscard]] std::vector<T> prime_factors(T number) noexcept
+    [[nodiscard]] inline std::vector<T> prime_factors(T number) noexcept
     {
         if ( number <= 2 )
             return {number};
@@ -618,7 +618,7 @@ namespace babel::ALGO::MATH{
 */
     template< typename T >
     requires std::is_integral_v<T>
-    [[nodiscard]] constexpr T gcd(T x, T y) noexcept
+    [[nodiscard]] inline constexpr T gcd(T x, T y) noexcept
     {
         while ( x % y != 0 )
         {
@@ -653,7 +653,7 @@ namespace babel::ALGO::MATH{
 */
     template< typename T >
     requires std::is_floating_point_v<T>
-    [[nodiscard]] std::vector<T> find_x(const T a, const T b, const T c) noexcept
+    [[nodiscard]] inline std::vector<T> find_x(const T a, const T b, const T c) noexcept
     {
         std::vector<T> zeros;
         auto _delta = delta(a, b, c);
@@ -706,7 +706,7 @@ namespace babel::ALGO::MATH{
 *  @param  n Number
 *  @return Return 1 if n is automorphic or 0 if not.
 */
-    [[nodiscard]] constexpr bool is_automorphic(int64_t n) noexcept
+    [[nodiscard]] inline constexpr bool is_automorphic(int64_t n) noexcept
     {
         n = babel::ALGO::MATH::abs(n);
         uint16_t digits = 0;
@@ -723,7 +723,7 @@ namespace babel::ALGO::MATH{
 */
     template< typename Container, typename T = babel::CONCEPTS::type_in<Container> >
     requires ( babel::CONCEPTS::IS_FLOATING_POINT<T> && babel::CONCEPTS::IS_CONTAINER<Container> )
-    [[nodiscard]] std::vector<std::complex<T>> FFT(const Container &probes) noexcept
+    [[nodiscard]] inline std::vector<std::complex<T>> FFT(const Container &probes) noexcept
     {
         std::function<void(std::vector<std::complex<T>> &)> ditfft2;
         ditfft2 = [&ditfft2](std::vector<std::complex<T>> &fn) -> void {
@@ -755,8 +755,8 @@ namespace babel::ALGO::MATH{
 
     class random_generator
     {
-        inline static std::mt19937 gen {
-                static_cast<unsigned int>(std::chrono::system_clock::now().time_since_epoch().count())}; //NOLINT
+        std::mt19937 gen {
+                static_cast<unsigned int>(std::chrono::system_clock::now().time_since_epoch().count())};
     public:
         random_generator() = default;
 
@@ -764,26 +764,26 @@ namespace babel::ALGO::MATH{
 
         template< typename Vec >
         requires babel::CONCEPTS::IS_CONTAINER<Vec>
-        static void random_shuffle(Vec &to_shuffle) noexcept
+        void random_shuffle(Vec &to_shuffle) noexcept
         {
             std::shuffle(to_shuffle.begin(), to_shuffle.end(), gen);
         }
 
-        [[nodiscard]] static bool generate() noexcept
+        [[nodiscard]] bool generate() noexcept
         {
             return std::uniform_int_distribution<uint8_t>(0, 1)(gen);
         }
 
         template< typename T = int >
         requires ( std::is_integral_v<T> && !std::is_same_v<std::decay_t<T>, bool> )
-        [[nodiscard]] static T generate(const T min, const T max) noexcept
+        [[nodiscard]] T generate(const T min, const T max) noexcept
         {
             return std::uniform_int_distribution<T>(min, max)(gen);
         }
 
         template< typename T = float, uint8_t after_coma = 2 >
         requires(std::is_floating_point_v<T>)
-        [[nodiscard]] static T generate(const T min, const T max) noexcept
+        [[nodiscard]]  T generate(const T min, const T max) noexcept
         {
             return std::uniform_real_distribution<T>(min, max)(gen);
         }

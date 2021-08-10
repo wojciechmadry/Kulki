@@ -266,103 +266,103 @@ namespace babel::CHAR{
 
 
     // OPERATORS
-    std::ostream &operator<<(std::ostream &os, const ASCII_CHAR &_asci)
+    inline std::ostream &operator<<(std::ostream &os, const ASCII_CHAR &_asci)
     {
         return os << _asci.m_member;
     }
 
-    std::istream &operator>>(std::istream &is, ASCII_CHAR &_asci)
+    inline std::istream &operator>>(std::istream &is, ASCII_CHAR &_asci)
     {
         is >> _asci.m_member;
         return is;
     }
 
-    constexpr bool operator==(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
+    inline constexpr bool operator==(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
     {
         return lhs.m_member == rhs.m_member;
     }
 
-    constexpr bool operator==(const ASCII_CHAR &lhs, const char &rhs)
+    inline constexpr bool operator==(const ASCII_CHAR &lhs, const char &rhs)
     {
         return lhs.m_member == rhs;
     }
 
-    constexpr bool operator==(const char &lhs, const ASCII_CHAR &rhs)
+    inline constexpr bool operator==(const char &lhs, const ASCII_CHAR &rhs)
     {
         return lhs == rhs.m_member;
     }
 
-    constexpr bool operator>(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
+    inline constexpr bool operator>(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
     {
         return lhs.m_member > rhs.m_member;
     }
 
-    constexpr bool operator>(const char &lhs, const ASCII_CHAR &rhs)
+    inline constexpr bool operator>(const char &lhs, const ASCII_CHAR &rhs)
     {
         return lhs > rhs.m_member;
     }
 
-    constexpr bool operator>(const ASCII_CHAR &lhs, const char &rhs)
+    inline constexpr bool operator>(const ASCII_CHAR &lhs, const char &rhs)
     {
         return lhs.m_member > rhs;
     }
 
-    constexpr bool operator>=(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
+    inline constexpr bool operator>=(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
     {
         return lhs.m_member >= rhs.m_member;
     }
 
-    constexpr bool operator>=(const char &lhs, const ASCII_CHAR &rhs)
+    inline constexpr bool operator>=(const char &lhs, const ASCII_CHAR &rhs)
     {
         return lhs >= rhs.m_member;
     }
 
-    constexpr bool operator>=(const ASCII_CHAR &lhs, const char &rhs)
+    inline constexpr bool operator>=(const ASCII_CHAR &lhs, const char &rhs)
     {
         return lhs.m_member >= rhs;
     }
 
-    constexpr bool operator<(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
+    inline constexpr bool operator<(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
     {
         return lhs.m_member < rhs.m_member;
     }
 
-    constexpr bool operator<(const char &lhs, const ASCII_CHAR &rhs)
+    inline constexpr bool operator<(const char &lhs, const ASCII_CHAR &rhs)
     {
         return lhs < rhs.m_member;
     }
 
-    constexpr bool operator<(const ASCII_CHAR &lhs, const char &rhs)
+    inline constexpr bool operator<(const ASCII_CHAR &lhs, const char &rhs)
     {
         return lhs.m_member < rhs;
     }
 
-    constexpr bool operator<=(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
+    inline constexpr bool operator<=(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
     {
         return lhs.m_member <= rhs.m_member;
     }
 
-    constexpr bool operator<=(const char &lhs, const ASCII_CHAR &rhs)
+    inline constexpr bool operator<=(const char &lhs, const ASCII_CHAR &rhs)
     {
         return lhs <= rhs.m_member;
     }
 
-    constexpr bool operator<=(const ASCII_CHAR &lhs, const char &rhs)
+    inline constexpr bool operator<=(const ASCII_CHAR &lhs, const char &rhs)
     {
         return lhs.m_member <= rhs;
     }
 
-    constexpr bool operator!=(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
+    inline constexpr bool operator!=(const ASCII_CHAR &lhs, const ASCII_CHAR &rhs)
     {
         return lhs.m_member != rhs.m_member;
     }
 
-    constexpr bool operator!=(const char &lhs, const ASCII_CHAR &rhs)
+    inline constexpr bool operator!=(const char &lhs, const ASCII_CHAR &rhs)
     {
         return lhs != rhs.m_member;
     }
 
-    constexpr bool operator!=(const ASCII_CHAR &lhs, const char &rhs)
+    inline constexpr bool operator!=(const ASCII_CHAR &lhs, const char &rhs)
     {
         return lhs.m_member != rhs;
     }

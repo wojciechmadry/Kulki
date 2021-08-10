@@ -47,3 +47,13 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/ball/cmake_install.cmake")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box/cmake_install.cmake")
+endif()
+

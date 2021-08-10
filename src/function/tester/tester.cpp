@@ -1,16 +1,15 @@
-#ifndef KULKI_TESTED
-#define KULKI_TESTED
+#include "tester.hpp"
 
-
+#include "babel/babel.hpp"
 #include <chrono>
 #include <thread>
 #include <atomic>
-#include "babel.hpp"
-#include "drawer.hpp"
+#include "function/drawer/drawer.hpp"
 #include <iostream>
 
-void Play_Test_Games(int64_t test = -1, int32_t threads = -1)
+void Play_Test_Games(int64_t test, int32_t threads)
 {
+    babel::ALGO::MATH::random_generator rg;
     int32_t record = -1;
     auto game = [=,&record]() mutable{
         bool is_inf = test==-1;
@@ -32,10 +31,10 @@ void Play_Test_Games(int64_t test = -1, int32_t threads = -1)
             }
             do
             {
-                from.first = babel::ALGO::MATH::random_generator::generate<uint8_t>(0, 8);
-                from.second = babel::ALGO::MATH::random_generator::generate<uint8_t>(0, 8);
-                to.first = babel::ALGO::MATH::random_generator::generate<uint8_t>(0, 8);
-                to.second = babel::ALGO::MATH::random_generator::generate<uint8_t>(0, 8);
+                from.first = rg.generate<uint8_t>(0, 8);
+                from.second = rg.generate<uint8_t>(0, 8);
+                to.first = rg.generate<uint8_t>(0, 8);
+                to.second = rg.generate<uint8_t>(0, 8);
             }while(!Game.can_move(from, to));
             Game.move(from, to);
             ++counter;
@@ -52,5 +51,3 @@ void Play_Test_Games(int64_t test = -1, int32_t threads = -1)
         if(th.joinable())
             th.join();
 }
-
-#endif

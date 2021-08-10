@@ -116,20 +116,6 @@ depend:
 	cd /home/wojtek/Desktop/Git/kulki/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-# Convenience name for target.
-src/CMakeFiles/source.dir/rule:
-	cd /home/wojtek/Desktop/Git/kulki/cmake-build-debug && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/source.dir/rule
-.PHONY : src/CMakeFiles/source.dir/rule
-
-# Convenience name for target.
-source: src/CMakeFiles/source.dir/rule
-.PHONY : source
-
-# fast build rule for target.
-source/fast:
-	cd /home/wojtek/Desktop/Git/kulki/cmake-build-debug && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/source.dir/build.make src/CMakeFiles/source.dir/build
-.PHONY : source/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -138,7 +124,6 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... source"
 .PHONY : help
 
 

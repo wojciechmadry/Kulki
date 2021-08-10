@@ -53,7 +53,7 @@ namespace babel::WINDOWS::DISPLAY
  *  \Example_2 return {1080, 720}
 *  @return Pair of first ( width ) and second ( height)
 */
-    [[nodiscard]] std::pair<std::size_t, std::size_t> get_screen_resolution() noexcept
+    [[nodiscard]] inline std::pair<std::size_t, std::size_t> get_screen_resolution() noexcept
     {
         RECT rect;
         GetClientRect(GetDesktopWindow(), &rect);
@@ -66,7 +66,7 @@ namespace babel::WINDOWS::SYSTEM{
 *  @brief  Find all available disc
 *  @return Vector of discs ex.: "C:/", "D:/" etc.
 */
-    std::vector<std::string> all_discs() noexcept
+    inline std::vector<std::string> all_discs() noexcept
     {
         std::vector<std::string> Discs;
         for ( char letter = 'A' ; letter <= 'Z' ; ++letter )

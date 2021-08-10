@@ -7,9 +7,7 @@ if(UNIX)
     find_package(Threads REQUIRED)
 endif(UNIX)
 
-include_directories(src/babel)
-include_directories(src/function)
-include_directories(src/object)
+include_directories(src)
 
 set(INCLUDE /home/wojtek/SFML-2.5.1/include/)
 set(LIB /home/wojtek/SFML-2.5.1/lib/)
@@ -44,5 +42,5 @@ if(UNIX)
     target_link_libraries(Kulki PUBLIC Threads::Threads)
 endif(UNIX)
 
-target_link_libraries(Kulki PRIVATE source)
+target_link_libraries(Kulki PRIVATE ${LIBRARIES})
 

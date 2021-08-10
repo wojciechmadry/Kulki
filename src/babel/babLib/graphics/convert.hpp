@@ -8,7 +8,7 @@
 namespace babel::GRAPHICS{
     using byte = uint8_t;
 
-    constexpr cmyk RGB_TO_CMYK(const rgb &_rgb) noexcept
+    inline constexpr cmyk RGB_TO_CMYK(const rgb &_rgb) noexcept
     {
         auto rp = static_cast<double>(_rgb.R()) / 255.0;
         auto gp = static_cast<double>(_rgb.G()) / 255.0;
@@ -22,7 +22,7 @@ namespace babel::GRAPHICS{
         return cmyk(static_cast<byte>(c), static_cast<byte>(m), static_cast<byte>(y), static_cast<byte>(k));
     }
 
-    constexpr rgb CMYK_TO_RGB(const cmyk &_cmyk) noexcept
+    inline constexpr rgb CMYK_TO_RGB(const cmyk &_cmyk) noexcept
     {
         auto c = static_cast<double>(_cmyk.C()) / 100.0;
         auto m = static_cast<double>(_cmyk.M()) / 100.0;

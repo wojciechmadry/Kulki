@@ -24,7 +24,7 @@ namespace babel::SYSTEM{
 *  \Example_2 return 8
 *  @return Number of processor thread
 */
-    [[nodiscard]] auto number_of_threads() noexcept
+    [[nodiscard]] inline auto number_of_threads() noexcept
     {
         if constexpr( sizeof(void *) == 8 )
         {
@@ -49,7 +49,7 @@ namespace babel::SYSTEM{
 *  \Example_2 return 2
 *  @return Return std::string
 */
-    [[nodiscard]] std::string threadID_as_string(const std::thread::id ID = std::this_thread::get_id()) noexcept
+    [[nodiscard]] inline std::string threadID_as_string(const std::thread::id ID = std::this_thread::get_id()) noexcept
     {
         std::stringstream StringStream;
         StringStream << ID;
@@ -64,36 +64,37 @@ namespace babel::SYSTEM{
 */
     template< typename Func, typename ... Args >
     requires(babel::CONCEPTS::IS_VOID_RETURN<Func, Args...>)
-    [[nodiscard]] std::thread call_function_on_another_thread(Func
-    function,
-    Args &&... args
-    ) noexcept{
-    std::thread thTemporaryThread(function, std::forward<Args>(args)...);
-    return
-    thTemporaryThread;
-}
-
-namespace DISPLAY{
-    [[nodiscard]] std::pair<std::size_t, std::size_t> get_screen_resolution() noexcept
+    [[nodiscard]] inline std::thread call_function_on_another_thread(Func
+                                                                     function,
+                                                                     Args &&... args
+    ) noexcept
     {
-#ifdef linux
-        return babel::LINUX::DISPLAY::get_screen_resolution();
-#elif _WIN32
-        return babel::WINDOWS::DISPLAY::get_screen_resolution();
-#endif
+        std::thread thTemporaryThread(function, std::forward<Args>(args)...);
+        return
+                thTemporaryThread;
     }
-}  // namespace DISPLAY
 
-namespace SYSTEM{
-    std::vector<std::string> all_discs() noexcept
-    {
+    namespace DISPLAY{
+        [[nodiscard]] inline std::pair<std::size_t, std::size_t> get_screen_resolution() noexcept
+        {
 #ifdef linux
-        return babel::LINUX::SYSTEM::all_discs();
+            return babel::LINUX::DISPLAY::get_screen_resolution();
 #elif _WIN32
-        return babel::WINDOWS::SYSTEM::all_discs();
+            return babel::WINDOWS::DISPLAY::get_screen_resolution();
 #endif
-    }
-}  // namespace SYSTEM
+        }
+    }  // namespace DISPLAY
+
+    namespace SYSTEM{
+        inline std::vector<std::string> all_discs() noexcept
+        {
+#ifdef linux
+            return babel::LINUX::SYSTEM::all_discs();
+#elif _WIN32
+            return babel::WINDOWS::SYSTEM::all_discs();
+#endif
+        }
+    }  // namespace SYSTEM
 
 }  // namespace babel::SYSTEM
 #endif  // BABLIB_SYSTEM_SYSTEM_HPP_

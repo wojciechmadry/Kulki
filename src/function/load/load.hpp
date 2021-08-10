@@ -1,0 +1,33 @@
+//
+// Created by Wojtek on 22.11.2020.
+//
+
+#ifndef KULKI_LOAD_HPP
+#define KULKI_LOAD_HPP
+
+#include <SFML/Graphics/Font.hpp>
+#include <string>
+#include <cstdint>
+#include "object/map/map.hpp"
+
+// load font
+sf::Font load_font(const std::string &path);
+
+std::pair<uint32_t, uint32_t> load_resolution() noexcept;
+
+uint32_t load_fps() noexcept;
+
+// Check for crypted record in file
+// If file doesn't exist
+// or crypted is broken
+// record set to 0
+uint16_t check_for_record();
+
+// Save new record (crypt is very easy) to file
+void save_record(uint16_t new_record);
+
+map load_map() noexcept;
+
+void save_map(const map &Map) noexcept;
+
+#endif //KULKI_LOAD_HPP

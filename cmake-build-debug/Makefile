@@ -130,17 +130,30 @@ Kulki/fast:
 .PHONY : Kulki/fast
 
 #=============================================================================
-# Target rules for targets named source
+# Target rules for targets named FUNCTION_CRYPT
 
 # Build rule for target.
-source: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source
-.PHONY : source
+FUNCTION_CRYPT: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 FUNCTION_CRYPT
+.PHONY : FUNCTION_CRYPT
 
 # fast build rule for target.
-source/fast:
-	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/source.dir/build.make src/CMakeFiles/source.dir/build
-.PHONY : source/fast
+FUNCTION_CRYPT/fast:
+	$(MAKE) $(MAKESILENT) -f src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/build.make src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/build
+.PHONY : FUNCTION_CRYPT/fast
+
+#=============================================================================
+# Target rules for targets named FUNCTION_FONT
+
+# Build rule for target.
+FUNCTION_FONT: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 FUNCTION_FONT
+.PHONY : FUNCTION_FONT
+
+# fast build rule for target.
+FUNCTION_FONT/fast:
+	$(MAKE) $(MAKESILENT) -f src/function/font/CMakeFiles/FUNCTION_FONT.dir/build.make src/function/font/CMakeFiles/FUNCTION_FONT.dir/build
+.PHONY : FUNCTION_FONT/fast
 
 #=============================================================================
 # Target rules for targets named OBJECT_BALL
@@ -154,6 +167,97 @@ OBJECT_BALL: cmake_check_build_system
 OBJECT_BALL/fast:
 	$(MAKE) $(MAKESILENT) -f src/object/ball/CMakeFiles/OBJECT_BALL.dir/build.make src/object/ball/CMakeFiles/OBJECT_BALL.dir/build
 .PHONY : OBJECT_BALL/fast
+
+#=============================================================================
+# Target rules for targets named OBJECT_MAP
+
+# Build rule for target.
+OBJECT_MAP: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 OBJECT_MAP
+.PHONY : OBJECT_MAP
+
+# fast build rule for target.
+OBJECT_MAP/fast:
+	$(MAKE) $(MAKESILENT) -f src/object/map/CMakeFiles/OBJECT_MAP.dir/build.make src/object/map/CMakeFiles/OBJECT_MAP.dir/build
+.PHONY : OBJECT_MAP/fast
+
+#=============================================================================
+# Target rules for targets named OBJECT_REDBOX
+
+# Build rule for target.
+OBJECT_REDBOX: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 OBJECT_REDBOX
+.PHONY : OBJECT_REDBOX
+
+# fast build rule for target.
+OBJECT_REDBOX/fast:
+	$(MAKE) $(MAKESILENT) -f src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/build.make src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/build
+.PHONY : OBJECT_REDBOX/fast
+
+#=============================================================================
+# Target rules for targets named FUNCTION_LOAD
+
+# Build rule for target.
+FUNCTION_LOAD: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 FUNCTION_LOAD
+.PHONY : FUNCTION_LOAD
+
+# fast build rule for target.
+FUNCTION_LOAD/fast:
+	$(MAKE) $(MAKESILENT) -f src/function/load/CMakeFiles/FUNCTION_LOAD.dir/build.make src/function/load/CMakeFiles/FUNCTION_LOAD.dir/build
+.PHONY : FUNCTION_LOAD/fast
+
+#=============================================================================
+# Target rules for targets named FUNCTION_DRAWER
+
+# Build rule for target.
+FUNCTION_DRAWER: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 FUNCTION_DRAWER
+.PHONY : FUNCTION_DRAWER
+
+# fast build rule for target.
+FUNCTION_DRAWER/fast:
+	$(MAKE) $(MAKESILENT) -f src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/build.make src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/build
+.PHONY : FUNCTION_DRAWER/fast
+
+#=============================================================================
+# Target rules for targets named FUNCTION_THREAD
+
+# Build rule for target.
+FUNCTION_THREAD: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 FUNCTION_THREAD
+.PHONY : FUNCTION_THREAD
+
+# fast build rule for target.
+FUNCTION_THREAD/fast:
+	$(MAKE) $(MAKESILENT) -f src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/build.make src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/build
+.PHONY : FUNCTION_THREAD/fast
+
+#=============================================================================
+# Target rules for targets named FUNCTION_MOUSE
+
+# Build rule for target.
+FUNCTION_MOUSE: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 FUNCTION_MOUSE
+.PHONY : FUNCTION_MOUSE
+
+# fast build rule for target.
+FUNCTION_MOUSE/fast:
+	$(MAKE) $(MAKESILENT) -f src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/build.make src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/build
+.PHONY : FUNCTION_MOUSE/fast
+
+#=============================================================================
+# Target rules for targets named FUNCTION_TESTER
+
+# Build rule for target.
+FUNCTION_TESTER: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 FUNCTION_TESTER
+.PHONY : FUNCTION_TESTER
+
+# fast build rule for target.
+FUNCTION_TESTER/fast:
+	$(MAKE) $(MAKESILENT) -f src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/build.make src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/build
+.PHONY : FUNCTION_TESTER/fast
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -187,9 +291,17 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... FUNCTION_CRYPT"
+	@echo "... FUNCTION_DRAWER"
+	@echo "... FUNCTION_FONT"
+	@echo "... FUNCTION_LOAD"
+	@echo "... FUNCTION_MOUSE"
+	@echo "... FUNCTION_TESTER"
+	@echo "... FUNCTION_THREAD"
 	@echo "... Kulki"
 	@echo "... OBJECT_BALL"
-	@echo "... source"
+	@echo "... OBJECT_MAP"
+	@echo "... OBJECT_REDBOX"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

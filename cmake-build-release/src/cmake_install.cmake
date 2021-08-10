@@ -44,6 +44,51 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/cmake_install.cmake")
+  include("/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/crypt/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/font/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/ball/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/load/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/drawer/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/thread/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/mouse/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/tester/cmake_install.cmake")
 endif()
 

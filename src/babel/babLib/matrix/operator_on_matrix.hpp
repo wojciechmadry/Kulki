@@ -15,7 +15,7 @@ namespace babel::MATRIX{
     using POSITION = uint64_t;
 
     template< typename T = double >
-    matrix<T>
+    inline matrix<T>
     zeros(const POSITION first_size, const POSITION second_size = std::numeric_limits<POSITION>::max()) noexcept
     {
         if ( second_size == std::numeric_limits<POSITION>::max() )
@@ -24,7 +24,7 @@ namespace babel::MATRIX{
     }
 
     template< typename T = double >
-    matrix<T>
+    inline matrix<T>
     ones(const POSITION first_size, const POSITION second_size = std::numeric_limits<POSITION>::max()) noexcept
     {
         if ( second_size == std::numeric_limits<POSITION>::max() )
@@ -33,7 +33,7 @@ namespace babel::MATRIX{
     }
 
     template< typename T = double, typename U = double >
-    matrix<T> add(const matrix<T> &Matrix, const U number) noexcept
+    inline matrix<T> add(const matrix<T> &Matrix, const U number) noexcept
     {
         matrix<T> cpy = Matrix;
         auto rows = Matrix.rows();
@@ -46,7 +46,7 @@ namespace babel::MATRIX{
 
 
     template< typename T = double, typename U = double >
-    matrix<T> add(const matrix<T> &Matrix1, const matrix<U> &Matrix2)
+    inline matrix<T> add(const matrix<T> &Matrix1, const matrix<U> &Matrix2)
     {
         auto rows = Matrix1.rows();
         auto cols = Matrix1.cols();
@@ -60,7 +60,7 @@ namespace babel::MATRIX{
     }
 
     template< typename T = double, typename U = double >
-    matrix<T> subtract(const matrix<T> &Matrix, const U number) noexcept
+    inline matrix<T> subtract(const matrix<T> &Matrix, const U number) noexcept
     {
         matrix<T> cpy = Matrix;
         auto rows = Matrix.rows();
@@ -73,7 +73,7 @@ namespace babel::MATRIX{
 
 
     template< typename T = double, typename U = double >
-    matrix<T> subtract(const matrix<T> &Matrix1, const matrix<U> &Matrix2)
+    inline matrix<T> subtract(const matrix<T> &Matrix1, const matrix<U> &Matrix2)
     {
         auto rows = Matrix1.rows();
         auto cols = Matrix1.cols();
@@ -87,7 +87,7 @@ namespace babel::MATRIX{
     }
 
     template< typename T = double >
-    matrix<T> transpose(const matrix<T> &Matrix1) noexcept
+    inline matrix<T> transpose(const matrix<T> &Matrix1) noexcept
     {
         return matrix<T>(Matrix1).transpose();
     }

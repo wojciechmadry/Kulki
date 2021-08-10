@@ -1,11 +1,12 @@
 #ifndef KULKI_RESOURCE_HPP
 #define KULKI_RESOURCE_HPP
 
+#include <SFML/Graphics.hpp>
 #include <unordered_map>
 #include <memory>
 #include <mutex>
 #include <condition_variable>
-#include "babel.hpp"
+#include "babel/babel.hpp"
 
 enum class ResourceType
 {

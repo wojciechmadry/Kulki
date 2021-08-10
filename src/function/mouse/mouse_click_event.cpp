@@ -1,20 +1,13 @@
-//
-// Created by Wojtek on 26.04.2021.
-//
-
-#ifndef KULKI_MOUSE_CLICK_EVENT_HPP
-#define KULKI_MOUSE_CLICK_EVENT_HPP
-
-#include "thread_wrapper.hpp"
-
+#include "mouse_click_event.hpp"
 
 namespace MOUSE{
     void left_click(Thread &thread, sf::RenderWindow &window, std::pair<char, char> &new_pick,
                     std::pair<char, char> &picked, RedBox &redbox, map &Game,
-                    ResourceHolder<sf::Drawable>& Resource) noexcept
+                    ResourceHolder <sf::Drawable> &Resource) noexcept
     {
         auto pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-        if ( Resource.get_as<sf::RectangleShape>(ResourceType::MAP_BEFORE_GRID).getGlobalBounds().contains(pos) ) // If you click to map grid
+        if ( Resource.get_as<sf::RectangleShape>(ResourceType::MAP_BEFORE_GRID).getGlobalBounds().contains(
+                pos) ) // If you click to map grid
         {
             new_pick = MapCorToGrid(pos);
             if ( !Game.at(new_pick).is_empty() )
@@ -37,9 +30,7 @@ namespace MOUSE{
             } else
                 redbox.hide();
 
-        }
-
-        else if (  Resource.get_as<sf::RectangleShape>(ResourceType::NEW_GAME_BOX).getGlobalBounds().contains(pos) )
+        } else if ( Resource.get_as<sf::RectangleShape>(ResourceType::NEW_GAME_BOX).getGlobalBounds().contains(pos) )
         {
             picked = {-1, -1};
             redbox.hide();
@@ -58,5 +49,3 @@ namespace MOUSE{
     }
 
 }
-
-#endif //KULKI_MOUSE_CLICK_EVENT_HPP

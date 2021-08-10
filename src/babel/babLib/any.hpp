@@ -17,7 +17,7 @@ namespace babel::ANY{
     template< typename T, typename Any >
     requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
              babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-    [[nodiscard]] T &cast_any(Any &any);
+    [[nodiscard]] inline T &cast_any(Any &any);
 
     /**
 *  @brief  Cast Any to T type
@@ -27,7 +27,7 @@ namespace babel::ANY{
     template< typename T, typename Any >
     requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
              babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-    [[nodiscard]] const T &cast_any(const Any &any);
+    [[nodiscard]] inline const T &cast_any(const Any &any);
 
     /**
 *  @brief
@@ -145,7 +145,7 @@ namespace babel::ANY{
 
 
         template< typename T >
-        [[nodiscard]] any make_any(T &&object) noexcept
+        [[nodiscard]] inline any make_any(T &&object) noexcept
         {
             return any(std::forward<T>(object));
         }
@@ -163,7 +163,7 @@ namespace babel::ANY{
         class any;
 
         template< typename T >
-        [[nodiscard]] any make_any(T &&data) noexcept;
+        [[nodiscard]] inline any make_any(T &&data) noexcept;
 
         class any
         {
@@ -346,7 +346,7 @@ namespace babel::ANY{
         };
 
         template< typename T >
-        [[nodiscard]] any make_any(T &&data) noexcept
+        [[nodiscard]] inline any make_any(T &&data) noexcept
         {
             return any(std::forward<T>(data));
         }
@@ -355,7 +355,7 @@ namespace babel::ANY{
     template< typename T, typename Any >
     requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
              babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-    [[nodiscard]] T &cast_any(Any &any)
+    [[nodiscard]] inline T &cast_any(Any &any)
     {
         if constexpr ( babel::CONCEPTS::IS_SAME<Any, VoidAny::any> )
             return *static_cast<T *>(any.m_data);
@@ -371,7 +371,7 @@ namespace babel::ANY{
     template< typename T, typename Any >
     requires babel::CONCEPTS::IS_SAME<Any, VoidAny::any> ||
              babel::CONCEPTS::IS_SAME<Any, PolAny::any>
-    [[nodiscard]] const T &cast_any(const Any &any)
+    [[nodiscard]] inline const T &cast_any(const Any &any)
     {
         if constexpr ( babel::CONCEPTS::IS_SAME<Any, VoidAny::any> )
             return *static_cast<T *>(any.m_data);
@@ -393,7 +393,7 @@ namespace babel::ANY{
              ||
              ( babel::CONCEPTS::IS_SAME<Any, VoidAny::any> &&
                babel::CONCEPTS::IS_NOT_SAME<T, void> )
-    void destroy_any(Any &any)
+    inline void destroy_any(Any &any)
     {
         if constexpr ( babel::CONCEPTS::IS_SAME<Any, VoidAny::any> )
             any.template destroy_any<T>();

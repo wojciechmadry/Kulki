@@ -6,7 +6,7 @@
 
 
 namespace babel::MATRIX{
-    static constexpr const char *READ_BEFORE_USE = "babel::MATRIX is not ended !!! Work in progress";
+    constexpr const char *READ_BEFORE_USE = "babel::MATRIX is not ended !!! Work in progress";
 
     template< typename T >
     requires babel::CONCEPTS::IS_ARITHMETIC<T>
@@ -313,25 +313,27 @@ namespace babel::MATRIX{
     };
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> operator+(const babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
+    inline babel::MATRIX::matrix<T>
+    operator+(const babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
     {
         return babel::MATRIX::add(Matrix1, Matrix2);
     }
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> operator+(const babel::MATRIX::matrix<T> &Matrix, const U number)
+    inline babel::MATRIX::matrix<T> operator+(const babel::MATRIX::matrix<T> &Matrix, const U number)
     {
         return babel::MATRIX::add(Matrix, number);
     }
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> operator+(const U number, const babel::MATRIX::matrix<T> &Matrix)
+    inline babel::MATRIX::matrix<T> operator+(const U number, const babel::MATRIX::matrix<T> &Matrix)
     {
         return babel::MATRIX::add(Matrix, number);
     }
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> &operator+=(babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
+    inline babel::MATRIX::matrix<T> &
+    operator+=(babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
     {
         Matrix1.add(Matrix2);
         return Matrix1;
@@ -339,21 +341,21 @@ namespace babel::MATRIX{
 
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> &operator+=(babel::MATRIX::matrix<T> &Matrix, const U number)
+    inline babel::MATRIX::matrix<T> &operator+=(babel::MATRIX::matrix<T> &Matrix, const U number)
     {
         Matrix.add(number);
         return Matrix;
     }
 
     template< typename T >
-    babel::MATRIX::matrix<T> &operator++(babel::MATRIX::matrix<T> &Matrix)
+    inline babel::MATRIX::matrix<T> &operator++(babel::MATRIX::matrix<T> &Matrix)
     {
         Matrix.add(1);
         return Matrix;
     }
 
     template< typename T >
-    const babel::MATRIX::matrix<T> operator++(babel::MATRIX::matrix<T> &Matrix, int) //NOLINT
+    inline const babel::MATRIX::matrix<T> operator++(babel::MATRIX::matrix<T> &Matrix, int) //NOLINT
     {
         auto cpy = Matrix;
         ++Matrix;
@@ -362,25 +364,27 @@ namespace babel::MATRIX{
 
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> operator-(const babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
+    inline babel::MATRIX::matrix<T>
+    operator-(const babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
     {
         return babel::MATRIX::subtract(Matrix1, Matrix2);
     }
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> operator-(const babel::MATRIX::matrix<T> &Matrix, const U number)
+    inline babel::MATRIX::matrix<T> operator-(const babel::MATRIX::matrix<T> &Matrix, const U number)
     {
         return babel::MATRIX::subtract(Matrix, number);
     }
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> operator-(const U number, const babel::MATRIX::matrix<T> &Matrix)
+    inline babel::MATRIX::matrix<T> operator-(const U number, const babel::MATRIX::matrix<T> &Matrix)
     {
         return babel::MATRIX::subtract(Matrix, number);
     }
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> &operator-=(babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
+    inline babel::MATRIX::matrix<T> &
+    operator-=(babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
     {
         Matrix1.subtract(Matrix2);
         return Matrix1;
@@ -388,21 +392,21 @@ namespace babel::MATRIX{
 
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> &operator-=(babel::MATRIX::matrix<T> &Matrix, const U number)
+    inline babel::MATRIX::matrix<T> &operator-=(babel::MATRIX::matrix<T> &Matrix, const U number)
     {
         Matrix.subtract(number);
         return Matrix;
     }
 
     template< typename T >
-    babel::MATRIX::matrix<T> &operator--(babel::MATRIX::matrix<T> &Matrix)
+    inline babel::MATRIX::matrix<T> &operator--(babel::MATRIX::matrix<T> &Matrix)
     {
         Matrix.subtract(1);
         return Matrix;
     }
 
     template< typename T >
-    const babel::MATRIX::matrix<T> operator--(babel::MATRIX::matrix<T> &Matrix, int) //NOLINT
+    inline const babel::MATRIX::matrix<T> operator--(babel::MATRIX::matrix<T> &Matrix, int) //NOLINT
     {
         auto cpy = Matrix;
         --Matrix;
@@ -411,7 +415,7 @@ namespace babel::MATRIX{
 
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T>
+    inline babel::MATRIX::matrix<T>
     operator*(const babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2) noexcept
     {
         auto cpy = Matrix1;

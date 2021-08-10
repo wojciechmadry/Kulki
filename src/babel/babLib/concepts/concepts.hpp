@@ -11,11 +11,11 @@ namespace babel::CONCEPTS{
         template< typename T >
         using decay_t = typename std::decay_t<T>;
         template< typename T, typename U >
-        static constexpr bool is_same_v = std::is_same_v<decay_t<T>, decay_t<U> >;
+        constexpr bool is_same_v = std::is_same_v<decay_t<T>, decay_t<U> >;
         template< typename T, typename U >
-        static constexpr bool is_convertible_v = std::is_convertible_v<decay_t<T>, decay_t<U> >;
+        constexpr bool is_convertible_v = std::is_convertible_v<decay_t<T>, decay_t<U> >;
         template< typename T >
-        static constexpr bool is_destructible_v = std::is_destructible_v<decay_t<T>>;
+        constexpr bool is_destructible_v = std::is_destructible_v<decay_t<T>>;
     }
     template< typename LHS, typename RHS >
     concept IS_SAME_CONVERTIBLE = TYPE_TRAITS::is_same_v<LHS, RHS> || TYPE_TRAITS::is_convertible_v<LHS, RHS>;

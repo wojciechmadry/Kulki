@@ -66,15 +66,30 @@ include src/CMakeFiles/source.dir/progress.make
 # Include the compile flags for this target's objects.
 include src/CMakeFiles/source.dir/flags.make
 
+src/CMakeFiles/source.dir/object/ball/ball.cpp.o: src/CMakeFiles/source.dir/flags.make
+src/CMakeFiles/source.dir/object/ball/ball.cpp.o: ../src/object/ball/ball.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/source.dir/object/ball/ball.cpp.o"
+	cd /home/wojtek/Desktop/Git/kulki/cmake-build-debug/src && /usr/local/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/source.dir/object/ball/ball.cpp.o -c /home/wojtek/Desktop/Git/kulki/src/object/ball/ball.cpp
+
+src/CMakeFiles/source.dir/object/ball/ball.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/source.dir/object/ball/ball.cpp.i"
+	cd /home/wojtek/Desktop/Git/kulki/cmake-build-debug/src && /usr/local/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wojtek/Desktop/Git/kulki/src/object/ball/ball.cpp > CMakeFiles/source.dir/object/ball/ball.cpp.i
+
+src/CMakeFiles/source.dir/object/ball/ball.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/source.dir/object/ball/ball.cpp.s"
+	cd /home/wojtek/Desktop/Git/kulki/cmake-build-debug/src && /usr/local/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wojtek/Desktop/Git/kulki/src/object/ball/ball.cpp -o CMakeFiles/source.dir/object/ball/ball.cpp.s
+
 # Object files for target source
-source_OBJECTS =
+source_OBJECTS = \
+"CMakeFiles/source.dir/object/ball/ball.cpp.o"
 
 # External object files for target source
 source_EXTERNAL_OBJECTS =
 
+src/libsource.a: src/CMakeFiles/source.dir/object/ball/ball.cpp.o
 src/libsource.a: src/CMakeFiles/source.dir/build.make
 src/libsource.a: src/CMakeFiles/source.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Linking CXX static library libsource.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libsource.a"
 	cd /home/wojtek/Desktop/Git/kulki/cmake-build-debug/src && $(CMAKE_COMMAND) -P CMakeFiles/source.dir/cmake_clean_target.cmake
 	cd /home/wojtek/Desktop/Git/kulki/cmake-build-debug/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/source.dir/link.txt --verbose=$(VERBOSE)
 

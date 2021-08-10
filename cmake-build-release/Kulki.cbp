@@ -5,7 +5,7 @@
 		<Option title="Kulki"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\src\;CMake Files\src\object\;CMake Files\src\object\ball\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\src\;CMake Files\src\function\;CMake Files\src\function\crypt\;CMake Files\src\function\font\;CMake Files\src\function\load\;CMake Files\src\function\drawer\;CMake Files\src\function\thread\;CMake Files\src\function\mouse\;CMake Files\src\function\tester\;CMake Files\src\object\;CMake Files\src\object\ball\;CMake Files\src\object\map\;CMake Files\src\object\red_box\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release"/>
@@ -45,11 +45,8 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add option="-D__64BITVERSION__"/>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/babel"/>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/function"/>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/object"/>
-					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
 					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
@@ -74,11 +71,8 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add option="-D__64BITVERSION__"/>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/babel"/>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/function"/>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/object"/>
-					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
 					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
@@ -95,18 +89,15 @@
 					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="source">
-				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/libsource.a" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src"/>
+			<Target title="FUNCTION_CRYPT">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/crypt/libFUNCTION_CRYPT.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/crypt"/>
 				<Option object_output="./"/>
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/babel"/>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/function"/>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/object"/>
-					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
 					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
@@ -117,24 +108,21 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/Makefile&quot;  VERBOSE=1 source"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/crypt/Makefile&quot;  VERBOSE=1 FUNCTION_CRYPT"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/crypt/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/crypt/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/crypt/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="source/fast">
-				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/libsource.a" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src"/>
+			<Target title="FUNCTION_CRYPT/fast">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/crypt/libFUNCTION_CRYPT.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/crypt"/>
 				<Option object_output="./"/>
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/babel"/>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/function"/>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/object"/>
-					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
 					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
@@ -145,22 +133,70 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/Makefile&quot;  VERBOSE=1 source/fast"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/crypt/Makefile&quot;  VERBOSE=1 FUNCTION_CRYPT/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/crypt/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/crypt/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/crypt/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FUNCTION_FONT">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/font/libFUNCTION_FONT.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/font"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/font/Makefile&quot;  VERBOSE=1 FUNCTION_FONT"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/font/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/font/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/font/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FUNCTION_FONT/fast">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/font/libFUNCTION_FONT.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/font"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/font/Makefile&quot;  VERBOSE=1 FUNCTION_FONT/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/font/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/font/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/font/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="OBJECT_BALL">
-				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/ball/libOBJECT_BALL.so" prefix_auto="0" extension_auto="0"/>
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/ball/libOBJECT_BALL.a" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/ball"/>
 				<Option object_output="./"/>
-				<Option type="3"/>
+				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/babel"/>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/function"/>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/object"/>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
 					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
@@ -179,15 +215,13 @@
 				</MakeCommands>
 			</Target>
 			<Target title="OBJECT_BALL/fast">
-				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/ball/libOBJECT_BALL.so" prefix_auto="0" extension_auto="0"/>
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/ball/libOBJECT_BALL.a" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/ball"/>
 				<Option object_output="./"/>
-				<Option type="3"/>
+				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/babel"/>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/function"/>
-					<Add directory="/home/wojtek/Desktop/Git/kulki/src/object"/>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
 					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
 					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
@@ -205,21 +239,407 @@
 					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/ball/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="OBJECT_MAP">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map/libOBJECT_MAP.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map/Makefile&quot;  VERBOSE=1 OBJECT_MAP"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="OBJECT_MAP/fast">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map/libOBJECT_MAP.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map/Makefile&quot;  VERBOSE=1 OBJECT_MAP/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="OBJECT_REDBOX">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box/libOBJECT_REDBOX.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box/Makefile&quot;  VERBOSE=1 OBJECT_REDBOX"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="OBJECT_REDBOX/fast">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box/libOBJECT_REDBOX.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box/Makefile&quot;  VERBOSE=1 OBJECT_REDBOX/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FUNCTION_LOAD">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/load/libFUNCTION_LOAD.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/load"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/load/Makefile&quot;  VERBOSE=1 FUNCTION_LOAD"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/load/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/load/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/load/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FUNCTION_LOAD/fast">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/load/libFUNCTION_LOAD.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/load"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/load/Makefile&quot;  VERBOSE=1 FUNCTION_LOAD/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/load/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/load/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/load/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FUNCTION_DRAWER">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/drawer/libFUNCTION_DRAWER.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/drawer"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/drawer/Makefile&quot;  VERBOSE=1 FUNCTION_DRAWER"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/drawer/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/drawer/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/drawer/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FUNCTION_DRAWER/fast">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/drawer/libFUNCTION_DRAWER.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/drawer"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/drawer/Makefile&quot;  VERBOSE=1 FUNCTION_DRAWER/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/drawer/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/drawer/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/drawer/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FUNCTION_THREAD">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/thread/libFUNCTION_THREAD.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/thread"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/thread/Makefile&quot;  VERBOSE=1 FUNCTION_THREAD"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/thread/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/thread/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/thread/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FUNCTION_THREAD/fast">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/thread/libFUNCTION_THREAD.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/thread"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/thread/Makefile&quot;  VERBOSE=1 FUNCTION_THREAD/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/thread/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/thread/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/thread/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FUNCTION_MOUSE">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/mouse/libFUNCTION_MOUSE.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/mouse"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/mouse/Makefile&quot;  VERBOSE=1 FUNCTION_MOUSE"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/mouse/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/mouse/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/mouse/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FUNCTION_MOUSE/fast">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/mouse/libFUNCTION_MOUSE.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/mouse"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/mouse/Makefile&quot;  VERBOSE=1 FUNCTION_MOUSE/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/mouse/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/mouse/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/mouse/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FUNCTION_TESTER">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/tester/libFUNCTION_TESTER.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/tester"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/tester/Makefile&quot;  VERBOSE=1 FUNCTION_TESTER"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/tester/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/tester/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/tester/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FUNCTION_TESTER/fast">
+				<Option output="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/tester/libFUNCTION_TESTER.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/tester"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wojtek/Desktop/Git/kulki/src"/>
+					<Add directory="/home/wojtek/SFML-2.5.1/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/tester/Makefile&quot;  VERBOSE=1 FUNCTION_TESTER/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/tester/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/tester/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/tester/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 		</Build>
 		<Unit filename="/home/wojtek/Desktop/Git/kulki/main.cpp">
 			<Option target="Kulki"/>
 		</Unit>
-		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/crypt.hpp">
-			<Option target="source"/>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/crypt/crypt.cpp">
+			<Option target="FUNCTION_CRYPT"/>
 		</Unit>
-		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/drawer.hpp">
-			<Option target="source"/>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/crypt/crypt.hpp">
+			<Option target="FUNCTION_CRYPT"/>
 		</Unit>
-		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/load.hpp">
-			<Option target="source"/>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/drawer/drawer_global_class.cpp">
+			<Option target="FUNCTION_DRAWER"/>
 		</Unit>
-		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/search_font.hpp">
-			<Option target="source"/>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/drawer/drawer_utils.cpp">
+			<Option target="FUNCTION_DRAWER"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/drawer/drawer_window.cpp">
+			<Option target="FUNCTION_DRAWER"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/font/search_font_linux.cpp">
+			<Option target="FUNCTION_FONT"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/load/load.cpp">
+			<Option target="FUNCTION_LOAD"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/load/load.hpp">
+			<Option target="FUNCTION_LOAD"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/load/load_map.cpp">
+			<Option target="FUNCTION_LOAD"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/load/load_record.cpp">
+			<Option target="FUNCTION_LOAD"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/mouse/mouse_click_event.cpp">
+			<Option target="FUNCTION_MOUSE"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/mouse/mouse_click_event.hpp">
+			<Option target="FUNCTION_MOUSE"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/tester/tester.cpp">
+			<Option target="FUNCTION_TESTER"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/tester/tester.hpp">
+			<Option target="FUNCTION_TESTER"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/thread/thread_wrapper.cpp">
+			<Option target="FUNCTION_THREAD"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/thread/thread_wrapper.hpp">
+			<Option target="FUNCTION_THREAD"/>
 		</Unit>
 		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/ball/ball.cpp">
 			<Option target="OBJECT_BALL"/>
@@ -227,8 +647,32 @@
 		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/ball/ball.hpp">
 			<Option target="OBJECT_BALL"/>
 		</Unit>
-		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/map.hpp">
-			<Option target="source"/>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/map/map.cpp">
+			<Option target="OBJECT_MAP"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/map/map.hpp">
+			<Option target="OBJECT_MAP"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/map/map_check_score.cpp">
+			<Option target="OBJECT_MAP"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/map/map_move.cpp">
+			<Option target="OBJECT_MAP"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/map/map_next_three.cpp">
+			<Option target="OBJECT_MAP"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/map/map_position_check.cpp">
+			<Option target="OBJECT_MAP"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/map/map_score_there.cpp">
+			<Option target="OBJECT_MAP"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/red_box/red_box.cpp">
+			<Option target="OBJECT_REDBOX"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/red_box/red_box.hpp">
+			<Option target="OBJECT_REDBOX"/>
 		</Unit>
 		<Unit filename="/home/wojtek/Desktop/Git/kulki/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
@@ -236,11 +680,35 @@
 		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\src\"/>
 		</Unit>
-		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/CMakeLists.txt">
-			<Option virtualFolder="CMake Files\src\object\"/>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/crypt/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\function\crypt\"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/font/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\function\font\"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/load/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\function\load\"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/drawer/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\function\drawer\"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/thread/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\function\thread\"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/mouse/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\function\mouse\"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/function/tester/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\function\tester\"/>
 		</Unit>
 		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/ball/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\src\object\ball\"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/map/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\object\map\"/>
+		</Unit>
+		<Unit filename="/home/wojtek/Desktop/Git/kulki/src/object/red_box/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\object\red_box\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

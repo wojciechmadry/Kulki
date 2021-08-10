@@ -11,7 +11,7 @@
 #include "sha_array.hpp"
 
 namespace babel::ALGO::CRYPT{
-    std::string sha1(const std::string &HASH) noexcept
+    inline std::string sha1(const std::string &HASH) noexcept
     {
         using WORD = babel::CONCEPTS::type_of_number<4, false>::type;
 

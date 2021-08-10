@@ -1,11 +1,6 @@
 #include "ball.hpp"
 
-#include "babLib/algorithm/math.hpp"
-
-#include <SFML/Graphics.hpp>
-
 #include <array>
-
 
 static constexpr const std::array<std::array<unsigned char, 4>, 7> _color
         {
@@ -33,7 +28,7 @@ static constexpr const std::array<std::array<unsigned char, 4>, 7> _color
 
 ball::ball()
 {
-   _colorID = COLOR::empty;
+    _colorID = COLOR::empty;
 }
 
 ball::~ball() = default;
@@ -125,5 +120,5 @@ void ball::set(const COLOR color) noexcept
 void ball::random() noexcept
 {
     //Generate random NOT EMPTY, color
-    _colorID = static_cast<COLOR>(babel::ALGO::MATH::random_generator::generate<unsigned char>(0, 5));
+    _colorID = static_cast<COLOR>(m_random_generator.generate<unsigned char>(0, 5));
 }

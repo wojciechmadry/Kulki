@@ -45,17 +45,16 @@ CMakeFiles/Kulki.dir/main.cpp.o: \
  ../src/babel/babLib/variadic.hpp \
  ../src/babel/babLib/wraper.hpp \
  ../src/babel/babel.hpp \
- ../src/function/crypt.hpp \
- ../src/function/drawer.hpp \
- ../src/function/load.hpp \
- ../src/function/mouse_click_event.hpp \
- ../src/function/search_font.hpp \
- ../src/function/tester.hpp \
- ../src/function/thread_wrapper.hpp \
+ ../src/function/drawer/drawer.hpp \
+ ../src/function/font/search_font.hpp \
+ ../src/function/load/load.hpp \
+ ../src/function/mouse/mouse_click_event.hpp \
+ ../src/function/tester/tester.hpp \
+ ../src/function/thread/thread_wrapper.hpp \
  ../src/object/ball/ball.hpp \
- ../src/object/map.hpp \
- ../src/object/red_box.hpp \
- ../src/object/resource.hpp \
+ ../src/object/map/map.hpp \
+ ../src/object/red_box/red_box.hpp \
+ ../src/object/resource/resource.hpp \
  ../main.cpp \
  /home/wojtek/SFML-2.5.1/include/SFML/Config.hpp \
  /home/wojtek/SFML-2.5.1/include/SFML/Graphics.hpp \

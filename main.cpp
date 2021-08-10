@@ -1,10 +1,11 @@
 #include <SFML/Graphics.hpp>
+#include <cmath>
 
-#include "function/load.hpp"
-#include "object/red_box.hpp"
-#include "function/mouse_click_event.hpp"
-#include "function/tester.hpp"
-#include "function/search_font.hpp"
+#include "function/load/load.hpp"
+#include "object/red_box/red_box.hpp"
+#include "function/mouse/mouse_click_event.hpp"
+#include "function/tester/tester.hpp"
+#include "function/font/search_font.hpp"
 
 
 #include <iostream>
@@ -16,7 +17,7 @@ static constexpr const char* VERSION = "1.1";
 int main()
 {
 
-   // Play_Test_Games(-1, 14); // Test if game crush.
+   //Play_Test_Games(-1, 14); // Test if game crush.
     ResourceHolder<sf::Drawable, sf::Texture> Resource;
 
     map Game = load_map();

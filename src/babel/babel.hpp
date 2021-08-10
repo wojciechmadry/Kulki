@@ -19,8 +19,8 @@
 #include "babLib/container/container.hpp"
 
 namespace babel{
-    static constexpr const char *VERSION = "1.28";
-    static constexpr const bool COMPILER_IS_64B = ( sizeof(void *) == 8 ); //NOLINT
-    static constexpr const bool COMPILER_IS_32B = ( sizeof(void *) == 4 ); //NOLINT
+    constexpr const char *VERSION = "1.3";
+    constexpr const bool COMPILER_IS_64B = ( sizeof(void *) == 8 ); //NOLINT
+    constexpr const bool COMPILER_IS_32B = ( sizeof(void *) == 4 ); //NOLINT
 }  // namespace babel
 #endif  // BABEL_HPP_

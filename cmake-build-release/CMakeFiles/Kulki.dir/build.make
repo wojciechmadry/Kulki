@@ -88,8 +88,26 @@ Kulki_EXTERNAL_OBJECTS =
 
 Kulki: CMakeFiles/Kulki.dir/main.cpp.o
 Kulki: CMakeFiles/Kulki.dir/build.make
-Kulki: src/libsource.a
-Kulki: src/object/ball/libOBJECT_BALL.so
+Kulki: src/object/ball/libOBJECT_BALL.a
+Kulki: src/object/map/libOBJECT_MAP.a
+Kulki: src/object/red_box/libOBJECT_REDBOX.a
+Kulki: src/function/crypt/libFUNCTION_CRYPT.a
+Kulki: src/function/font/libFUNCTION_FONT.a
+Kulki: src/function/load/libFUNCTION_LOAD.a
+Kulki: src/function/drawer/libFUNCTION_DRAWER.a
+Kulki: src/function/thread/libFUNCTION_THREAD.a
+Kulki: src/function/mouse/libFUNCTION_MOUSE.a
+Kulki: src/function/tester/libFUNCTION_TESTER.a
+Kulki: src/function/load/libFUNCTION_LOAD.a
+Kulki: src/function/drawer/libFUNCTION_DRAWER.a
+Kulki: src/function/thread/libFUNCTION_THREAD.a
+Kulki: src/function/load/libFUNCTION_LOAD.a
+Kulki: src/function/drawer/libFUNCTION_DRAWER.a
+Kulki: src/function/thread/libFUNCTION_THREAD.a
+Kulki: src/function/crypt/libFUNCTION_CRYPT.a
+Kulki: src/function/mouse/libFUNCTION_MOUSE.a
+Kulki: src/object/map/libOBJECT_MAP.a
+Kulki: src/object/ball/libOBJECT_BALL.a
 Kulki: CMakeFiles/Kulki.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wojtek/Desktop/Git/kulki/cmake-build-release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Kulki"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Kulki.dir/link.txt --verbose=$(VERBOSE)

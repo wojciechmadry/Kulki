@@ -19,11 +19,8 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "../src/babel"
-  "../src/function"
-  "../src/object"
-  "/home/wojtek/SFML-2.5.1/include"
   "../src"
+  "/home/wojtek/SFML-2.5.1/include"
   )
 
 # The set of dependency files which are needed:
@@ -32,8 +29,16 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/CMakeFiles/source.dir/DependInfo.cmake"
   "/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/ball/CMakeFiles/OBJECT_BALL.dir/DependInfo.cmake"
+  "/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/map/CMakeFiles/OBJECT_MAP.dir/DependInfo.cmake"
+  "/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/object/red_box/CMakeFiles/OBJECT_REDBOX.dir/DependInfo.cmake"
+  "/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/crypt/CMakeFiles/FUNCTION_CRYPT.dir/DependInfo.cmake"
+  "/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/font/CMakeFiles/FUNCTION_FONT.dir/DependInfo.cmake"
+  "/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/load/CMakeFiles/FUNCTION_LOAD.dir/DependInfo.cmake"
+  "/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/drawer/CMakeFiles/FUNCTION_DRAWER.dir/DependInfo.cmake"
+  "/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/thread/CMakeFiles/FUNCTION_THREAD.dir/DependInfo.cmake"
+  "/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/mouse/CMakeFiles/FUNCTION_MOUSE.dir/DependInfo.cmake"
+  "/home/wojtek/Desktop/Git/kulki/cmake-build-release/src/function/tester/CMakeFiles/FUNCTION_TESTER.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

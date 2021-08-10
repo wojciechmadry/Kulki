@@ -4,7 +4,7 @@
 # compile CXX with /usr/local/bin/g++
 CXX_DEFINES = -D__64BITVERSION__
 
-CXX_INCLUDES = -I/home/wojtek/Desktop/Git/kulki/src/babel -I/home/wojtek/Desktop/Git/kulki/src/function -I/home/wojtek/Desktop/Git/kulki/src/object -I/home/wojtek/SFML-2.5.1/include -I/home/wojtek/Desktop/Git/kulki/src
+CXX_INCLUDES = -I/home/wojtek/Desktop/Git/kulki/src -I/home/wojtek/SFML-2.5.1/include
 
 CXX_FLAGS = -O3 -DNDEBUG -O3 -Wextra -Werror -W -Wshadow -Wdouble-promotion -Wformat=2 -Wundef -fno-common -Wconversion -pedantic -Wall -pthread -std=gnu++2a
 

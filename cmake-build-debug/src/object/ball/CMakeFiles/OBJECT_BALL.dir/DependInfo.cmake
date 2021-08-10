@@ -12,16 +12,9 @@ set(CMAKE_DEPENDS_CHECK_CXX
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
-# Preprocessor definitions for this target.
-set(CMAKE_TARGET_DEFINITIONS_CXX
-  "OBJECT_BALL_EXPORTS"
-  )
-
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "../src/babel"
-  "../src/function"
-  "../src/object"
+  "../src"
   "/home/wojtek/SFML-2.5.1/include"
   )
 
