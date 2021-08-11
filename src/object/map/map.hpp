@@ -7,17 +7,14 @@
 
 #include "object/ball/ball.hpp"
 
-class map;
-
 class map
 {
 
-    std::array<std::array<ball, 9>, 9> grid;
-    std::array<ball, 3> next_three;
-    uint16_t score = 0;
-    uint8_t _filled = 0;
-    bool _need_update = true;
-    babel::ALGO::MATH::random_generator m_random;
+    std::array<std::array<ball, 9>, 9> m_grid;
+    std::array<ball, 3> m_next_three;
+    uint16_t m_score = 0;
+    uint8_t m_filled = 0;
+    bool m_need_update = true;
 
     [[nodiscard]] bool is_free_at(std::pair<uint8_t, uint8_t> position) const noexcept;
 
@@ -30,12 +27,12 @@ class map
     // Put next three (random) balls on the grid (max 81 ball on grid)
     void put_next_three() noexcept;
 
+    bool check_for_score() noexcept;
+
 public:
     map() noexcept;
 
-    bool check_for_score() noexcept; // ? private
-
-    [[nodiscard]] bool score_there() const noexcept; // ? private
+    [[nodiscard]] bool score_there() const noexcept;
 
     [[nodiscard]] ball &at(std::pair<uint8_t, uint8_t> position);
 
@@ -55,11 +52,7 @@ public:
 
     [[nodiscard]] const std::array<ball, 3> &get_next_three() const noexcept;
 
-    [[nodiscard]] std::array<ball, 3> &get_next_three() noexcept;  // ? to del
-
     [[nodiscard]] const std::array<std::array<ball, 9>, 9> &get_grid() const noexcept;
-
-    [[nodiscard]] std::array<std::array<ball, 9>, 9> &get_grid() noexcept;  // ? to del
 
     [[nodiscard]] bool need_update() const noexcept;
 
@@ -75,9 +68,9 @@ public:
     //Start new game
     void reset() noexcept;
 
-    void set_score(uint16_t a_new_score);  // ? to del
-
-    void set_filled(uint8_t a_new_fill);  // ? to del
+    void load_game(uint16_t a_new_score, uint8_t a_new_fill
+                   , const std::array<ball, 3>& a_new_next_three
+                   , const std::array<std::array<ball, 9>, 9>& a_new_grid);  // ? to del
 };
 
 

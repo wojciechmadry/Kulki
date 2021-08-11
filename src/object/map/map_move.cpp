@@ -8,7 +8,7 @@ bool map::can_move(std::pair<uint8_t, uint8_t> from, std::pair<uint8_t, uint8_t>
     }
     auto cor_is_correct = [this](const std::pair<char, char> cor) -> bool {
         return !( cor.first > 8 || cor.first < 0 || cor.second > 8 || cor.second < 0 ||
-                  !grid[static_cast<std::size_t>(cor.first)][static_cast<std::size_t>(cor.second)].is_empty() );
+            !m_grid[static_cast<std::size_t>(static_cast<uint8_t>(cor.first))][static_cast<std::size_t>(cor.second)].is_empty() );
     };
     std::pair<char, char> from_c = {from.first, from.second};
     std::pair<char, char> to_c = {to.first, to.second};

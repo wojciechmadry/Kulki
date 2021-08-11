@@ -1,2 +1,0 @@
-/usr/bin/ar qc libOBJECT_BALL.a CMakeFiles/OBJECT_BALL.dir/ball.cpp.o
-/usr/bin/ranlib libOBJECT_BALL.a

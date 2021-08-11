@@ -16,7 +16,7 @@ enum class OperationType
     UPDATE = 3
 };
 
-//Operation on map works on diffrent thread
+//Operation on map works on different thread
 class Thread
 {
     static void

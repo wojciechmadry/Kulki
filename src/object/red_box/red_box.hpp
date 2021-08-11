@@ -11,8 +11,8 @@
 
 class RedBox
 {
-    babel::ANY::PolAny::any _box;
-    bool _text = false;
+    babel::ANY::PolAny::any m_box;
+    bool m_text = false;
 
     using AnyType = std::reference_wrapper<sf::Drawable>;
 
@@ -20,7 +20,7 @@ class RedBox
     requires ( !babel::CONCEPTS::IS_ANY_POINTER<T> )
     T &get_any() noexcept
     {
-        return *babel::ALGO::CAST::asType<T *>(&_box.cast<AnyType>().get());
+        return *babel::ALGO::CAST::asType<T *>(&m_box.cast<AnyType>().get());
     }
 
 public:

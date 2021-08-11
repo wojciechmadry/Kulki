@@ -45,7 +45,7 @@ int main()
     sf::RenderWindow window(
             sf::VideoMode(static_cast<uint32_t>(GLOBAL::get_width()), static_cast<uint32_t>(GLOBAL::get_height())),
             VERSION, sf::Style::Default,
-            sf::ContextSettings {0, 0, 16});
+            sf::ContextSettings {0, 0, 8});
 
     auto fps = load_fps();
     window.setFramerateLimit(fps);

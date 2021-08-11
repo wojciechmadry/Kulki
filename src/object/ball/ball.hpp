@@ -6,8 +6,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "babel/babel.hpp"
-
 enum class COLOR : unsigned char
 {
     aquamarine = 0,
@@ -21,11 +19,9 @@ enum class COLOR : unsigned char
 
 class ball
 {
-    babel::ALGO::MATH::random_generator m_random_generator;
-
     [[nodiscard]] static sf::Color sf_color(COLOR Color, short alpha = -1) noexcept;
 
-    COLOR _colorID;
+    COLOR m_colorID;
 public:
     ball();
 
@@ -35,17 +31,17 @@ public:
 
     explicit ball(COLOR color) noexcept;
 
-    ball &operator=(ball other) noexcept;
+    ball &operator=(const ball& other) noexcept;
 
     ball &swap(ball &other) noexcept;
 
     ball &operator=(COLOR color) noexcept;
 
-    [[nodiscard]] bool operator==(ball other) const noexcept;
+    [[nodiscard]] bool operator==(const ball& other) const noexcept;
 
     [[nodiscard]] bool operator==(COLOR color) const noexcept;
 
-    [[nodiscard]] bool operator!=(ball other) const noexcept;
+    [[nodiscard]] bool operator!=(const ball& other) const noexcept;
 
     [[nodiscard]] bool operator!=(COLOR color) const noexcept;
 

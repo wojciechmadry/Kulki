@@ -1,9 +1,7 @@
 #include "tester.hpp"
 
 #include "babel/babel.hpp"
-#include <chrono>
 #include <thread>
-#include <atomic>
 #include "function/drawer/drawer.hpp"
 #include <iostream>
 

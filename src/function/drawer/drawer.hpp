@@ -19,13 +19,13 @@ sf::RectangleShape make_rectangle(sf::Vector2f Size, sf::Vector2f Position, sf::
 class GLOBAL
 {
 
-    inline static bool _BALL_TEXTURE = false; // Texture to ball is load? //NOLINT
-    inline static bool _BG_TEXTURE = false; // Texture background is load ? //NOLINT
-    inline static bool _RED_BOX_TEXTURE = false; // Red box texture is load ? //NOLINT
+    inline static bool m_BALL_TEXTURE = false; // Texture to ball is load? //NOLINT
+    inline static bool m_BG_TEXTURE = false; // Texture background is load ? //NOLINT
+    inline static bool m_RED_BOX_TEXTURE = false; // Red box texture is load ? //NOLINT
 
-    inline static std::size_t _width {0}; // Resolution of screen x
-    inline static std::size_t _height {0}; // Resolution of screen y
-    inline static float _wb_size {0.0f}; // Side length of white box
+    inline static std::size_t m_width {0}; // Resolution of screen x
+    inline static std::size_t m_height {0}; // Resolution of screen y
+    inline static float m_wb_size {0.0f}; // Side length of white box
 public:
 
     static void INIT(ResourceHolder<sf::Drawable> &Resource, const sf::Font &sfFont,
@@ -54,7 +54,7 @@ void draw_window(sf::RenderWindow &window, map &Map,
 
 
 // Simplify sf::Text
-sf::Text make_text(const std::string &text, const sf::Vector2f &pos, const sf::Color color, const uint32_t size,
+sf::Text make_text(const std::string &text, const sf::Vector2f &pos, sf::Color color, uint32_t size,
                    const sf::Font &font);
 
 //Scales cor on screen to cor on grid

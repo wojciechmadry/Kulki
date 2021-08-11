@@ -1,11 +1,12 @@
 set(CMAKE_CXX_STANDARD 20)
 
 # --- no diffrence ---
+add_subdirectory(function/random)
 add_subdirectory(function/crypt)
 add_subdirectory(function/font)
-add_subdirectory(object/ball)
 # ---------------------
 
+add_subdirectory(object/ball)
 
 add_subdirectory(object/map)
 add_subdirectory(object/red_box)

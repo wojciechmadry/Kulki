@@ -17,9 +17,9 @@ std::pair<uint32_t, uint32_t> load_resolution() noexcept;
 
 uint32_t load_fps() noexcept;
 
-// Check for crypted record in file
+// Check for encrypt record in file
 // If file doesn't exist
-// or crypted is broken
+// or encryption is broken
 // record set to 0
 uint16_t check_for_record();
 

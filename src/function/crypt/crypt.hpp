@@ -8,11 +8,11 @@
 #include <string>
 #include <cstdint>
 
-//Easy crypted function
+//Easy crypt function
 std::string crypt(uint16_t number);
 
 
-// If crypted file is corrupted function throw std::out_of_range
+// If encrypted file is corrupted function throw std::out_of_range
 uint16_t decrypt(const std::string& cr);
 
 #endif //KULKI_CRYPT_HPP

@@ -10,6 +10,7 @@ add_library(OBJECT_MAP STATIC
 
 
 target_link_libraries(OBJECT_MAP PRIVATE OBJECT_BALL)
+target_link_libraries(OBJECT_MAP PRIVATE FUNCTION_RANDOM)
 
 target_compile_options(OBJECT_MAP PRIVATE -O3 -Wextra -Werror -W -Wshadow -Wdouble-promotion -Wformat=2 -Wundef -fno-common -Wconversion -pedantic -Wall)
 

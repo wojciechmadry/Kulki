@@ -54,8 +54,6 @@ Now only to you need to do: copy libraries from SFML folder`../bin`
 
 All needed library in `WINDOWS`: `sfml-graphics-2.dll`, `sfml-system-2.dll`, `sfml-window-2.dll`
 
-All needed library in `LINUX`: `TODO`
-
 
 If you want to move your build project from folder remember to put folder `ball_texture` therein.
 

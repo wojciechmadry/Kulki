@@ -6,9 +6,9 @@ void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource, const sf::Font &sfFont
                   const std::pair<uint16_t, uint16_t> RECORDS) noexcept
 {
     auto res = load_resolution();
-    _width = res.first;
-    _height = res.second;
-    float a = ( 0.5f * static_cast<float>(_width) ) / 9.f; // side length of white box
+    m_width = res.first;
+    m_height = res.second;
+    float a = ( 0.5f * static_cast<float>(m_width) ) / 9.f; // side length of white box
     float radius = a / 2.5f; // radius of circle
     for ( const auto i : babel::ITERATOR::range(0, 6) )
     {
@@ -20,13 +20,13 @@ void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource, const sf::Font &sfFont
         Resource.insert(ballID, std::move(ball_shape), false);
     }
 
-    _wb_size = a;
+    m_wb_size = a;
     Resource.insert(ResourceType::WHITE_BOX,
                     make_rectangle({a, a}, {0, 0}, sf::Color(0x8989A9), 1.0f, sf::Color::White), false);
 
     Resource.insert(ResourceType::MAP_BEFORE_GRID,
                     make_rectangle({a * 9.f, a * 9.f},
-                                   {0.3f * static_cast<float>(_width), 0.02f * static_cast<float>(_height)},
+                                   {0.3f * static_cast<float>(m_width), 0.02f * static_cast<float>(m_height)},
                                    sf::Color(0x8989A9)), false);
 
 
@@ -47,7 +47,7 @@ void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource, const sf::Font &sfFont
             };
     bool texture_is_loaded = true;
 
-    for ( auto i : babel::ITERATOR::range<std::size_t>(0, ball_name.size()) )
+    for ( auto i : babel::ITERATOR::range<std::size_t, std::size_t>(0, ball_name.size()) )
     {
         auto sprite = std::make_unique<sf::Sprite>();
         auto texture = std::make_unique<sf::Texture>();
@@ -67,12 +67,12 @@ void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource, const sf::Font &sfFont
         Resource.insert(SpriteID, std::move(sprite), false);
     }
 
-    _BALL_TEXTURE = texture_is_loaded;
+    m_BALL_TEXTURE = texture_is_loaded;
 
     auto _bg_texture = std::make_unique<sf::Texture>();
 
-    _BG_TEXTURE = _bg_texture->loadFromFile(texture_path + "background.png");
-    if ( _BG_TEXTURE )
+    m_BG_TEXTURE = _bg_texture->loadFromFile(texture_path + "background.png");
+    if ( m_BG_TEXTURE )
     {
         auto _bg_sprite = std::make_unique<sf::Sprite>();
         _bg_texture->setSmooth(true);
@@ -80,8 +80,8 @@ void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource, const sf::Font &sfFont
         Resource.insert(TextureType::BACKGROUND, std::move(_bg_texture));
         _bg_sprite->setTexture(Resource.get_as(TextureType::BACKGROUND));
 
-        float scale_x = static_cast<float>(_width) / static_cast<float>(text_size.x);
-        float scale_y = static_cast<float>(_height) / static_cast<float>(text_size.y);
+        float scale_x = static_cast<float>(m_width) / static_cast<float>(text_size.x);
+        float scale_y = static_cast<float>(m_height) / static_cast<float>(text_size.y);
 
         _bg_sprite->setScale({scale_x, scale_y});
 
@@ -90,8 +90,8 @@ void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource, const sf::Font &sfFont
 
     auto _redbox_texture = std::make_unique<sf::Texture>();
 
-    _RED_BOX_TEXTURE = _redbox_texture->loadFromFile(texture_path + "redbox.png");
-    if ( _RED_BOX_TEXTURE )
+    m_RED_BOX_TEXTURE = _redbox_texture->loadFromFile(texture_path + "redbox.png");
+    if ( m_RED_BOX_TEXTURE )
     {
         auto _redbox_sprite = std::make_unique<sf::Sprite>();
 
@@ -111,7 +111,7 @@ void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource, const sf::Font &sfFont
     {
         // There is empty box with red outline to pick selected ball
         Resource.insert(ResourceType::PICKED, make_rectangle(
-                {_wb_size, _wb_size}, {0, 0}, sf::Color::Transparent, 0.07f * _wb_size, sf::Color::Red)
+                {m_wb_size, m_wb_size}, {0, 0}, sf::Color::Transparent, 0.07f * m_wb_size, sf::Color::Red)
         );
     }
 
@@ -120,31 +120,31 @@ void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource, const sf::Font &sfFont
 
 size_t GLOBAL::get_width() noexcept
 {
-    return _width;
+    return m_width;
 }
 
 //Resolution of screen
 size_t GLOBAL::get_height() noexcept
 {
-    return _height;
+    return m_height;
 }
 
 float GLOBAL::get_white_box_size() noexcept
 {
-    return _wb_size;
+    return m_wb_size;
 }
 
 bool GLOBAL::BALL_TEXTURE() noexcept
 {
-    return _BALL_TEXTURE;
+    return m_BALL_TEXTURE;
 }
 
 bool GLOBAL::BACKGROUND_TEXTURE() noexcept
 {
-    return _BG_TEXTURE;
+    return m_BG_TEXTURE;
 }
 
 bool GLOBAL::RED_BOX_TEXTURE() noexcept
 {
-    return _RED_BOX_TEXTURE;
+    return m_RED_BOX_TEXTURE;
 }

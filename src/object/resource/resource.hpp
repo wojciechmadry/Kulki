@@ -53,35 +53,35 @@ class ResourceHolder
     {
         friend class ResourceHolder<Resource>;
 
-        bool _autodraw; // Auto draw in loop every frame
-        std::unique_ptr<Resource> _res;
+        bool m_autodraw; // Auto draw in loop every frame
+        std::unique_ptr<Resource> m_res;
 
         [[nodiscard]] Resource *_get() noexcept
         {
-            return _res.get();
+            return m_res.get();
         }
 
         [[nodiscard]] const Resource *_get() const noexcept
         {
-            return _res.get();
+            return m_res.get();
         }
 
 
     public:
         Object() noexcept
         {
-            _res = nullptr;
-            _autodraw = false;
+            m_res = nullptr;
+            m_autodraw = false;
         }
 
         explicit Object(std::unique_ptr<Resource> &&res, bool autodraw) noexcept
-                : _autodraw(autodraw), _res(std::move(res))
+                : m_autodraw(autodraw), m_res(std::move(res))
         { }
 
         Object(Object &&Obj) noexcept
         {
-            _autodraw = Obj._autodraw;
-            _res = std::move(Obj._res);
+            m_autodraw = Obj._autodraw;
+            m_res = std::move(Obj._res);
         }
 
         Object(const Object &) = delete;
@@ -92,30 +92,30 @@ class ResourceHolder
 
         Object &operator=(Object &&Obj) noexcept
         {
-            _autodraw = Obj._autodraw;
-            _res = std::move(Obj._res);
+            m_autodraw = Obj.m_autodraw;
+            m_res = std::move(Obj.m_res);
             return *this;
         }
 
         [[nodiscard]] explicit operator bool() const noexcept
         {
-            return _autodraw && _res;
+            return m_autodraw && m_res;
         }
 
         const Resource &operator*() const noexcept
         {
-            return *_res;
+            return *m_res;
         }
 
         Resource &operator*() noexcept
         {
-            return *_res;
+            return *m_res;
         }
 
     };
 
-    std::vector<Object> _resource {cast(ResourceType::ENUM_SIZE)};
-    std::vector<std::unique_ptr<Texture>> _textures {cast(TextureType::ENUM_SIZE)};
+    std::vector<Object> m_resource {cast(ResourceType::ENUM_SIZE)};
+    std::vector<std::unique_ptr<Texture>> m_textures {cast(TextureType::ENUM_SIZE)};
 public:
     ResourceHolder() = default;
 
@@ -129,7 +129,7 @@ public:
     )
     void insert(const ResourceType Key, T &&Value, bool AutoDraw = true) noexcept
     {
-        _resource[cast(Key)] = Object(std::make_unique<T>(std::forward<T>(Value)), AutoDraw);
+        m_resource[cast(Key)] = Object(std::make_unique<T>(std::forward<T>(Value)), AutoDraw);
     }
 
     template< typename T >
@@ -138,33 +138,33 @@ public:
     )
     void insert(const ResourceType Key, std::unique_ptr<T> &&ValuePTR, bool AutoDraw = true) noexcept
     {
-        _resource[cast(Key)] = Object(std::move(ValuePTR), AutoDraw);
+        m_resource[cast(Key)] = Object(std::move(ValuePTR), AutoDraw);
     }
 
     template< typename T >
     requires(std::is_base_of_v<Resource, T>)
     [[nodiscard]] T& get_as(const ResourceType Key) noexcept
     {
-        return *babel::ALGO::CAST::asType<T *>(_resource[cast(Key)]._get());
+        return *babel::ALGO::CAST::asType<T *>(m_resource[cast(Key)]._get());
     }
 
     template< typename T >
     requires(std::is_base_of_v<Resource, T>)
     [[nodiscard]] const T &get_as(const ResourceType Key) const noexcept
     {
-        return *babel::ALGO::CAST::asType<const T *>(_resource[cast(Key)]._get());
+        return *babel::ALGO::CAST::asType<const T *>(m_resource[cast(Key)]._get());
     }
 
-    [[nodiscard]] const decltype(_resource) &get_resources() const noexcept
+    [[nodiscard]] const decltype(m_resource) &get_resources() const noexcept
     {
-        return _resource;
+        return m_resource;
     }
 
     // Textures
 
-    [[nodiscard]] const decltype(_textures) &get_textures() const noexcept
+    [[nodiscard]] const decltype(m_textures) &get_textures() const noexcept
     {
-        return _textures;
+        return m_textures;
     }
 
     template< typename T >
@@ -174,7 +174,7 @@ public:
     )
     void insert(const TextureType Key, T &&Value) noexcept
     {
-        _textures[cast(Key)] = std::make_unique<T>(std::forward<T>(Value));
+        m_textures[cast(Key)] = std::make_unique<T>(std::forward<T>(Value));
     }
 
     template< typename T >
@@ -183,21 +183,21 @@ public:
     )
     void insert(const TextureType Key, std::unique_ptr<T> &&ValuePTR) noexcept
     {
-        _textures[cast(Key)] = std::move(ValuePTR);
+        m_textures[cast(Key)] = std::move(ValuePTR);
     }
 
     template< typename T = Texture>
     requires(std::is_base_of_v<Texture, T>)
     [[nodiscard]] T& get_as(const TextureType Key) noexcept
     {
-        return *babel::ALGO::CAST::asType<T *>(_textures[cast(Key)].get());
+        return *babel::ALGO::CAST::asType<T *>(m_textures[cast(Key)].get());
     }
 
     template< typename T = sf::Texture >
     requires(std::is_base_of_v<Texture, T>)
     [[nodiscard]] const T &get_as(const TextureType Key) const noexcept
     {
-        return *babel::ALGO::CAST::asType<const T *>(_textures[cast(Key)].get());
+        return *babel::ALGO::CAST::asType<const T *>(m_textures[cast(Key)].get());
     }
 
 

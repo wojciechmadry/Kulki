@@ -1,2 +1,0 @@
-/usr/bin/ar qc libsource.a CMakeFiles/source.dir/object/ball/ball.cpp.o
-/usr/bin/ranlib libsource.a

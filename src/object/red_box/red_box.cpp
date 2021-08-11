@@ -15,15 +15,15 @@ void put_out_of_screen(T &Object, const sf::Vector2<float> &size) noexcept
 }
 
 RedBox::RedBox(ResourceHolder<sf::Drawable> &Resources, const bool Textured) noexcept
-        : _text(Textured)
+        : m_text(Textured)
 {
-    _box = AnyType(Resources.get_as<sf::Drawable>(ResourceType::PICKED));
+    m_box = AnyType(Resources.get_as<sf::Drawable>(ResourceType::PICKED));
     hide();
 }
 
 void RedBox::set_position(const float x, const float y) noexcept
 {
-    if ( _text )
+    if ( m_text )
         get_any<sf::Sprite>().setPosition(x, y);
     else
         get_any<sf::RectangleShape>().setPosition(x, y);
@@ -31,7 +31,7 @@ void RedBox::set_position(const float x, const float y) noexcept
 
 void RedBox::hide() noexcept
 {
-    if ( _text )
+    if ( m_text )
     {
         auto &sprite = get_any<sf::Sprite>();
         sf::Vector2f spriteSize(

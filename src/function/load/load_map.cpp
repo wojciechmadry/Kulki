@@ -4,15 +4,14 @@
 
 map load_map() noexcept
 {
-    // TODO implement read grid into map class
     namespace fs = std::filesystem;
     try
     {
         if ( !fs::exists("kulkim.bin") )
-            return map();
+            return map{};
         std::ifstream f("kulkim.bin");
         if ( !f.is_open() )
-            return map();
+            return map{};
         map Result;
         std::string line;
         std::getline(f, line); // just fake key
@@ -28,13 +27,17 @@ map load_map() noexcept
         auto filled = decrypt(line);
         std::getline(f, line);
 
-        babel::ITERATOR::enumerator NextThreeEnum(Result.get_next_three());
+        std::array<ball, 3> next_three;
+
+        babel::ITERATOR::enumerator NextThreeEnum(next_three);
         std::for_each(NextThreeEnum.begin(), NextThreeEnum.end(),
                       [&_decrypt, &line](auto En_Ball) mutable {
                           En_Ball.second() = _decrypt(line.substr(static_cast<std::size_t>(En_Ball.first()) * 40, 40));
                       });
 
-        std::for_each(Result.get_grid().begin(), Result.get_grid().end(),
+        std::array<std::array<ball, 9>, 9> grid;
+
+        std::for_each(grid.begin(), grid.end(),
                       [&line, &f, &_decrypt](auto &Row) mutable {
                           std::getline(f, line);
                           babel::ITERATOR::enumerator RowEnum(Row);
@@ -46,11 +49,12 @@ map load_map() noexcept
                       });
 
         babel::FILE_SYS::close_file(f);
-        Result.set_score(score);
-        Result.set_filled(static_cast<uint8_t>(filled));
+        Result.load_game(score, static_cast<uint8_t>(filled), next_three, grid);
         Result.set_update(true);
-        if ( Result.check_for_score() )
+
+        if ( Result.score_there() )
             return map { };
+
         uint8_t fill_fix = 0;
         std::for_each(Result.get_grid().begin(), Result.get_grid().end(),
                       [&fill_fix](const auto &Row) mutable {
@@ -60,12 +64,12 @@ map load_map() noexcept
                                                                          }));
                       });
         if ( fill_fix != filled )
-            return map();
+            return map{};
         return Result;
     }
     catch ( ... )
     {
-        return map();
+        return map{};
     }
 }
 
