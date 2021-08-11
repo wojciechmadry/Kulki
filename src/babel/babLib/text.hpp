@@ -1,32 +1,31 @@
-#ifndef BABEL_TEXT_HPP
-#define BABEL_TEXT_HPP
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_TEXT_HPP_
+#define BABLIB_TEXT_HPP_
 
 #include "file_system.hpp"
 
 namespace babel::TEXT{
     class text
     {
-
-        std::string _str;
-        std::array<std::vector<char *>, 256> _lett;
+        std::string m_str;
+        std::array<std::vector<char *>, 256> m_lett;
 
         template< typename T >
         void _set_text(T &&str) noexcept
         {
             _clear_vector();
-            _str = std::forward<T>(str);
-            std::for_each(std::begin(_str), std::end(_str), [this](char &_char) mutable {
-                this->_lett[static_cast<uint8_t>(_char)].emplace_back(&_char);
+            m_str = std::forward<T>(str);
+            std::for_each(std::begin(m_str), std::end(m_str), [this](char &_char) mutable {
+                this->m_lett[static_cast<uint8_t>(_char)].emplace_back(&_char);
             });
         }
 
         void _clear_vector() noexcept
         {
-            std::for_each(std::begin(_lett), std::end(_lett), [](std::vector<char *> &Vec) { Vec.clear(); });
+            std::for_each(std::begin(m_lett), std::end(m_lett), [](std::vector<char *> &Vec) { Vec.clear(); });
         }
 
     public:
-
         text() noexcept = default;
 
         /**
@@ -102,7 +101,7 @@ namespace babel::TEXT{
 */
         [[nodiscard]] size_t count(const uint8_t Char) const noexcept
         {
-            return _lett[static_cast<std::size_t>(Char)].size();
+            return m_lett[static_cast<std::size_t>(Char)].size();
         }
 
         /**
@@ -112,7 +111,7 @@ namespace babel::TEXT{
         void clear() noexcept
         {
             _clear_vector();
-            _str.clear();
+            m_str.clear();
         }
 
         /**
@@ -124,9 +123,9 @@ namespace babel::TEXT{
         {
             if ( to_find.empty() )
                 return nullptr;
-            auto& LetterVector = _lett[static_cast<std::size_t>(static_cast<uint8_t>(to_find[0]))];
+            auto& LetterVector = m_lett[static_cast<std::size_t>(static_cast<uint8_t>(to_find[0]))];
             char* ReturnValue {nullptr};
-            std::any_of(LetterVector.begin(), LetterVector.end(),
+            auto isFound = std::any_of(LetterVector.begin(), LetterVector.end(),
             [&to_find, &ReturnValue](char* CharPtr) mutable -> bool
             {
                 auto found = std::equal(CharPtr, CharPtr + to_find.size(), to_find.data(), to_find.data() + to_find.size());
@@ -134,19 +133,19 @@ namespace babel::TEXT{
                     ReturnValue = CharPtr;
                 return found;
             });
-            return ReturnValue;
+            return isFound ? ReturnValue : nullptr;
         }
 
         /**
 *  @brief Get string stored in class
 *  @return Return const std::string stored in class
 */
-        [[nodiscard]] const std::string &get_string() const noexcept
+        [[nodiscard]] const std::string &getm_string() const noexcept
         {
-            return _str;
+            return m_str;
         }
     };
-}
+}  // namespace babel::TEXT
 
 
-#endif
+#endif  // BABLIB_TEXT_HPP_

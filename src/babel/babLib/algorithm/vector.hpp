@@ -1,7 +1,13 @@
-#ifndef BABEL_ALGO_VECTOR
-#define BABEL_ALGO_VECTOR
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_ALGORITHM_VECTOR_HPP_
+#define BABLIB_ALGORITHM_VECTOR_HPP_
 
-#include "../must_have.hpp"
+#include <vector>
+#include <algorithm>
+#include "../concepts/concepts.hpp"
+#include <numeric>
+#include <cmath>
+#include "math.hpp"
 
 namespace babel::ALGO::VECTOR{
     /**
@@ -14,12 +20,12 @@ namespace babel::ALGO::VECTOR{
             */
     template< typename Vec, typename Type = babel::CONCEPTS::type_in<Vec> >
     requires babel::CONCEPTS::IS_CONTAINER<Vec>
-    constexpr size_t count(const Vec &Container, const Type &element)
+    inline constexpr size_t count(const Vec &Container, const Type &element)
     {
         size_t counter = 0;
         std::for_each(std::begin(Container), std::end(Container),
                       [&counter, &element](const auto &Data) mutable {
-                          counter += (Data == element );
+                          counter += ( Data == element );
                       });
         return counter;
     }
@@ -35,7 +41,7 @@ namespace babel::ALGO::VECTOR{
    */
     template< typename Vec, typename Pr >
     requires babel::CONCEPTS::IS_CONTAINER<Vec>
-    constexpr size_t count_if(const Vec &Container, Pr prediction)
+    inline constexpr size_t count_if(const Vec &Container, Pr prediction)
     {
         size_t counter = 0;
         std::for_each(std::begin(Container), std::end(Container),
@@ -55,7 +61,7 @@ namespace babel::ALGO::VECTOR{
  */
     template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires babel::CONCEPTS::IS_CONTAINER<T>
-    constexpr std::pair<U, U> find_min_max(const T &container) noexcept
+    inline constexpr std::pair<U, U> find_min_max(const T &container) noexcept
     {
         if ( container.size() == 0 )
             return { };
@@ -78,7 +84,7 @@ namespace babel::ALGO::VECTOR{
    */
     template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires babel::CONCEPTS::IS_CONTAINER<T>
-    constexpr std::pair<U *, U *> find_min_max_ptr(T &container) noexcept
+    inline constexpr std::pair<U *, U *> find_min_max_ptr(const T &container) noexcept
     {
         if ( container.size() == 0 )
             return {nullptr, nullptr};
@@ -104,7 +110,7 @@ namespace babel::ALGO::VECTOR{
 */
     template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires babel::CONCEPTS::IS_CONTAINER<T>
-    constexpr U mean(const T &container) noexcept
+    inline constexpr U mean(const T &container) noexcept
     {
         if ( container.size() == 0 )
             return { };
@@ -121,7 +127,7 @@ namespace babel::ALGO::VECTOR{
 
     template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires ( babel::CONCEPTS::IS_CONTAINER<T> && babel::CONCEPTS::IS_FLOATING_POINT<U> )
-    constexpr void normalize(T &container) noexcept
+    inline constexpr void normalize(T &container) noexcept
     {
         auto mm = babel::ALGO::VECTOR::find_min_max(container);
         std::for_each(std::begin(container), std::end(container), [&mm](U &data) {
@@ -138,7 +144,7 @@ namespace babel::ALGO::VECTOR{
 */
     template< typename T, typename U =babel::CONCEPTS::type_in<T> >
     requires babel::CONCEPTS::IS_CONTAINER<T>
-    constexpr U sum(const T &container) noexcept
+    inline constexpr U sum(const T &container) noexcept
     {
         return std::accumulate(std::begin(container), std::end(container), 0);
     }
@@ -152,7 +158,7 @@ namespace babel::ALGO::VECTOR{
 */
     template< typename T, typename U = babel::CONCEPTS::type_in<T> >
     requires babel::CONCEPTS::IS_CONTAINER<T>
-    constexpr U closest_to_mean(const T &container)
+    inline constexpr U closest_to_mean(const T &container)
     {
         if ( container.size() == 0 )
             return { };
@@ -184,7 +190,7 @@ namespace babel::ALGO::VECTOR{
 */
     template< typename Container >
     requires babel::CONCEPTS::IS_CONTAINER<Container>
-    [[nodiscard]] Container drop(const Container &cont, const int64_t n) noexcept
+    [[nodiscard]] inline Container drop(const Container &cont, const int64_t n) noexcept
     {
         if ( n > static_cast<int64_t>(cont.size()) || n <= 0 )
             return { };
@@ -202,7 +208,7 @@ namespace babel::ALGO::VECTOR{
 */
     template< typename Container >
     requires babel::CONCEPTS::IS_CONTAINER<Container>
-    [[nodiscard]] Container take(const Container &cont, const uint64_t n) noexcept
+    [[nodiscard]] inline Container take(const Container &cont, const uint64_t n) noexcept
     {
         if ( n >= cont.size() )
             return cont;
@@ -221,7 +227,7 @@ namespace babel::ALGO::VECTOR{
 */
     template< typename Container >
     requires babel::CONCEPTS::IS_LIKE_VECTOR<Container>
-    [[nodiscard]] Container repeat(const Container &cont, const size_t n) noexcept
+    [[nodiscard]] inline Container repeat(const Container &cont, const size_t n) noexcept
     {
         if ( n <= 1 )
             return cont;
@@ -258,7 +264,7 @@ namespace babel::ALGO::VECTOR{
 */
     template< typename Container >
     requires babel::CONCEPTS::IS_LIKE_VECTOR<Container>
-    [[nodiscard]] Container stride(const Container &cont, const size_t n) noexcept
+    [[nodiscard]] inline Container stride(const Container &cont, const size_t n) noexcept
     {
         if ( n <= 1 )
             return cont;
@@ -283,15 +289,17 @@ namespace babel::ALGO::VECTOR{
 */
     template< typename Container >
     requires babel::CONCEPTS::IS_LIKE_VECTOR<Container>
-    [[nodiscard]] Container drop_idx(const Container &cont, const size_t index) noexcept
+    [[nodiscard]] inline Container drop_idx(const Container &cont, const size_t index) noexcept
     {
         if ( cont.empty() || index >= cont.size() )
             return cont;
         Container res;
         auto back_inserter = std::back_inserter(res);
         auto _get = [](const auto &data) { return data; };
-        std::transform(std::begin(cont), std::begin(cont) + static_cast<babel::CONCEPTS::IteratorAddType>(index), back_inserter, _get);
-        std::transform(std::begin(cont) + static_cast<babel::CONCEPTS::IteratorAddType>(index) + 1, std::end(cont), back_inserter, _get);
+        std::transform(std::begin(cont), std::begin(cont) + static_cast<babel::CONCEPTS::IteratorAddType>(index),
+                       back_inserter, _get);
+        std::transform(std::begin(cont) + static_cast<babel::CONCEPTS::IteratorAddType>(index) + 1, std::end(cont),
+                       back_inserter, _get);
         return res;
     }
 
@@ -306,7 +314,7 @@ namespace babel::ALGO::VECTOR{
 */
     template< typename Container >
     requires babel::CONCEPTS::IS_CONTAINER<Container>
-    [[nodiscard]] Container drop_last(const Container &cont, const uint64_t n) noexcept
+    [[nodiscard]] inline Container drop_last(const Container &cont, const uint64_t n) noexcept
     {
         if ( n > cont.size() )
             return { };
@@ -325,7 +333,7 @@ namespace babel::ALGO::VECTOR{
 */
     template< typename Container >
     requires babel::CONCEPTS::IS_CONTAINER<Container>
-    [[nodiscard]] Container take_last(const Container &cont, const size_t n) noexcept
+    [[nodiscard]] inline Container take_last(const Container &cont, const size_t n) noexcept
     {
         if ( n >= cont.size() )
             return cont;
@@ -344,7 +352,7 @@ namespace babel::ALGO::VECTOR{
 */
     template< typename Container >
     requires babel::CONCEPTS::IS_CONTAINER<Container>
-    [[nodiscard]] Container take_cyclic(const Container &cont, const size_t n) noexcept
+    [[nodiscard]] inline Container take_cyclic(const Container &cont, const size_t n) noexcept
     {
         if ( n == cont.size() || cont.size() == 0 )
             return cont;
@@ -370,7 +378,7 @@ namespace babel::ALGO::VECTOR{
 */
     template< typename Container >
     requires babel::CONCEPTS::IS_CONTAINER<Container>
-    [[nodiscard]] Container replicate_elems(const Container &cont, const size_t n) noexcept
+    [[nodiscard]] inline Container replicate_elems(const Container &cont, const size_t n) noexcept
     {
         if ( n == 0 )
             return { };
@@ -394,7 +402,7 @@ namespace babel::ALGO::VECTOR{
 */
     template< typename Container, typename T = babel::CONCEPTS::type_in<Container> >
     requires babel::CONCEPTS::IS_LIKE_VECTOR<Container>
-    [[nodiscard]] std::vector<std::pair<size_t, T>> enumerate(const Container &cont) noexcept
+    [[nodiscard]] inline std::vector<std::pair<size_t, T>> enumerate(const Container &cont) noexcept
     {
         std::size_t index {0};
         std::vector<std::pair<std::size_t, T>> res;
@@ -415,7 +423,7 @@ namespace babel::ALGO::VECTOR{
 */
     template< typename Container, typename T = babel::CONCEPTS::type_in<Container> >
     requires babel::CONCEPTS::IS_LIKE_VECTOR<Container>
-    [[nodiscard]] std::vector<std::pair<size_t, T>> run_length_encode(const Container &cont) noexcept
+    [[nodiscard]] inline std::vector<std::pair<size_t, T>> run_length_encode(const Container &cont) noexcept
     {
         std::vector<std::pair<size_t, T>> res;
         if ( cont.size() == 0 )
@@ -450,7 +458,8 @@ namespace babel::ALGO::VECTOR{
 *  @param  step What step
 *  @return Return vector
 */
-    [[deprecated("Use ITERATOR::range instead.")]] [[nodiscard]] std::vector<int64_t> range(int64_t start, int64_t end, int64_t step = 1) noexcept
+    [[deprecated("Use ITERATOR::range instead.")]] [[nodiscard]] inline std::vector<int64_t>
+    range(int64_t start, int64_t end, int64_t step = 1) noexcept
     {
         if ( start > end && step == 1 )
             step = -1;
@@ -460,15 +469,18 @@ namespace babel::ALGO::VECTOR{
             return { };
         std::vector<int64_t> _res;
         if ( start < end )
+        {
             for ( ; start < end ; start += step )
             {
                 _res.emplace_back(start);
             }
-        else
+        } else
+        {
             for ( ; start > end ; start += step )
             {
                 _res.emplace_back(start);
             }
+        }
         return _res;
     }
 
@@ -479,7 +491,7 @@ namespace babel::ALGO::VECTOR{
 *  @param  end Where end
 *  @return Return vector
 */
-    [[deprecated("Use ITERATOR::range instead.")]][[nodiscard]] std::vector<int64_t> range(int64_t end) noexcept
+    [[deprecated("Use ITERATOR::range instead.")]][[nodiscard]] inline std::vector<int64_t> range(int64_t end) noexcept
     {
         int64_t start = 0;
         int64_t step = 1;
@@ -491,15 +503,18 @@ namespace babel::ALGO::VECTOR{
             return { };
         std::vector<int64_t> _res;
         if ( start < end )
+        {
             for ( ; start < end ; start += step )
             {
                 _res.emplace_back(start);
             }
-        else
+        } else
+        {
             for ( ; start > end ; start += step )
             {
                 _res.emplace_back(start);
             }
+        }
         return _res;
     }
 
@@ -511,7 +526,7 @@ namespace babel::ALGO::VECTOR{
 *  @param  cols how many cols
 *  @return Return 2D vector filled with 0
 */
-    [[nodiscard]] std::vector<std::vector<int64_t>> zeros(const size_t rows, const size_t columns) noexcept
+    [[nodiscard]] inline std::vector<std::vector<int64_t>> zeros(const size_t rows, const size_t columns) noexcept
     {
         return std::vector<std::vector<int64_t>>(rows, std::vector<int64_t>(columns, 0));
     }
@@ -523,7 +538,7 @@ namespace babel::ALGO::VECTOR{
 *  @param  columns how many cols
 *  @return Return 1D vector filled with 0
 */
-    [[nodiscard]] std::vector<int64_t> zeros(const size_t columns) noexcept
+    [[nodiscard]] inline std::vector<int64_t> zeros(const size_t columns) noexcept
     {
         return std::vector<int64_t>(columns, 0);
     }
@@ -536,7 +551,7 @@ namespace babel::ALGO::VECTOR{
 *  @param  cols how many cols
 *  @return Return 2D vector filled with 1
 */
-    [[nodiscard]] std::vector<std::vector<int64_t>> ones(const size_t rows, const size_t columns) noexcept
+    [[nodiscard]] inline std::vector<std::vector<int64_t>> ones(const size_t rows, const size_t columns) noexcept
     {
         return std::vector<std::vector<int64_t>>(rows, std::vector<int64_t>(columns, 1));
     }
@@ -548,10 +563,10 @@ namespace babel::ALGO::VECTOR{
 *  @param  columns how many cols
 *  @return Return 1D vector filled with 1
 */
-    [[nodiscard]] std::vector<int64_t> ones(const size_t columns) noexcept
+    [[nodiscard]] inline std::vector<int64_t> ones(const size_t columns) noexcept
     {
         return std::vector<int64_t>(columns, 1);
     }
 
-}
-#endif
+}  // namespace babel::ALGO::VECTOR
+#endif  // BABLIB_ALGORITHM_VECTOR_HPP_

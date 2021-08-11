@@ -1,20 +1,29 @@
 set(CMAKE_CXX_STANDARD 20)
-add_library(source STATIC
-        object/map.hpp
-        object/ball.hpp
-        babel/babel.hpp
-        function/random_generator.hpp
-        function/drawer.hpp
-        function/load.hpp
-        function/crypt.hpp
-        function/search_font.hpp
-        )
 
-target_link_libraries(source PUBLIC gcc)
-target_link_libraries(source PUBLIC stdc++.dll)
-target_link_libraries(source PUBLIC sfml-window)
-target_link_libraries(source PUBLIC sfml-graphics)
-target_link_libraries(source PUBLIC sfml-system)
-target_link_libraries(source PUBLIC freetype)
-set_target_properties(source PROPERTIES LINKER_LANGUAGE CXX)
-target_include_directories(source PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+# --- no diffrence ---
+add_subdirectory(function/random)
+add_subdirectory(function/crypt)
+add_subdirectory(function/font)
+# ---------------------
+
+add_subdirectory(object/ball)
+
+add_subdirectory(object/map)
+add_subdirectory(object/red_box)
+
+add_subdirectory(function/load)
+add_subdirectory(function/drawer)
+
+add_subdirectory(function/thread)
+add_subdirectory(function/mouse)
+add_subdirectory(function/tester)
+
+set(LIBRARIES
+        ${OBJECT}
+        ${FUNCTION}
+        stdc++
+        sfml-window
+        sfml-graphics
+        sfml-system
+        freetype
+        PARENT_SCOPE)

@@ -1,121 +1,125 @@
-#ifndef babel_ITERATOR_RANGE
-#define babel_ITERATOR_RANGE
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_ITERATORS_RANGE_HPP_
+#define BABLIB_ITERATORS_RANGE_HPP_
 
-#include "../must_have.hpp"
+#include <cstdint>
+#include <stdexcept>
 
 namespace babel::ITERATOR{
-    template<typename Type = int64_t>
+    template< typename Type = int64_t, typename StepType = int64_t >
     class range
     {
-        Type _start, _stop, _step;
+        Type m_start, m_stop;
+        StepType m_step;
     public:
-
         class Iterator
         {
-            Type _val, _step;
+            Type m_val;
+            StepType m_step;
         public:
-            constexpr Iterator(const Type Val, const Type Step) noexcept: _val(Val), _step(Step)
+            constexpr Iterator(const Type Val, const StepType Step) noexcept: m_val(Val), m_step(Step)
             { }
+
             constexpr ~Iterator() = default;
 
             [[nodiscard]] constexpr Type operator*() const noexcept
             {
-                return _val;
+                return m_val;
             }
 
             [[nodiscard]] constexpr Type &operator*() noexcept
             {
-                return _val;
+                return m_val;
             }
 
             constexpr Iterator &operator++() noexcept
             {
-                _val += _step;
+                m_val = static_cast<Type>(m_val + m_step);
                 return *this;
             }
 
             constexpr const Iterator operator++(int) noexcept //NOLINT
             {
                 auto _ret = *this;
-                _val += _step;
+                m_val = static_cast<Type>(m_val + m_step);
                 return _ret;
             }
 
             constexpr bool operator==(const Iterator &Other) const noexcept
             {
-                if ( _step > 0 )
-                    return Other._val <= _val;
-                return Other._val >= _val;
+                if ( m_step > 0 )
+                    return Other.m_val <= m_val;
+                return Other.m_val >= m_val;
             }
 
             constexpr bool operator!=(const Iterator &Other) const noexcept
             {
-                if ( _step < 0 )
-                    return _val > Other._val;
-                return _val < Other._val;
+                if ( m_step < 0 )
+                    return m_val > Other.m_val;
+                return m_val < Other.m_val;
             }
-
         };
 
-        constexpr range() noexcept: _start(0), _stop(0), _step(0)
+        constexpr range() noexcept: m_start(0), m_stop(0), m_step(0)
         { }
-        constexpr range(Type Start, Type Stop, Type Step = 1)
+
+        constexpr range(Type Start, Type Stop, StepType Step = 1)
         {
             if ( Start > Stop && Step == 1 )
-                Step = static_cast<Type>(-1);
+                Step = static_cast<StepType>(-1);
             if ( Start != Stop && Step == 0 )
                 throw std::out_of_range("When Start != Stop then Step can't be 0.");
             if ( Start > Stop && Step > 0 )
                 throw std::out_of_range("When Start > Stop then Step can't be >0.");
             else if ( Start < Stop && Step < 0 )
                 throw std::out_of_range("When Start < Stop then Step can't be <0.");
-            _start = Start;
-            _stop = Stop;
-            _step = Step;
+            m_start = Start;
+            m_stop = Stop;
+            m_step = Step;
         }
 
         constexpr ~range() = default;
 
         [[nodiscard]]constexpr Type Start() const noexcept
         {
-            return _start;
+            return m_start;
         }
 
         [[nodiscard]]constexpr Type Stop() const noexcept
         {
-            return _start;
+            return m_stop;
         }
 
-        [[nodiscard]]constexpr Type Step() const noexcept
+        [[nodiscard]]constexpr StepType Step() const noexcept
         {
-            return _start;
+            return m_step;
         }
 
         [[nodiscard]]constexpr Type &Start() noexcept
         {
-            return _start;
+            return m_start;
         }
 
         [[nodiscard]]constexpr Type &Stop() noexcept
         {
-            return _start;
+            return m_stop;
         }
 
-        [[nodiscard]]constexpr Type &Step() noexcept
+        [[nodiscard]]constexpr StepType &Step() noexcept
         {
-            return _start;
+            return m_step;
         }
 
         [[nodiscard]]constexpr Iterator begin() const noexcept
         {
-            return Iterator(_start, _step);
+            return Iterator(m_start, m_step);
         }
 
         [[nodiscard]]constexpr Iterator end() const noexcept
         {
-            return Iterator(_stop, _step);
+            return Iterator(m_stop, m_step);
         }
     };
-}
+}  // namespace babel::ITERATOR
 
-#endif
+#endif  // BABLIB_ITERATORS_RANGE_HPP_

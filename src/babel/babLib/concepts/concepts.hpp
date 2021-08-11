@@ -1,19 +1,21 @@
-#ifndef babel_CONCEPTS
-#define babel_CONCEPTS
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_CONCEPTS_CONCEPTS_HPP_
+#define BABLIB_CONCEPTS_CONCEPTS_HPP_
 
 #include <type_traits>
-#include "../must_have.hpp"
+#include <cstdint>
+#include <iterator>
 
 namespace babel::CONCEPTS{
     namespace TYPE_TRAITS{
         template< typename T >
         using decay_t = typename std::decay_t<T>;
         template< typename T, typename U >
-        static constexpr bool is_same_v = std::is_same_v<decay_t<T>, decay_t<U> >;
+        constexpr bool is_same_v = std::is_same_v<decay_t<T>, decay_t<U> >;
         template< typename T, typename U >
-        static constexpr bool is_convertible_v = std::is_convertible_v<decay_t<T>, decay_t<U> >;
+        constexpr bool is_convertible_v = std::is_convertible_v<decay_t<T>, decay_t<U> >;
         template< typename T >
-        static constexpr bool is_destructible_v = std::is_destructible_v<decay_t<T>>;
+        constexpr bool is_destructible_v = std::is_destructible_v<decay_t<T>>;
     }
     template< typename LHS, typename RHS >
     concept IS_SAME_CONVERTIBLE = TYPE_TRAITS::is_same_v<LHS, RHS> || TYPE_TRAITS::is_convertible_v<LHS, RHS>;
@@ -128,7 +130,7 @@ namespace babel::CONCEPTS{
         requires(T object){
             object->get();
         };
-    }
+    }  // namespace MEMBER
     template< typename Func, typename ... Args >
     concept IS_VOID_RETURN =
     requires(Func func, Args...args)
@@ -213,6 +215,6 @@ namespace babel::CONCEPTS{
         typedef decltype(_babel_type_of()) type;
     };
 
-    using IteratorAddType = type_of_number<sizeof(void*)>::type;
-}
-#endif
+    using IteratorAddType = type_of_number<sizeof(void *)>::type;
+}  // namespace babel::CONCEPTS
+#endif  // BABLIB_CONCEPTS_CONCEPTS_HPP_

@@ -1,6 +1,7 @@
-#ifndef BABEL_GRAPHICS
-#define BABEL_GRAPHICS
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_GRAPHICS_GRAPHICS_HPP_
+#define BABLIB_GRAPHICS_GRAPHICS_HPP_
 
 #include "convert.hpp"
 
-#endif
+#endif  // BABLIB_GRAPHICS_GRAPHICS_HPP_

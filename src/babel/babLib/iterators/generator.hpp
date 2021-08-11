@@ -1,25 +1,27 @@
-#ifndef babel_ITERATOR_GENERATOR
-#define babel_ITERATOR_GENERATOR
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_ITERATORS_GENERATOR_HPP_
+#define BABLIB_ITERATORS_GENERATOR_HPP_
 
-#include "../must_have.hpp"
+#include <cstdint>
+#include <utility>
 
 namespace babel::ITERATOR{
 
     template< typename Type >
     class generator
     {
-        Type _gen;
+        Type m_gen;
 
         class iterator
         {
-            Type *_gen {nullptr};
+            Type *m_gen {nullptr};
             int64_t _times {0};
 
         public:
-            constexpr iterator(const Type &Sequence, const int64_t Times) noexcept: _gen(&Sequence), _times(Times)
+            constexpr iterator(const Type &Sequence, const int64_t Times) noexcept: m_gen(&Sequence), _times(Times)
             { }
 
-            constexpr iterator(Type *Sequence, const int64_t Times) noexcept: _gen(Sequence), _times(Times)
+            constexpr iterator(Type *Sequence, const int64_t Times) noexcept: m_gen(Sequence), _times(Times)
             { }
 
             [[nodiscard]] constexpr int64_t &times() noexcept
@@ -34,7 +36,7 @@ namespace babel::ITERATOR{
 
             constexpr const Type &operator*() const noexcept
             {
-                return *_gen;
+                return *m_gen;
             }
 
 
@@ -46,7 +48,7 @@ namespace babel::ITERATOR{
 
             constexpr const iterator operator++(int) //NOLINT
             {
-                iterator other(_gen, _times);
+                iterator other(m_gen, _times);
                 --_times;
                 return other;
             }
@@ -59,7 +61,7 @@ namespace babel::ITERATOR{
 
             constexpr const iterator operator--(int) //NOLINT
             {
-                iterator other(_gen, _times);
+                iterator other(m_gen, _times);
                 ++_times;
                 return other;
             }
@@ -73,43 +75,42 @@ namespace babel::ITERATOR{
             {
                 return _times != other._times;
             }
-
         };
 
     public:
         constexpr generator() = delete;
 
-        constexpr explicit generator(const Type &Sequence) noexcept: _gen(Sequence)
+        constexpr explicit generator(const Type &Sequence) noexcept: m_gen(Sequence)
         { }
 
-        constexpr generator(const generator &Other) noexcept: _gen(Other._gen)
+        constexpr generator(const generator &Other) noexcept: m_gen(Other.m_gen)
         { }
 
-        constexpr generator(generator &&Other) noexcept: _gen(std::move(Other._gen))
+        constexpr generator(generator &&Other) noexcept: m_gen(std::move(Other.m_gen))
         { }
 
         [[nodiscard]] Type& stored() noexcept
         {
-            return _gen;
+            return m_gen;
         }
 
         [[nodiscard]] const Type& stored() const noexcept
         {
-            return _gen;
+            return m_gen;
         }
 
         [[nodiscard]] constexpr auto begin(const int64_t Times) noexcept
         {
-            return iterator(&_gen, Times);
+            return iterator(&m_gen, Times);
         }
 
         [[nodiscard]] constexpr auto end() noexcept
         {
-            return iterator(&_gen, 0);
+            return iterator(&m_gen, 0);
         }
     };
 
-}
+}  // namespace babel::ITERATOR
 
 
-#endif
+#endif  // BABLIB_ITERATORS_GENERATOR_HPP_

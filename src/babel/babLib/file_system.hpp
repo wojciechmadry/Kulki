@@ -1,7 +1,11 @@
-#ifndef BABEL_FILE_SYSTEM
-#define BABEL_FILE_SYSTEM
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_FILE_SYSTEM_HPP_
+#define BABLIB_FILE_SYSTEM_HPP_
 
-#include "must_have.hpp"
+#include <fstream>
+#include <filesystem>
+#include <vector>
+#include "concepts/concepts.hpp"
 
 namespace babel::FILE_SYS{
 
@@ -11,7 +15,7 @@ namespace babel::FILE_SYS{
 */
     template< typename Filestream >
     requires babel::CONCEPTS::MEMBER::HAS_CLOSE<Filestream>
-    void close_file(Filestream &FileStream) noexcept
+    inline void close_file(Filestream &FileStream) noexcept
     {
         if constexpr( babel::CONCEPTS::IS_POINTER<Filestream> )
             FileStream->close();
@@ -26,7 +30,7 @@ namespace babel::FILE_SYS{
    */
     template< typename Filestream, typename ... Args >
     requires babel::CONCEPTS::MEMBER::HAS_CLOSE<Filestream>
-    void close_file(Filestream &FileStream, Args &... arg) noexcept//NOLINT
+    inline void close_file(Filestream &FileStream, Args &... arg) noexcept//NOLINT
     {
         close_file(FileStream);
         close_file(arg...);
@@ -37,11 +41,14 @@ namespace babel::FILE_SYS{
 *  @param  path Folder to scan
 *  @return Vector of filename with extension in folder
 */
-    std::vector<std::string> scan_folder(const std::string &path) noexcept
+    inline std::vector<std::string> scan_folder(const std::string &path) noexcept
     {
         std::vector<std::string> _res;
-        for ( const auto &obj : std::filesystem::directory_iterator(path) )
-            _res.emplace_back(obj.path().filename().string());
+        auto Directory = std::filesystem::directory_iterator(path);
+        std::transform(begin(Directory), end(Directory), std::back_inserter(_res),
+                       [](const auto &FILE_PATH) -> std::string {
+                           return FILE_PATH.path().filename().string();
+                       });
         return _res;
     }
 
@@ -51,7 +58,7 @@ namespace babel::FILE_SYS{
 *  @param  filename filename with extension or without.
 *  @return File extension ex: .exe, .txt etc.
 */
-    std::string file_extension(const std::string &filename) noexcept
+    inline std::string file_extension(const std::string &filename) noexcept
     {
         auto _find_dot = filename.find('.');
         if ( _find_dot != std::string::npos )
@@ -65,7 +72,7 @@ namespace babel::FILE_SYS{
 *  @param  filename filename with extension or without.
 *  @return Filename without extension ex.: test.txt -> test
 */
-    std::string file_without_extension(const std::string &filename) noexcept
+    inline std::string file_without_extension(const std::string &filename) noexcept
     {
         auto _find_dot = filename.find('.');
         if ( _find_dot != std::string::npos )
@@ -83,7 +90,7 @@ namespace babel::FILE_SYS{
 *  @param  contain text we want to find in filename.
 *  @return If filename contains contain return 1 otherwise return 0
 */
-    bool filename_contain(const std::string_view filename, const std::string_view contain) noexcept
+    inline bool filename_contain(const std::string_view filename, const std::string_view contain) noexcept
     {
         return filename.find(contain) != std::string::npos;
     }
@@ -93,14 +100,14 @@ namespace babel::FILE_SYS{
 *  @param  filename File to load
 *  @return Loaded file to vector
 */
-    std::vector<std::string> load_txt_to_vector(const std::string& filename) noexcept
+    inline std::vector<std::string> load_txt_to_vector(const std::string &filename) noexcept
     {
         std::vector<std::string> _out;
         std::ifstream file(filename, std::ios::in | std::ios::binary);
-        if (!(file.good() && file.is_open()))
-            return {};
+        if ( !( file.good() && file.is_open() ) )
+            return { };
         _out.emplace_back("");
-        while(std::getline(file, _out[_out.size() - 1]))
+        while ( std::getline(file, _out[_out.size() - 1]) )
             _out.emplace_back("");
         _out.pop_back();
         close_file(file);
@@ -112,16 +119,16 @@ namespace babel::FILE_SYS{
 *  @param  filename File to load
 *  @return Loaded file to string
 */
-    std::string load_txt(const std::string& filename) noexcept
+    inline std::string load_txt(const std::string &filename) noexcept
     {
         std::string out, line;
         std::ifstream file(filename, std::ios::in | std::ios::binary);
-        if (!(file.good() && file.is_open()))
+        if ( !( file.good() && file.is_open() ) )
             return out;
-        while(std::getline(file, line))
+        while ( std::getline(file, line) )
         {
             out += line;
-            if (line[line.size() - 1] != '\n')
+            if ( line[line.size() - 1] != '\n' )
                 out += '\n';
         }
         close_file(file);
@@ -133,7 +140,7 @@ namespace babel::FILE_SYS{
 *  @param  filename File to check
 *  @return True if Exist, False in otherwise
 */
-    [[nodiscard]] inline bool file_exist(const std::string& filename) noexcept
+    [[nodiscard]] inline bool file_exist(const std::string &filename) noexcept
     {
         return std::filesystem::is_regular_file(filename);
     }
@@ -143,7 +150,7 @@ namespace babel::FILE_SYS{
 *  @param  foldername Folder to check
 *  @return True if Exist, False in otherwise
 */
-    [[nodiscard]] inline  bool folder_exist(const std::string& foldername) noexcept
+    [[nodiscard]] inline bool folder_exist(const std::string &foldername) noexcept
     {
         return std::filesystem::is_directory(foldername);
     }
@@ -154,10 +161,10 @@ namespace babel::FILE_SYS{
 *  @param  name File/Folder to check
 *  @return True if Exist, False in otherwise
 */
-    [[nodiscard]] inline bool file_folder_exist(const std::string& name) noexcept
+    [[nodiscard]] inline bool file_folder_exist(const std::string &name) noexcept
     {
         return folder_exist(name) | file_exist(name);
     }
-}
+}  // namespace babel::FILE_SYS
 
-#endif
+#endif  // BABLIB_FILE_SYSTEM_HPP_

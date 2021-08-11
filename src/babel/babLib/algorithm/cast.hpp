@@ -1,7 +1,10 @@
-#ifndef babel_ALGO_CAST
-#define babel_ALGO_CAST
+#ifndef BABLIB_ALGORITHM_CAST_HPP_
+#define BABLIB_ALGORITHM_CAST_HPP_
 
-#include "../must_have.hpp"
+#include <bitset>
+#include <string>
+#include <stdexcept>
+#include "../concepts/concepts.hpp"
 
 namespace babel::ALGO::CAST{
 
@@ -46,7 +49,7 @@ namespace babel::ALGO::CAST{
     }
 
     /**
-*  @brief  Convert signed/unsgined data to unsigned/signed.
+*  @brief  Convert signed/unsigned data to unsigned/signed.
 *  \Example_1 int32_t a = -3, function return uint32_t(a)
 *  \Example_2 unt32_t a = 35, function return int32_t(a)
 *  @param  data Signed or Unsigned data to convert
@@ -54,7 +57,7 @@ namespace babel::ALGO::CAST{
 */
     template< typename T >
     requires ( std::is_signed_v<T> || std::is_unsigned_v<T> )
-    constexpr auto signed_unsigned_conv(const T data) noexcept
+    inline constexpr auto signed_unsigned_conv(const T data) noexcept
     {
         return static_cast< typename babel::CONCEPTS::type_of_number<static_cast<uint8_t>(sizeof(data)), !std::is_signed_v<T>>::type >(data);
     }
@@ -162,9 +165,8 @@ namespace babel::ALGO::CAST{
                     else
                     {
                         T ArrayLike;
-                        std::transform(std::begin(data), std::end(data),std::back_inserter(ArrayLike),
-                                       []<typename LambdaType>(LambdaType& Element)
-                                       {
+                        std::transform(std::begin(data), std::end(data), std::back_inserter(ArrayLike),
+                                       []< typename LambdaType >(LambdaType &Element) {
                                            return std::move(Element);
                                        });
                         return ArrayLike;
@@ -190,7 +192,6 @@ namespace babel::ALGO::CAST{
         {
             return static_cast<T>(std::forward<U>(data));
         }
-
     }
 
 
@@ -202,14 +203,40 @@ namespace babel::ALGO::CAST{
     *  @return No return
     */
     template< typename T >
-    void swap(T &lhs, T &rhs) noexcept
+    inline void swap(T &lhs, T &rhs) noexcept
     {
         T temp = std::move(lhs);
         lhs = std::move(rhs);
         rhs = std::move(temp);
     }
 
+    template< typename T >
+    requires(std::is_integral_v<std::decay_t<T>>)
+    [[nodiscard]] inline std::string to_hex(const T number) noexcept
+    {
+        std::string res;
+        res.reserve(sizeof(T) * 2);
 
-}
+        for ( std::int64_t i = sizeof(T) * 8 - 1 ; i >= 0 ; i -= 4 )
+        {
+            auto b0 = ( number >> ( i ) ) & 1;
+            auto b1 = ( number >> ( i - 1 ) ) & 1;
+            auto b2 = ( number >> ( i - 2 ) ) & 1;
+            auto b3 = ( number >> ( i - 3 ) ) & 1;
+            auto value = ( b0 << 3 ) + ( b1 << 2 ) + ( b2 << 1 ) + b3;
+            if ( value < 10 )
+                res.push_back(static_cast<char>(value + '0'));
+            else
+                res.push_back(static_cast<char>(value + 87));
+        }
+        return res;
+    }
 
-#endif
+    template< typename T >
+    [[nodiscard]] inline std::string to_bits(const T number) noexcept
+    {
+        return std::bitset<sizeof(T) << 3>(static_cast<uint64_t>(number)).to_string();
+    }
+}  // namespace babel::ALGO::CAST
+
+#endif  // BABLIB_ALGORITHM_CAST_HPP_

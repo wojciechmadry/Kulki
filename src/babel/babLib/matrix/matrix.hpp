@@ -1,16 +1,18 @@
-#ifndef babel_MATRIX
-#define babel_MATRIX
+// Copyright [2021] <Wojtek>"
+#ifndef BABLIB_MATRIX_MATRIX_HPP_
+#define BABLIB_MATRIX_MATRIX_HPP_
 
 #include "operator_on_matrix.hpp"
 
 
 namespace babel::MATRIX{
-    static constexpr const char* READ_BEFORE_USE = "babel::MATRIX is not ended !!! Work in progress";
+    constexpr const char *READ_BEFORE_USE = "babel::MATRIX is not ended !!! Work in progress";
+
     template< typename T >
     requires babel::CONCEPTS::IS_ARITHMETIC<T>
     class matrix
     {
-        using POSITION = long long int;
+        using POSITION = uint64_t;
         std::vector<std::vector<T>> mat;
     public:
         matrix() = default;
@@ -31,16 +33,14 @@ namespace babel::MATRIX{
 
         matrix(std::initializer_list<std::initializer_list<T>> init_list) noexcept
         {
-            for ( const auto &_row : init_list )
-                mat.push_back(_row);
+            std::copy(std::begin(init_list), std::end(init_list), std::back_inserter(mat));
         }
 
 
         matrix &operator=(std::initializer_list<std::initializer_list<T>> init_list) noexcept
         {
             mat.clear();
-            for ( const auto &_row : init_list )
-                mat.push_back(_row);
+            std::copy(std::begin(init_list), std::end(init_list), std::back_inserter(mat));
             return *this;
         }
 
@@ -58,7 +58,7 @@ namespace babel::MATRIX{
 
         T &at(POSITION first)
         {
-            if ( mat.size() == 0 || mat[0].size() <= first )
+            if ( mat.empty() || mat[0].size() <= first )
                 throw std::out_of_range("Matrix out ouf range.");
             return mat[0][first];
         }
@@ -72,7 +72,7 @@ namespace babel::MATRIX{
 
         const T &at(POSITION first) const
         {
-            if ( mat.size() == 0 || mat[0].size() <= first )
+            if ( mat.empty() || mat[0].size() <= first )
                 throw std::out_of_range("Matrix out ouf range.");
             return mat[0][first];
         }
@@ -86,14 +86,14 @@ namespace babel::MATRIX{
 
         T &operator()(POSITION first)
         {
-            if ( mat.size() == 0 || mat[0].size() <= first )
+            if ( mat.empty() || mat[0].size() <= first )
                 throw std::out_of_range("Matrix out ouf range.");
             return mat[0][first];
         }
 
         const T &operator()(POSITION first) const
         {
-            if ( mat.size() == 0 || mat[0].size() <= first )
+            if ( mat.empty() || mat[0].size() <= first )
                 throw std::out_of_range("Matrix out ouf range.");
             return mat[0][first];
         }
@@ -119,7 +119,7 @@ namespace babel::MATRIX{
 
         [[nodiscard]] size_t cols() const noexcept
         {
-            return mat.size() > 0 ? mat[0].size() : 0;
+            return mat.empty() ? 0 : mat[0].size();
         }
 
         matrix &add(const T number) noexcept
@@ -165,6 +165,7 @@ namespace babel::MATRIX{
             for ( auto i = 0 ; i < row ; ++i )
                 for ( auto j = 0 ; j < col ; ++j )
                     mat[i][j] -= Matrix.mat[i][j];
+            return *this;
         }
 
         matrix &mult(const T number) noexcept
@@ -208,7 +209,7 @@ namespace babel::MATRIX{
             auto col = cols();
             if ( col != Matrix.rows() )
                 throw std::out_of_range(
-                        "Number of colymns of 1st matrix must be equal to number of rows of second matrix");
+                        "Number of columns of 1st matrix must be equal to number of rows of second matrix");
             matrix<T> new_matrix(row, Matrix.cols(), 0);
             constexpr int algo = 1;
             switch (algo)
@@ -228,14 +229,6 @@ namespace babel::MATRIX{
                         }
                     break;
                 }
-                case 2:
-                {
-                    // Divide and conquer
-                    // auto _t = sqrt();
-                    break;
-                }
-                default:
-                    break;
             }
             mat = std::move(new_matrix.mat);
             return *this; //NOLINT
@@ -243,13 +236,12 @@ namespace babel::MATRIX{
 
         [[nodiscard]] std::string to_string() const noexcept
         {
-
-            //Moze byc szybszy !
+            //Can be faster !
             std::string res;
-            for ( auto rows : mat )
+            for ( auto rows_it : mat )
             {
-                for ( auto cols : rows )
-                    res += std::to_string(cols) + ' ';
+                for ( auto cols_it : rows_it )
+                    res += std::to_string(cols_it) + ' ';
                 res += '\n';
             }
             return res;
@@ -257,53 +249,54 @@ namespace babel::MATRIX{
 
         std::vector<T> get_row(size_t row) const
         {
-            if (row >= rows())
+            if ( row >= rows() )
                 throw std::out_of_range("Row out ouf range.");
             return mat[row];
         }
 
         std::vector<T> get_coll(size_t coll) const
         {
-            if (coll >= cols())
+            if ( coll >= cols() )
                 throw std::out_of_range("Coll out ouf range.");
             std::vector<T> _colls(mat.size());
-            for (size_t i = 0 ; i < _colls.size() ; ++i)
+            for ( size_t i = 0 ; i < _colls.size() ; ++i )
                 _colls[i] = mat[i][coll];
             return _colls;
         }
 
-        template<typename Op = std::plus<T>>
-        matrix<T>& operator_to_row(T number, size_t row)
+        template< typename Op = std::plus<T>>
+        matrix<T> &operator_to_row(T number, size_t row)
         {
-            if (row >= rows())
+            if ( row >= rows() )
                 throw std::out_of_range("Row out ouf range.");
-            for(size_t i = 0 ; i < mat[row].size() ; ++i)
-                mat[row][i] = Op{}(mat[row][i], number);
+            for ( size_t i = 0 ; i < mat[row].size() ; ++i )
+                mat[row][i] = Op { }(mat[row][i], number);
             return *this;
         }
 
-        template<typename Op = std::plus<T>>
-        matrix<T>& operator_to_coll(T number, size_t coll)
+        template< typename Op = std::plus<T>>
+        matrix<T> &operator_to_coll(T number, size_t coll)
         {
-            if (coll >= cols())
+            if ( coll >= cols() )
                 throw std::out_of_range("Coll out ouf range.");
-            for(size_t i = 0 ; i < mat.size() ; ++i)
-                mat[i][coll] = Op{}(mat[i][coll], number);
+            for ( size_t i = 0 ; i < mat.size() ; ++i )
+                mat[i][coll] = Op { }(mat[i][coll], number);
             return *this;
         }
 
-        matrix<T>& swap_rows(size_t first, size_t second)
+        matrix<T> &swap_rows(size_t first, size_t second)
         {
             if ( first >= rows() || second >= rows() )
                 throw std::out_of_range("Rows out ouf range.");
             std::swap(mat[first], mat[second]);
             return *this;
         }
-        matrix<T>& swap_cols(size_t first, size_t second)
+
+        matrix<T> &swap_cols(size_t first, size_t second)
         {
             if ( first >= cols() || second >= cols() )
                 throw std::out_of_range("Cols out ouf range.");
-            for (size_t i = 0 ; i < mat.size() ; ++i)
+            for ( size_t i = 0 ; i < mat.size() ; ++i )
             {
                 T temp = mat[i][first];
                 mat[i][first] = mat[i][second];
@@ -311,7 +304,8 @@ namespace babel::MATRIX{
             }
             return *this;
         }
-        matrix<T>& swap(matrix& other) noexcept
+
+        matrix<T> &swap(matrix &other) noexcept
         {
             std::swap(other.mat, mat);
             return *this;
@@ -319,25 +313,27 @@ namespace babel::MATRIX{
     };
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> operator+(const babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
+    inline babel::MATRIX::matrix<T>
+    operator+(const babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
     {
         return babel::MATRIX::add(Matrix1, Matrix2);
     }
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> operator+(const babel::MATRIX::matrix<T> &Matrix, const U number)
+    inline babel::MATRIX::matrix<T> operator+(const babel::MATRIX::matrix<T> &Matrix, const U number)
     {
         return babel::MATRIX::add(Matrix, number);
     }
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> operator+(const U number, const babel::MATRIX::matrix<T> &Matrix)
+    inline babel::MATRIX::matrix<T> operator+(const U number, const babel::MATRIX::matrix<T> &Matrix)
     {
         return babel::MATRIX::add(Matrix, number);
     }
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> &operator+=(babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
+    inline babel::MATRIX::matrix<T> &
+    operator+=(babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
     {
         Matrix1.add(Matrix2);
         return Matrix1;
@@ -345,21 +341,21 @@ namespace babel::MATRIX{
 
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> &operator+=(babel::MATRIX::matrix<T> &Matrix, const U number)
+    inline babel::MATRIX::matrix<T> &operator+=(babel::MATRIX::matrix<T> &Matrix, const U number)
     {
         Matrix.add(number);
         return Matrix;
     }
 
     template< typename T >
-    babel::MATRIX::matrix<T> &operator++(babel::MATRIX::matrix<T> &Matrix)
+    inline babel::MATRIX::matrix<T> &operator++(babel::MATRIX::matrix<T> &Matrix)
     {
         Matrix.add(1);
         return Matrix;
     }
 
     template< typename T >
-    const babel::MATRIX::matrix<T> operator++(babel::MATRIX::matrix<T> &Matrix, int) //NOLINT
+    inline const babel::MATRIX::matrix<T> operator++(babel::MATRIX::matrix<T> &Matrix, int) //NOLINT
     {
         auto cpy = Matrix;
         ++Matrix;
@@ -368,25 +364,27 @@ namespace babel::MATRIX{
 
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> operator-(const babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
+    inline babel::MATRIX::matrix<T>
+    operator-(const babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
     {
         return babel::MATRIX::subtract(Matrix1, Matrix2);
     }
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> operator-(const babel::MATRIX::matrix<T> &Matrix, const U number)
+    inline babel::MATRIX::matrix<T> operator-(const babel::MATRIX::matrix<T> &Matrix, const U number)
     {
         return babel::MATRIX::subtract(Matrix, number);
     }
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> operator-(const U number, const babel::MATRIX::matrix<T> &Matrix)
+    inline babel::MATRIX::matrix<T> operator-(const U number, const babel::MATRIX::matrix<T> &Matrix)
     {
         return babel::MATRIX::subtract(Matrix, number);
     }
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> &operator-=(babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
+    inline babel::MATRIX::matrix<T> &
+    operator-=(babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2)
     {
         Matrix1.subtract(Matrix2);
         return Matrix1;
@@ -394,21 +392,21 @@ namespace babel::MATRIX{
 
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T> &operator-=(babel::MATRIX::matrix<T> &Matrix, const U number)
+    inline babel::MATRIX::matrix<T> &operator-=(babel::MATRIX::matrix<T> &Matrix, const U number)
     {
         Matrix.subtract(number);
         return Matrix;
     }
 
     template< typename T >
-    babel::MATRIX::matrix<T> &operator--(babel::MATRIX::matrix<T> &Matrix)
+    inline babel::MATRIX::matrix<T> &operator--(babel::MATRIX::matrix<T> &Matrix)
     {
         Matrix.subtract(1);
         return Matrix;
     }
 
     template< typename T >
-    const babel::MATRIX::matrix<T> operator--(babel::MATRIX::matrix<T> &Matrix, int) //NOLINT
+    inline const babel::MATRIX::matrix<T> operator--(babel::MATRIX::matrix<T> &Matrix, int) //NOLINT
     {
         auto cpy = Matrix;
         --Matrix;
@@ -417,7 +415,7 @@ namespace babel::MATRIX{
 
 
     template< typename T = double, typename U = double >
-    babel::MATRIX::matrix<T>
+    inline babel::MATRIX::matrix<T>
     operator*(const babel::MATRIX::matrix<T> &Matrix1, const babel::MATRIX::matrix<U> &Matrix2) noexcept
     {
         auto cpy = Matrix1;
@@ -435,5 +433,5 @@ namespace babel::MATRIX{
 
 
 
-}
-#endif
+}  // namespace babel::MATRIX
+#endif  // BABLIB_MATRIX_MATRIX_HPP_

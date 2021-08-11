@@ -1,22 +1,23 @@
 #include <SFML/Graphics.hpp>
+#include <cmath>
 
-#include "function/load.hpp"
-#include "object/red_box.hpp"
-#include "function/mouse_click_event.hpp"
-#include "function/tester.hpp"
-#include "function/search_font.hpp"
+#include "function/load/load.hpp"
+#include "object/red_box/red_box.hpp"
+#include "function/mouse/mouse_click_event.hpp"
+#include "function/tester/tester.hpp"
+#include "function/font/search_font.hpp"
 
 
 #include <iostream>
 
-static constexpr const char* VERSION = "1.09";
+static constexpr const char* VERSION = "1.1";
 
 #define FPS 0 // Show fps in console
 
 int main()
 {
 
-   // Play_Test_Games(-1, 14); // Test if game crush.
+   //Play_Test_Games(-1, 14); // Test if game crush.
     ResourceHolder<sf::Drawable, sf::Texture> Resource;
 
     map Game = load_map();
@@ -30,7 +31,7 @@ int main()
         font = load_font(PathFont.value()); // default font
     else
     {
-        std::cout << "Cant find any font \n";
+        std::cout << "Cant find any font\n";
         std::cin.get();
         std::cin.get();
         return 1;
@@ -44,7 +45,7 @@ int main()
     sf::RenderWindow window(
             sf::VideoMode(static_cast<uint32_t>(GLOBAL::get_width()), static_cast<uint32_t>(GLOBAL::get_height())),
             VERSION, sf::Style::Default,
-            sf::ContextSettings {0, 0, 16});
+            sf::ContextSettings {0, 0, 8});
 
     auto fps = load_fps();
     window.setFramerateLimit(fps);
