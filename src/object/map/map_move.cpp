@@ -1,4 +1,5 @@
 #include "map.hpp"
+#include "babel/babel.hpp"
 
 bool map::can_move(std::pair<uint8_t, uint8_t> from, std::pair<uint8_t, uint8_t> to) const noexcept
 {
@@ -73,4 +74,32 @@ bool map::move(const std::pair<uint8_t, uint8_t> from, const std::pair<uint8_t, 
         return true;
     }
     return false;
+}
+
+#include <iostream>
+
+void map::random_move() noexcept
+{
+    static babel::ALGO::MATH::random_generator rg;
+    if (this->game_over())
+    {
+        this->reset();
+        return;
+    }
+    uint8_t x_from = 0, y_from = 0;
+    uint8_t x_to = 0, y_to = 0;
+
+
+    while (!this->is_free_at(x_to, y_to))
+    {
+        x_to = rg.generate<uint8_t>(0, 8);
+        y_to = rg.generate<uint8_t>(0, 8);
+    }
+    while (!this->can_move({x_from, y_from}, {x_to, y_to}))
+    {
+        x_from = rg.generate<uint8_t>(0, 8);
+        y_from = rg.generate<uint8_t>(0, 8);
+    }
+
+    this->move({x_from, y_from}, {x_to, y_to});
 }

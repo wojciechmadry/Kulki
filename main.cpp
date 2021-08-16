@@ -17,7 +17,7 @@ static constexpr const char* VERSION = "1.1";
 int main()
 {
 
-   //Play_Test_Games(-1, 14); // Test if game crush.
+   // Play_Test_Games(-1, 14); // Test if game crush.
     ResourceHolder<sf::Drawable, sf::Texture> Resource;
 
     map Game = load_map();
@@ -115,6 +115,8 @@ int main()
             Resource.get_as<sf::Text>(ResourceType::SCORE).setString(_str);
             thread.operation(OperationType::UPDATE);// Game need update here
         }
+
+       // Game.random_move();
 
         //If game need update draw it
         if ( Game.need_update() )

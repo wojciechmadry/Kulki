@@ -70,7 +70,9 @@ public:
 
     void load_game(uint16_t a_new_score, uint8_t a_new_fill
                    , const std::array<ball, 3>& a_new_next_three
-                   , const std::array<std::array<ball, 9>, 9>& a_new_grid);  // ? to del
+                   , const std::array<std::array<ball, 9>, 9>& a_new_grid);
+
+    void random_move() noexcept;
 };
 
 

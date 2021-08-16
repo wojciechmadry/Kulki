@@ -15,9 +15,9 @@ void put_out_of_screen(T &Object, const sf::Vector2<float> &size) noexcept
 }
 
 RedBox::RedBox(ResourceHolder<sf::Drawable> &Resources, const bool Textured) noexcept
-        : m_text(Textured)
+        : m_box(AnyType(Resources.get_as<sf::Drawable>(ResourceType::PICKED))),
+          m_text(Textured)
 {
-    m_box = AnyType(Resources.get_as<sf::Drawable>(ResourceType::PICKED));
     hide();
 }
 

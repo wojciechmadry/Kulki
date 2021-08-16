@@ -120,17 +120,15 @@ void map::put_next_three() noexcept
                         at(free_pos[pos]) = m_next_three[1];
                     } else
                     {
-                        bool added = false;
-                        for ( auto all_pos : free_pos )
+                        auto found = std::find_if(std::begin(free_pos), std::end(free_pos), [&](std::pair<uint8_t, uint8_t> all_pos){
+                            return  all_pos != free_pos[pos] && at(all_pos).is_empty();
+                        });
+
+                        if (found != std::end(free_pos))
                         {
-                            if ( all_pos != free_pos[pos] && at(all_pos).is_empty() )
-                            {
-                                at(all_pos) = m_next_three[0];
-                                added = true;
-                                break;
-                            }
+                            at(*found) = m_next_three[0];
                         }
-                        if ( !added )
+                        else
                         {
                             at(free_pos[pos]) = m_next_three[0];
                         }
