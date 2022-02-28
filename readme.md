@@ -26,6 +26,7 @@ If you want hide console after you build this project uncomment `WIN32` - Window
 Set path to SFML folder:
 
 `set(SFML_PATH /home/wojtek/Pulpit/GIT/SFML-2.5.1/)`
+
 #BUILD
 
 Open console in folder `Build` and
