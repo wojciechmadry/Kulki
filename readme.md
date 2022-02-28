@@ -27,7 +27,7 @@ Set path to SFML folder:
 
 `set(SFML_PATH /home/wojtek/Pulpit/GIT/SFML-2.5.1/)`
 
-#BUILD
+# BUILD
 
 Open console in folder `Build` and
 
