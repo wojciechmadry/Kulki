@@ -21,17 +21,11 @@ Project requires C++20 (gcc10 or clang10)
 
 First you need change CMakeLists.
 
+If you want hide console after you build this project uncomment `WIN32` - Windows only
 
-(Only in WINDOWS)
-If you want hide console after you build this project uncomment `WIN32`
+Set path to SFML folder:
 
-Set path to header files SFML:
-
-`set(INCLUDE /home/wojtek/SFML-2.5.1/include/)` to sfml headers.
-
-Now set path to all static SFML library:
-
-`set(LIB /home/wojtek/SFML-2.5.1/lib/)` to sfml lib.
+`set(SFML_PATH /home/wojtek/Pulpit/GIT/SFML-2.5.1/)`
 #BUILD
 
 Open console in folder `Build` and
