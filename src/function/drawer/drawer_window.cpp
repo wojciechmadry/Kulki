@@ -148,7 +148,7 @@ draw_started_object(ResourceHolder<sf::Drawable> &Resource, const sf::Font &font
 
     //RectangleShape is where mouse is detect click on new game
     Resource.insert(ResourceType::NEW_GAME_BOX, make_rectangle(
-            {static_cast<float>(Font_Size) * 3.2f, static_cast<float>(Font_Size)}, new_game_pos,
+            {static_cast<float>(Font_Size) * 4.f, static_cast<float>(Font_Size)}, new_game_pos,
             sf::Color::Transparent,
             2.0f, sf::Color::White)
     );
