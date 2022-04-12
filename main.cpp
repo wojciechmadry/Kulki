@@ -10,7 +10,7 @@
 
 #include <iostream>
 
-static constexpr const char* VERSION = "1.1";
+static constexpr const char* VERSION = "1.2";
 
 #define FPS 0 // Show fps in console
 

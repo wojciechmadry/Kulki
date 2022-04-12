@@ -1,6 +1,6 @@
 #include "map.hpp"
 
-#include "babel/babel.hpp"
+#include "babellib/babel.hpp"
 
 bool map::score_there() const noexcept
 {

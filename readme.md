@@ -10,8 +10,15 @@ Screen from game are in folder _Screen_.
 
 All nedeed source files are in folder _src_.
 
+Submodules
+---
+
+- babellib [`https://gitlab.com/woitys1999/babellib`]
+
 How to compile
 ---
+
+First initialise submodule - `git submodule init && git submodule update`
 
 You can build project in linux or in windows with Mingw32.
 
