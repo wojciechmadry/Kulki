@@ -6,6 +6,7 @@
 #define KULKI_MAP_HPP
 
 #include "object/ball/ball.hpp"
+#include <array>
 
 class map
 {
