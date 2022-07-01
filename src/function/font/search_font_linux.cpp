@@ -17,6 +17,5 @@
         file_babel.close();
         system("rm babel_temporary_font");
     }
-
     return { };
 }

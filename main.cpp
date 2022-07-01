@@ -10,7 +10,7 @@
 
 #include <iostream>
 
-static constexpr const char* VERSION = "1.2";
+static constexpr const char* VERSION = "1.3";
 
 #define FPS 0 // Show fps in console
 
@@ -115,6 +115,8 @@ int main()
             Resource.get_as<sf::Text>(ResourceType::SCORE).setString(_str);
             thread.operation(OperationType::UPDATE);// Game need update here
         }
+
+       // Game.random_move();
 
         //If game need update draw it
         if ( Game.need_update() )
