@@ -13,7 +13,7 @@ All nedeed source files are in folder _src_.
 Submodules
 ---
 
-- babellib [`https://gitlab.com/woitys1999/babellib`]
+- babellib [`https://github.com/wojciechmadry/BabelLib`]
 
 How to compile
 ---
@@ -63,5 +63,5 @@ If you want to move your build project from folder remember to put folder `ball_
 
 Screen from game
 ---
-![alt text](https://gitlab.com/woitys1999/kulki/-/raw/master/Screen/game1.PNG)
-![alt text](https://gitlab.com/woitys1999/kulki/-/raw/master/Screen/game2.PNG)
+![alt text](https://github.com/wojciechmadry/Kulki/blob/master/Screen/game1.PNG)
+![alt text](https://github.com/wojciechmadry/Kulki/blob/master/Screen/game2.PNG)
