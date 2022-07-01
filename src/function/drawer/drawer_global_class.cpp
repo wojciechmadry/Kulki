@@ -1,13 +1,16 @@
-#include "drawer.hpp"
+#include <algorithm>
 
+#include "drawer.hpp"
 #include "function/load/load.hpp"
 
 void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource, const sf::Font &sfFont,
                   const std::pair<uint16_t, uint16_t> RECORDS) noexcept
 {
-    auto res = load_resolution();
+    const auto res = load_resolution();
     m_width = res.first;
     m_height = res.second;
+    m_width = std::min(static_cast<std::size_t>(1920), m_width);
+    m_height = std::min(m_height, static_cast<std::size_t>(1080));
     float a = ( 0.5f * static_cast<float>(m_width) ) / 9.f; // side length of white box
     float radius = a / 2.5f; // radius of circle
     for ( const auto i : babel::ITERATOR::range(0, 6) )

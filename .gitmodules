@@ -1,0 +1,3 @@
+[submodule "src/babellib"]
+	path = src/babellib
+	url = https://github.com/wojciechmadry/BabelLib.git

@@ -1,5 +1,5 @@
 #include "map.hpp"
-#include "babel/babel.hpp"
+#include "babellib/babel.hpp"
 
 bool map::can_move(std::pair<uint8_t, uint8_t> from, std::pair<uint8_t, uint8_t> to) const noexcept
 {
@@ -75,8 +75,6 @@ bool map::move(const std::pair<uint8_t, uint8_t> from, const std::pair<uint8_t, 
     }
     return false;
 }
-
-#include <iostream>
 
 void map::random_move() noexcept
 {

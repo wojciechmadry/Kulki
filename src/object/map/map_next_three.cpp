@@ -1,6 +1,7 @@
+
 #include "map.hpp"
 
-#include "babel/babel.hpp"
+#include "babellib/babel.hpp"
 
 #include "function/random/random.hpp"
 
@@ -21,15 +22,19 @@ void map::generate_next_three() noexcept
             while ( nb[2] == nb[1] || nb[2] == m_next_three[0] || nb[2] == m_next_three[1] || nb[2] == m_next_three[2] )
                 nb[2].random();
         m_next_three = nb;
+
     } else if ( type <= 45 ) // (X - Y) % you get the least popular balls in board
     {
-        std::array<std::pair<uint8_t, uint8_t>, 5> color = {std::make_pair(0, 0), {0, 1}, {0, 2}, {0, 3}, {0, 4}};
+        std::array<std::pair<uint8_t, uint8_t>, static_cast<std::size_t>(COLOR::empty)> color = {std::make_pair(0, 0), {0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}};
         std::for_each(m_grid.begin(), m_grid.end(),
                       [&color](const auto &Row) mutable {
                           std::for_each(std::begin(Row), std::end(Row),
                                         [&color](const auto &Ball) mutable {
                                             if ( Ball.has_value() )
-                                                ++color[static_cast<std::size_t>(Ball.enum_color())].first;
+                                                {
+                                                    const auto id = static_cast<std::size_t>(Ball.enum_color());
+                                                    ++color[id].first;
+                                                }
                                         });
                       });
 
@@ -43,8 +48,10 @@ void map::generate_next_three() noexcept
                        [&color](const std::size_t i) {
                            return ball(static_cast<COLOR>(color[i].second));
                        });
+
     } else
     {
+
         std::for_each(std::begin(m_next_three), std::end(m_next_three),
                       [](ball &Ball) { Ball.random(); });
 
@@ -120,15 +127,17 @@ void map::put_next_three() noexcept
                         at(free_pos[pos]) = m_next_three[1];
                     } else
                     {
-                        auto found = std::find_if(std::begin(free_pos), std::end(free_pos), [&](std::pair<uint8_t, uint8_t> all_pos){
-                            return  all_pos != free_pos[pos] && at(all_pos).is_empty();
-                        });
-
-                        if (found != std::end(free_pos))
+                        bool added = false;
+                        for ( auto all_pos : free_pos )
                         {
-                            at(*found) = m_next_three[0];
+                            if ( all_pos != free_pos[pos] && at(all_pos).is_empty() )
+                            {
+                                at(all_pos) = m_next_three[0];
+                                added = true;
+                                break;
+                            }
                         }
-                        else
+                        if ( !added )
                         {
                             at(free_pos[pos]) = m_next_three[0];
                         }

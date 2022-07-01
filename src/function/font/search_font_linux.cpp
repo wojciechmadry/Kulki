@@ -2,7 +2,7 @@
 
 [[nodiscard]] babel::OPT::optional<std::string> search_font() noexcept
 {
-    constexpr const char *command = R"(find /usr/share/fonts -name "*.ttf" | grep "arial" | head -n 1 > babel_temporary_font)";
+    constexpr const char *command = R"(find /usr/share/fonts -name "*.ttf" | head -n 1 > babel_temporary_font)";
     system(command);
     std::fstream file_babel("babel_temporary_font", std::ios::in | std::ios::out);
     if ( file_babel.good() && file_babel.is_open() )

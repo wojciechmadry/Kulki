@@ -6,7 +6,7 @@
 #include <memory>
 #include <mutex>
 #include <condition_variable>
-#include "babel/babel.hpp"
+#include "babellib/babel.hpp"
 
 enum class ResourceType
 {

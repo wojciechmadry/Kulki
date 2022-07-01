@@ -8,9 +8,10 @@ if(UNIX)
 endif(UNIX)
 
 include_directories(src)
-
-set(INCLUDE /home/wojtek/SFML-2.5.1/include/)
-set(LIB /home/wojtek/SFML-2.5.1/lib/)
+# Set path to sfml folder
+set(SFML_PATH /home/wojtek/Desktop/GIT/SFML-2.5.1/)
+set(INCLUDE ${SFML_PATH}/include/)
+set(LIB ${SFML_PATH}/lib/)
 
 
 include_directories(${INCLUDE})

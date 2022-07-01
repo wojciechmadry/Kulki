@@ -10,14 +10,14 @@
 
 #include <iostream>
 
-static constexpr const char* VERSION = "1.1";
+static constexpr const char* VERSION = "1.3";
 
 #define FPS 0 // Show fps in console
 
 int main()
 {
 
-   // Play_Test_Games(-1, 14); // Test if game crush.
+   //Play_Test_Games(-1, 14); // Test if game crush.
     ResourceHolder<sf::Drawable, sf::Texture> Resource;
 
     map Game = load_map();

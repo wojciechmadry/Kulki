@@ -10,8 +10,15 @@ Screen from game are in folder _Screen_.
 
 All nedeed source files are in folder _src_.
 
+Submodules
+---
+
+- babellib [`https://github.com/wojciechmadry/BabelLib`]
+
 How to compile
 ---
+
+First initialise submodule - `git submodule init && git submodule update`
 
 You can build project in linux or in windows with Mingw32.
 
@@ -21,18 +28,13 @@ Project requires C++20 (gcc10 or clang10)
 
 First you need change CMakeLists.
 
+If you want hide console after you build this project uncomment `WIN32` - Windows only
 
-(Only in WINDOWS)
-If you want hide console after you build this project uncomment `WIN32`
+Set path to SFML folder:
 
-Set path to header files SFML:
+`set(SFML_PATH /home/wojtek/Pulpit/GIT/SFML-2.5.1/)`
 
-`set(INCLUDE /home/wojtek/SFML-2.5.1/include/)` to sfml headers.
-
-Now set path to all static SFML library:
-
-`set(LIB /home/wojtek/SFML-2.5.1/lib/)` to sfml lib.
-#BUILD
+# BUILD
 
 Open console in folder `Build` and
 
@@ -61,5 +63,5 @@ If you want to move your build project from folder remember to put folder `ball_
 
 Screen from game
 ---
-![alt text](https://gitlab.com/woitys1999/kulki/-/raw/master/Screen/game1.PNG)
-![alt text](https://gitlab.com/woitys1999/kulki/-/raw/master/Screen/game2.PNG)
+![alt text](https://github.com/wojciechmadry/Kulki/blob/master/Screen/game1.PNG)
+![alt text](https://github.com/wojciechmadry/Kulki/blob/master/Screen/game2.PNG)
