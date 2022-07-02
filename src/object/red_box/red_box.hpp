@@ -7,7 +7,7 @@
 
 //#include <SFML/Graphics.hpp>
 #include "object/resource/resource.hpp"
-#include "babellib/babel.hpp"
+#include "BabelLib/babel.hpp"
 
 class RedBox
 {

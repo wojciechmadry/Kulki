@@ -1,5 +1,5 @@
 #include "load.hpp"
-#include "babellib/babel.hpp"
+#include "BabelLib/babel.hpp"
 #include "function/crypt/crypt.hpp"
 
 map load_map() noexcept
