@@ -8,6 +8,7 @@ if(UNIX)
 endif(UNIX)
 
 include_directories(src)
+
 # Set path to sfml folder
 set(SFML_PATH /home/wojtek/Desktop/GIT/SFML-2.5.1/)
 set(INCLUDE ${SFML_PATH}/include/)
