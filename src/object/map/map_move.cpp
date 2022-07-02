@@ -1,5 +1,5 @@
 #include "map.hpp"
-#include "babellib/babel.hpp"
+#include "BabelLib/babel.hpp"
 
 bool map::can_move(std::pair<uint8_t, uint8_t> from, std::pair<uint8_t, uint8_t> to) const noexcept
 {

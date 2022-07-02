@@ -30,7 +30,7 @@ First you need change CMakeLists.
 
 If you want hide console after you build this project uncomment `WIN32` - Windows only
 
-Set path to SFML folder:
+Set path to SFML folder: (https://github.com/wojciechmadry/BabelLib.git)
 
 `set(SFML_PATH /home/wojtek/Pulpit/GIT/SFML-2.5.1/)`
 
