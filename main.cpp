@@ -17,7 +17,7 @@ static constexpr const char* VERSION = "1.3";
 int main()
 {
 
-   //Play_Test_Games(-1, 14); // Test if game crush.
+   //Play_Test_Games(-1, 14); // Test if game crash.
     ResourceHolder<sf::Drawable, sf::Texture> Resource;
 
     map Game = load_map();
@@ -27,15 +27,17 @@ int main()
 
     auto PathFont = search_font();
 
-    if ( PathFont.has_value() )
-        font = load_font(PathFont.value()); // default font
-    else
+    if ( !PathFont.has_value() )
     {
         std::cout << "Cant find any font\n";
-        std::cin.get();
-        std::cin.get();
-        return 1;
+        std::cout << "Enter path to font: ";
+        std::string path;
+        std::getline(std::cin, path);
+        std::cout << '\n';
+        PathFont = std::move(path);
+
     }
+    font = load_font(PathFont.value());
 
     GLOBAL::INIT(Resource, font, {record, old_score} ); // Load textures, init default settings, draw started object etc
 

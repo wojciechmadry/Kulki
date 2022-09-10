@@ -10,6 +10,9 @@ Screen from game are in folder _Screen_.
 
 All nedeed source files are in folder _src_.
 
+If you build this on linux you need: `xdpyinfo` package
+
+
 Submodules
 ---
 
