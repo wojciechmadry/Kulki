@@ -52,13 +52,16 @@ int main()
     auto fps = load_fps();
     window.setFramerateLimit(fps);
     sf::Image icon;
-
+    bool iconLoaded = true;
     if ( babel::FILE_SYS::folder_exist("ball_texture") )
         icon.loadFromFile("ball_texture/orange.png");
     else if (( babel::FILE_SYS::folder_exist("../ball_texture") ))
         icon.loadFromFile("../ball_texture/orange.png");
+    else
+        iconLoaded = false;
 
-    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+    if ( iconLoaded )
+        window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     //Operation on map is doing on another thread
 
@@ -134,3 +137,4 @@ int main()
 
     return 0;
 }
+
