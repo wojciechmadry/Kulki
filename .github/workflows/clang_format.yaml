@@ -1,0 +1,26 @@
+name: ClangFormat
+
+on:
+  push:
+    branches:  
+      - '**' 
+  pull_request:
+    branches:
+       - '**' 
+
+jobs:
+  build:
+
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Dependencies
+      run: |
+        pip3 install clang-format==15.0.7
+
+    - name: Check clang-format style
+      run: |
+        find . -iname "*.hpp" -o -iname "*.cpp" | xargs clang-format --dry-run --Werror
+

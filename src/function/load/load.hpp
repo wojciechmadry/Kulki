@@ -5,10 +5,10 @@
 #ifndef KULKI_LOAD_HPP
 #define KULKI_LOAD_HPP
 
-#include <SFML/Graphics/Font.hpp>
-#include <string>
-#include <cstdint>
 #include "object/map/map.hpp"
+#include <SFML/Graphics/Font.hpp>
+#include <cstdint>
+#include <string>
 
 // load font
 sf::Font load_font(const std::string &path);
@@ -30,4 +30,4 @@ map load_map() noexcept;
 
 void save_map(const map &Map) noexcept;
 
-#endif //KULKI_LOAD_HPP
+#endif // KULKI_LOAD_HPP
