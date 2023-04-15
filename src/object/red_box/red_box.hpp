@@ -5,34 +5,32 @@
 #ifndef KULKI_RED_BOX_HPP
 #define KULKI_RED_BOX_HPP
 
-//#include <SFML/Graphics.hpp>
-#include "object/resource/resource.hpp"
+// #include <SFML/Graphics.hpp>
 #include "BabelLib/babel.hpp"
+#include "object/resource/resource.hpp"
 
-class RedBox
-{
-    babel::ANY::PolAny::any m_box;
-    bool m_text = false;
+class RedBox {
+  babel::ANY::PolAny::any m_box;
+  bool m_text = false;
 
-    using AnyType = std::reference_wrapper<sf::Drawable>;
+  using AnyType = std::reference_wrapper<sf::Drawable>;
 
-    template< typename T >
-    requires ( !babel::CONCEPTS::IS_ANY_POINTER<T> )
-    T &get_any() noexcept
-    {
-        return *babel::ALGO::CAST::asType<T *>(&m_box.cast<AnyType>().get());
-    }
+  template <typename T>
+    requires(!babel::CONCEPTS::IS_ANY_POINTER<T>)
+  T &get_any() noexcept {
+    return *babel::ALGO::CAST::asType<T *>(&m_box.cast<AnyType>().get());
+  }
 
 public:
-    RedBox() = delete;
+  RedBox() = delete;
 
-    RedBox(ResourceHolder<sf::Drawable> &Resources, bool Textured) noexcept;
+  RedBox(ResourceHolder<sf::Drawable> &Resources, bool Textured) noexcept;
 
-    void set_position(float x, float y) noexcept;
+  void set_position(float x, float y) noexcept;
 
-    void hide() noexcept;
+  void hide() noexcept;
 
-    ~RedBox() = default;
+  ~RedBox() = default;
 };
 
-#endif //KULKI_RED_BOX_HPP
+#endif // KULKI_RED_BOX_HPP

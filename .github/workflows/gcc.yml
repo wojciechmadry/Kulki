@@ -1,4 +1,4 @@
-name: CMake
+name: GCC
 
 on:
   push:
@@ -12,6 +12,9 @@ jobs:
   build:
 
     runs-on: ubuntu-22.04
+    env:
+      CC: gcc
+      CXX: g++
 
     steps:
     - uses: actions/checkout@v3
@@ -19,13 +22,13 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt -y install g++ gcc libsfml-dev
-    
+
     - name: FetchSubmodules
       run: |
         git submodule init
         git submodule update
-        
-    - name: Build
+
+    - name: Build GCC
       run: |
         mkdir -p build
         cd build

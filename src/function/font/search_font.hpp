@@ -3,7 +3,7 @@
 
 #include "BabelLib/babel.hpp"
 
-//Finding fonts in disc
+// Finding fonts in disc
 [[nodiscard]] babel::OPT::optional<std::string> search_font() noexcept;
 
 #endif

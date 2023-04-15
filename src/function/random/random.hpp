@@ -3,11 +3,10 @@
 
 #include "BabelLib/babel.hpp"
 
-class randomizer
-{
+class randomizer {
 
 public:
-    static babel::ALGO::MATH::random_generator& get() noexcept;
+  static babel::ALGO::MATH::random_generator &get() noexcept;
 };
 
-#endif  // KULKI_RANDOM_HPP
+#endif // KULKI_RANDOM_HPP
