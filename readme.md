@@ -12,6 +12,7 @@ All nedeed source files are in folder _src_.
 
 If you build this on linux you need: `xdpyinfo` package
 
+Code stlye is LLVM, formatted with clang-format v15.0.7
 
 Submodules
 ---
@@ -27,11 +28,11 @@ You can build project in linux or in windows with Mingw32.
 
 You need Cmake install too.
 
-Project requires C++20 (gcc10 or clang10)
+Project requires C++20
 
 First you need change CMakeLists.
 
-If you want hide console after you build this project uncomment `WIN32` - Windows only
+If you want hide console after you build this project uncomment `WIN32` - **Windows only**
 
 Set path to SFML folder: (https://github.com/wojciechmadry/BabelLib.git)
 
@@ -57,7 +58,7 @@ To build your project type `cmake --build .`
 
 Now only to you need to do: copy libraries from SFML folder`../bin`
 
-All needed library in `WINDOWS`: `sfml-graphics-2.dll`, `sfml-system-2.dll`, `sfml-window-2.dll`
+All needed library in **WINDOWS**: `sfml-graphics-2.dll`, `sfml-system-2.dll`, `sfml-window-2.dll`
 
 
 If you want to move your build project from folder remember to put folder `ball_texture` therein.
