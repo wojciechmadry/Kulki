@@ -10,60 +10,37 @@ Screen from game are in folder _Screen_.
 
 All nedeed source files are in folder _src_.
 
-If you build this on linux you need: `xdpyinfo` package
+Requirements
+---
+1. CMake
+2. C++20
+3. Mingw32 (When building on Windows)
 
-Code stlye is LLVM, formatted with clang-format v15.0.7
-
-Submodules
+Build from source
 ---
 
-- babellib [`https://github.com/wojciechmadry/BabelLib`]
+1. Init submodule
+```sh
+git submodule init
+git submodule update
+```
 
-How to compile
----
+2. If you want hide console after you build this project uncomment `WIN32` in `CMakeList.txt` - **Windows only**
 
-First initialise submodule - `git submodule init && git submodule update`
+3. Set path to SFML folder in `CMakeList.txt`: `set(SFML_PATH /home/wojtek/Pulpit/GIT/SFML-2.5.1/)`
 
-You can build project in linux or in windows with Mingw32.
+4. Build project with CMake (Generator can be `ninja`, `MinGW Makefiles`:
+```sh
+mkdir build
+cd build
+cmake -G<generator> ..
+make -j
+```
 
-You need Cmake install too.
+5. Copy libraries from SFML `bin` folder to build directory
+   All needed library in **WINDOWS**: `sfml-graphics-2.dll`, `sfml-system-2.dll`, `sfml-window-2.dll`
 
-Project requires C++20
-
-First you need change CMakeLists.
-
-If you want hide console after you build this project uncomment `WIN32` - **Windows only**
-
-Set path to SFML folder: (https://github.com/wojciechmadry/BabelLib.git)
-
-`set(SFML_PATH /home/wojtek/Pulpit/GIT/SFML-2.5.1/)`
-
-# BUILD
-
-Open console in folder `Build` and
-
-### WINDOWS BUILD
- type:
-`cmake -g`
-
-Now you see available generator, I pick: `MinGW Makefiles`
-
-Now type `cmake -G 'MinGW Makefiles' ../` to generate project.
-### LINUX BUILD
-type: `cmake ../`
-
-### LINUX & WINDOWS
-
-To build your project type `cmake --build .`
-
-Now only to you need to do: copy libraries from SFML folder`../bin`
-
-All needed library in **WINDOWS**: `sfml-graphics-2.dll`, `sfml-system-2.dll`, `sfml-window-2.dll`
-
-
-If you want to move your build project from folder remember to put folder `ball_texture` therein.
-
-
+6. Copy folder `ball_texture` to build directory.
 
 Screen from game
 ---
