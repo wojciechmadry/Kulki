@@ -1,3 +1,4 @@
+#ifdef _WIN32
 #include "search_font.hpp"
 
 [[nodiscard]] babel::OPT::optional<std::string> search_font() noexcept {
@@ -59,3 +60,6 @@
 
   return {all_files[0].first + all_files[0].second[0]};
 }
+
+#endif
+

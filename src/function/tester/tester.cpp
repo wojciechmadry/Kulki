@@ -1,7 +1,7 @@
 #include "tester.hpp"
 
-#include "BabelLib/babel.hpp"
-#include "function/drawer/drawer.hpp"
+#include "babel.hpp"
+#include "drawer.hpp"
 #include <iostream>
 #include <thread>
 

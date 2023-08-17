@@ -1,3 +1,4 @@
+#ifdef linux
 #include "search_font.hpp"
 
 [[nodiscard]] babel::OPT::optional<std::string> search_font() noexcept {
@@ -19,3 +20,5 @@
 
   return {};
 }
+#endif
+

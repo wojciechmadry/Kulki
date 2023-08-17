@@ -5,8 +5,8 @@
 #ifndef KULKI_MOUSE_CLICK_EVENT_HPP
 #define KULKI_MOUSE_CLICK_EVENT_HPP
 
-#include "function/thread/thread_wrapper.hpp"
-#include "object/red_box/red_box.hpp"
+#include "thread_wrapper.hpp"
+#include "red_box.hpp"
 
 namespace MOUSE {
 void left_click(Thread &thread, sf::RenderWindow &window,

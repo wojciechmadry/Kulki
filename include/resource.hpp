@@ -1,7 +1,7 @@
 #ifndef KULKI_RESOURCE_HPP
 #define KULKI_RESOURCE_HPP
 
-#include "BabelLib/babel.hpp"
+#include "babel.hpp"
 #include <SFML/Graphics.hpp>
 #include <condition_variable>
 #include <memory>

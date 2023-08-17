@@ -5,8 +5,8 @@
 #ifndef KULKI_DRAWER_HPP
 #define KULKI_DRAWER_HPP
 
-#include "object/map/map.hpp"
-#include "object/resource/resource.hpp"
+#include "map.hpp"
+#include "resource.hpp"
 
 void draw_started_object(ResourceHolder<sf::Drawable> &Resource,
                          const sf::Font &font, uint16_t record,

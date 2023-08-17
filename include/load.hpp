@@ -5,7 +5,7 @@
 #ifndef KULKI_LOAD_HPP
 #define KULKI_LOAD_HPP
 
-#include "object/map/map.hpp"
+#include "map.hpp"
 #include <SFML/Graphics/Font.hpp>
 #include <cstdint>
 #include <string>

@@ -1,11 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
-#include "function/font/search_font.hpp"
-#include "function/load/load.hpp"
-#include "function/mouse/mouse_click_event.hpp"
-#include "function/tester/tester.hpp"
-#include "object/red_box/red_box.hpp"
+#include "search_font.hpp"
+#include "load.hpp"
+#include "mouse_click_event.hpp"
+#include "tester.hpp"
+#include "red_box.hpp"
 
 #include <iostream>
 

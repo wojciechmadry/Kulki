@@ -1,5 +1,5 @@
 #include "load.hpp"
-#include "BabelLib/babel.hpp"
+#include "babel.hpp"
 
 // load font
 sf::Font load_font(const std::string &path) {

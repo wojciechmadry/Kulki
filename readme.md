@@ -27,9 +27,7 @@ git submodule update
 
 2. If you want hide console after you build this project uncomment `WIN32` in `CMakeList.txt` - **Windows only**
 
-3. Set path to SFML folder in `CMakeList.txt`: `set(SFML_PATH /home/wojtek/Pulpit/GIT/SFML-2.5.1/)`
-
-4. Build project with CMake (Generator can be `ninja`, `MinGW Makefiles`:
+3. Build project with CMake (Generator can be `ninja`, `MinGW Makefiles`:
 ```sh
 mkdir build
 cd build
@@ -37,10 +35,10 @@ cmake -G<generator> ..
 make -j
 ```
 
-5. Copy libraries from SFML `bin` folder to build directory
+4. Copy libraries from SFML `bin` folder to build directory
    All needed library in **WINDOWS**: `sfml-graphics-2.dll`, `sfml-system-2.dll`, `sfml-window-2.dll`
 
-6. Copy folder `ball_texture` to build directory.
+5. Copy folder `ball_texture` to build directory.
 
 Screen from game
 ---

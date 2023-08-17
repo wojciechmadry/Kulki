@@ -1,7 +1,7 @@
 #include <algorithm>
 
 #include "drawer.hpp"
-#include "function/load/load.hpp"
+#include "load.hpp"
 
 void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource,
                   const sf::Font &sfFont,

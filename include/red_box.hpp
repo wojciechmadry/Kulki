@@ -5,9 +5,8 @@
 #ifndef KULKI_RED_BOX_HPP
 #define KULKI_RED_BOX_HPP
 
-// #include <SFML/Graphics.hpp>
-#include "BabelLib/babel.hpp"
-#include "object/resource/resource.hpp"
+#include "babel.hpp"
+#include "resource.hpp"
 
 class RedBox {
   babel::ANY::PolAny::any m_box;

@@ -1,5 +1,5 @@
 #include "mouse_click_event.hpp"
-#include "function/thread/thread_wrapper.hpp"
+#include "thread_wrapper.hpp"
 
 namespace MOUSE {
 void left_click(Thread &thread, sf::RenderWindow &window,
