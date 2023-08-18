@@ -23,9 +23,10 @@ sf::RectangleShape make_rectangle(const sf::Vector2f Size,
   return rc;
 }
 
-std::pair<int8_t, int8_t> MapCorToGrid(const sf::Vector2<float> cor) noexcept {
-  auto low_x = 0.3f * static_cast<float>(GLOBAL::get_width());
-  auto low_y = 0.02f * static_cast<float>(GLOBAL::get_height());
+std::pair<int8_t, int8_t> MapCorToGrid(const sf::Vector2<float> cor,
+                                       float width, float height) noexcept {
+  auto low_x = 0.3f * width;
+  auto low_y = 0.02f * height;
 
   auto x = (cor.x - low_x) / GLOBAL::get_white_box_size();
   auto y = (cor.y - low_y) / GLOBAL::get_white_box_size();

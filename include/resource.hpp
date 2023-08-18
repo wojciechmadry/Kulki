@@ -81,6 +81,8 @@ class ResourceHolder {
       return *this;
     }
 
+    bool is_nullptr() const noexcept { return m_res == nullptr; }
+
     [[nodiscard]] explicit operator bool() const noexcept {
       return m_autodraw && m_res;
     }
@@ -108,6 +110,18 @@ public:
               bool AutoDraw = true) noexcept {
     m_resource[cast(Key)] =
         Object(std::make_unique<T>(std::forward<T>(Value)), AutoDraw);
+  }
+
+  template <typename T>
+    requires(!babel::CONCEPTS::IS_ANY_POINTER<T> &&
+             (babel::CONCEPTS::IS_SAME_CONVERTIBLE<T, Resource> ||
+              std::is_base_of_v<Resource, T>))
+  void create_if_not_exist(const ResourceType Key,
+                           bool AutoDraw = true) noexcept {
+    const auto idx = cast(Key);
+    if (m_resource[idx].is_nullptr()) {
+      m_resource[idx] = Object(std::make_unique<T>(), AutoDraw);
+    }
   }
 
   template <typename T>

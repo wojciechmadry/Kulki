@@ -34,20 +34,21 @@ int main() {
     PathFont = std::move(path);
   }
   font = load_font(PathFont.value());
-
-  GLOBAL::INIT(Resource, font,
-               {record, old_score}); // Load textures, init default settings,
-                                     // draw started object etc
+  const auto resolutionFromConfig = load_resolution();
+  GLOBAL::INIT(
+      Resource, font, {record, old_score},
+      static_cast<float>(resolutionFromConfig.first),
+      static_cast<float>(
+          resolutionFromConfig.second)); // Load textures, init default
+                                         // settings, draw started object etc
 
   RedBox redbox(
       Resource,
       GLOBAL::RED_BOX_TEXTURE()); // picked redbox (can be textured or not)
 
   sf::RenderWindow window(
-      sf::VideoMode(static_cast<uint32_t>(GLOBAL::get_width()),
-                    static_cast<uint32_t>(GLOBAL::get_height())),
+      sf::VideoMode(resolutionFromConfig.first, resolutionFromConfig.second),
       VERSION, sf::Style::Default, sf::ContextSettings{0, 0, 8});
-
   auto fps = load_fps();
   window.setFramerateLimit(fps);
   sf::Image icon;
@@ -92,6 +93,9 @@ int main() {
         window.close();
       } else if (event.type == sf::Event::Resized ||
                  event.type == sf::Event::GainedFocus) {
+        GLOBAL::UPDATE_RESOLUTION(Resource,
+                                  static_cast<float>(window.getSize().x),
+                                  static_cast<float>(window.getSize().y));
         thread.operation(OperationType::UPDATE); // Game need update here
       } else if (event.type == sf::Event::MouseButtonPressed) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -122,7 +126,9 @@ int main() {
 
     // If game need update draw it
     if (Game.need_update())
-      draw_window(window, Game, Resource);
+      draw_window(window, Game, Resource,
+                  static_cast<float>(window.getSize().x),
+                  static_cast<float>(window.getSize().y));
 
     window.display();
 

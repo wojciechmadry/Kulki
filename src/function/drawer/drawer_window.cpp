@@ -1,9 +1,8 @@
 #include "drawer.hpp"
 
 void draw_window(sf::RenderWindow &window, map &Map,
-                 ResourceHolder<sf::Drawable> &Resource) {
-  auto width = static_cast<float>(GLOBAL::get_width()); // RESOLUTION OF SCREEN
-  auto height = static_cast<float>(GLOBAL::get_height());
+                 ResourceHolder<sf::Drawable> &Resource, float width,
+                 float height) {
   auto wb = static_cast<float>(
       Resource.get_as<sf::RectangleShape>(ResourceType::WHITE_BOX)
           .getSize()
@@ -34,13 +33,11 @@ void draw_window(sf::RenderWindow &window, map &Map,
   // Draw 3 Next ball
   babel::ITERATOR::enumerator NextThreeEum(Map.get_next_three());
   std::for_each(
-      NextThreeEum.begin(), NextThreeEum.end(),
-      [&WhiteBox, &window, &Resource, wb,
-       &get_textured_ball](const auto &NextEnum) mutable {
+      NextThreeEum.begin(), NextThreeEum.end(), [&](const auto &NextEnum) {
         sf::Vector2f pos = {
-            static_cast<float>(static_cast<size_t>(GLOBAL::get_width()) >> 4u) +
+            static_cast<float>(static_cast<size_t>(width) >> 4u) +
                 static_cast<float>(NextEnum.first()) * wb,
-            0.671641f * static_cast<float>(GLOBAL::get_height())};
+            0.671641f * static_cast<float>(height)};
         WhiteBox.setPosition(pos);
         // Draw whitebox around ball.
         window.draw(WhiteBox);
@@ -104,11 +101,10 @@ void draw_window(sf::RenderWindow &window, map &Map,
   Map.updated();
 }
 
-void draw_started_object(ResourceHolder<sf::Drawable> &Resource,
-                         const sf::Font &font, const uint16_t record,
-                         const uint16_t score) noexcept {
-  auto width = static_cast<float>(GLOBAL::get_width());
-  auto height = static_cast<float>(GLOBAL::get_height());
+void generate_started_object(ResourceHolder<sf::Drawable> &Resource,
+                             const sf::Font &font, const uint16_t record,
+                             const uint16_t score, float width,
+                             float height) noexcept {
   auto Font_Size = static_cast<uint32_t>((width * height) * 0.000035f);
 
   auto x_start =
