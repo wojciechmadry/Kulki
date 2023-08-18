@@ -52,5 +52,6 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ball_texture
         -i
         ${SRC_FILES}
         ${HEADERS_FILES}
+        ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
