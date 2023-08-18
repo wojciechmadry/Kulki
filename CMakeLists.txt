@@ -7,8 +7,16 @@ if(UNIX)
     find_package(Threads REQUIRED)
 endif(UNIX)
 
-find_package(SFML COMPONENTS graphics window system REQUIRED)
-find_package(Freetype REQUIRED)
+if(UNIX)
+    find_package(SFML COMPONENTS graphics window system REQUIRED)
+    find_package(Freetype REQUIRED)
+else()
+    set(SFML_PATH /home/wojtek/Desktop/GIT/SFML-2.5.1/)
+    set(INCLUDE ${SFML_PATH}/include/)
+    set(LIB ${SFML_PATH}/lib/)
+    include_directories(${INCLUDE})
+    link_directories(${LIB})
+endif()
 
 include_directories(
     src/BabelLib
@@ -40,7 +48,6 @@ target_link_libraries(Kulki PRIVATE
     sfml-window
     sfml-graphics
     sfml-system
-    freetype
 )
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ball_texture
