@@ -3,18 +3,11 @@ License
 Game is on SFML licens:
 https://www.sfml-dev.org/license.php
 
-General information
----
-
-Screen from game are in folder _Screen_.
-
-All nedeed source files are in folder _src_.
-
 Requirements
 ---
 1. CMake
 2. C++20
-3. Mingw32 (When building on Windows)
+3. Mingw32 (**Windows only**)
 
 Build from source
 ---
