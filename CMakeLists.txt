@@ -15,6 +15,9 @@ include_directories(
     include
 )
 
+file(GLOB_RECURSE SRC_FILES src/function/*.cpp src/object/*.cpp)
+file(GLOB_RECURSE HEADERS_FILES include/*.hpp include/*.h)
+
 if("${CMAKE_SIZEOF_VOID_P}" STREQUAL "4")
     add_definitions(-D__32BITVERSION__)
 else()
@@ -24,27 +27,7 @@ endif()
 add_executable(Kulki
         #WIN32
         main.cpp
-        src/function/crypt/crypt.cpp
-        src/function/drawer/drawer_utils.cpp
-        src/function/drawer/drawer_global_class.cpp
-        src/function/drawer/drawer_window.cpp
-        src/function/font/search_font_linux.cpp
-        src/function/font/search_font_windows.cpp
-        src/function/load/load.cpp
-        src/function/load/load_map.cpp
-        src/function/load/load_record.cpp
-        src/function/mouse/mouse_click_event.cpp
-        src/function/random/random.cpp
-        src/function/tester/tester.cpp
-        src/function/thread/thread_wrapper.cpp
-        src/object/ball/ball.cpp
-        src/object/map/map_check_score.cpp
-        src/object/map/map.cpp
-        src/object/map/map_move.cpp
-        src/object/map/map_next_three.cpp
-        src/object/map/map_position_check.cpp
-        src/object/map/map_score_there.cpp
-        src/object/red_box/red_box.cpp
+        ${SRC_FILES}
 )
 
 target_compile_options(Kulki PRIVATE -O3 -Wextra -Werror -W -Wshadow -Wdouble-promotion -Wformat=2 -Wundef -fno-common -Wconversion -pedantic -Wall)
@@ -62,4 +45,12 @@ target_link_libraries(Kulki PRIVATE
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ball_texture
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+ add_custom_target(
+        clangformat
+        COMMAND /usr/bin/clang-format
+        -i
+        ${SRC_FILES}
+        ${HEADERS_FILES}
+)
 
