@@ -38,8 +38,6 @@ make -j
 4. Copy libraries from SFML `bin` folder to build directory
    All needed library in **WINDOWS**: `sfml-graphics-2.dll`, `sfml-system-2.dll`, `sfml-window-2.dll`
 
-5. Copy folder `ball_texture` to build directory.
-
 Screen from game
 ---
 ![alt text](https://github.com/wojciechmadry/Kulki/blob/master/Screen/game1.PNG)

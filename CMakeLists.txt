@@ -60,3 +60,6 @@ target_link_libraries(Kulki PRIVATE
     freetype
 )
 
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ball_texture
+     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
