@@ -1,4 +1,4 @@
-#include "BabelLib/babel.hpp"
+#include "babel.hpp"
 #include "map.hpp"
 
 bool map::can_move(std::pair<uint8_t, uint8_t> from,

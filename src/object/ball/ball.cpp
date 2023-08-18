@@ -2,7 +2,7 @@
 
 #include <array>
 
-#include "function/random/random.hpp"
+#include "random.hpp"
 
 static constexpr const std::array<std::array<unsigned char, 4>, 7> a_color{
     {{50, 100, 83, 255},

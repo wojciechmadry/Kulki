@@ -1,5 +1,5 @@
 #include "mouse_click_event.hpp"
-#include "function/thread/thread_wrapper.hpp"
+#include "thread_wrapper.hpp"
 
 namespace MOUSE {
 void left_click(Thread &thread, sf::RenderWindow &window,
@@ -11,7 +11,8 @@ void left_click(Thread &thread, sf::RenderWindow &window,
           .getGlobalBounds()
           .contains(pos)) // If you click to map grid
   {
-    new_pick = MapCorToGrid(pos);
+    new_pick = MapCorToGrid(pos, static_cast<float>(window.getSize().x),
+                            static_cast<float>(window.getSize().y));
     if (!Game.at(new_pick).is_empty()) {
       picked = new_pick; // Pick ball
     } else if (picked.first != -1 && !Game.at(picked).is_empty()) {

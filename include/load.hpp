@@ -5,15 +5,13 @@
 #ifndef KULKI_LOAD_HPP
 #define KULKI_LOAD_HPP
 
-#include "object/map/map.hpp"
+#include "map.hpp"
 #include <SFML/Graphics/Font.hpp>
 #include <cstdint>
 #include <string>
 
 // load font
 sf::Font load_font(const std::string &path);
-
-std::pair<uint32_t, uint32_t> load_resolution() noexcept;
 
 uint32_t load_fps() noexcept;
 

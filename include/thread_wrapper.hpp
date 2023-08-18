@@ -5,7 +5,7 @@
 #ifndef KULKI_THREAD_WRAPPER_HPP
 #define KULKI_THREAD_WRAPPER_HPP
 
-#include "function/drawer/drawer.hpp"
+#include "drawer.hpp"
 
 enum class OperationType {
   EXIT = -1,

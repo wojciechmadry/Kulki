@@ -1,9 +1,9 @@
 
 #include "map.hpp"
 
-#include "BabelLib/babel.hpp"
+#include "babel.hpp"
 
-#include "function/random/random.hpp"
+#include "random.hpp"
 
 void map::generate_next_three() noexcept {
   // Generate random next three balls, which show in the next move

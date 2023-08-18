@@ -1,7 +1,7 @@
 #ifndef KULKI_RANDOM_HPP
 #define KULKI_RANDOM_HPP
 
-#include "BabelLib/babel.hpp"
+#include "babel.hpp"
 
 class randomizer {
 

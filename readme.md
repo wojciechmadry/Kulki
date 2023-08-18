@@ -3,67 +3,34 @@ License
 Game is on SFML licens:
 https://www.sfml-dev.org/license.php
 
-General information
+Requirements
+---
+1. CMake
+2. C++20 (GCC or Clang)
+3. `libsfml-dev`
+
+Build from source
 ---
 
-Screen from game are in folder _Screen_.
+1. Init submodule
+```sh
+git submodule init
+git submodule update
+```
 
-All nedeed source files are in folder _src_.
+3. Build project with CMake:
+```sh
+mkdir build
+cd build
+cmake ..
+make -j
+```
 
-If you build this on linux you need: `xdpyinfo` package
-
-Code stlye is LLVM, formatted with clang-format v15.0.7
-
-Submodules
+Build Dockerimage
 ---
-
-- babellib [`https://github.com/wojciechmadry/BabelLib`]
-
-How to compile
----
-
-First initialise submodule - `git submodule init && git submodule update`
-
-You can build project in linux or in windows with Mingw32.
-
-You need Cmake install too.
-
-Project requires C++20
-
-First you need change CMakeLists.
-
-If you want hide console after you build this project uncomment `WIN32` - **Windows only**
-
-Set path to SFML folder: (https://github.com/wojciechmadry/BabelLib.git)
-
-`set(SFML_PATH /home/wojtek/Pulpit/GIT/SFML-2.5.1/)`
-
-# BUILD
-
-Open console in folder `Build` and
-
-### WINDOWS BUILD
- type:
-`cmake -g`
-
-Now you see available generator, I pick: `MinGW Makefiles`
-
-Now type `cmake -G 'MinGW Makefiles' ../` to generate project.
-### LINUX BUILD
-type: `cmake ../`
-
-### LINUX & WINDOWS
-
-To build your project type `cmake --build .`
-
-Now only to you need to do: copy libraries from SFML folder`../bin`
-
-All needed library in **WINDOWS**: `sfml-graphics-2.dll`, `sfml-system-2.dll`, `sfml-window-2.dll`
-
-
-If you want to move your build project from folder remember to put folder `ball_texture` therein.
-
-
+```sh
+docker build -t kulki .
+```
 
 Screen from game
 ---

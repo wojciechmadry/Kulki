@@ -5,7 +5,7 @@
 #ifndef KULKI_MAP_HPP
 #define KULKI_MAP_HPP
 
-#include "object/ball/ball.hpp"
+#include "ball.hpp"
 #include <array>
 #include <cstdint>
 

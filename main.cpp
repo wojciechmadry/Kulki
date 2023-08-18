@@ -1,15 +1,15 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Window/WindowStyle.hpp>
 #include <cmath>
 
-#include "function/font/search_font.hpp"
-#include "function/load/load.hpp"
-#include "function/mouse/mouse_click_event.hpp"
-#include "function/tester/tester.hpp"
-#include "object/red_box/red_box.hpp"
+#include "load.hpp"
+#include "mouse_click_event.hpp"
+#include "red_box.hpp"
+#include "tester.hpp"
 
 #include <iostream>
 
-static constexpr const char *VERSION = "1.3";
+static constexpr const char *VERSION = "1.4";
 
 #define FPS 0 // Show fps in console
 
@@ -22,32 +22,17 @@ int main() {
   uint16_t record = check_for_record(), old_score = Game.get_score();
 
   sf::Font font;
-
-  auto PathFont = search_font();
-
-  if (!PathFont.has_value()) {
-    std::cout << "Cant find any font\n";
-    std::cout << "Enter path to font: ";
-    std::string path;
-    std::getline(std::cin, path);
-    std::cout << '\n';
-    PathFont = std::move(path);
-  }
-  font = load_font(PathFont.value());
-
-  GLOBAL::INIT(Resource, font,
-               {record, old_score}); // Load textures, init default settings,
-                                     // draw started object etc
+  font = load_font("font/NeverMindHand/ttf/NeverMindHand-Regular.ttf");
+  GLOBAL::INIT(Resource, font, {record, old_score}, 1280,
+               720); // Load textures, init default
+                     // settings, draw started object etc
 
   RedBox redbox(
       Resource,
       GLOBAL::RED_BOX_TEXTURE()); // picked redbox (can be textured or not)
 
-  sf::RenderWindow window(
-      sf::VideoMode(static_cast<uint32_t>(GLOBAL::get_width()),
-                    static_cast<uint32_t>(GLOBAL::get_height())),
-      VERSION, sf::Style::Default, sf::ContextSettings{0, 0, 8});
-
+  sf::RenderWindow window(sf::VideoMode(1280, 720), VERSION, sf::Style::Default,
+                          sf::ContextSettings{0, 0, 8});
   auto fps = load_fps();
   window.setFramerateLimit(fps);
   sf::Image icon;
@@ -92,7 +77,14 @@ int main() {
         window.close();
       } else if (event.type == sf::Event::Resized ||
                  event.type == sf::Event::GainedFocus) {
+        GLOBAL::UPDATE_RESOLUTION(Resource,
+                                  static_cast<float>(window.getSize().x),
+                                  static_cast<float>(window.getSize().y));
         thread.operation(OperationType::UPDATE); // Game need update here
+        sf::FloatRect visibleArea(0, 0, static_cast<float>(window.getSize().x),
+                                  static_cast<float>(window.getSize().y));
+        window.setView(sf::View(visibleArea));
+        MOUSE::right_click(thread, picked, redbox);
       } else if (event.type == sf::Event::MouseButtonPressed) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
           MOUSE::left_click(thread, window, new_pick, picked, redbox, Game,

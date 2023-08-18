@@ -1,5 +1,5 @@
 #include "crypt.hpp"
-#include "BabelLib/babel.hpp"
+#include "babel.hpp"
 
 std::string crypt(uint16_t number) {
   babel::ALGO::MATH::random_generator rg;

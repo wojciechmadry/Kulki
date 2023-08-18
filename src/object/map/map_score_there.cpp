@@ -1,6 +1,6 @@
 #include "map.hpp"
 
-#include "BabelLib/babel.hpp"
+#include "babel.hpp"
 
 bool map::score_there() const noexcept {
   for (auto i : babel::ITERATOR::range<uint8_t>(0, 9)) {
