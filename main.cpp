@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Window/WindowStyle.hpp>
 #include <cmath>
 
 #include "load.hpp"
@@ -34,15 +35,15 @@ int main() {
     PathFont = std::move(path);
   }
   font = load_font(PathFont.value());
-  GLOBAL::INIT(Resource, font, {record, old_score}, 800,
-               600); // Load textures, init default
+  GLOBAL::INIT(Resource, font, {record, old_score}, 1280,
+               720); // Load textures, init default
                      // settings, draw started object etc
 
   RedBox redbox(
       Resource,
       GLOBAL::RED_BOX_TEXTURE()); // picked redbox (can be textured or not)
 
-  sf::RenderWindow window(sf::VideoMode(800, 600), VERSION, sf::Style::Default,
+  sf::RenderWindow window(sf::VideoMode(1280, 720), VERSION, sf::Style::Resize,
                           sf::ContextSettings{0, 0, 8});
   auto fps = load_fps();
   window.setFramerateLimit(fps);
