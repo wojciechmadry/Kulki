@@ -9,13 +9,6 @@ endif(UNIX)
 
 if(UNIX)
     find_package(SFML COMPONENTS graphics window system REQUIRED)
-    find_package(Freetype REQUIRED)
-else()
-    set(SFML_PATH /home/wojtek/Desktop/GIT/SFML-2.5.1/)
-    set(INCLUDE ${SFML_PATH}/include/)
-    set(LIB ${SFML_PATH}/lib/)
-    include_directories(${INCLUDE})
-    link_directories(${LIB})
 endif()
 
 include_directories(
@@ -33,7 +26,6 @@ else()
 endif()
 
 add_executable(Kulki
-        #WIN32
         main.cpp
         ${SRC_FILES}
 )
@@ -57,11 +49,11 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/font
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
  add_custom_target(
-        clangformat
-        COMMAND /usr/bin/clang-format
-        -i
-        ${SRC_FILES}
-        ${HEADERS_FILES}
-        ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+    clangformat
+    COMMAND /usr/bin/clang-format
+    -i
+    ${SRC_FILES}
+    ${HEADERS_FILES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
