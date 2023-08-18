@@ -46,6 +46,9 @@ target_link_libraries(Kulki PRIVATE
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ball_texture
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/font
+     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
  add_custom_target(
         clangformat
         COMMAND /usr/bin/clang-format

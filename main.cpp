@@ -5,7 +5,6 @@
 #include "load.hpp"
 #include "mouse_click_event.hpp"
 #include "red_box.hpp"
-#include "search_font.hpp"
 #include "tester.hpp"
 
 #include <iostream>
@@ -23,18 +22,7 @@ int main() {
   uint16_t record = check_for_record(), old_score = Game.get_score();
 
   sf::Font font;
-
-  auto PathFont = search_font();
-
-  if (!PathFont.has_value()) {
-    std::cout << "Cant find any font\n";
-    std::cout << "Enter path to font: ";
-    std::string path;
-    std::getline(std::cin, path);
-    std::cout << '\n';
-    PathFont = std::move(path);
-  }
-  font = load_font(PathFont.value());
+  font = load_font("font/NeverMindHand/ttf/NeverMindHand-Regular.ttf");
   GLOBAL::INIT(Resource, font, {record, old_score}, 1280,
                720); // Load textures, init default
                      // settings, draw started object etc
@@ -43,7 +31,7 @@ int main() {
       Resource,
       GLOBAL::RED_BOX_TEXTURE()); // picked redbox (can be textured or not)
 
-  sf::RenderWindow window(sf::VideoMode(1280, 720), VERSION, sf::Style::Resize,
+  sf::RenderWindow window(sf::VideoMode(1280, 720), VERSION, sf::Style::Default,
                           sf::ContextSettings{0, 0, 8});
   auto fps = load_fps();
   window.setFramerateLimit(fps);

@@ -8,6 +8,8 @@ Requirements
 1. CMake
 2. C++20
 3. Mingw32 (**Windows only**)
+4. `libsfml-dev`
+5. `libfreetype-dev`
 
 Build from source
 ---
