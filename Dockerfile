@@ -13,7 +13,7 @@ RUN apt update \
 
 ENV CC=clang
 ENV CXX=clang++
-ENV BRANCH=fix_resolution
+ENV BRANCH=master
 
 RUN git clone https://github.com/wojciechmadry/Kulki.git \
     && cd Kulki \
