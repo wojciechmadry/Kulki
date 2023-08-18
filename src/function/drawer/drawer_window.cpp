@@ -42,10 +42,9 @@ void draw_window(sf::RenderWindow &window, map &Map,
         WhiteBox.setPosition(pos);
         // Draw whitebox around ball.
         window.draw(WhiteBox);
-        auto ballID =
-            static_cast<ResourceType>(static_cast<decltype(NextEnum.first())>(
-                                          ResourceType::BALL_CIRCLE_START) +
-                                      NextEnum.first());
+        auto ballID = static_cast<ResourceType>(
+            static_cast<std::uint32_t>(ResourceType::BALL_CIRCLE_START) +
+            static_cast<std::uint32_t>(NextEnum.second().enum_color()));
         auto &Ball =
             Resource.get_as<sf::CircleShape>(ballID); // No textured ball
         auto radius = wb / 2.0f - Ball.getRadius();
