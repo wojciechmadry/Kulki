@@ -26,6 +26,12 @@ cmake ..
 make -j
 ```
 
+Build Dockerimage
+---
+```sh
+docker build -t kulki .
+```
+
 Screen from game
 ---
 ![alt text](https://github.com/wojciechmadry/Kulki/blob/master/Screen/game1.PNG)
