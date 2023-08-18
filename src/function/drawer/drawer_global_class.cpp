@@ -116,7 +116,7 @@ void GLOBAL::UPDATE_RESOLUTION(ResourceHolder<sf::Drawable> &Resource,
 
 void GLOBAL::update_started_objects(ResourceHolder<sf::Drawable> &Resource,
                                     float width, float height) {
-  auto Font_Size = static_cast<uint32_t>((width * height) * 0.000035f);
+  auto Font_Size = static_cast<uint32_t>(width * 0.035f);
   auto x_start =
       static_cast<float>(static_cast<size_t>(width) >>
                          4u); // Where some text start drawing in axis X
@@ -211,8 +211,8 @@ void GLOBAL::update_ball_texture(ResourceHolder<sf::Drawable> &Resource) {
   }
 }
 
-void GLOBAL::calculate_static_vars(float width, float) {
-  a = (0.5f * width) / 9.f;
+void GLOBAL::calculate_static_vars(float width, float height) {
+  a = (width + height) / 28.f;
   radius = a / 2.5f;
 }
 

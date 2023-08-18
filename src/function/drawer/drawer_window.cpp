@@ -1,8 +1,9 @@
 #include "drawer.hpp"
 
 void draw_window(sf::RenderWindow &window, map &Map,
-                 ResourceHolder<sf::Drawable> &Resource, float width,
-                 float height) {
+                 ResourceHolder<sf::Drawable> &Resource) {
+  const float width = static_cast<float>(window.getSize().x);
+  const float height = static_cast<float>(window.getSize().y);
   auto wb = static_cast<float>(
       Resource.get_as<sf::RectangleShape>(ResourceType::WHITE_BOX)
           .getSize()
@@ -105,7 +106,7 @@ void generate_started_object(ResourceHolder<sf::Drawable> &Resource,
                              const sf::Font &font, const uint16_t record,
                              const uint16_t score, float width,
                              float height) noexcept {
-  auto Font_Size = static_cast<uint32_t>((width * height) * 0.000035f);
+  auto Font_Size = static_cast<uint32_t>(width * 0.035f);
 
   auto x_start =
       static_cast<float>(static_cast<size_t>(width) >>

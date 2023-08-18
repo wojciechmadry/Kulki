@@ -13,8 +13,6 @@
 // load font
 sf::Font load_font(const std::string &path);
 
-std::pair<uint32_t, uint32_t> load_resolution() noexcept;
-
 uint32_t load_fps() noexcept;
 
 // Check for encrypt record in file

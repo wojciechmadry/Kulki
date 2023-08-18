@@ -34,21 +34,16 @@ int main() {
     PathFont = std::move(path);
   }
   font = load_font(PathFont.value());
-  const auto resolutionFromConfig = load_resolution();
-  GLOBAL::INIT(
-      Resource, font, {record, old_score},
-      static_cast<float>(resolutionFromConfig.first),
-      static_cast<float>(
-          resolutionFromConfig.second)); // Load textures, init default
-                                         // settings, draw started object etc
+  GLOBAL::INIT(Resource, font, {record, old_score}, 800,
+               600); // Load textures, init default
+                     // settings, draw started object etc
 
   RedBox redbox(
       Resource,
       GLOBAL::RED_BOX_TEXTURE()); // picked redbox (can be textured or not)
 
-  sf::RenderWindow window(
-      sf::VideoMode(resolutionFromConfig.first, resolutionFromConfig.second),
-      VERSION, sf::Style::Default, sf::ContextSettings{0, 0, 8});
+  sf::RenderWindow window(sf::VideoMode(800, 600), VERSION, sf::Style::Default,
+                          sf::ContextSettings{0, 0, 8});
   auto fps = load_fps();
   window.setFramerateLimit(fps);
   sf::Image icon;
@@ -97,6 +92,10 @@ int main() {
                                   static_cast<float>(window.getSize().x),
                                   static_cast<float>(window.getSize().y));
         thread.operation(OperationType::UPDATE); // Game need update here
+        sf::FloatRect visibleArea(0, 0, static_cast<float>(window.getSize().x),
+                                  static_cast<float>(window.getSize().y));
+        window.setView(sf::View(visibleArea));
+        MOUSE::right_click(thread, picked, redbox);
       } else if (event.type == sf::Event::MouseButtonPressed) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
           MOUSE::left_click(thread, window, new_pick, picked, redbox, Game,
@@ -126,9 +125,7 @@ int main() {
 
     // If game need update draw it
     if (Game.need_update())
-      draw_window(window, Game, Resource,
-                  static_cast<float>(window.getSize().x),
-                  static_cast<float>(window.getSize().y));
+      draw_window(window, Game, Resource);
 
     window.display();
 

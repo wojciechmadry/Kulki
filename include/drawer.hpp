@@ -60,8 +60,7 @@ private:
 };
 
 void draw_window(sf::RenderWindow &window, map &Map,
-                 ResourceHolder<sf::Drawable> &Resource, float width,
-                 float height);
+                 ResourceHolder<sf::Drawable> &Resource);
 
 // Simplify sf::Text
 sf::Text make_text(const std::string &text, const sf::Vector2f &pos,
