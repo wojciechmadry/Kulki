@@ -168,9 +168,8 @@ void GLOBAL::update_redbox_texture(ResourceHolder<sf::Drawable> &Resource) {
   } else {
     auto &rectRes = Resource.get_as<sf::RectangleShape>(ResourceType::PICKED);
     rectRes.setSize({a, a});
-    rectRes.setPosition({0, 0});
     rectRes.setFillColor(sf::Color::Transparent);
-    rectRes.setOutlineThickness(0.07f * 1);
+    rectRes.setOutlineThickness(0.07f * a);
     rectRes.setOutlineColor(sf::Color::Red);
   }
 }
