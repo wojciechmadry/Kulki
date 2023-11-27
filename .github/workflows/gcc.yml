@@ -21,7 +21,18 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        sudo apt -y install g++ gcc libsfml-dev
+        sudo apt -y install g++ gcc \
+                            libudev-dev \
+                            libopenal-dev \
+                            libvorbis-dev \
+                            libflac-dev \
+                            libx11-dev \
+                            libxcursor-dev \
+                            libxrandr-dev \
+                            libfreetype-dev \
+                            libopengl-dev \
+                            libglx-dev \
+                            libgl1-mesa-dev
 
     - name: FetchSubmodules
       run: |

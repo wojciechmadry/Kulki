@@ -5,11 +5,21 @@ WORKDIR /ws
 RUN apt update \
     && apt upgrade -y\
     && apt install -y\
-    libsfml-dev \
     cmake \
     ninja-build \
     clang \
-    git
+    git \
+    libudev-dev \
+    libopenal-dev \
+    libvorbis-dev \
+    libflac-dev \
+    libx11-dev \
+    libxcursor-dev \
+    libxrandr-dev \
+    libfreetype-dev \
+    libopengl-dev \
+    libglx-dev \
+    libgl1-mesa-dev
 
 ENV CC=clang
 ENV CXX=clang++
