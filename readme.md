@@ -7,7 +7,7 @@ Requirements
 ---
 1. CMake
 2. C++20 (GCC or Clang)
-3. `libsfml-dev`
+3. [SFML dependencies](https://www.sfml-dev.org/tutorials/2.6/compile-with-cmake.php)
 
 Build from source
 ---
