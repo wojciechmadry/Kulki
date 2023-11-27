@@ -28,7 +28,7 @@ add_executable(Kulki
         ${SRC_FILES}
 )
 
-target_compile_options(Kulki PRIVATE -O3 -Wextra -Werror -W -Wshadow -Wdouble-promotion -Wformat=2 -Wundef -fno-common -Wconversion -pedantic -Wall)
+target_compile_options(Kulki PRIVATE -O3 -Wextra -Werror -W -Wshadow -Wdouble-promotion -Wformat=2 -Wundef -fno-common -Wconversion -pedantic -Wall -stdlib=libstdc++ -std=c++20)
 
 if(UNIX)
     target_link_libraries(Kulki PUBLIC Threads::Threads)
