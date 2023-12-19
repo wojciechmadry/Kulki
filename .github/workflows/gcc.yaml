@@ -1,4 +1,4 @@
-name: Dockerfile build
+name: GCC
 
 on:
   push:
@@ -9,12 +9,12 @@ on:
        - '**'
 
 jobs:
-
   build:
 
     runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag kulki_docker:$(date +%s)
+
+    - name: gcc
+      run: docker build . --file Dockerfile.gcc --tag kulki_docker_gcc:$(date +%s)

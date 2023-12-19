@@ -1,3 +1,6 @@
 [submodule "src/BabelLib"]
 	path = src/BabelLib
 	url = https://github.com/wojciechmadry/BabelLib.git
+[submodule "SFML"]
+	path = SFML
+	url = https://github.com/SFML/SFML.git
