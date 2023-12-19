@@ -8,6 +8,7 @@ RUN apt update \
     cmake \
     ninja-build \
     gcc \
+    g++ \
     git \
     libudev-dev \
     libopenal-dev \
