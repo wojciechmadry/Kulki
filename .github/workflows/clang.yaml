@@ -2,46 +2,19 @@ name: Clang
 
 on:
   push:
-    branches:  
-      - '**' 
+    branches:
+      - '**'
   pull_request:
     branches:
-       - '**' 
+       - '**'
 
 jobs:
   build:
 
     runs-on: ubuntu-22.04
-    env:
-      CC: clang
-      CXX: clang++
 
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install Dependencies
-      run: |
-        sudo apt -y install clang \
-                            libudev-dev \
-                            libopenal-dev \
-                            libvorbis-dev \
-                            libflac-dev \
-                            libx11-dev \
-                            libxcursor-dev \
-                            libxrandr-dev \
-                            libfreetype-dev \
-                            libopengl-dev \
-                            libglx-dev \
-                            libgl1-mesa-dev
-
-    - name: FetchSubmodules
-      run: |
-        git submodule init
-        git submodule update
-
-    - name: Build Clang
-      run: |
-        mkdir -p build
-        cd build
-        cmake ../
-        cmake --build . -j
+    - name: clang
+      run: docker build . --file Dockerfile.clang --tag kulki_docker_clang:$(date +%s)
