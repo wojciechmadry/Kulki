@@ -65,8 +65,8 @@ class ResourceHolder {
         : m_autodraw(autodraw), m_res(std::move(res)) {}
 
     Object(Object &&Obj) noexcept {
-      m_autodraw = Obj._autodraw;
-      m_res = std::move(Obj._res);
+      m_autodraw = Obj.m_autodraw;
+      m_res = std::move(Obj.m_res);
     }
 
     Object(const Object &) = delete;

@@ -89,7 +89,7 @@ void map::put_next_three() noexcept {
         std::for_each(RowEnum.begin(), RowEnum.end(),
                       [&free_pos, &RowEn](const auto &BallEnum) mutable {
                         if (BallEnum.second().is_empty())
-                          free_pos.template emplace_back(
+                          free_pos.emplace_back(
                               std::make_pair(RowEn.first(), BallEnum.first()));
                       });
       });
