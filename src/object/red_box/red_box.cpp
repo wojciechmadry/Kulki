@@ -22,18 +22,18 @@ RedBox::RedBox(ResourceHolder<sf::Drawable> &Resources,
 
 void RedBox::set_position(const float x, const float y) noexcept {
   if (m_text)
-    get_any<sf::Sprite>().setPosition(x, y);
+    get_any<sf::Sprite>().setPosition({x, y});
   else
-    get_any<sf::RectangleShape>().setPosition(x, y);
+    get_any<sf::RectangleShape>().setPosition({x, y});
 }
 
 void RedBox::hide() noexcept {
   if (m_text) {
     auto &sprite = get_any<sf::Sprite>();
     sf::Vector2f spriteSize(
-        static_cast<float>(sprite.getTexture()->getSize().x) *
+        static_cast<float>(sprite.getTexture().getSize().x) *
             sprite.getScale().x,
-        static_cast<float>(sprite.getTexture()->getSize().y) *
+        static_cast<float>(sprite.getTexture().getSize().y) *
             sprite.getScale().y);
     put_out_of_screen(sprite);
   } else {

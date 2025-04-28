@@ -8,10 +8,6 @@
 #include "map.hpp"
 #include <SFML/Graphics/Font.hpp>
 #include <cstdint>
-#include <string>
-
-// load font
-sf::Font load_font(const std::string &path);
 
 uint32_t load_fps() noexcept;
 

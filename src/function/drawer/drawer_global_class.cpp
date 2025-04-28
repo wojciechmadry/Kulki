@@ -29,7 +29,6 @@ void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource,
 
   for (auto i :
        babel::ITERATOR::range<std::size_t, std::size_t>(0, ball_name.size())) {
-    auto sprite = std::make_unique<sf::Sprite>();
     auto texture = std::make_unique<sf::Texture>();
 
     bool FileGood = texture->loadFromFile(texture_path + ball_name[i]);
@@ -37,16 +36,17 @@ void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource,
     if (!FileGood)
       break;
     texture->setSmooth(true);
+
     auto size_texture =
         (radius / static_cast<float>(texture->getSize().x)) * 2.f;
     auto TextID = static_cast<TextureType>(
         static_cast<std::size_t>(TextureType::BALL_TEXTURE_START) + i);
-    Resource.insert(TextID, std::move(texture));
 
-    sprite->setTexture(Resource.get_as(TextID));
+    auto sprite = std::make_unique<sf::Sprite>(*texture);
     sprite->setScale({size_texture, size_texture});
     auto SpriteID = static_cast<ResourceType>(
         static_cast<std::size_t>(ResourceType::BALL_SPRITE_START) + i);
+    Resource.insert(TextID, std::move(texture));
     Resource.insert(SpriteID, std::move(sprite), false);
   }
 
@@ -56,11 +56,11 @@ void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource,
 
   m_BG_TEXTURE = _bg_texture->loadFromFile(texture_path + "background.png");
   if (m_BG_TEXTURE) {
-    auto _bg_sprite = std::make_unique<sf::Sprite>();
     _bg_texture->setSmooth(true);
     auto text_size = _bg_texture->getSize();
     Resource.insert(TextureType::BACKGROUND, std::move(_bg_texture));
-    _bg_sprite->setTexture(Resource.get_as(TextureType::BACKGROUND));
+    auto _bg_sprite =
+        std::make_unique<sf::Sprite>(Resource.get_as(TextureType::BACKGROUND));
 
     float scale_x = width / static_cast<float>(text_size.x);
     float scale_y = height / static_cast<float>(text_size.y);
@@ -75,12 +75,11 @@ void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource,
   m_RED_BOX_TEXTURE =
       _redbox_texture->loadFromFile(texture_path + "redbox.png");
   if (m_RED_BOX_TEXTURE) {
-    auto _redbox_sprite = std::make_unique<sf::Sprite>();
-
     _redbox_texture->setSmooth(true);
     auto text_size = _redbox_texture->getSize();
     Resource.insert(TextureType::REDBOX, std::move(_redbox_texture));
-    _redbox_sprite->setTexture(Resource.get_as(TextureType::REDBOX));
+    auto _redbox_sprite =
+        std::make_unique<sf::Sprite>(Resource.get_as(TextureType::REDBOX));
 
     float scale_x =
         static_cast<float>(

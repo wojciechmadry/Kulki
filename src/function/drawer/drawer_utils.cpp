@@ -3,7 +3,7 @@
 sf::Text make_text(const std::string &text, const sf::Vector2f &pos,
                    const sf::Color color, const uint32_t size,
                    const sf::Font &font) {
-  sf::Text tx(text, font);
+  sf::Text tx(font, text);
   tx.setFillColor(color);
   tx.setPosition(pos);
   tx.setCharacterSize(size);

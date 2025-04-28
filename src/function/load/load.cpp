@@ -1,14 +1,6 @@
 #include "load.hpp"
 #include "babel.hpp"
 
-// load font
-sf::Font load_font(const std::string &path) {
-  sf::Font font;
-  if (!font.loadFromFile(path))
-    throw std::out_of_range("Cant load font");
-  return font;
-}
-
 uint32_t load_fps() noexcept {
   const std::string FileName = "fps.cfg";
   const constexpr uint32_t DefaultFPS = 30u;

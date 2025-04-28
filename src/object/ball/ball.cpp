@@ -16,9 +16,10 @@ static constexpr const std::array<std::array<unsigned char, 4>, 7> a_color{
 [[nodiscard]] sf::Color ball::sf_color(const COLOR Color,
                                        const short alpha) noexcept {
   auto ColorNumber = static_cast<unsigned char>(Color);
-  return {
-      a_color[ColorNumber][0], a_color[ColorNumber][1], a_color[ColorNumber][2],
-      (alpha == -1 ? a_color[ColorNumber][3] : static_cast<sf::Uint8>(alpha))};
+  return {a_color[ColorNumber][0], a_color[ColorNumber][1],
+          a_color[ColorNumber][2],
+          (alpha == -1 ? a_color[ColorNumber][3]
+                       : static_cast<std::uint8_t>(alpha))};
 }
 
 ball::ball() { m_colorID = COLOR::empty; }
