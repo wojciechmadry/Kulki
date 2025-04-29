@@ -15,7 +15,7 @@ template <typename T> void put_out_of_screen(T &Object) noexcept {
 
 RedBox::RedBox(ResourceHolder<sf::Drawable> &Resources,
                const bool Textured) noexcept
-    : m_box(AnyType(Resources.get_as<sf::Drawable>(ResourceType::PICKED))),
+    : m_box(Resources.get_as<sf::Drawable>(ResourceType::PICKED)),
       m_text(Textured) {
   hide();
 }

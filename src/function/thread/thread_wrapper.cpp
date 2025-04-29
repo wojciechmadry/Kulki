@@ -16,7 +16,7 @@ void Thread::game_thr(map &Map, std::pair<char, char> &from,
       Map.reset();
     }
 
-    operation = babel::ALGO::MATH::min(operation, 0);
+    operation = std::min(operation, 0);
     cv.notify_one();
   }
 }

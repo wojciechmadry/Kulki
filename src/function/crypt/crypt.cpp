@@ -1,15 +1,18 @@
 #include "crypt.hpp"
-#include "babel.hpp"
+#include <algorithm>
+#include <random>
+#include <stdexcept>
 
 std::string crypt(uint16_t number) {
-  babel::ALGO::MATH::random_generator rg;
-  std::string encrypted = {rg.generate<char>(65, 90)};
-  auto s_num = babel::ALGO::CAST::asType<std::string>(number);
-  std::for_each(s_num.begin(), s_num.end(),
-                [&encrypted, &rg](const char C) mutable {
-                  encrypted += static_cast<char>(C + 49);
-                  encrypted += rg.generate<char>(65, 90);
-                });
+  std::random_device r;
+  std::default_random_engine e1(r());
+  std::uniform_int_distribution<std::int8_t> uniform_dist(65, 90);
+  std::string encrypted = {uniform_dist(e1)};
+  auto s_num = std::to_string(number);
+  std::for_each(s_num.begin(), s_num.end(), [&](const char C) {
+    encrypted += static_cast<char>(C + 49);
+    encrypted += uniform_dist(e1);
+  });
   return encrypted;
 }
 
@@ -17,8 +20,7 @@ uint16_t decrypt(const std::string &cr) {
   if (cr.size() % 2 == 0)
     throw std::out_of_range("bad decrypt");
   std::string decrypt;
-  for (auto i :
-       babel::ITERATOR::range<std::size_t, std::size_t>(0, cr.size())) {
+  for (std::size_t i = 0U; i < cr.size(); ++i) {
     if (i % 2 == 0) {
       if (cr[i] < 65 || cr[i] > 90)
         throw std::out_of_range("bad decrypt");
@@ -26,5 +28,5 @@ uint16_t decrypt(const std::string &cr) {
       decrypt += static_cast<char>(cr[i] - 49);
     }
   }
-  return babel::ALGO::CAST::asType<uint16_t>(decrypt);
+  return static_cast<std::uint16_t>(std::stoi(decrypt));
 }

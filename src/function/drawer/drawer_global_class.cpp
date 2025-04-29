@@ -1,6 +1,7 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <algorithm>
+#include <filesystem>
 
 #include "drawer.hpp"
 #include "load.hpp"
@@ -14,21 +15,21 @@ void GLOBAL::INIT(ResourceHolder<sf::Drawable> &Resource,
                   const sf::Font &sfFont,
                   const std::pair<uint16_t, uint16_t> RECORDS, float width,
                   float height) noexcept {
+  namespace fs = std::filesystem;
   calculate_static_vars(width, height);
   create_ball(Resource);
   create_white_box(Resource);
   create_map_before_grid(Resource, width, height);
 
   std::string texture_path;
-  if (babel::FILE_SYS::folder_exist("ball_texture"))
+  if (fs::exists("ball_texture"))
     texture_path = "ball_texture/";
   else
     texture_path = "../ball_texture/";
 
   bool texture_is_loaded = true;
 
-  for (auto i :
-       babel::ITERATOR::range<std::size_t, std::size_t>(0, ball_name.size())) {
+  for (std::size_t i = 0U; i < ball_name.size(); ++i) {
     auto texture = std::make_unique<sf::Texture>();
 
     bool FileGood = texture->loadFromFile(texture_path + ball_name[i]);
@@ -193,8 +194,7 @@ void GLOBAL::update_ball_texture(ResourceHolder<sf::Drawable> &Resource) {
   if (!GLOBAL::BALL_TEXTURE()) {
     return;
   }
-  for (auto i :
-       babel::ITERATOR::range<std::size_t, std::size_t>(0, ball_name.size())) {
+  for (std::size_t i = 0U; i < ball_name.size(); ++i) {
     auto TextID = static_cast<TextureType>(
         static_cast<std::size_t>(TextureType::BALL_TEXTURE_START) + i);
     auto &textureRes = Resource.get_as<sf::Texture>(TextID);
@@ -237,7 +237,7 @@ void GLOBAL::create_white_box(ResourceHolder<sf::Drawable> &Resource) {
 }
 
 void GLOBAL::create_ball(ResourceHolder<sf::Drawable> &Resource) {
-  for (const auto i : babel::ITERATOR::range(0, 6)) {
+  for (std::size_t i = 0U; i < 6U; ++i) {
     auto ballID =
         static_cast<ResourceType>(static_cast<std::decay_t<decltype(i)>>(
                                       ResourceType::BALL_CIRCLE_START) +

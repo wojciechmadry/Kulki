@@ -1,8 +1,7 @@
 #include "ball.hpp"
 
 #include <array>
-
-#include "random.hpp"
+#include <random>
 
 static constexpr const std::array<std::array<unsigned char, 4>, 7> a_color{
     {{50, 100, 83, 255},
@@ -77,7 +76,9 @@ void ball::clear() noexcept { m_colorID = COLOR::empty; }
 void ball::set(const COLOR color) noexcept { m_colorID = color; }
 
 void ball::random() noexcept {
+  static std::random_device r;
+  static std::default_random_engine e1(r());
+  std::uniform_int_distribution<std::uint8_t> uniform_dist(0, 5);
   // Generate random NOT EMPTY, color
-  m_colorID =
-      static_cast<COLOR>(randomizer::get().generate<unsigned char>(0, 5));
+  m_colorID = static_cast<COLOR>(uniform_dist(e1));
 }

@@ -1,6 +1,7 @@
-#include "babel.hpp"
 #include "crypt.hpp"
 #include "load.hpp"
+#include <fstream>
+#include <string>
 
 map load_map() noexcept {
   namespace fs = std::filesystem;
@@ -28,27 +29,19 @@ map load_map() noexcept {
 
     std::array<ball, 3> next_three;
 
-    babel::ITERATOR::enumerator NextThreeEnum(next_three);
-    std::for_each(NextThreeEnum.begin(), NextThreeEnum.end(),
-                  [&_decrypt, &line](auto En_Ball) mutable {
-                    En_Ball.second() = _decrypt(line.substr(
-                        static_cast<std::size_t>(En_Ball.first()) * 40, 40));
-                  });
+    for (std::size_t i = 0U; i < next_three.size(); ++i) {
+      next_three[i] = _decrypt(line.substr(i * 40, 40));
+    }
 
     std::array<std::array<ball, 9>, 9> grid;
 
-    std::for_each(
-        grid.begin(), grid.end(), [&line, &f, &_decrypt](auto &Row) mutable {
-          std::getline(f, line);
-          babel::ITERATOR::enumerator RowEnum(Row);
-          std::for_each(RowEnum.begin(), RowEnum.end(),
-                        [&line, &_decrypt](auto Ball) mutable {
-                          Ball.second() = _decrypt(line.substr(
-                              static_cast<std::size_t>(Ball.first()) * 40, 40));
-                        });
-        });
+    std::for_each(grid.begin(), grid.end(), [&line, &f, &_decrypt](auto &Coll) {
+      std::getline(f, line);
+      for (std::size_t row = 0U; row < Coll.size(); ++row) {
+        Coll[row] = _decrypt(line.substr(row * 40, 40));
+      }
+    });
 
-    babel::FILE_SYS::close_file(f);
     Result.load_game(score, static_cast<uint8_t>(filled), next_three, grid);
     Result.set_update(true);
 
@@ -72,36 +65,26 @@ map load_map() noexcept {
 }
 
 void save_map(const map &Map) noexcept {
-  babel::ALGO::MATH::random_generator rg;
   std::ofstream f("kulkim.bin");
-  auto key = rg.generate<size_t>(100000, 100000000);
-  f << key << '\n';
+  f << (static_cast<std::size_t>(Map.get_score() * Map.filled()) << 1) << '\n';
   auto sc_crypt = crypt(Map.get_score()); // encrypt score
   auto fil_crypt = crypt(Map.filled());   // encrypt filled number
   f << sc_crypt << '\n' << fil_crypt << '\n';
-  auto encrypt = [&rg](std::size_t to_encode) mutable -> std::string {
+  auto encrypt = [](std::size_t to_encode) {
     std::string crypt(40, '0');
     std::fill_n(crypt.begin(), to_encode + 1, '1');
-    rg.random_shuffle(crypt);
     return crypt;
   };
   auto next_three = Map.get_next_three();
-  auto back_inserter_file = babel::ITERATOR::writer(f);
-  std::transform(next_three.begin(), next_three.end(),
-                 back_inserter_file.back_inserter(false),
-                 [&encrypt](const auto &Ball) {
-                   return encrypt(static_cast<std::size_t>(Ball.enum_color()));
-                 });
-  back_inserter_file.push_back("\n");
-  std::for_each(Map.get_grid().begin(), Map.get_grid().end(),
-                [&back_inserter_file, &encrypt](const auto &Row) mutable {
-                  std::transform(std::begin(Row), std::end(Row),
-                                 back_inserter_file.back_inserter(false),
-                                 [&encrypt](const auto &Ball) {
-                                   return encrypt(
-                                       static_cast<size_t>(Ball.enum_color()));
-                                 });
-                  back_inserter_file.push_back("\n");
-                });
-  back_inserter_file.close();
+  std::for_each(next_three.begin(), next_three.end(), [&](const auto &Ball) {
+    f << encrypt(static_cast<std::size_t>(Ball.enum_color()));
+  });
+  f << "\n";
+  std::for_each(
+      Map.get_grid().begin(), Map.get_grid().end(), [&](const auto &Row) {
+        std::for_each(std::begin(Row), std::end(Row), [&](const auto &Ball) {
+          f << encrypt(static_cast<size_t>(Ball.enum_color()));
+        });
+        f << "\n";
+      });
 }

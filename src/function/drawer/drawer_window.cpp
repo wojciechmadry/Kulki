@@ -32,39 +32,34 @@ void draw_window(sf::RenderWindow &window, map &Map,
       Resource.get_as<sf::RectangleShape>(ResourceType::MAP_BEFORE_GRID));
 
   // Draw 3 Next ball
-  babel::ITERATOR::enumerator NextThreeEum(Map.get_next_three());
-  std::for_each(
-      NextThreeEum.begin(), NextThreeEum.end(), [&](const auto &NextEnum) {
-        sf::Vector2f pos = {
-            static_cast<float>(static_cast<size_t>(width) >> 4u) +
-                static_cast<float>(NextEnum.first()) * wb,
-            0.671641f * static_cast<float>(height)};
-        WhiteBox.setPosition(pos);
-        // Draw whitebox around ball.
-        window.draw(WhiteBox);
-        auto ballID = static_cast<ResourceType>(
-            static_cast<std::uint32_t>(ResourceType::BALL_CIRCLE_START) +
-            static_cast<std::uint32_t>(NextEnum.second().enum_color()));
-        auto &Ball =
-            Resource.get_as<sf::CircleShape>(ballID); // No textured ball
-        auto radius = wb / 2.0f - Ball.getRadius();
-        pos.x += radius;
-        pos.y += radius;
-        // Draw ball (can be textured or not)
-        if (!GLOBAL::BALL_TEXTURE()) {
-          Ball.setPosition(pos);
-          window.draw(Ball);
-        } else {
-          window.draw(get_textured_ball(NextEnum.second().enum_color(), pos));
-        }
-      });
+  const auto &next_three = Map.get_next_three();
+  for (std::size_t i = 0U; i < next_three.size(); ++i) {
+    sf::Vector2f pos = {static_cast<float>(static_cast<size_t>(width) >> 4u) +
+                            static_cast<float>(i) * wb,
+                        0.671641f * static_cast<float>(height)};
+    WhiteBox.setPosition(pos);
+    // Draw whitebox around ball.
+    window.draw(WhiteBox);
+    auto ballID = static_cast<ResourceType>(
+        static_cast<std::uint32_t>(ResourceType::BALL_CIRCLE_START) +
+        static_cast<std::uint32_t>(next_three[i].enum_color()));
+    auto &Ball = Resource.get_as<sf::CircleShape>(ballID); // No textured ball
+    auto radius = wb / 2.0f - Ball.getRadius();
+    pos.x += radius;
+    pos.y += radius;
+    // Draw ball (can be textured or not)
+    if (!GLOBAL::BALL_TEXTURE()) {
+      Ball.setPosition(pos);
+      window.draw(Ball);
+    } else {
+      window.draw(get_textured_ball(next_three[i].enum_color(), pos));
+    }
+  }
   // Map
 
-  // Draw ball on grid 9x9
-  babel::ITERATOR::range<uint8_t> Range(
-      0, static_cast<uint8_t>(Map.get_grid().size()));
-  for (auto x_map : Range) {
-    for (auto y_map : Range) {
+  // Draw ball's on grid 9x9
+  for (std::uint8_t x_map = 0U; x_map < Map.get_grid().size(); ++x_map) {
+    for (std::uint8_t y_map = 0U; y_map < Map.get_grid().size(); ++y_map) {
       float x = 0.3f * width + static_cast<float>(x_map) * wb;
       float y = 0.02f * height + static_cast<float>(y_map) * wb;
       sf::Vector2f pos = {x, y};

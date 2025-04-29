@@ -4,17 +4,14 @@
 #include "load.hpp"
 #include "mouse_click_event.hpp"
 #include "red_box.hpp"
-#include "tester.hpp"
+// #include "tester.hpp"
+#include <filesystem>
 
-#include <iostream>
-
-static constexpr const char *VERSION = "1.5";
-
-#define FPS 0 // Show fps in console
+static constexpr const char *VERSION = "1.6";
 
 int main() {
 
-  // Play_Test_Games(-1, 14); // Test if game crash.
+  // Play_Test_Games(-1, 1); // Test if game crash.
   ResourceHolder<sf::Drawable, sf::Texture> Resource;
 
   map Game = load_map();
@@ -36,9 +33,9 @@ int main() {
   window.setFramerateLimit(fps);
   sf::Image icon;
   bool iconLoaded = true;
-  if (babel::FILE_SYS::folder_exist("ball_texture"))
+  if (std::filesystem::exists("ball_texture"))
     iconLoaded = icon.loadFromFile("ball_texture/orange.png");
-  else if ((babel::FILE_SYS::folder_exist("../ball_texture")))
+  else if ((std::filesystem::exists("../ball_texture")))
     iconLoaded = icon.loadFromFile("../ball_texture/orange.png");
   else
     iconLoaded = false;
@@ -53,21 +50,10 @@ int main() {
   std::mutex Mutex;
 
   Thread thread(Game, picked, new_pick, Mutex);
-#if FPS == 1
-  float fps_f;
-  sf::Clock clock;
-  sf::Time prev = clock.getElapsedTime();
-  sf::Time curr;
-#endif
 
   // GAME LOOP
   while (window.isOpen()) {
 
-#if FPS == 1
-    curr = clock.getElapsedTime();
-    fps_f = 1.0f / (curr.asSeconds() - prev.asSeconds());
-    std::cout << "FPS : " << fps_f << '\n';
-#endif
     while (const std::optional event = window.pollEvent()) {
       if (event->is<sf::Event::Closed>()) {
         thread.close_thread();
@@ -117,10 +103,6 @@ int main() {
       draw_window(window, Game, Resource);
 
     window.display();
-
-#if FPS == 1
-    prev = curr;
-#endif
   }
 
   return 0;

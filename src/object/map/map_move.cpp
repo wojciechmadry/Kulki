@@ -1,5 +1,5 @@
-#include "babel.hpp"
 #include "map.hpp"
+#include <random>
 
 bool map::can_move(std::pair<uint8_t, uint8_t> from,
                    std::pair<uint8_t, uint8_t> to) const noexcept {
@@ -76,7 +76,9 @@ bool map::move(const std::pair<uint8_t, uint8_t> from,
 }
 
 void map::random_move() noexcept {
-  static babel::ALGO::MATH::random_generator rg;
+  static std::random_device r;
+  static std::default_random_engine e1(r());
+  std::uniform_int_distribution<std::uint8_t> uniform_dist(0, 8);
   if (this->game_over()) {
     this->reset();
     return;
@@ -85,12 +87,12 @@ void map::random_move() noexcept {
   uint8_t x_to = 0, y_to = 0;
 
   while (!this->is_free_at(x_to, y_to)) {
-    x_to = rg.generate<uint8_t>(0, 8);
-    y_to = rg.generate<uint8_t>(0, 8);
+    x_to = uniform_dist(e1);
+    y_to = uniform_dist(e1);
   }
   while (!this->can_move({x_from, y_from}, {x_to, y_to})) {
-    x_from = rg.generate<uint8_t>(0, 8);
-    y_from = rg.generate<uint8_t>(0, 8);
+    x_from = uniform_dist(e1);
+    y_from = uniform_dist(e1);
   }
 
   this->move({x_from, y_from}, {x_to, y_to});

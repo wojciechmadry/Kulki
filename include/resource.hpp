@@ -1,12 +1,12 @@
 #ifndef KULKI_RESOURCE_HPP
 #define KULKI_RESOURCE_HPP
 
-#include "babel.hpp"
 #include <SFML/Graphics.hpp>
 #include <condition_variable>
 #include <memory>
 #include <mutex>
 #include <unordered_map>
+#include <type_traits>
 
 enum class ResourceType {
   PICKED = 0,        // Red box on screen
@@ -37,8 +37,8 @@ enum class TextureType {
 };
 
 template <typename Resource = sf::Drawable, typename Texture = sf::Texture>
-  requires(!babel::CONCEPTS::IS_ANY_POINTER<Resource> &&
-           !babel::CONCEPTS::IS_ANY_POINTER<Texture>)
+  requires(!std::is_pointer_v<Resource> &&
+           !std::is_pointer_v<Texture>)
 class ResourceHolder {
   template <typename T>
   [[nodiscard]] constexpr std::size_t cast(const T type) const noexcept {
@@ -103,8 +103,8 @@ public:
 
   // Drawable object
   template <typename T>
-    requires(!babel::CONCEPTS::IS_ANY_POINTER<T> &&
-             (babel::CONCEPTS::IS_SAME_CONVERTIBLE<T, Resource> ||
+    requires(!std::is_pointer_v<T> &&
+             (std::is_convertible_v<T, Resource> ||
               std::is_base_of_v<Resource, T>))
   void insert(const ResourceType Key, T &&Value,
               bool AutoDraw = true) noexcept {
@@ -113,8 +113,8 @@ public:
   }
 
   template <typename T>
-    requires(!babel::CONCEPTS::IS_ANY_POINTER<T> &&
-             (babel::CONCEPTS::IS_SAME_CONVERTIBLE<T, Resource> ||
+    requires(!std::is_pointer_v<T> &&
+             (std::is_convertible_v<T, Resource> ||
               std::is_base_of_v<Resource, T>))
   void create_if_not_exist(const ResourceType Key,
                            bool AutoDraw = true) noexcept {
@@ -134,13 +134,13 @@ public:
   template <typename T>
     requires(std::is_base_of_v<Resource, T>)
   [[nodiscard]] T &get_as(const ResourceType Key) noexcept {
-    return *babel::ALGO::CAST::asType<T *>(m_resource[cast(Key)]._get());
+    return *dynamic_cast<T *>(m_resource[cast(Key)]._get());
   }
 
   template <typename T>
     requires(std::is_base_of_v<Resource, T>)
   [[nodiscard]] const T &get_as(const ResourceType Key) const noexcept {
-    return *babel::ALGO::CAST::asType<const T *>(m_resource[cast(Key)]._get());
+    return *dynamic_cast<const T *>(m_resource[cast(Key)]._get());
   }
 
   [[nodiscard]] const decltype(m_resource) &get_resources() const noexcept {
@@ -154,8 +154,8 @@ public:
   }
 
   template <typename T>
-    requires(!babel::CONCEPTS::IS_ANY_POINTER<T> &&
-             (babel::CONCEPTS::IS_SAME_CONVERTIBLE<T, Texture> ||
+    requires(!std::is_pointer_v<T> &&
+             (std::is_convertible_v<T, Texture> ||
               std::is_base_of_v<Texture, T>))
   void insert(const TextureType Key, T &&Value) noexcept {
     m_textures[cast(Key)] = std::make_unique<T>(std::forward<T>(Value));
@@ -170,13 +170,13 @@ public:
   template <typename T = Texture>
     requires(std::is_base_of_v<Texture, T>)
   [[nodiscard]] T &get_as(const TextureType Key) noexcept {
-    return *babel::ALGO::CAST::asType<T *>(m_textures[cast(Key)].get());
+    return *dynamic_cast<T *>(m_textures[cast(Key)].get());
   }
 
   template <typename T = sf::Texture>
     requires(std::is_base_of_v<Texture, T>)
   [[nodiscard]] const T &get_as(const TextureType Key) const noexcept {
-    return *babel::ALGO::CAST::asType<const T *>(m_textures[cast(Key)].get());
+    return *dynamic_cast<const T *>(m_textures[cast(Key)].get());
   }
 };
 

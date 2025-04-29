@@ -1,12 +1,10 @@
 #include "map.hpp"
 
-#include "babel.hpp"
-
 bool map::score_there() const noexcept {
-  for (auto i : babel::ITERATOR::range<uint8_t>(0, 9)) {
+  for (std::uint8_t i = 0U; i < 9; ++i) {
     // horizontal check
     uint8_t horizontal = !m_grid[i][0].is_empty();
-    for (auto j : babel::ITERATOR::range<uint8_t>(0, 8)) {
+    for (std::uint8_t j = 0U; j < 8U; ++j) {
       if (!m_grid[i][j].is_empty() && m_grid[i][j] == m_grid[i][j + 1])
         ++horizontal;
       else if (!m_grid[i][j + 1].is_empty() && horizontal < 5) {
@@ -20,7 +18,7 @@ bool map::score_there() const noexcept {
     // vertical check
 
     uint8_t vertical = !m_grid[0][i].is_empty();
-    for (auto j : babel::ITERATOR::range<uint8_t>(0, 8)) {
+    for (std::uint8_t j = 0U; j < 8U; ++j) {
       if (!m_grid[j][i].is_empty() && m_grid[j][i] == m_grid[j + 1][i])
         ++vertical;
       else if (!m_grid[j + 1][i].is_empty() && vertical < 5) {
@@ -34,11 +32,11 @@ bool map::score_there() const noexcept {
   }
 
   // diagonal check left/right down
-  for (auto start : babel::ITERATOR::range<uint8_t>(0, 5)) {
+  for (std::uint8_t start = 0U; start < 5U; ++start) {
     // diagonal check left down
     uint8_t diagonal = !m_grid[start][0].is_empty();
     uint8_t add_to_i = 0;
-    for (auto j : babel::ITERATOR::range<uint8_t>(0, 9 - start - 1)) {
+    for (std::uint8_t j = 0U; j < 9 - start - 1; ++j) {
       if (!m_grid[start + add_to_i][j].is_empty() &&
           m_grid[start + add_to_i][j] == m_grid[start + add_to_i + 1][j + 1])
         ++diagonal;
@@ -73,10 +71,10 @@ bool map::score_there() const noexcept {
   }
 
   // diagonal check left up
-  for (auto start : babel::ITERATOR::range<uint8_t>(1, 5)) {
+  for (std::uint8_t start = 1U; start < 5U; ++start) {
     uint8_t diagonal = !m_grid[0][start].is_empty();
     uint8_t add_to_i = 0;
-    for (auto j : babel::ITERATOR::range<uint8_t>(0, 9 - start - 1)) {
+    for (std::uint8_t j = 0U; j < 9 - start - 1; ++j) {
       if (!m_grid[j][start + add_to_i].is_empty() &&
           m_grid[j][start + add_to_i] == m_grid[j + 1][start + add_to_i + 1])
         ++diagonal;

@@ -1,14 +1,14 @@
-#include "babel.hpp"
 #include "crypt.hpp"
 #include "load.hpp"
 #include <filesystem>
+#include <fstream>
+#include <string>
 
 void save_record(uint16_t new_record) {
   std::ofstream f("kulki.bin");
   if (!(f.is_open() && f.good()))
     throw std::out_of_range("Cant open kulki.bin");
   f << crypt(new_record);
-  babel::FILE_SYS::close_file(f);
 }
 
 uint16_t check_for_record() {
@@ -18,7 +18,6 @@ uint16_t check_for_record() {
   if (!fs::exists(FileName)) {
     std::ofstream f(FileName);
     f << crypt(0);
-    babel::FILE_SYS::close_file(f);
   }
   std::ifstream file(FileName);
   if (!file.is_open())
@@ -28,14 +27,10 @@ uint16_t check_for_record() {
     std::string line;
     std::getline(file, line);
     decoded = decrypt(line);
-    babel::FILE_SYS::close_file(file);
   } catch (...) {
-    babel::FILE_SYS::close_file(file);
     std::ofstream f(FileName);
     f << crypt(0);
     decoded = 0;
-    babel::FILE_SYS::close_file(f);
   }
-
   return decoded;
 }
