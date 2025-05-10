@@ -4,7 +4,7 @@
 #include <algorithm>
 
 void map::generate_next_three() noexcept {
-  auto& e1 = rnd::get_rnd_eng().get();
+  auto &e1 = rnd::get_rnd_eng().get();
   std::uniform_int_distribution<std::uint8_t> uniform_dist(1, 100);
   std::uniform_int_distribution<std::uint8_t> bool_dist(0, 1);
   // Generate random next three balls, which show in the next move
@@ -87,7 +87,7 @@ void map::put_next_three() noexcept {
     }
   }
 
-  auto& e1 = rnd::get_rnd_eng().get();
+  auto &e1 = rnd::get_rnd_eng().get();
   std::uniform_int_distribution<std::size_t> uniform_dist(0,
                                                           free_pos.size() - 1);
 

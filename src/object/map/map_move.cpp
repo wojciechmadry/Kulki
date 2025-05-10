@@ -76,7 +76,7 @@ bool map::move(const std::pair<uint8_t, uint8_t> from,
 }
 
 void map::random_move() noexcept {
-  auto& e1 = rnd::get_rnd_eng().get();
+  auto &e1 = rnd::get_rnd_eng().get();
   std::uniform_int_distribution<std::uint8_t> uniform_dist(0, 8);
   if (this->game_over()) {
     this->reset();

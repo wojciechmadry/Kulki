@@ -26,6 +26,26 @@ cmake ..
 make -j
 ```
 
+#-not -path
+
+4. Check code format with docker image:
+```sh
+docker run -t --rm -v"$(pwd):/Kulki:ro" kulki_cf:latest sh -c \
+    "find /Kulki -iname "*.hpp" -o -iname "*.cpp" \
+    -not -path '/Kulki/build/*' \
+    -not -path '/Kulki/src/external/*' \
+    | xargs clang-format -dry-run --Werror"
+```
+
+5. Format code with docker image:
+```sh
+docker run -t --rm -v"$(pwd):/Kulki:rw" kulki_cf:latest sh -c \
+    "find /Kulki -iname "*.hpp" -o -iname "*.cpp" \
+    -not -path '/Kulki/build/*' \
+    -not -path '/Kulki/src/external/*' \
+    | xargs clang-format -i"
+```
+
 Build Dockerimage
 ---
 

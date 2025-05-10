@@ -1,13 +1,13 @@
 #include "tester.hpp"
 
 #include "drawer.hpp"
+#include "randoms.hpp"
 #include <atomic>
 #include <iostream>
 #include <thread>
-#include "randoms.hpp"
 
 void Play_Test_Games(int64_t test, int32_t threads) {
-  auto& e1 = rnd::get_rnd_eng().get();
+  auto &e1 = rnd::get_rnd_eng().get();
   std::uniform_int_distribution<std::uint8_t> uniform_dist(0, 8);
   std::atomic<int32_t> record = -1;
   auto game = [&]() {

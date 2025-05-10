@@ -5,8 +5,8 @@
 #include <condition_variable>
 #include <memory>
 #include <mutex>
-#include <unordered_map>
 #include <type_traits>
+#include <unordered_map>
 
 enum class ResourceType {
   PICKED = 0,        // Red box on screen
@@ -37,8 +37,7 @@ enum class TextureType {
 };
 
 template <typename Resource = sf::Drawable, typename Texture = sf::Texture>
-  requires(!std::is_pointer_v<Resource> &&
-           !std::is_pointer_v<Texture>)
+  requires(!std::is_pointer_v<Resource> && !std::is_pointer_v<Texture>)
 class ResourceHolder {
   template <typename T>
   [[nodiscard]] constexpr std::size_t cast(const T type) const noexcept {
@@ -103,9 +102,8 @@ public:
 
   // Drawable object
   template <typename T>
-    requires(!std::is_pointer_v<T> &&
-             (std::is_convertible_v<T, Resource> ||
-              std::is_base_of_v<Resource, T>))
+    requires(!std::is_pointer_v<T> && (std::is_convertible_v<T, Resource> ||
+                                       std::is_base_of_v<Resource, T>))
   void insert(const ResourceType Key, T &&Value,
               bool AutoDraw = true) noexcept {
     m_resource[cast(Key)] =
@@ -113,9 +111,8 @@ public:
   }
 
   template <typename T>
-    requires(!std::is_pointer_v<T> &&
-             (std::is_convertible_v<T, Resource> ||
-              std::is_base_of_v<Resource, T>))
+    requires(!std::is_pointer_v<T> && (std::is_convertible_v<T, Resource> ||
+                                       std::is_base_of_v<Resource, T>))
   void create_if_not_exist(const ResourceType Key,
                            bool AutoDraw = true) noexcept {
     const auto idx = cast(Key);
@@ -154,9 +151,8 @@ public:
   }
 
   template <typename T>
-    requires(!std::is_pointer_v<T> &&
-             (std::is_convertible_v<T, Texture> ||
-              std::is_base_of_v<Texture, T>))
+    requires(!std::is_pointer_v<T> && (std::is_convertible_v<T, Texture> ||
+                                       std::is_base_of_v<Texture, T>))
   void insert(const TextureType Key, T &&Value) noexcept {
     m_textures[cast(Key)] = std::make_unique<T>(std::forward<T>(Value));
   }
