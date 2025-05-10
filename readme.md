@@ -26,8 +26,6 @@ cmake ..
 make -j
 ```
 
-#-not -path
-
 4. Check code format with docker image:
 ```sh
 docker run -t --rm -v"$(pwd):/Kulki:ro" kulki_cf:latest sh -c \
