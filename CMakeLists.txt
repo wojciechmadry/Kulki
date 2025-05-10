@@ -7,7 +7,7 @@ if(UNIX)
     find_package(Threads REQUIRED)
 endif(UNIX)
 
-add_subdirectory(SFML)
+add_subdirectory(src/external/SFML)
 
 include_directories(
     src/BabelLib

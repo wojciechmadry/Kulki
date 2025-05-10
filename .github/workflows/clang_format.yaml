@@ -16,11 +16,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install Dependencies
-      run: |
-        pip3 install clang-format==15.0.7
+    - name: Build clang-format image
+      run: docker build -t kulki_cf -f docker/Dockerfile.format .
 
     - name: Check clang-format style
       run: |
-        find . -iname "*.hpp" -o -iname "*.cpp" | xargs clang-format --dry-run --Werror
+        docker run -it --rm -v"$(pwd):/Kulki:ro" kulki_cf:latest sh -c "find /Kulki -iname "*.hpp" -o -iname "*.cpp" | xargs clang-format -dry-run --Werror"
 

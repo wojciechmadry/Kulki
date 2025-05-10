@@ -7,8 +7,7 @@ RUN apt update \
     && apt install -y\
     cmake \
     ninja-build \
-    gcc \
-    g++ \
+    clang \
     git \
     libudev-dev \
     libopenal-dev \
@@ -20,18 +19,19 @@ RUN apt update \
     libfreetype-dev \
     libopengl-dev \
     libglx-dev \
+    libxi-dev \
     libgl1-mesa-dev
 
-ENV CC=gcc
-ENV CXX=g++
-ENV BRANCH=master
+ENV CC=clang
+ENV CXX=clang++
 
-RUN git clone https://github.com/wojciechmadry/Kulki.git \
-    && cd Kulki \
-    && git checkout ${BRANCH} \
-    && git submodule init \
-    && git submodule update \
-    && mkdir -p build \
+ADD ball_texture /ws/ball_texture
+ADD font /ws/font
+ADD CMakeLists.txt /ws/
+ADD include /ws/include
+ADD src /ws/src
+
+RUN mkdir -p build \
     && cd build \
     && cmake -GNinja ../ \
     && ninja

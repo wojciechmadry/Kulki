@@ -1,0 +1,12 @@
+FROM ubuntu:22.04
+
+WORKDIR /ws
+
+RUN apt update \
+    && apt upgrade -y\
+    && apt install -y\
+    python3-pip
+
+RUN pip3 install clang-format==15.0.7
+
+ADD .clang-format /ws/

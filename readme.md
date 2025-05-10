@@ -28,8 +28,20 @@ make -j
 
 Build Dockerimage
 ---
+
+### Clang
 ```sh
-docker build -t kulki .
+docker build -t kulki_c -f docker/Dockerfile.clang .
+```
+
+### G++
+```sh
+docker build -t kulki_g -f docker/Dockerfile.gcc .
+```
+
+### Clang format
+```sh
+docker build -t kulki_cf -f docker/Dockerfile.format .
 ```
 
 Screen from game

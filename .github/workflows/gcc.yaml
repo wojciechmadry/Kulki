@@ -17,4 +17,4 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: gcc
-      run: docker build . --file Dockerfile.gcc --tag kulki_docker_gcc:$(date +%s)
+      run: docker build . --file docker/Dockerfile.gcc --tag kulki_docker_gcc:$(date +%s)
