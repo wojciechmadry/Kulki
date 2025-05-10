@@ -1,7 +1,5 @@
 #include "map.hpp"
 
-#include "babel.hpp"
-
 bool map::check_for_score() noexcept {
   bool score_added = false;
   // number should be greater or equal 5 !
@@ -20,11 +18,11 @@ bool map::check_for_score() noexcept {
   // 8 balls 28 score
   // 9 balls 42 score
 
-  for (auto i : babel::ITERATOR::range<uint8_t>(0, 9)) {
+  for (std::uint8_t i = 0U; i < 9U; ++i) {
     // horizontal check
     uint8_t horizontal = !m_grid[i][0].is_empty();
     uint8_t horizontal_start = 0;
-    for (auto j : babel::ITERATOR::range<uint8_t>(0, 8)) {
+    for (std::uint8_t j = 0U; j < 8U; ++j) {
       if (!m_grid[i][j].is_empty() && m_grid[i][j] == m_grid[i][j + 1])
         ++horizontal;
       else if (!m_grid[i][j + 1].is_empty() && horizontal < 5) {
@@ -49,7 +47,7 @@ bool map::check_for_score() noexcept {
 
     uint8_t vertical = !m_grid[0][i].is_empty();
     uint8_t vertical_start = 0;
-    for (auto j : babel::ITERATOR::range<uint8_t>(0, 8)) {
+    for (std::uint8_t j = 0U; j < 8U; ++j) {
       if (!m_grid[j][i].is_empty() && m_grid[j][i] == m_grid[j + 1][i])
         ++vertical;
       else if (!m_grid[j + 1][i].is_empty() && vertical < 5) {
@@ -72,12 +70,12 @@ bool map::check_for_score() noexcept {
   }
 
   // diagonal check left/right down
-  for (auto start : babel::ITERATOR::range<uint8_t>(0, 5)) {
+  for (std::uint8_t start = 0U; start < 5U; ++start) {
     // diagonal check left down
     uint8_t diagonal = !m_grid[start][0].is_empty();
     std::pair<uint8_t, uint8_t> diagonal_start = {start, 0};
     uint8_t add_to_i = 0;
-    for (auto j : babel::ITERATOR::range<uint8_t>(0, 9 - start - 1)) {
+    for (std::uint8_t j = 0U; j < 9 - start - 1; ++j) {
       if (!m_grid[start + add_to_i][j].is_empty() &&
           m_grid[start + add_to_i][j] == m_grid[start + add_to_i + 1][j + 1])
         ++diagonal;
@@ -140,11 +138,11 @@ bool map::check_for_score() noexcept {
   }
 
   // diagonal check left up
-  for (auto start : babel::ITERATOR::range<uint8_t>(1, 5)) {
+  for (std::uint8_t start = 1U; start < 5; ++start) {
     uint8_t diagonal = !m_grid[0][start].is_empty();
     std::pair<uint8_t, uint8_t> diagonal_start = {0, start};
     uint8_t add_to_i = 0;
-    for (auto j : babel::ITERATOR::range<uint8_t>(0, 9 - start - 1)) {
+    for (std::uint8_t j = 0U; j < 9 - start - 1; ++j) {
       if (!m_grid[j][start + add_to_i].is_empty() &&
           m_grid[j][start + add_to_i] == m_grid[j + 1][start + add_to_i + 1])
         ++diagonal;

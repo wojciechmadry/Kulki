@@ -1,14 +1,16 @@
 #include "tester.hpp"
 
-#include "babel.hpp"
 #include "drawer.hpp"
+#include "randoms.hpp"
+#include <atomic>
 #include <iostream>
 #include <thread>
 
 void Play_Test_Games(int64_t test, int32_t threads) {
-  babel::ALGO::MATH::random_generator rg;
-  int32_t record = -1;
-  auto game = [=, &record]() mutable {
+  auto &e1 = rnd::get_rnd_eng().get();
+  std::uniform_int_distribution<std::uint8_t> uniform_dist(0, 8);
+  std::atomic<int32_t> record = -1;
+  auto game = [&]() {
     bool is_inf = test == -1;
     int64_t counter = 0;
     map Game;
@@ -25,10 +27,10 @@ void Play_Test_Games(int64_t test, int32_t threads) {
         }
       }
       do {
-        from.first = rg.generate<uint8_t>(0, 8);
-        from.second = rg.generate<uint8_t>(0, 8);
-        to.first = rg.generate<uint8_t>(0, 8);
-        to.second = rg.generate<uint8_t>(0, 8);
+        from.first = uniform_dist(e1);
+        from.second = uniform_dist(e1);
+        to.first = uniform_dist(e1);
+        to.second = uniform_dist(e1);
       } while (!Game.can_move(from, to));
       Game.move(from, to);
       ++counter;

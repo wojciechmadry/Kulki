@@ -1,13 +1,14 @@
 
 #include "map.hpp"
-
-#include "babel.hpp"
-
-#include "random.hpp"
+#include "randoms.hpp"
+#include <algorithm>
 
 void map::generate_next_three() noexcept {
+  auto &e1 = rnd::get_rnd_eng().get();
+  std::uniform_int_distribution<std::uint8_t> uniform_dist(1, 100);
+  std::uniform_int_distribution<std::uint8_t> bool_dist(0, 1);
   // Generate random next three balls, which show in the next move
-  auto type = randomizer::get().generate<uint8_t>(1, 100);
+  auto type = uniform_dist(e1);
   if (type <= 33) // X% to generate different next_three then before
   {
     std::array<ball, 3> nb;
@@ -47,11 +48,9 @@ void map::generate_next_three() noexcept {
                 return lhs.first < rhs.first;
               });
 
-    babel::ITERATOR::range Range(0, 3);
-    std::transform(Range.begin(), Range.end(), m_next_three.begin(),
-                   [&color](const std::size_t i) {
-                     return ball(static_cast<COLOR>(color[i].second));
-                   });
+    for (std::size_t i = 0U; i < m_next_three.size(); ++i) {
+      m_next_three[i] = ball(static_cast<COLOR>(color[i].second));
+    }
 
   } else {
 
@@ -62,12 +61,11 @@ void map::generate_next_three() noexcept {
            m_next_three[2] == m_next_three[1])
       m_next_three[2].random();
 
-    if (randomizer::get().generate<uint8_t>(1, 100) <=
-        5) // X% to TWO same ball in next round
+    if (uniform_dist(e1) <= 5) // X% to TWO same ball in next round
     {
       m_next_three[0] = m_next_three[1];
-      if (randomizer::get().random_generator::generate<uint8_t>(0, 1) == 0) {
-        auto rnd = randomizer::get().generate<uint8_t>(0, 1);
+      if (bool_dist(e1) == 0) {
+        auto rnd = bool_dist(e1);
         m_next_three[2].swap(m_next_three[rnd]);
       }
     } else {
@@ -82,27 +80,26 @@ void map::put_next_three() noexcept {
   if (m_filled == 81)
     return;
   std::vector<std::pair<uint8_t, uint8_t>> free_pos;
-  babel::ITERATOR::enumerator GridEnum(m_grid);
-  std::for_each(
-      GridEnum.begin(), GridEnum.end(), [&free_pos](const auto &RowEn) mutable {
-        babel::ITERATOR::enumerator RowEnum(RowEn.second());
-        std::for_each(RowEnum.begin(), RowEnum.end(),
-                      [&free_pos, &RowEn](const auto &BallEnum) mutable {
-                        if (BallEnum.second().is_empty())
-                          free_pos.emplace_back(
-                              std::make_pair(RowEn.first(), BallEnum.first()));
-                      });
-      });
+  for (std::size_t col = 0U; col < m_grid.size(); ++col) {
+    for (std::size_t row = 0U; row < m_grid[col].size(); ++row) {
+      if (m_grid[col][row].is_empty())
+        free_pos.emplace_back(std::make_pair(col, row));
+    }
+  }
 
-  randomizer::get().random_shuffle(free_pos);
+  auto &e1 = rnd::get_rnd_eng().get();
+  std::uniform_int_distribution<std::size_t> uniform_dist(0,
+                                                          free_pos.size() - 1);
 
-  auto to_insert = static_cast<uint8_t>(
-      babel::ALGO::MATH::min(free_pos.size(), static_cast<size_t>(3)));
+  std::shuffle(free_pos.begin(), free_pos.end(), e1);
+
+  auto to_insert =
+      static_cast<uint8_t>(std::min(free_pos.size(), static_cast<size_t>(3)));
   int probe = 3;
 
   // Try to add three ball, in good position ( no score added )
   while (to_insert > 0) {
-    auto pos = randomizer::get().generate<size_t>(0, free_pos.size() - 1);
+    auto pos = uniform_dist(e1);
     if (at(free_pos[pos]).is_empty()) {
       at(free_pos[pos]) = m_next_three[to_insert - 1];
       if (!score_there()) {
@@ -141,7 +138,7 @@ void map::put_next_three() noexcept {
       }
     }
   }
-  m_filled = static_cast<uint8_t>(babel::ALGO::MATH::min(m_filled + 3, 81));
+  m_filled = static_cast<uint8_t>(std::min(m_filled + 3, 81));
   generate_next_three();
   check_for_score();
   m_need_update = true;

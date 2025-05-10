@@ -1,8 +1,7 @@
 #include "ball.hpp"
 
+#include "randoms.hpp"
 #include <array>
-
-#include "random.hpp"
 
 static constexpr const std::array<std::array<unsigned char, 4>, 7> a_color{
     {{50, 100, 83, 255},
@@ -16,9 +15,10 @@ static constexpr const std::array<std::array<unsigned char, 4>, 7> a_color{
 [[nodiscard]] sf::Color ball::sf_color(const COLOR Color,
                                        const short alpha) noexcept {
   auto ColorNumber = static_cast<unsigned char>(Color);
-  return {
-      a_color[ColorNumber][0], a_color[ColorNumber][1], a_color[ColorNumber][2],
-      (alpha == -1 ? a_color[ColorNumber][3] : static_cast<sf::Uint8>(alpha))};
+  return {a_color[ColorNumber][0], a_color[ColorNumber][1],
+          a_color[ColorNumber][2],
+          (alpha == -1 ? a_color[ColorNumber][3]
+                       : static_cast<std::uint8_t>(alpha))};
 }
 
 ball::ball() { m_colorID = COLOR::empty; }
@@ -76,7 +76,8 @@ void ball::clear() noexcept { m_colorID = COLOR::empty; }
 void ball::set(const COLOR color) noexcept { m_colorID = color; }
 
 void ball::random() noexcept {
+  auto &e1 = rnd::get_rnd_eng().get();
+  std::uniform_int_distribution<std::uint8_t> uniform_dist(0, 5);
   // Generate random NOT EMPTY, color
-  m_colorID =
-      static_cast<COLOR>(randomizer::get().generate<unsigned char>(0, 5));
+  m_colorID = static_cast<COLOR>(uniform_dist(e1));
 }

@@ -5,19 +5,17 @@
 #ifndef KULKI_RED_BOX_HPP
 #define KULKI_RED_BOX_HPP
 
-#include "babel.hpp"
 #include "resource.hpp"
+#include <type_traits>
 
 class RedBox {
-  babel::ANY::PolAny::any m_box;
+  std::reference_wrapper<sf::Drawable> m_box;
   bool m_text = false;
 
-  using AnyType = std::reference_wrapper<sf::Drawable>;
-
   template <typename T>
-    requires(!babel::CONCEPTS::IS_ANY_POINTER<T>)
+    requires(!std::is_pointer_v<T>)
   T &get_any() noexcept {
-    return *babel::ALGO::CAST::asType<T *>(&m_box.cast<AnyType>().get());
+    return dynamic_cast<T &>(m_box.get());
   }
 
 public:

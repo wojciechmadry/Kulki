@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.20)
 project(Kulki)
 set(CMAKE_CXX_STANDARD 20)
 
@@ -7,7 +7,7 @@ if(UNIX)
     find_package(Threads REQUIRED)
 endif(UNIX)
 
-add_subdirectory(SFML)
+add_subdirectory(src/external/SFML)
 
 include_directories(
     src/BabelLib
@@ -24,11 +24,11 @@ else()
 endif()
 
 add_executable(Kulki
-        main.cpp
+        src/main.cpp
         ${SRC_FILES}
 )
 
-target_compile_options(Kulki PRIVATE -O3 -Wextra -Werror -W -Wshadow -Wdouble-promotion -Wformat=2 -Wundef -fno-common -Wconversion -pedantic -Wall)
+target_compile_options(Kulki PRIVATE -O3 -Wextra -Werror -W -Wshadow -Wdouble-promotion -Wformat=2 -Wundef -fno-common -Wconversion -Wpedantic -Wall)
 
 if(UNIX)
     target_link_libraries(Kulki PUBLIC Threads::Threads)
