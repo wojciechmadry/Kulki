@@ -1,5 +1,5 @@
 #include "map.hpp"
-#include <random>
+#include "randoms.hpp"
 
 bool map::can_move(std::pair<uint8_t, uint8_t> from,
                    std::pair<uint8_t, uint8_t> to) const noexcept {
@@ -76,8 +76,7 @@ bool map::move(const std::pair<uint8_t, uint8_t> from,
 }
 
 void map::random_move() noexcept {
-  static std::random_device r;
-  static std::default_random_engine e1(r());
+  auto& e1 = rnd::get_rnd_eng().get();
   std::uniform_int_distribution<std::uint8_t> uniform_dist(0, 8);
   if (this->game_over()) {
     this->reset();

@@ -1,11 +1,10 @@
 #include "crypt.hpp"
 #include <algorithm>
-#include <random>
 #include <stdexcept>
+#include "randoms.hpp"
 
 std::string crypt(uint16_t number) {
-  std::random_device r;
-  std::default_random_engine e1(r());
+  auto& e1 = rnd::get_rnd_eng().get();
   std::uniform_int_distribution<std::int8_t> uniform_dist(65, 90);
   std::string encrypted = {uniform_dist(e1)};
   auto s_num = std::to_string(number);

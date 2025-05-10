@@ -3,12 +3,11 @@
 #include "drawer.hpp"
 #include <atomic>
 #include <iostream>
-#include <random>
 #include <thread>
+#include "randoms.hpp"
 
 void Play_Test_Games(int64_t test, int32_t threads) {
-  std::random_device r;
-  std::default_random_engine e1(r());
+  auto& e1 = rnd::get_rnd_eng().get();
   std::uniform_int_distribution<std::uint8_t> uniform_dist(0, 8);
   std::atomic<int32_t> record = -1;
   auto game = [&]() {

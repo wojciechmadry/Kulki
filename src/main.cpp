@@ -27,7 +27,7 @@ int main() {
       GLOBAL::RED_BOX_TEXTURE()); // picked redbox (can be textured or not)
 
   sf::RenderWindow window(sf::VideoMode({1280, 720}), VERSION,
-                          sf::Style::Default, sf::State::Fullscreen,
+                          sf::Style::Default, sf::State::Windowed,
                           sf::ContextSettings{0, 0, 8});
   auto fps = load_fps();
   window.setFramerateLimit(fps);
@@ -44,7 +44,6 @@ int main() {
     window.setIcon({icon.getSize().x, icon.getSize().y}, icon.getPixelsPtr());
 
   // Operation on map is doing on another thread
-
   std::pair<char, char> picked = {-1, -1}, new_pick = {-1, -1};
 
   std::mutex Mutex;
@@ -84,19 +83,17 @@ int main() {
     if (Game.get_score() != old_score) // check if score need update
     {
       old_score = Game.get_score();
-      auto _str = std::to_string(old_score);
+      auto score_str = std::to_string(old_score);
       if (old_score > record) // If record were break, then save it
       {
         record = old_score;
         save_record(record);
-        Resource.get_as<sf::Text>(ResourceType::RECORD).setString(_str);
+        Resource.get_as<sf::Text>(ResourceType::RECORD).setString(score_str);
       }
       // Refresh score and record points
-      Resource.get_as<sf::Text>(ResourceType::SCORE).setString(_str);
+      Resource.get_as<sf::Text>(ResourceType::SCORE).setString(score_str);
       thread.operation(OperationType::UPDATE); // Game need update here
     }
-
-    // Game.random_move();
 
     // If game need update draw it
     if (Game.need_update())
